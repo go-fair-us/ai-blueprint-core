@@ -1,9 +1,9 @@
 ---
-name: fair-assessment
-description: Assess web resources and datasets for alignment with FAIR principles. Takes a starting URL + FAIR blueprint, crawls first-level links (using Firecrawl for JS-rendered pages), extracts content, and produces a structured alignment report.
-version: 1.0.0
+name: fair-assessor
+description: Assess a web resource (dataset page, data portal, or repository) against a FAIR-principles blueprint. Given a starting URL and a blueprint (URL or local file), crawls key first-level links with Firecrawl, extracts clean Markdown, and produces a structured per-principle alignment report with evidence quotes, gaps, and prioritized recommendations.
+version: 1.0.1
 author: Doug Fils
-license: MIT
+last_updated: 2026-06-30
 metadata:
   hermes:
     tags: [research, data-management, FAIR, metadata, assessment]

@@ -83,7 +83,8 @@ cd skills/hermes/fair-assessor
 hermes
 ```
 
-Then invoke it as a slash command and give it your inputs, for example:
+Then invoke it as a slash command and give it your inputs, for example a prompt in Herems 
+might look like :
 
 ```
 /fair-assessment Assess https://www.immport.org/shared/study/SDY2968/summary
