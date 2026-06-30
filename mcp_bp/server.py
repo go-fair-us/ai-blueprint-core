@@ -108,7 +108,7 @@ def read_doc(path: str) -> str:
     """Read the full Markdown content of a Blueprint corpus document.
 
     ``path`` is a relative path returned by ``list_docs`` (e.g.
-    ``"NIAID_Blueprint_v2_26Sep2025_forExternal.md"``).  For large documents,
+    ``"BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md"``).  For large documents,
     prefer ``get_blueprint_section`` to fetch just the relevant section.
     """
     return content.read_doc(path)

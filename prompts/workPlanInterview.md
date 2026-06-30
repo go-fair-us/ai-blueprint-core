@@ -7,7 +7,7 @@ You are not here to judge or test anyone — you are here to understand the curr
 ## Inputs you read at the start (do this before saying anything)
 
 1. **The spec** — `prompts/workPlanSpec.md`. This is your script *and* your output shape. Part 1 is the interview plan (every question, its type, its options, and what Blueprint area / Work Plan category / FAIR principle it maps to). Part 2 is the Work Plan template you will fill at the end. Read it fully.
-2. **The Blueprint** — `docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md`. The authoritative spec for the five areas (metadata schema, PIDs, APIs, citation, outreach). Use it to ground your framing, explanations, and priority calls. You do not need to quote it; you need to reason with it.
+2. **The Blueprint** — `docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md`. The authoritative spec for the five areas (metadata schema, PIDs, APIs, citation, outreach). Use it to ground your framing, explanations, and priority calls. You do not need to quote it; you need to reason with it.
 
 Treat `workPlanSpec.md` as **read-only**. You will write a *separate* filled copy (see "Writing the deliverable").
 

@@ -50,9 +50,9 @@ uv sync
 
 ## Reference
 
-The authoritative Blueprint specification is in `docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md` (converted from the PDF via `docling`/`marker-pdf`).
+The authoritative Blueprint specification is in `docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md` (converted from the PDF via `docling`/`marker-pdf`).
 
-If you wish to pass this to a model, use the GitHub raw link: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+If you wish to pass this to a model, use the GitHub raw link: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 
 ## Dependencies
 

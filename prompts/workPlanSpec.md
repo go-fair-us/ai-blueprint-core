@@ -10,8 +10,8 @@ the answers, then fills **Part 2** to produce a populated Work Plan.
 > and reusable.
 
 Source documents this spec is derived from:
-- `docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md` — the authoritative spec (five areas: metadata schema, PIDs, APIs, citation, outreach/training).
-- `docs/20260515_Work-Plans_Supplementary_DSJ.pdf` — Appendix I (Pre-Interview Questionnaire, Q1–Q43) and Appendix 2 (Generic Work Plan template). Part 1 below adapts Appendix I; Part 2 mirrors Appendix 2.
+- `docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md` — the authoritative spec (five areas: metadata schema, PIDs, APIs, citation, outreach/training).
+- `docs/WorkPlans/20260515_Work-Plans_Supplementary_DSJ.pdf` — Appendix I (Pre-Interview Questionnaire, Q1–Q43) and Appendix 2 (Generic Work Plan template). Part 1 below adapts Appendix I; Part 2 mirrors Appendix 2.
 
 ---
 

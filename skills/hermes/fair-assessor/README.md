@@ -37,7 +37,7 @@ The full procedure is in [`SKILL.md`](./SKILL.md), but in short the agent:
 
 1. **Takes two inputs** — a starting URL (the resource to assess) and a FAIR
    blueprint (a URL or local file). In the example, the blueprint is the
-   [NIAID Blueprint v2](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md).
+   [NIAID Blueprint v2](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md).
 2. **Crawls the page and its key first-level links** using
    [Firecrawl](https://www.firecrawl.dev/), which renders JavaScript-heavy data
    portals into clean Markdown that the agent can actually read.
@@ -88,7 +88,7 @@ Then invoke it as a slash command and give it your inputs, for example:
 ```
 /fair-assessment Assess https://www.immport.org/shared/study/SDY2968/summary
 against the NIAID Blueprint at
-https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 ```
 
 Hermes will crawl, evaluate, and write a report like the example included here.

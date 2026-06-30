@@ -1,6 +1,6 @@
 @fair-assessor Please assess how well the web resources align with the FAIR principles blueprint.
 Starting top-level page:  https://www.immport.org/shared/study/SDY2968/summary
-Blueprint to use: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+Blueprint to use: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 
 try https://r.jina.ai/URL when webfetch returns poor results.
 
@@ -21,6 +21,6 @@ Always be precise, evidence-based, and structured in your output. If the page ca
 
 Please assess how well the web resources align with the FAIR principles blueprint.
 Starting top-level page:  https://www.immport.org/shared/study/SDY2968/summary
-Blueprint to use: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+Blueprint to use: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 
 try https://r.jina.ai/URL when webfetch returns poor results.

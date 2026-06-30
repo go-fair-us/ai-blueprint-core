@@ -25,7 +25,7 @@ For a web-retrieval-capable LLM outside Claude Code, use the extraction workflow
 Before running, substitute `{{RESOURCE_URL}}` with the target URL. Fetch these authoritative references from GitHub (do not rely on local copies):
 
 1. **Blueprint specification**  
-   https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+   https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 
 2. **Example metadata record**  
    https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/example.json
@@ -57,7 +57,7 @@ Three sections (defined in the extraction workflow):
 
 ## Related artifacts
 
-- Blueprint spec (raw): https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+- Blueprint spec (raw): https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 - Example record (raw): https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/example.json
 - Interview-based alternative: `.claude/skills/dataset-intake/` (user provides values, no web fetch)
 - Pipeline sketch: `docs/workflowThoughts.md`

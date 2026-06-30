@@ -51,6 +51,7 @@ def content_tree(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, P
     prompts.mkdir(parents=True)
 
     spec = docs / config.BLUEPRINT_SPEC_RELPATH
+    spec.parent.mkdir(parents=True, exist_ok=True)
     spec.write_text(BLUEPRINT_FIXTURE, encoding="utf-8")
     (docs / "sub" / "extra.md").write_text(
         "# Extra Doc\n\nSome citation guidance here.\n", encoding="utf-8"

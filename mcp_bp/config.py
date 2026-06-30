@@ -27,12 +27,12 @@ PROMPTS_DIR: Path = _env_path("BLUEPRINT_PROMPTS_DIR", REPO_ROOT / "prompts")
 ALLOWED_EXTENSIONS: tuple[str, ...] = (".md",)
 
 # The canonical Blueprint specification, relative to DOCS_DIR.
-BLUEPRINT_SPEC_RELPATH: str = "NIAID_Blueprint_v2_26Sep2025_forExternal.md"
+BLUEPRINT_SPEC_RELPATH: str = "BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md"
 
 # Canonical public (raw GitHub) URL for citation helpers.
 BLUEPRINT_RAW_URL: str = (
     "https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/"
-    "refs/heads/master/docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md"
+    "refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md"
 )
 
 # HTTP transport -----------------------------------------------------------

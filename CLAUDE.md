@@ -61,6 +61,6 @@ cd lesson && python -m http.server 8000   # then open http://localhost:8000
 
 ## Domain Context
 
-The authoritative spec is `docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md` (converted from the PDF). Raw link for passing to a model: `https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md`
+The authoritative spec is `docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md` (converted from the PDF). Raw link for passing to a model: `https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md`
 
 The Blueprint's five areas drive nearly every skill/prompt: **metadata schema** (schema.org elements), **persistent identifiers** (DOI, ORCID, ROR, RRID, ontology terms), **APIs/machine access** (JSON-LD, OpenAPI), **citation**, and **outreach/training**. Repositories ultimately feed the **NIAID Data Ecosystem Discovery Portal**.

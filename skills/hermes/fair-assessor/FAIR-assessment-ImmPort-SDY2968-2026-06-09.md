@@ -112,4 +112,4 @@ The current study page (SDY2968) is functional for human users but does not yet 
 - https://www.immport.org/shared/study/SDY2968/download
 - https://docs.immport.org/
 - https://www.immport.org/
-- NIAID Blueprint v2 (https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md)
+- NIAID Blueprint v2 (https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md)

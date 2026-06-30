@@ -1,6 +1,6 @@
 # NIAID Blueprint Claude Skills
 
-Three Claude Code skills for working with the [NIAID Blueprint for Digital Objects](../docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md). Skills are installed automatically when Claude Code is opened in this project.
+Three Claude Code skills for working with the [NIAID Blueprint for Digital Objects](../docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md). Skills are installed automatically when Claude Code is opened in this project.
 
 ---
 
