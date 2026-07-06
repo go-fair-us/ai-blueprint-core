@@ -1,0 +1,77 @@
+# Prompt: Extract grouped atomic concepts from a document
+
+You are analyzing a source document. Your task is to extract **atomic concepts**—self-contained facts or hypotheses explicitly stated in the document—and organize them into **upper-level thematic groups**. Do not invent, infer beyond the text, or paraphrase into new claims. If the document does not support a concept, omit it.
+
+## Input
+
+- **Source document:** `@<path-to-document>`
+- **Line-numbered text:** Use the document's line numbers as printed in the file (1-indexed from the first line).
+
+## Output structure
+
+For each **upper-level group**, produce exactly this block:
+
+---
+
+### [Group title]
+
+**Group narrative:**  
+2–4 sentences describing the *general focus* of this group—what theme ties these facts together and why it matters in the document. The narrative should synthesize the group's atomic facts without introducing new claims. Write in plain, readable prose.
+
+**Atomic concepts:**
+
+| # | Concept | Lines |
+|---|---------|-------|
+| 1 | [Self-contained fact or hypothesis, stated so it stands alone without the surrounding document] | [line numbers] |
+| 2 | … | … |
+
+---
+
+Repeat for all groups until the document is covered.
+
+## Rules for upper-level groups
+
+1. **Derive groups from the document's own structure and themes**, not from an arbitrary count. Prefer the document's major sections, subsections, and appendix themes (e.g., Background, Audience, Implementation, each Blueprint pillar, Impact subsections, supplemental tables).
+2. **One group = one coherent theme.** Do not mix unrelated topics in a single group.
+3. **Split large sections** when they contain distinct sub-themes (e.g., "Motivation," "Requirements," "Impact," or a table whose rows deserve their own atomic facts).
+4. **Merge only when** several short paragraphs share a single focus and would be awkward as separate groups.
+5. **Exclude** pure navigation (table of contents), boilerplate disclaimers, and funding acknowledgments unless they contain substantive domain claims.
+6. **Include appendix and supplemental material** as their own groups when they add distinct concepts (schemas, ontologies, API references, worked examples).
+
+## Rules for atomic concepts
+
+1. **One concept = one idea.** Each row should express a single fact, requirement, definition, or stated expectation/hypothesis.
+2. **Self-contained.** A reader should understand the concept without reading adjacent rows or the source document.
+3. **Faithful to source.** Use the document's terminology (acronyms, element names, PID types). Do not upgrade "encouraged" to "required" unless the text does.
+4. **Line citations required.** Every concept must cite the line number(s) it was drawn from. Use a comma-separated range for concepts spanning consecutive lines (e.g., `55, 59–63`).
+5. **Tables:** Extract each meaningful row, field definition, or requirement as its own atomic concept when it carries distinct information; cite the table's line range.
+6. **Do not duplicate** the same fact across groups unless the document states it in meaningfully different contexts; if duplicated, note the distinct framing in the concept text.
+7. **Number concepts globally** across the full output (1, 2, 3, …), not restarted per group.
+
+## Rules for group narratives
+
+1. **Synthesize, don't list.** The narrative is not a bullet summary of the table; it explains the group's *purpose and scope* in the document.
+2. **Grounded in the group's facts.** Every sentence in the narrative should be supportable by concepts in that group's table.
+3. **No new facts.** Do not add context, implications, or recommendations not present in the document.
+4. **Proportional length.** Short groups get 1–2 sentences; dense requirement sections may need 3–4.
+
+## Quality checks (perform before finishing)
+
+- [ ] Every atomic concept has at least one line citation.
+- [ ] No concept relies on information not in the document.
+- [ ] Each group has both a narrative and a concept table.
+- [ ] Group titles reflect document themes, not generic labels like "Section 3."
+- [ ] Requirements vs. encouragement vs. impact are distinguished accurately in concept wording.
+- [ ] End with a one-line count: **Total: N atomic concepts across M groups.**
+
+## Constraints
+
+- **Do not create, edit, or save any files.** Print the output only.
+- **Do not summarize the whole document** in place of grouped extraction.
+- **Do not produce a flat unordered list** without group narratives.
+
+## Optional refinements (include only if requested)
+
+- Tag each concept as: `definition` | `requirement` | `recommendation` | `impact claim` | `example`
+- Add a final index mapping document section headings → group titles
+- Separate **normative** (shall/must/should) concepts from **descriptive** context within each group

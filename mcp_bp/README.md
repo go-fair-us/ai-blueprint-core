@@ -67,6 +67,7 @@ client-side caching and retry.
 | `fair_self_assessment` | — | Verbose pillar-by-pillar Blueprint self-assessment |
 | `fair_self_assessment_short` | — | Concise pillar-by-pillar Blueprint self-assessment |
 | `fair_web_assessor` | `url` (required), `blueprint_url` (optional) | Fetch a web resource and score it against the Blueprint |
+| `fair_crawl_assessor` | `url` (required), `blueprint_url` (optional) | Crawl the top page + key first-level links and score per-principle against the Blueprint (JS pages via a headless tool or the `r.jina.ai` fallback) |
 | `work_plan_interview` | `repo_name` (optional) | Intake interview → FAIRification Work Plan |
 
 Prompts with arguments prepend a short **instruction block** to the persona

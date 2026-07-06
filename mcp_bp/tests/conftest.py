@@ -62,6 +62,9 @@ def content_tree(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, P
     (prompts / "fairAssessorAgentOpenCode.md").write_text(
         PROMPT_FIXTURE, encoding="utf-8"
     )
+    (prompts / "fairAssessorCrawl.md").write_text(
+        PROMPT_FIXTURE, encoding="utf-8"
+    )
 
     # Point all modules at the fixture tree.
     for module in (config, content, search, hybrid_search):

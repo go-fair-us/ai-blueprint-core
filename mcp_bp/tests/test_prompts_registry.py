@@ -42,3 +42,6 @@ def test_list_prompt_specs_shape() -> None:
     assert "work_plan_interview" in names
     web = next(s for s in specs if s["name"] == "fair_web_assessor")
     assert any(arg["name"] == "url" for arg in web["arguments"])
+    crawl = next(s for s in specs if s["name"] == "fair_crawl_assessor")
+    url_arg = next(a for a in crawl["arguments"] if a["name"] == "url")
+    assert url_arg["required"] is True

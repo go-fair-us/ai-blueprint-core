@@ -316,6 +316,20 @@ def fair_web_assessor(url: str, blueprint_url: str | None = None) -> str:
 
 
 @mcp.prompt(
+    name="fair_crawl_assessor",
+    description=(
+        "Crawl a resource's top page and key first-level links, then score it "
+        "against the Blueprint. Provide a target URL and optionally an "
+        "alternate Blueprint URL."
+    ),
+)
+def fair_crawl_assessor(url: str, blueprint_url: str | None = None) -> str:
+    return prompts_registry.render_prompt(
+        "fair_crawl_assessor", url=url, blueprint_url=blueprint_url
+    )
+
+
+@mcp.prompt(
     name="work_plan_interview",
     description=(
         "Intake interview that produces a FAIRification Work Plan. Optionally "

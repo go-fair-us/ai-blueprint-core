@@ -76,6 +76,29 @@ PROMPT_SPECS: list[PromptSpec] = [
         ],
     ),
     PromptSpec(
+        name="fair_crawl_assessor",
+        filename="fairAssessorCrawl.md",
+        title="FAIR Resource Crawl Assessor",
+        description=(
+            "Crawls a resource's top page and key first-level links, then "
+            "scores it against the Blueprint with per-principle evidence and "
+            "gaps. Provide a target URL (and optionally an alternate Blueprint "
+            "URL)."
+        ),
+        args=[
+            PromptArg(
+                "url",
+                "The top-level web resource URL to assess.",
+                required=True,
+            ),
+            PromptArg(
+                "blueprint_url",
+                "Alternate Blueprint URL to assess against.",
+                required=False,
+            ),
+        ],
+    ),
+    PromptSpec(
         name="work_plan_interview",
         filename="workPlanInterview.md",
         title="Work Plan Intake Interview",
