@@ -1,6 +1,37 @@
 # Self-Sovereign & Local-Only AI Tools
 
-**Self-sovereign and local-only AI** refers to running large language models (LLMs) and AI applications entirely on your own computer or local network — with **zero data leaving your machine**.
+A high level view of the current experience in AI based workflows involves three primary elements.  The model you are using, the application layer and the computing infrastructure.  
+
+```mermaid
+flowchart LR
+
+    model["Model"]
+
+    app["Application"]
+
+    comp["Compute"]
+
+    model <--> app <--> comp
+    
+```
+Figure 1:  Foundational Layers Supporting Modern AI-Based Workflows
+
+In Figure 1 we introduce the foundational layers present in most all AI workflows.
+
+Model
+The Model serves as the core intelligence engine of the workflow, typically consisting of a Large Language Model (LLM) or foundation model. It is responsible for processing inputs, understanding context, and generating human-like text, code, or reasoning. Rather than functioning as a standalone product, the model acts as the raw computational brain that requires external layers to guide its capabilities and channel them into practical tasks.
+
+Application
+The Application layer acts as the connections and interface of the ecosystem. It encompasses the user interface (UI), command-line tools (CLI), testing harnesses, and orchestration logic that users interact with. This layer translates human intent into structured prompts for the model, manages the data pipeline, and handles the "harnessing" required to turn raw model outputs into reliable, repeatable software features.
+
+Compute
+The Compute layer is the underlying backbone that powers the entire system, representing the hosted infrastructure where the workload physically executes. This includes the specialized hardware (like GPUs and TPUs), local compute, cloud instances, and memory allocation required to host the model and run the application. It dictates the overall speed, latency, and scalability of the workflow.
+
+We can define **Self-sovereign and local-only AI** as refering to running large language models (LLMs) and AI applications entirely on your own computer or local network — with **zero data leaving your machine**.
+
+If that is the case, then all three of the layers in Figure 1 must be under your direct control and hosting or withing in your communities control and trust.   
+
+This document provides some approaches to realizing this sovereign AI work environment in its simplest form.  An approach that can be realized on commodity hardware such as a personal laptop.   
 
 Unlike cloud-based services (ChatGPT, Claude, Gemini, etc.), these tools:
 - Keep all your documents, conversations, and knowledge completely private
@@ -15,7 +46,7 @@ This approach is especially powerful for researchers and knowledge workers who w
 - Experiment with different open models without technical complexity
 - Share curated knowledge with collaborators who may not be deeply technical
 
-Below are three excellent, beginner-friendly options that make local AI accessible without requiring programming or server administration skills.
+What follows are beginner-friendly options that make local AI accessible without requiring programming or server administration skills.  Later, elements of these could be replaced with self hosted code leveraging more advanced agent like approaches, while still maintaining secure and soverign AI experience.  
 
 ## AnythingLLM
 
