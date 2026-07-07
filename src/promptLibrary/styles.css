@@ -1,0 +1,31 @@
+/* Custom styles layered on top of Tailwind (CDN).
+ * Keep this minimal — most styling lives in utility classes in index.html / app.js.
+ */
+
+html, body { height: 100%; }
+
+/* Prompt text: preserve whitespace/newlines but wrap long lines. */
+.prompt-block code {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  line-height: 1.55;
+}
+
+/* Slightly nicer scrollbars in the sidebar and prompt block. */
+#sidebar, .prompt-block {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+#sidebar::-webkit-scrollbar,
+.prompt-block::-webkit-scrollbar { width: 8px; height: 8px; }
+#sidebar::-webkit-scrollbar-thumb,
+.prompt-block::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* Respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; }
+}

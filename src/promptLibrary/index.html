@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NIAID Blueprint Prompt Library</title>
+  <meta name="description" content="High-quality LLM prompts for implementing the NIAID Blueprint for Including Digital Objects in the NIAID Data Ecosystem." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef4fb', 100: '#d9e6f5', 200: '#b3cceb',
+              300: '#84abdc', 400: '#5486c9', 500: '#356ab4',
+              600: '#275396', 700: '#204379', 800: '#1d3a66', 900: '#1b3256'
+            }
+          },
+          fontFamily: {
+            sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="h-full bg-slate-50 text-slate-800 antialiased">
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-30 flex items-center gap-3 border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur">
+    <button id="menuToggle" class="rounded-md p-2 text-slate-600 hover:bg-slate-100 lg:hidden" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+
+    <div class="flex items-center gap-2.5 shrink-0">
+      <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white shadow-sm">
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      </span>
+      <div class="leading-tight">
+        <h1 id="siteTitle" class="text-sm font-semibold text-slate-900 sm:text-base">NIAID Blueprint Prompt Library</h1>
+        <p id="siteMeta" class="hidden text-xs text-slate-500 sm:block"></p>
+      </div>
+    </div>
+
+    <div class="relative ml-auto w-full max-w-xs sm:max-w-sm">
+      <svg class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
+      <input id="searchInput" type="search" placeholder="Search prompts…" autocomplete="off"
+        class="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-sm text-slate-800 placeholder-slate-400 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200" />
+    </div>
+  </header>
+
+  <div class="flex">
+    <!-- Sidebar backdrop (mobile) -->
+    <div id="backdrop" class="fixed inset-0 z-30 hidden bg-slate-900/40 lg:hidden"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar"
+      class="fixed inset-y-0 left-0 z-40 w-80 -translate-x-full transform overflow-y-auto border-r border-slate-200 bg-white transition-transform duration-200 ease-in-out lg:sticky lg:top-[57px] lg:z-0 lg:h-[calc(100vh-57px)] lg:translate-x-0"
+      aria-label="Prompt navigation">
+      <div class="flex items-center justify-between px-4 pb-2 pt-4 lg:hidden">
+        <span class="text-sm font-semibold text-slate-700">Browse prompts</span>
+        <button id="sidebarClose" class="rounded-md p-1.5 text-slate-500 hover:bg-slate-100" aria-label="Close navigation">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav id="tree" class="p-3 text-sm" role="tree" aria-label="Prompt categories"></nav>
+      <p id="noResults" class="hidden px-4 py-6 text-center text-sm text-slate-400">No prompts match your search.</p>
+    </aside>
+
+    <!-- Main content -->
+    <main class="min-w-0 flex-1">
+      <div id="content" class="mx-auto max-w-3xl px-5 py-8 sm:px-8"></div>
+    </main>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="pointer-events-none fixed bottom-6 left-1/2 z-50 -translate-x-1/2 translate-y-4 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white opacity-0 shadow-lg transition-all duration-200">
+    Copied to clipboard
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

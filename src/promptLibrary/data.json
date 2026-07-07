@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "title": "NIAID Blueprint Prompt Library",
+    "description": "High-quality prompts to help implement the NIAID Blueprint for Including Digital Objects in the NIAID Data Ecosystem and improve FAIRness of infectious and immune-mediated disease data.",
+    "version": "0.1",
+    "lastUpdated": "2026-07-06",
+    "source": "Based on NIAID Blueprint v2 (26 Sep 2025)"
+  },
+  "categories": [
+    {
+      "id": "metadata-schema",
+      "title": "NIAID Minimal Metadata Schema",
+      "description": "Guidance and prompts for capturing the minimal set of metadata elements recommended by the Blueprint.",
+      "children": [
+        {
+          "id": "metadata-schema/core-elements",
+          "title": "Core Descriptive Elements",
+          "description": "Basic metadata that applies to almost every digital object (name, description, dates, type, identifier).",
+          "prompts": [
+            {
+              "id": "metadata-schema/core-elements/name-description",
+              "title": "Write a high-quality name + description for a digital object",
+              "description": "Generates a concise, informative title and rich description that follows NIAID Blueprint recommendations and improves discoverability in the NIAID Data Ecosystem Discovery Portal.",
+              "prompt": "You are an expert data steward helping researchers comply with the NIAID Blueprint for Including Digital Objects in the NIAID Data Ecosystem.\n\nGiven the following information about a digital object, write:\n1. A clear, concise, and descriptive `name` (title)\n2. A rich `description` (3-6 sentences) that explains what the object is, why it was created, what it contains, and how it can be used.\n\nMake the description suitable for both human readers and machine discovery. Emphasize any infectious agents, hosts, health conditions, or measurement techniques when relevant.\n\nDigital object information:\n{{digital_object_info}}\n\nReturn the result as clean JSON with keys: name, description.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding."
+            },
+            {
+              "id": "metadata-schema/core-elements/identifier",
+              "title": "Recommend appropriate persistent identifiers",
+              "description": "Helps choose the right type of persistent identifier (DOI, accession number, etc.) and explains how to record it according to the NIAID Blueprint.",
+              "prompt": "You are helping a research team implement the NIAID Blueprint Persistent Identifiers requirements.\n\nA researcher has the following digital object and wants to know what persistent identifier(s) they should use and how to record it in metadata.\n\nDigital object type: {{type}}\nCurrent identifiers they have: {{existing_ids}}\nRepository they plan to deposit in: {{repository}}\n\nRecommend the best identifier strategy according to the NIAID Blueprint. Explain why and show exactly how it should appear in the `identifier` metadata field.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding."
+            }
+          ]
+        },
+        {
+          "id": "metadata-schema/attribution-provenance",
+          "title": "Attribution & Provenance",
+          "description": "Author, funder, grant, and date information.",
+          "prompts": [
+            {
+              "id": "metadata-schema/attribution-provenance/author",
+              "title": "Format author metadata with ORCID and ROR",
+              "description": "Creates properly structured author entries that include both personal (ORCID) and organizational (ROR) identifiers as recommended by the Blueprint.",
+              "prompt": "You are an expert in the NIAID Blueprint metadata schema.\n\nGiven the list of people and organizations involved in creating this digital object, generate the `author` metadata array following NIAID recommendations.\n\nFor each person include their name, ORCID (if known), and affiliation with ROR when possible.\n\nInput:\n{{creators_list}}\n\nOutput the result as valid JSON matching the NIAID Blueprint author structure.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding."
+            },
+            {
+              "id": "metadata-schema/attribution-provenance/funder-grant",
+              "title": "Generate funder and grant metadata",
+              "description": "Produces correctly formatted `funder` and `grant` metadata elements according to the NIAID Blueprint.",
+              "prompt": "Help a researcher create compliant `funder` and `grant` metadata for the NIAID Blueprint.\n\nProject title: {{project_title}}\nFunding organizations: {{funders}}\nGrant or contract numbers: {{grant_numbers}}\n\nGenerate the metadata as JSON with `funder` (using ROR where possible) and `grant` fields.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding."
+            }
+          ]
+        },
+        {
+          "id": "metadata-schema/domain-specific",
+          "title": "Domain-Specific Elements (Infectious Disease)",
+          "description": "infectiousAgent, host, healthCondition, and measurementTechnique.",
+          "prompts": [
+            {
+              "id": "metadata-schema/domain-specific/infectious-agent-host",
+              "title": "Add infectiousAgent and host metadata using NCBITaxon",
+              "description": "Identifies the correct NCBITaxon terms for pathogens and hosts and formats them for the NIAID Blueprint metadata schema.",
+              "prompt": "You are helping annotate a dataset according to the NIAID Blueprint.\n\nStudy description:\n{{study_description}}\n\nIdentify the infectious agents and host organisms involved. For each one provide:\n- The scientific name\n- The NCBITaxon identifier (CURIE or URI)\n- Whether it is the infectiousAgent or host\n\nReturn the result formatted for the `infectiousAgent` and `host` metadata fields.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding."
+            },
+            {
+              "id": "metadata-schema/domain-specific/health-condition",
+              "title": "Map health conditions to MONDO terms",
+              "description": "Finds appropriate MONDO identifiers for health conditions mentioned in a study and formats them for Blueprint metadata.",
+              "prompt": "Map the following health conditions or diseases to MONDO ontology terms for use in NIAID Blueprint metadata.\n\nHealth conditions mentioned: {{conditions}}\n\nFor each condition return the preferred MONDO label and identifier. Format the output for the `healthCondition` metadata field.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "persistent-identifiers",
+      "title": "Persistent Identifiers (PIDs)",
+      "description": "Guidance on using globally unique, persistent, machine-resolvable identifiers for digital objects and metadata.",
+      "prompts": [
+        {
+          "id": "persistent-identifiers/pid-strategy",
+          "title": "Recommend PID strategy for a repository or dataset",
+          "description": "Helps teams decide on the right persistent identifier approach based on their repository and data type.",
+          "prompt": "You are advising a data repository team on implementing the Persistent Identifiers section of the NIAID Blueprint.\n\nRepository type: {{repository_type}}\nTypes of digital objects they host: {{object_types}}\nCurrent identifier practices: {{current_practice}}\n\nRecommend a PID strategy that meets the NIAID Blueprint requirements. Include what identifiers to assign at what level (collection, dataset, file, metadata record) and how they should be exposed.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding."
+        }
+      ]
+    },
+    {
+      "id": "apis-metadata-exposure",
+      "title": "Minimal API Specifications",
+      "description": "Exposing metadata through standard, open APIs so machines can discover and use NIAID-funded digital objects.",
+      "prompts": [
+        {
+          "id": "apis-metadata-exposure/api-requirements",
+          "title": "Design a minimal metadata API for a repository",
+          "description": "Creates a simple OpenAPI-style specification or description for exposing metadata in a way that satisfies the NIAID Blueprint minimal API requirements.",
+          "prompt": "You are helping a repository implement the 'Minimal API Specifications for Exposing Metadata to Machines' section of the NIAID Blueprint.\n\nRepository name: {{repo_name}}\nCurrent tech stack: {{tech_stack}}\n\nPropose a minimal but compliant API design. Include:\n- Recommended endpoints\n- Required query parameters\n- Response format (JSON-LD preferred)\n- How to handle the core metadata elements from the Blueprint\n\nKeep it practical and aligned with the Blueprint's goals.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding."
+        }
+      ]
+    },
+    {
+      "id": "citation-outreach",
+      "title": "Citation & Outreach",
+      "description": "Proper citation practices and establishing points of contact for training and support.",
+      "prompts": [
+        {
+          "id": "citation-outreach/citation-guidance",
+          "title": "Generate citation text and guidance for a digital object",
+          "description": "Produces recommended citation text and explains how to cite the object according to NIAID Blueprint expectations.",
+          "prompt": "Generate a recommended citation for the following digital object following NIAID Blueprint citation guidance. Also provide a short explanation of why this citation format is preferred.\n\nDigital object details:\n{{object_details}}\n\nInclude both a human-readable citation and, if appropriate, a machine-actionable format.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding."
+        },
+        {
+          "id": "citation-outreach/outreach-training",
+          "title": "Create a simple outreach and training plan for a repository",
+          "description": "Helps repository teams define their point of contact and basic training/outreach activities aligned with the Blueprint.",
+          "prompt": "You are helping a NIAID-supported data repository fulfill the 'Point of Contact for Outreach and Training' requirement in the Blueprint.\n\nRepository: {{repo_name}}\nCurrent team size and skills: {{team_info}}\n\nCreate a lightweight, practical plan that includes:\n- Who should be the designated point of contact\n- What minimal training/outreach activities they should offer\n- How this supports the NIAID Data Ecosystem Discovery Portal\n\nKeep it realistic for a small to medium team.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding."
+        }
+      ]
+    }
+  ]
+}
