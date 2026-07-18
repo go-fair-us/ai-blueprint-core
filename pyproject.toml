@@ -6,8 +6,9 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "docling>=2.94.0",
-    "dspy>=3.2.1",
+    "dspy[optuna]>=3.2.1",
     "marker-pdf>=1.10.2",
+    "pyyaml>=6.0",
 ]
 
 [project.optional-dependencies]

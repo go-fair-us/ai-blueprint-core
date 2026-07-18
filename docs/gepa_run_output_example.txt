@@ -1,0 +1,381 @@
+ uv run main.py compare --backend openrouter --reflection-backend openrouter --judge reflection --gepa-budget 60  --num-threads 2
+Average Metric: 11.77 / 12 (98.1%): 100%|█████████████████████████████████████████████████████████| 12/12 [23:47<00:00, 118.94s/it]
+2026/07/08 16:35:54 INFO dspy.evaluate.evaluate: Average Metric: 11.769499999999999 / 12 (98.1%)
+ 14%|█████████████▏                                                                              | 4/28 [12:20<1:14:00, 185.04s/it]
+Bootstrapped 4 full traces after 4 examples for up to 1 rounds, amounting to 4 attempts.
+Average Metric: 11.78 / 12 (98.2%): : 13it [17:32, 80.95s/it]
+2026/07/08 17:05:46 INFO dspy.evaluate.evaluate: Average Metric: 11.7835 / 12 (98.2%)
+2026/07/08 17:05:46 WARNING dspy.teleprompt.mipro_optimizer_v2: 'requires_permission_to_run' is deprecated and will be removed in a future version.
+2026/07/08 17:05:46 INFO dspy.teleprompt.mipro_optimizer_v2:
+RUNNING WITH THE FOLLOWING LIGHT AUTO RUN SETTINGS:
+num_trials: 10
+minibatch: False
+num_fewshot_candidates: 6
+num_instruct_candidates: 3
+valset size: 22
+
+2026/07/08 17:05:46 INFO dspy.teleprompt.mipro_optimizer_v2:
+==> STEP 1: BOOTSTRAP FEWSHOT EXAMPLES <==
+2026/07/08 17:05:46 INFO dspy.teleprompt.mipro_optimizer_v2: These will be used as few-shot example candidates for our program and for creating instructions.
+
+2026/07/08 17:05:46 INFO dspy.teleprompt.mipro_optimizer_v2: Bootstrapping N=6 sets of demonstrations...
+Bootstrapping set 1/6
+Bootstrapping set 2/6
+Bootstrapping set 3/6
+ 67%|███████████████████████████████████████████████████████████████▎                               | 4/6 [12:21<06:10, 185.38s/it]
+Bootstrapped 4 full traces after 4 examples for up to 1 rounds, amounting to 4 attempts.
+Bootstrapping set 4/6
+ 17%|███████████████▊                                                                               | 1/6 [03:56<19:42, 236.45s/it]
+Bootstrapped 1 full traces after 1 examples for up to 1 rounds, amounting to 1 attempts.
+Bootstrapping set 5/6
+ 33%|███████████████████████████████▋                                                               | 2/6 [05:59<11:58, 179.74s/it]
+Bootstrapped 2 full traces after 2 examples for up to 1 rounds, amounting to 2 attempts.
+Bootstrapping set 6/6
+ 67%|███████████████████████████████████████████████████████████████▎                               | 4/6 [11:14<05:37, 168.59s/it]
+Bootstrapped 4 full traces after 4 examples for up to 1 rounds, amounting to 4 attempts.
+2026/07/08 17:39:18 INFO dspy.teleprompt.mipro_optimizer_v2:
+==> STEP 2: PROPOSE INSTRUCTION CANDIDATES <==
+2026/07/08 17:39:18 INFO dspy.teleprompt.mipro_optimizer_v2: We will use the few-shot examples from the previous step, a generated dataset summary, a summary of the program code, and a randomly selected prompting tip to propose instructions.
+2026/07/08 17:39:43 INFO dspy.teleprompt.mipro_optimizer_v2:
+Proposing N=3 instructions...
+
+2026/07/08 17:39:56 WARNING dspy.predict.predict: Input contains fields not in signature. These fields will be ignored: ['max_depth']. Expected fields: ['program_code', 'program_example', 'program_description', 'module'].
+2026/07/08 17:40:03 WARNING dspy.predict.predict: Input contains fields not in signature. These fields will be ignored: ['previous_instructions']. Expected fields: ['dataset_description', 'program_code', 'program_description', 'module', 'module_description', 'task_demos', 'basic_instruction', 'tip'].
+2026/07/08 17:40:54 WARNING dspy.predict.predict: Input contains fields not in signature. These fields will be ignored: ['max_depth']. Expected fields: ['program_code', 'program_example', 'program_description', 'module'].
+2026/07/08 17:41:05 WARNING dspy.predict.predict: Input contains fields not in signature. These fields will be ignored: ['tip', 'previous_instructions']. Expected fields: ['dataset_description', 'program_code', 'program_description', 'module', 'module_description', 'task_demos', 'basic_instruction'].
+2026/07/08 17:41:55 WARNING dspy.predict.predict: Input contains fields not in signature. These fields will be ignored: ['max_depth']. Expected fields: ['program_code', 'program_example', 'program_description', 'module'].
+2026/07/08 17:42:07 WARNING dspy.predict.predict: Input contains fields not in signature. These fields will be ignored: ['previous_instructions']. Expected fields: ['dataset_description', 'program_code', 'program_description', 'module', 'module_description', 'task_demos', 'basic_instruction', 'tip'].
+2026/07/08 17:42:33 INFO dspy.teleprompt.mipro_optimizer_v2: Proposed Instructions for Predictor 0:
+
+2026/07/08 17:42:33 INFO dspy.teleprompt.mipro_optimizer_v2: 0: Produce a concrete example of how a NIAID-funded data repository should
+structure its API and machine-readable metadata for the given scenario.
+
+Follow the NIAID Blueprint for Digital Objects. A strong answer includes:
+  * a schema.org JSON-LD metadata block using the Blueprint Table 1 elements
+    with their exact names: type, identifier, name, description, dateCreated,
+    author, funder, grant, measurementTechnique, distribution, citation,
+    conditionsOfAccess, license, spatialCoverage, temporalCoverage, and — for
+    infectious/immune-disease data — infectiousAgent, host, healthCondition.
+    Use `author` (not creator), `dateCreated` (not datePublished), and
+    top-level `funder`+`grant` (not a `funding` object);
+  * correct default formats/PIDs: a resolvable DOI for `identifier`, ORCID for
+    `author`, ROR for `funder`, an alphanumeric `grant`, NCIT for
+    `measurementTechnique`, NCBITaxon for `infectiousAgent`/`host`, MONDO for
+    `healthCondition`, an SPDX identifier/URL for `license`, ISO 3166 for
+    `spatialCoverage`, ISO 8601 for dates and `temporalCoverage`, and an
+    IRI/URL for `citation`, `distribution`, and `conditionsOfAccess`;
+  * an OpenAPI snippet describing the machine-access endpoint(s) that serve
+    the metadata/data (it must contain a ``paths`` section);
+  * a short explanation tying each choice back to the Blueprint.
+Output real, well-formed JSON-LD and OpenAPI in fenced code blocks, not
+placeholders.
+
+2026/07/08 17:42:33 INFO dspy.teleprompt.mipro_optimizer_v2: 1: You are tasked with generating a concrete, standards-compliant example of how a NIAID-funded data repository should structure its API and machine-readable metadata for a given scenario, following the NIAID Blueprint for Digital Objects.
+
+Given an input `task_description` (a natural-language scenario, typically involving infectious or immune-disease data), you MUST produce three clearly delimited sections in your response:
+
+1. **Reasoning:** Analyze the scenario step-by-step against the Blueprint requirements. Identify which Table 1 elements and PID formats apply, note any scenario-specific adaptations (e.g., if the scenario mentions ARKs or IIIF, explain that the Blueprint default `identifier` remains a resolvable DOI while those other persistent identifiers may appear in `distribution` or as endpoint parameters).
+
+2. **Api Example:** Provide a complete, real-world example containing:
+   - A schema.org JSON-LD metadata block in a fenced ```json code block. It must use the exact Blueprint Table 1 element names: `type`, `identifier`, `name`, `description`, `dateCreated`, `author`, `funder`, `grant`, `measurementTechnique`, `distribution`, `citation`, `conditionsOfAccess`, `license`, `spatialCoverage`, `temporalCoverage`, and — for infectious/immune-disease data — `infectiousAgent`, `host`, `healthCondition`. Use `author` (not creator), `dateCreated` (not datePublished), and top-level `funder`+`grant` (not a `funding` object). Populate with correct default PIDs/formats: resolvable DOI URL for `identifier`, ORCID IRI for `author`, ROR IRI for `funder`, alphanumeric `grant`, NCIT code for `measurementTechnique`, NCBITaxon ID for `infectiousAgent`/`host`, MONDO term for `healthCondition`, SPDX identifier/URL for `license`, ISO 3166 code for `spatialCoverage`, ISO 8601 for dates and `temporalCoverage`, and IRI/URL for `citation`, `distribution`, and `conditionsOfAccess`. Use realistic values, not placeholders.
+   - An OpenAPI snippet (fenced ```yaml or ```json) with a required `paths` section describing machine-access endpoints that serve the metadata/data (e.g., `/datasets/{id}` returning `application/ld+json`, and any scenario-specific endpoints such as `/search` for faceted queries or `/iiif/{ark}` for image access).
+   - A brief explanatory paragraph tying each PID/format choice back to the Blueprint.
+
+3. **Rationale:** Provide an element-by-element justification of how the example aligns with the Blueprint, referencing each required metadata field and each API path, and explicitly noting where infectious/immune-disease triad fields are included.
+
+Output only real, well-formed code blocks and prose as specified. Mirror the rigor and structure of exemplary demonstrations: analytic reasoning, valid JSON-LD with proper `@context` and `@type`, compliant OpenAPI with `paths`, and thorough element-by-element rationale.
+
+2026/07/08 17:42:33 INFO dspy.teleprompt.mipro_optimizer_v2: 2: You are an expert biomedical data architect and NIAID Blueprint for Digital Objects specialist, tasked with helping NIAID-funded biomedical and immunology repositories achieve schema.org-compliant, persistent-identifier-driven interoperability and discovery.
+
+Given a `task_description` outlining a repository or API scenario, produce a concrete example of how the repository should structure its API and machine-readable metadata. Your response must strictly follow the NIAID Blueprint for Digital Objects and be organized into three explicit sections matching the required outputs:
+
+1. **Reasoning**: A step-by-step chain-of-thought analysis of the scenario and how it maps to Blueprint requirements, noting which infectious/immune-disease elements are required.
+
+2. **Api Example**: A complete, real, well-formed example (no placeholders) in fenced code blocks containing:
+   * A schema.org JSON-LD metadata block using the Blueprint Table 1 elements with their exact names: type, identifier, name, description, dateCreated, author, funder, grant, measurementTechnique, distribution, citation, conditionsOfAccess, license, spatialCoverage, temporalCoverage, and — for infectious/immune-disease data — infectiousAgent, host, healthCondition. Use `author` (not creator), `dateCreated` (not datePublished), and top-level `funder`+`grant` (not a `funding` object).
+   * Correct default formats/PIDs: a resolvable DOI for `identifier`, ORCID for `author`, ROR for `funder`, an alphanumeric `grant`, NCIT for `measurementTechnique`, NCBITaxon for `infectiousAgent`/`host`, MONDO for `healthCondition`, an SPDX identifier/URL for `license`, ISO 3166 for `spatialCoverage`, ISO 8601 for dates and `temporalCoverage`, and an IRI/URL for `citation`, `distribution`, and `conditionsOfAccess`.
+   * An OpenAPI snippet describing the machine-access endpoint(s) that serve the metadata/data (it must contain a `paths` section).
+   * A short explanation tying each choice back to the Blueprint.
+
+3. **Rationale**: An element-by-element justification of how the example's fields and PIDs align with the Blueprint.
+
+Ensure all JSON-LD and OpenAPI are valid, immediately usable for content negotiation, and support unified standards-based access via persistent identifiers.
+
+2026/07/08 17:42:33 INFO dspy.teleprompt.mipro_optimizer_v2:
+
+2026/07/08 17:42:34 INFO dspy.teleprompt.mipro_optimizer_v2: ==> STEP 3: FINDING OPTIMAL PROMPT PARAMETERS <==
+2026/07/08 17:42:34 INFO dspy.teleprompt.mipro_optimizer_v2: We will evaluate the program over a series of trials with different combinations of instructions and few-shot examples to find the optimal combination using Bayesian Optimization.
+
+2026/07/08 17:42:34 INFO dspy.teleprompt.mipro_optimizer_v2: == Trial 1 / 10 - Full Evaluation of Default Program ==
+Average Metric: 21.53 / 22 (97.8%): 100%|██████████████████████████████████████████████████████████| 22/22 [32:58<00:00, 89.94s/it]
+2026/07/08 18:15:32 INFO dspy.evaluate.evaluate: Average Metric: 21.525499999999997 / 22 (97.8%)
+2026/07/08 18:15:32 INFO dspy.teleprompt.mipro_optimizer_v2: Default program score: 97.84
+
+/home/fils/src/Projects/NIAID/ai-blueprint-core/.venv/lib/python3.13/site-packages/dspy/teleprompt/mipro_optimizer_v2.py:660: ExperimentalWarning: Argument ``multivariate`` is an experimental feature. The interface can change in the future.
+  sampler = optuna.samplers.TPESampler(seed=seed, multivariate=True)
+2026/07/08 18:15:32 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 2 / 10 =====
+Average Metric: 20.97 / 22 (95.3%): 100%|█████████████████████████████████████████████████████████| 22/22 [38:29<00:00, 104.98s/it]
+2026/07/08 18:54:02 INFO dspy.evaluate.evaluate: Average Metric: 20.9725 / 22 (95.3%)
+2026/07/08 18:54:02 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 95.33 with parameters ['Predictor 0: Instruction 1', 'Predictor 0: Few-Shot Set 3'].
+2026/07/08 18:54:02 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [97.84, 95.33]
+2026/07/08 18:54:02 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 97.84
+2026/07/08 18:54:02 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2026/07/08 18:54:02 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 3 / 10 =====
+Average Metric: 21.54 / 22 (97.9%): 100%|█████████████████████████████████████████████████████████| 22/22 [39:51<00:00, 108.72s/it]
+2026/07/08 19:33:54 INFO dspy.evaluate.evaluate: Average Metric: 21.5395 / 22 (97.9%)
+2026/07/08 19:33:54 INFO dspy.teleprompt.mipro_optimizer_v2: Best full score so far! Score: 97.91
+2026/07/08 19:33:54 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 97.91 with parameters ['Predictor 0: Instruction 2', 'Predictor 0: Few-Shot Set 0'].
+2026/07/08 19:33:54 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [97.84, 95.33, 97.91]
+2026/07/08 19:33:54 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 97.91
+2026/07/08 19:33:54 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2026/07/08 19:33:54 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 4 / 10 =====
+Average Metric: 21.42 / 22 (97.4%): : 23it [38:04, 99.31s/it]
+2026/07/08 20:11:58 INFO dspy.evaluate.evaluate: Average Metric: 21.42083333333333 / 22 (97.4%)
+2026/07/08 20:11:58 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 97.37 with parameters ['Predictor 0: Instruction 1', 'Predictor 0: Few-Shot Set 5'].
+2026/07/08 20:11:58 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [97.84, 95.33, 97.91, 97.37]
+2026/07/08 20:11:58 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 97.91
+2026/07/08 20:11:58 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2026/07/08 20:11:58 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 5 / 10 =====
+Average Metric: 21.67 / 22 (98.5%): 100%|█████████████████████████████████████████████████████████| 22/22 [41:39<00:00, 113.60s/it]
+2026/07/08 20:53:37 INFO dspy.evaluate.evaluate: Average Metric: 21.6725 / 22 (98.5%)
+2026/07/08 20:53:37 INFO dspy.teleprompt.mipro_optimizer_v2: Best full score so far! Score: 98.51
+2026/07/08 20:53:37 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 98.51 with parameters ['Predictor 0: Instruction 2', 'Predictor 0: Few-Shot Set 2'].
+2026/07/08 20:53:37 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [97.84, 95.33, 97.91, 97.37, 98.51]
+2026/07/08 20:53:37 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 98.51
+2026/07/08 20:53:37 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2026/07/08 20:53:37 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 6 / 10 =====
+Average Metric: 21.31 / 22 (96.9%): 100%|█████████████████████████████████████████████████████████| 22/22 [37:58<00:00, 103.56s/it]
+2026/07/08 21:31:35 INFO dspy.evaluate.evaluate: Average Metric: 21.308833333333332 / 22 (96.9%)
+2026/07/08 21:31:35 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 96.86 with parameters ['Predictor 0: Instruction 0', 'Predictor 0: Few-Shot Set 5'].
+2026/07/08 21:31:35 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [97.84, 95.33, 97.91, 97.37, 98.51, 96.86]
+2026/07/08 21:31:35 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 98.51
+2026/07/08 21:31:35 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2026/07/08 21:31:35 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 7 / 10 =====
+  0%|                                                                                                       | 0/22 [00:00<?, ?it/s]2026/07/08 21:33:08 ERROR dspy.utils.parallelizer: Error for Example({'task_description': 'An immunology repository of CyTOF data from HIV elite controllers needs PID resolution and bulk access to FCS files while exposing sample-level schema.org metadata.'}) (input_keys={'task_description'}): litellm.BadRequestError: OpenrouterException - {"error":{"message":"Provider returned error","code":400,"metadata":{"raw":"{\"code\":400,\"reason\":\"INVALID_REQUEST_BODY\",\"message\":\"Model 'tencent/hy3' does not support 'json_object' response format. Supported formats: json_schema.\",\"metadata\":{}}","provider_name":"Novita","is_byok":false}},"user_id":"user_32cruui2ThMKm0sKajhK8ydySHK"}. Set `provide_traceback=True` for traceback.
+Average Metric: 19.13 / 21 (91.1%): : 25it [34:19, 82.39s/it]
+2026/07/08 22:05:55 INFO dspy.evaluate.evaluate: Average Metric: 19.127499999999998 / 22 (86.9%)
+2026/07/08 22:05:55 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 86.94 with parameters ['Predictor 0: Instruction 2', 'Predictor 0: Few-Shot Set 0'].
+2026/07/08 22:05:55 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [97.84, 95.33, 97.91, 97.37, 98.51, 96.86, 86.94]
+2026/07/08 22:05:55 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 98.51
+2026/07/08 22:05:55 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2026/07/08 22:05:55 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 8 / 10 =====
+Average Metric: 14.02 / 22 (63.7%): 100%|██████████████████████████████████████████████████████████| 22/22 [10:13<00:00, 27.90s/it]
+2026/07/08 22:16:09 INFO dspy.evaluate.evaluate: Average Metric: 14.024999999999999 / 22 (63.7%)
+2026/07/08 22:16:09 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 63.75 with parameters ['Predictor 0: Instruction 2', 'Predictor 0: Few-Shot Set 5'].
+2026/07/08 22:16:09 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [97.84, 95.33, 97.91, 97.37, 98.51, 96.86, 86.94, 63.75]
+2026/07/08 22:16:09 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 98.51
+2026/07/08 22:16:09 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2026/07/08 22:16:09 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 9 / 10 =====
+Average Metric: 14.02 / 22 (63.7%): 100%|██████████████████████████████████████████████████████████| 22/22 [13:23<00:00, 36.51s/it]
+2026/07/08 22:29:32 INFO dspy.evaluate.evaluate: Average Metric: 14.024999999999999 / 22 (63.7%)
+2026/07/08 22:29:32 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 63.75 with parameters ['Predictor 0: Instruction 1', 'Predictor 0: Few-Shot Set 4'].
+2026/07/08 22:29:32 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [97.84, 95.33, 97.91, 97.37, 98.51, 96.86, 86.94, 63.75, 63.75]
+2026/07/08 22:29:32 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 98.51
+2026/07/08 22:29:32 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2026/07/08 22:29:32 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 10 / 10 =====
+Average Metric: 14.02 / 22 (63.7%): 100%|██████████████████████████████████████████████████████████| 22/22 [10:13<00:00, 27.88s/it]
+2026/07/08 22:39:46 INFO dspy.evaluate.evaluate: Average Metric: 14.024999999999999 / 22 (63.7%)
+2026/07/08 22:39:46 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 63.75 with parameters ['Predictor 0: Instruction 2', 'Predictor 0: Few-Shot Set 5'].
+2026/07/08 22:39:46 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [97.84, 95.33, 97.91, 97.37, 98.51, 96.86, 86.94, 63.75, 63.75, 63.75]
+2026/07/08 22:39:46 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 98.51
+2026/07/08 22:39:46 INFO dspy.teleprompt.mipro_optimizer_v2: =========================
+
+
+2026/07/08 22:39:46 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 11 / 10 =====
+Average Metric: 21.61 / 22 (98.2%): 100%|██████████████████████████████████████████████████████████| 22/22 [28:58<00:00, 79.01s/it]
+2026/07/08 23:08:44 INFO dspy.evaluate.evaluate: Average Metric: 21.609499999999997 / 22 (98.2%)
+2026/07/08 23:08:44 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 98.22 with parameters ['Predictor 0: Instruction 2', 'Predictor 0: Few-Shot Set 2'].
+2026/07/08 23:08:44 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [97.84, 95.33, 97.91, 97.37, 98.51, 96.86, 86.94, 63.75, 63.75, 63.75, 98.22]
+2026/07/08 23:08:44 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 98.51
+2026/07/08 23:08:44 INFO dspy.teleprompt.mipro_optimizer_v2: =========================
+
+
+2026/07/08 23:08:44 INFO dspy.teleprompt.mipro_optimizer_v2: Returning best identified program with score 98.51!
+Average Metric: 9.76 / 10 (97.6%):  83%|█████████████████████████████████████████████████▏         | 10/12 [09:18<02:12, 66.45s/it]2026/07/08 23:18:40 WARNING dspy.clients.lm: LM response was truncated due to exceeding max_tokens=32000. You can inspect the latest LM interactions with `dspy.inspect_history()`. To avoid truncation, consider passing a larger max_tokens when setting up dspy.LM. You may also consider increasing the temperature (currently 1.0)  if the reason for truncation is repetition.
+Average Metric: 11.70 / 12 (97.5%): 100%|██████████████████████████████████████████████████████████| 12/12 [10:32<00:00, 52.69s/it]
+2026/07/08 23:19:16 INFO dspy.evaluate.evaluate: Average Metric: 11.703 / 12 (97.5%)
+2026/07/08 23:19:16 INFO dspy.teleprompt.gepa.gepa: Running GEPA for approx 60 metric calls of the program. This amounts to 2.14 full evals on the train set.
+2026/07/08 23:19:16 WARNING dspy.teleprompt.gepa.gepa: No valset provided; Using trainset as valset. This is useful as an inference-time scaling strategy where you want GEPA to find the best solutions for the provided tasks in the trainset, as it makes GEPA overfit prompts to the provided trainset. In order to ensure generalization and perform well on unseen tasks, please provide separate trainset and valset. Provide the smallest valset that is just large enough to match the downstream task distribution, while keeping trainset as large as possible.
+2026/07/08 23:19:16 INFO dspy.teleprompt.gepa.gepa: Using 28 examples for tracking Pareto scores.
+GEPA Optimization:   0%|                                                                              | 0/60 [00:00<?, ?rollouts/s]2026/07/08 23:29:45 INFO dspy.evaluate.evaluate: Average Metric: 27.265333333333327 / 28 (97.4%)
+2026/07/08 23:29:45 INFO dspy.teleprompt.gepa.gepa: Iteration 0: Base program full valset score: 0.9737619047619047 over 28 / 28 examples
+GEPA Optimization:  47%|████████████████████████████████▏                                    | 28/60 [10:28<11:58, 22.45s/rollouts]2026/07/08 23:29:45 INFO dspy.teleprompt.gepa.gepa: Iteration 1: Selected program 0 score: 0.9737619047619047
+Average Metric: 2.94 / 3 (97.9%): 100%|██████████████████████████████████████████████████████████████| 3/3 [02:13<00:00, 44.37s/it]
+2026/07/08 23:31:58 INFO dspy.evaluate.evaluate: Average Metric: 2.9379999999999997 / 3 (97.9%)
+2026/07/08 23:34:09 WARNING dspy.teleprompt.gepa.gepa_utils: The score returned by the metric with pred_name is different from the overall metric score. This can indicate 2 things: Either the metric is non-deterministic (e.g., LLM-as-judge, Semantic score, etc.) or the metric returned a score specific to pred_name that differs from the module level score. Currently, GEPA does not support predictor level scoring (support coming soon), and only requires a feedback text to be provided, which can be specific to the predictor or program level. GEPA will ignore the differing score returned, and instead use module level score. You can safely ignore this warning if using a semantic metric, however, if this mismatch is caused due to predictor scoring, please return module-level scores. To disable this warning, set warn_on_score_mismatch=False.
+2026/07/08 23:34:31 INFO dspy.teleprompt.gepa.gepa: Iteration 1: Proposed new text for generate.predict: Produce a concrete example of how a NIAID-funded data repository should structure its API and machine-readable metadata for the given scenario.
+
+Follow the NIAID Blueprint for Digital Objects strictly. A strong answer includes:
+
+**1. A schema.org JSON-LD metadata block** using the Blueprint Table 1 elements with their **exact names**:
+   `type`, `identifier`, `name`, `description`, `dateCreated`, `author`, `funder`, `grant`, `measurementTechnique`, `distribution`, `citation`, `conditionsOfAccess`, `license`, `spatialCoverage`, `temporalCoverage`, and — for infectious/immune-disease data — `infectiousAgent`, `host`, `healthCondition`.
+
+   **Critical JSON-LD rules:**
+   - Use `@context": "https://schema.org/"` and `@type": "Dataset"`
+   - The **`type` property value must be an IRI** (`https://schema.org/Dataset`), not a plain string
+   - Use `author` (not `creator`), `dateCreated` (not `datePublished`)
+   - Top-level `funder` + `grant` (not a nested `funding` object)
+   - `funder` should be a bare ROR IRI string (`https://ror.org/...`) per the Blueprint's minimal format; avoid wrapping in an Organization object unless necessary
+   - `author` should be a bare ORCID IRI string (`https://orcid.org/...`)
+   - `identifier` must be a resolvable DOI URL (`https://doi.org/...`)
+   - `distribution`, `citation`, `conditionsOfAccess` must be IRI/URL strings (or arrays of them)
+   - All controlled vocabulary values use CURIE format: `NCIT:Cxxxxx`, `NCBITaxon:xxxxxx`, `MONDO:xxxxxx`
+   - `license` uses SPDX URL: `https://spdx.org/licenses/...`
+   - `spatialCoverage` uses ISO 3166-1 alpha-2 code (e.g., `US`)
+   - Dates use ISO 8601: `YYYY-MM-DD` for `dateCreated`, `YYYY-MM-DD/YYYY-MM-DD` for `temporalCoverage`
+
+**2. An OpenAPI 3.0 snippet** describing machine-access endpoint(s) that serve the metadata/data:
+   - **Must contain a `paths` section**
+   - Use **resource-oriented, noun-based paths** (e.g., `/objects/{pid}`, `/experiments`, `/genes`) — avoid verb-based paths like `/search`
+   - Endpoints must return `application/ld+json`
+   - Include path/query parameters for PID-based retrieval and faceted filtering
+   - Response schemas should **explicitly enumerate Blueprint Table 1 properties** (not just `type: object`) to enforce machine-readability
+   - Provide a realistic `example` in the response that matches the JSON-LD block exactly (including all required fields like `description`)
+
+**3. A short explanation** tying each choice back to the Blueprint requirements.
+
+**Output format:** Provide three sections in order:
+- `reasoning` — your design rationale
+- `api_example` — two fenced code blocks: first the JSON-LD, then the OpenAPI YAML
+- `rationale` — bullet-point mapping of each field to Blueprint specs
+
+Use real, well-formed JSON-LD and OpenAPI. No placeholders. Use realistic but exemplar identifiers (DOI, ORCID, ROR, NCIT, NCBITaxon, MONDO, SPDX, ISO codes).
+2026/07/08 23:37:24 INFO dspy.evaluate.evaluate: Average Metric: 2.665833333333333 / 3 (88.9%)
+2026/07/08 23:37:24 INFO dspy.teleprompt.gepa.gepa: Iteration 1: New subsample score 2.6658333333333335 is not better than old score 2.9379999999999997, skipping
+GEPA Optimization:  57%|███████████████████████████████████████                              | 34/60 [18:08<15:13, 35.14s/rollouts]2026/07/08 23:37:24 INFO dspy.teleprompt.gepa.gepa: Iteration 2: Selected program 0 score: 0.9737619047619047
+Average Metric: 2.91 / 3 (97.0%): 100%|██████████████████████████████████████████████████████████████| 3/3 [03:38<00:00, 72.86s/it]
+2026/07/08 23:41:03 INFO dspy.evaluate.evaluate: Average Metric: 2.91 / 3 (97.0%)
+2026/07/08 23:44:52 INFO dspy.teleprompt.gepa.gepa: Iteration 2: Proposed new text for generate.predict: You are an expert in NIAID data standards and the NIAID Blueprint for Digital Objects. Your task is to produce a concrete, production-ready example of how a NIAID-funded data repository should structure its API and machine-readable metadata for a given scenario.
+
+## Mandatory Output Components
+
+1. **schema.org JSON-LD metadata block** — Must include every Blueprint Table 1 element using the **exact property names**:
+   - Core: `type`, `identifier`, `name`, `description`, `dateCreated`, `author`, `funder`, `grant`, `measurementTechnique`, `distribution`, `citation`, `conditionsOfAccess`, `license`, `spatialCoverage`, `temporalCoverage`
+   - Infectious/immune-disease extensions: `infectiousAgent`, `host`, `healthCondition`
+   - **Critical**: Use `author` (not `creator`), `dateCreated` (not `datePublished`), top-level `funder` + `grant` (not a nested `funding` object).
+
+2. **OpenAPI 3.0/3.1 snippet** — Must contain a `paths` section defining machine-access endpoints that serve the metadata and data. Include `servers`, reusable `components/schemas`, and `security` schemes where appropriate.
+
+3. **Brief explanation** — Tie each choice back to the Blueprint (1–2 sentences per element).
+
+## Identifier & Format Requirements (Blueprint Defaults)
+
+| Element | Required Format / PID System | Example |
+|---------|------------------------------|---------|
+| `identifier` | Resolvable DOI URL (`https://doi.org/...`) | `https://doi.org/10.25990/niaid.dataset.001` |
+| `author` | ORCID URL (`https://orcid.org/...`) | `https://orcid.org/0000-0001-2345-6789` |
+| `funder` | ROR URL (`https://ror.org/...`) | `https://ror.org/01cwqze88` (NIAID/NIH) |
+| `grant` | Alphanumeric award number | `U19AI123456` |
+| `measurementTechnique` | NCIT CURIE or IRI | `NCIT:C16330` or `https://ncit.nci.nih.gov/ncitbrowser/ConceptReport.jsp?dictionary=NCI_Thesaurus&code=C16330` |
+| `infectiousAgent` / `host` | NCBITaxon CURIE or IRI | `NCBITaxon:2697049` (SARS-CoV-2), `NCBITaxon:9606` (Homo sapiens) |
+| `healthCondition` | MONDO CURIE or IRI | `MONDO:0004533` (COVID-19) |
+| `license` | **SPDX identifier** (preferred) or SPDX URL | `CC-BY-4.0` or `https://spdx.org/licenses/CC-BY-4.0` |
+| `spatialCoverage` | ISO 3166-1 alpha-2 code | `US`, `CA`, `GB` |
+| `dateCreated`, `temporalCoverage` | ISO 8601 (date or interval) | `2023-06-15`, `2021-03-01/2022-09-30` |
+| `citation`, `distribution.contentUrl`, `conditionsOfAccess` | IRI/URL (resolvable) | `https://doi.org/10.1101/2023.01.01.522333` |
+
+## JSON-LD Structural Rules
+
+- `@context`: **Must** be `https://schema.org/` **plus** an extension object that maps Blueprint-specific properties (`infectiousAgent`, `host`, `healthCondition`, `measurementTechnique`, `grant`, `conditionsOfAccess`) to their authoritative IRIs (e.g., `https://schema.org/infectiousAgent`). This ensures full linked-data interpretability without out-of-band knowledge.
+- `@type`: Use `"Dataset"` (or appropriate schema.org class) **and** include an explicit top-level `"type": "Dataset"` property per Table 1.
+- `identifier`: Full resolvable DOI URL — this is the primary PID that the API resolves.
+- `author`: Object with `@type: "Person"`, `name`, and `identifier` (ORCID URL).
+- `funder`: Object with `@type: "Organization"`, `name`, and `identifier` (ROR URL) — **top-level**, not nested.
+- `grant`: Plain string (alphanumeric) at top level.
+- `measurementTechnique`: String (NCIT CURIE preferred) or `DefinedTerm` with `@id` (NCIT IRI) and `name`.
+- `distribution`: **Array** of `DataDownload` objects (even if one), each with `@type: "DataDownload"`, `name`, `contentUrl` (IRI), `encodingFormat` (IANA media type). Prefer array over single object for extensibility.
+- `citation`: IRI/URL (DOI of publication or dataset citation).
+- `conditionsOfAccess`: IRI/URL to access policy page.
+- `license`: **SPDX identifier string** (e.g., `"CC-BY-4.0"`) — not a URL, per Blueprint default.
+- `spatialCoverage`: ISO 3166-1 alpha-2 string.
+- `temporalCoverage`: ISO 8601 interval string (`start/end`).
+- `infectiousAgent`, `host`: NCBITaxon CURIE (e.g., `"NCBITaxon:2697049"`) or full IRI.
+- `healthCondition`: MONDO CURIE (e.g., `"MONDO:0004533"`) or full IRI.
+
+**No placeholders** (`example.org`, `repo.example.org`, `PMC1234567`, etc.). Use realistic, resolvable-looking identifiers from real registries (DataCite, ORCID, ROR, NCBI Taxonomy, MONDO, SPDX, DOI.org, PMC, etc.). If a real PID cannot be guaranteed, construct a plausible one following the registry's pattern (e.g., `https://doi.org/10.25990/niaid.covid.cycif.2024.001`).
+
+## OpenAPI Requirements
+
+- `openapi: "3.0.3"` (or 3.1.0)
+- `info`: title, version, description
+- `servers`: at least one with `url` (e.g., `https://api.niaid-repo.example.org/v1`)
+- `paths`: **Required**. Define resource-oriented endpoints:
+  - `GET /datasets/{doi}` — returns JSON-LD metadata (`application/ld+json`); supports content negotiation if binary data also served at same IRI.
+  - `GET /datasets/{doi}/distribution/{distName}` — bulk download endpoints for each distribution.
+  - Optional: `GET /datasets/{doi}/bulk` — combined archive.
+- Path parameters: `doi` (string, URL-encoded DOI without `https://doi.org/` prefix).
+- Responses: `200` with appropriate `content` media types; `404`, `406`.
+- `components/schemas`: Define reusable schemas for `Metadata`, `ErrorResponse`, `DataDownload`.
+- `security`: Include `ApiKeyAuth` or `BearerAuth` scheme (even if optional) to reflect real repository practice.
+
+## Explanation Format
+
+Provide a concise rationale (bullet list or short paragraphs) mapping each Blueprint element to your implementation choice, citing the specific Table 1 requirement and PID/format default.
+
+## Output Formatting
+
+Wrap each artifact in a fenced code block with the correct language hint:
+- JSON-LD: ```json
+- OpenAPI: ```yaml
+- Explanation: plain text (no fence) or ```text
+
+**Do not omit any Table 1 element. Do not use placeholder values. Do not nest `funder`/`grant` inside a `funding` object. Do not use `creator` or `datePublished`.**
+
+---
+
+### Scenario Template (filled in per task)
+
+**Input:** A one-sentence description of the repository, data type, disease context, and access requirements.
+
+**Your job:** Generate the three artifacts above for that scenario.
+2026/07/08 23:48:35 INFO dspy.evaluate.evaluate: Average Metric: 2.945 / 3 (98.2%)
+2026/07/08 23:48:35 INFO dspy.teleprompt.gepa.gepa: Iteration 2: New subsample score 2.945 is better than old score 2.91. Continue to full eval and add to candidate pool.
+2026/07/08 23:58:40 INFO dspy.evaluate.evaluate: Average Metric: 26.379499999999997 / 28 (94.2%)
+2026/07/08 23:58:40 INFO dspy.teleprompt.gepa.gepa: Iteration 2: Valset score for new program: 0.942125 (coverage 28 / 28)
+2026/07/08 23:58:40 INFO dspy.teleprompt.gepa.gepa: Iteration 2: Val aggregate for new program: 0.942125
+2026/07/08 23:58:40 INFO dspy.teleprompt.gepa.gepa: Iteration 2: Individual valset scores for new program: {0: 0.97, 1: 0.9804999999999999, 2: 0.9804999999999999, 3: 0.9804999999999999, 4: 0.97, 5: 0.9349999999999999, 6: 0.9874999999999999, 7: 0.9874999999999999, 8: 0.9804999999999999, 9: 0.97, 10: 0.97, 11: 0.9804999999999999, 12: 0.9874999999999999, 13: 0.9804999999999999, 14: 0.9804999999999999, 15: 0.9874999999999999, 16: 0.97, 17: 0.6375, 18: 0.9874999999999999, 19: 0.9874999999999999, 20: 0.6375, 21: 0.6375, 22: 0.9874999999999999, 23: 0.9804999999999999, 24: 0.97, 25: 0.9874999999999999, 26: 0.9804999999999999, 27: 0.9874999999999999}
+2026/07/08 23:58:40 INFO dspy.teleprompt.gepa.gepa: Iteration 2: New valset pareto front scores: {0: 0.9874999999999999, 1: 0.9874999999999999, 2: 0.9874999999999999, 3: 0.9874999999999999, 4: 0.9804999999999999, 5: 0.97, 6: 0.9874999999999999, 7: 0.9874999999999999, 8: 0.9804999999999999, 9: 0.9874999999999999, 10: 0.97, 11: 0.9804999999999999, 12: 0.9874999999999999, 13: 0.9874999999999999, 14: 0.9804999999999999, 15: 0.9874999999999999, 16: 0.9874999999999999, 17: 0.97, 18: 0.9874999999999999, 19: 0.9874999999999999, 20: 0.9874999999999999, 21: 0.8583333333333333, 22: 0.9874999999999999, 23: 0.9804999999999999, 24: 0.97, 25: 0.9874999999999999, 26: 0.9874999999999999, 27: 0.9874999999999999}
+2026/07/08 23:58:40 INFO dspy.teleprompt.gepa.gepa: Iteration 2: Valset pareto front aggregate score: 0.9791369047619047
+2026/07/08 23:58:40 INFO dspy.teleprompt.gepa.gepa: Iteration 2: Updated valset pareto front programs: {0: {0}, 1: {0}, 2: {0}, 3: {0}, 4: {0}, 5: {0}, 6: {1}, 7: {0, 1}, 8: {0, 1}, 9: {0}, 10: {0, 1}, 11: {0, 1}, 12: {1}, 13: {0}, 14: {1}, 15: {1}, 16: {0}, 17: {0}, 18: {0, 1}, 19: {1}, 20: {0}, 21: {0}, 22: {1}, 23: {1}, 24: {0, 1}, 25: {1}, 26: {0}, 27: {1}}
+2026/07/08 23:58:40 INFO dspy.teleprompt.gepa.gepa: Iteration 2: Best valset aggregate score so far: 0.9737619047619047
+2026/07/08 23:58:40 INFO dspy.teleprompt.gepa.gepa: Iteration 2: Best program as per aggregate score on valset: 0
+2026/07/08 23:58:40 INFO dspy.teleprompt.gepa.gepa: Iteration 2: Best score on valset: 0.9737619047619047
+2026/07/08 23:58:40 INFO dspy.teleprompt.gepa.gepa: Iteration 2: Linear pareto front program index: 0
+2026/07/08 23:58:40 INFO dspy.teleprompt.gepa.gepa: Iteration 2: New program candidate index: 1
+GEPA Optimization:  57%|███████████████████████████████████████                              | 34/60 [39:24<30:08, 69.54s/rollouts]
+Average Metric: 11.60 / 12 (96.7%): 100%|██████████████████████████████████████████████████████████| 12/12 [15:08<00:00, 75.71s/it]
+2026/07/09 00:13:49 INFO dspy.evaluate.evaluate: Average Metric: 11.601833333333333 / 12 (96.7%)
+
+=== Comparison — task 'api' (higher score is better; tokens/cost = compile + eval) ===
+optimizer       score       tokens   cost($)   seconds
+bootstrap       98.20      470,661    0.0000      1793
+baseline        98.08      252,241    0.0000      1427
+mipro           97.52    5,786,966    0.0000     22410
+gepa            96.68    2,323,137    0.0000      3273
+
+Saved /home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/artifacts/comparison-api.json
+Saved /home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/artifacts/report-api.md
+2026/07/09 00:15:18 ERROR dspy.utils.parallelizer: Error for Example({'task_description': 'A NIAID-funded microbiome data portal needs to provide OpenAPI search endpoints that return JSON-LD descriptions of 16S rRNA datasets linked to BioSample identifiers.'}) (input_keys={'task_description'}): litellm.BadRequestError: OpenrouterException - {"error":{"message":"Provider returned error","code":400,"metadata":{"raw":"{\"code\":400,\"reason\":\"INVALID_REQUEST_BODY\",\"message\":\"Model 'tencent/hy3' does not support 'json_object' response format. Supported formats: json_schema.\",\"metadata\":{}}","provider_name":"Novita","is_byok":false}},"user_id":"user_32cruui2ThMKm0sKajhK8ydySHK"}. Set `provide_traceback=True` for traceback.
+2026/07/09 00:17:06 ERROR dspy.utils.parallelizer: Error for Example({'task_description': 'An epidemiology data commons storing COVID-19 case surveillance records requires an OpenAPI that allows bulk export of de-identified line-list data while minting ARKs for each release.'}) (input_keys={'task_description'}): litellm.BadRequestError: OpenrouterException - {"error":{"message":"Provider returned error","code":400,"metadata":{"raw":"{\"code\":400,\"reason\":\"INVALID_REQUEST_BODY\",\"message\":\"Model 'tencent/hy3' does not support 'json_object' response format. Supported formats: json_schema.\",\"metadata\":{}}","provider_name":"Novita","is_byok":false}},"user_id":"user_32cruui2ThMKm0sKajhK8ydySHK"}. Set `provide_traceback=True` for traceback.
+
+ fils  …/ai-blueprint-core/src/promptOptimizer   master !?   v3.12.3   00:17 
+
+
+
+779 cals.  350 nemotron, the rest are hy3

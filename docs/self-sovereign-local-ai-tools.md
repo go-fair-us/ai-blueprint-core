@@ -9,15 +9,13 @@ flowchart LR
     classDef box width:120px
     
     model["Model"]
-
     app["Application"]
-
     comp["Compute"]
     
     class model,app,comp box
 
-    model <--> app <--> comp
-    
+    model <--> app  
+    app <--> comp
 ```
 Figure 1:  Foundational Layers Supporting Modern AI-Based Workflows
 
