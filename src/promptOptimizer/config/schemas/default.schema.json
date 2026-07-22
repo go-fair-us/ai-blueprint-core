@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.promptOptimizer/config/schemas/default.schema.json",
+  "title": "promptOptimizer default config",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "models": {
+      "type": "object",
+      "properties": {
+        "task_backend": { "type": "string" },
+        "reflection_backend": { "type": "string" },
+        "judge": { "type": "string", "enum": ["task", "reflection"] },
+        "backends": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["env_key", "task_model", "reflection_model"],
+            "properties": {
+              "env_key": { "type": "string" },
+              "api_base": { "type": ["string", "null"] },
+              "task_model": { "type": "string" },
+              "reflection_model": { "type": "string" },
+              "temperature_task": { "type": "number" },
+              "temperature_reflection": { "type": "number" },
+              "max_tokens_task": { "type": "integer" },
+              "max_tokens_reflection": { "type": "integer" },
+              "timeout": { "type": "integer" },
+              "num_retries": { "type": "integer" }
+            }
+          }
+        }
+      }
+    },
+    "run": {
+      "type": "object",
+      "properties": {
+        "seed": { "type": "integer" },
+        "num_threads": { "type": "integer" },
+        "auto": { "type": "string", "enum": ["light", "medium", "heavy"] },
+        "gepa_budget": { "type": ["integer", "null"] },
+        "task": { "type": "string" }
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "train_frac": { "type": "number" },
+        "val_frac": { "type": "number" },
+        "min_val": { "type": "integer" },
+        "min_test": { "type": "integer" }
+      }
+    },
+    "optimizers": {
+      "type": "object",
+      "properties": {
+        "bootstrap": {
+          "type": "object",
+          "properties": {
+            "metric_threshold": { "type": "number" },
+            "max_bootstrapped_demos": { "type": "integer" },
+            "max_labeled_demos": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=../schemas/task.schema.json
+# Library recipe: Dataset metadata JSON-LD. Activate with:
+#   --profile metadata
+# or: cp profiles/metadata.yaml profile.yaml
+name: metadata
+description: "schema.org Dataset metadata records (Blueprint Table 1 JSON-LD)"
+
+generation:
+  output_field: metadata_record
+  input_field: task_description
+  input_desc: "A description of the dataset to produce Blueprint metadata for."
+  output_desc: "schema.org Dataset JSON-LD in a fenced code block, plus brief notes."
+  instructions: prompts/metadata.seed.md
+
+scoring:
+  rubric: prompts/metadata.rubric.md
+  weights:
+    jsonld: 0.25
+    table1: 0.40
+    pid: 0.15
+    judge: 0.20
+
+scenarios:
+  file: scenarios-metadata.json
+  seeds:
+    - "A study measured serum cytokine levels across 200 patients with autoimmune disease; describe the resulting dataset."
+    - "A whole-genome sequencing dataset of 500 Mycobacterium tuberculosis isolates from a surveillance program."
+    - "An RNA-seq dataset from influenza-infected mouse lung tissue sampled at multiple timepoints."
+    - "A curated collection of monoclonal antibodies with binding-affinity measurements against a viral antigen."
+    - "A longitudinal gut-microbiome dataset of stool 16S sequences from a vaccine-trial cohort."
+    - "A flow-cytometry immunophenotyping dataset from a Phase I clinical trial."
+    - "A set of cryo-EM density maps for a viral surface glycoprotein at several resolutions."
+    - "An antimicrobial-susceptibility dataset for clinical bacterial isolates across multiple hospitals."
+
+brainstorm:
+  domain_context: |
+    The NIAID Blueprint for Digital Objects asks repositories to describe each
+    dataset with schema.org/JSON-LD using the Table 1 metadata elements and
+    persistent identifiers, feeding the NIAID Data Ecosystem Discovery Portal.
+    Generate scenarios that describe a dataset (biomedical domain, data type,
+    scale, methods) that a NIAID-funded repository must produce metadata for.

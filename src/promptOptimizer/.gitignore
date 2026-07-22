@@ -1,0 +1,5 @@
+# Generated artifacts: cached Blueprint, compiled programs, comparison tables.
+# scenarios.json is also here — copy it out and commit it if you want to keep a
+# curated set under version control.
+artifacts/
+__pycache__/

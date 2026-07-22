@@ -1,0 +1,42 @@
+{
+  "generate.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "task_description": "A structural-biology resource wants to attach ORCID and ROR identifiers to creators and affiliations in its dataset metadata API."
+      },
+      {
+        "task_description": "An immunology lab's cytokine-assay data repository needs an endpoint that returns schema.org JSON-LD for a dataset by its DOI."
+      },
+      {
+        "task_description": "A microbiome study repository needs a bulk-access endpoint listing all datasets with their licenses and distributions."
+      }
+    ],
+    "signature": {
+      "instructions": "Produce a Blueprint-aligned API example for the given repository scenario.\n\nFollow the NIAID Blueprint for Digital Objects. Include:\n  * machine-readable dataset metadata as schema.org JSON-LD\n  * an OpenAPI description of the access endpoint(s) the scenario needs\n  * persistent identifiers where they apply\nGround the example in the scenario (domain, data type, access pattern).\nPrefer real, well-formed fenced code blocks over placeholders or generic\ntemplates. Keep the answer focused — metadata + API, not a long essay.",
+      "fields": [
+        {
+          "prefix": "Task Description:",
+          "description": "The repository / API scenario to produce a Blueprint-aligned example for."
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Api Example:",
+          "description": "JSON-LD metadata block and OpenAPI snippet (fenced code), briefly explained."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.13",
+      "dspy": "3.2.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}

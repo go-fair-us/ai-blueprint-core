@@ -1,4 +1,34 @@
+# Deployment Concepts
+
+```mermaid
+flowchart LR
+    c1[Web Client]
+    c2[CLI Client]
+    
+    c1 --> MCP
+    c2 --> MCP
+    
+    MCP[MCP] --> Right
+    
+    subgraph Right[Skill Bundle ]
+        direction TB
+        bp_questions[skill]
+        bp_build[build]
+        bp_validate[validate]
+        bp_document[blueprint]
+    end
+```
+
+* bp_question: The basic question skill. Not a schema builder, but a narrative exchange with the user.
+* bp_build: Build a valid JSON-LD for a given resource or example narrative prompt.
+* bp_validator: Simple SHACL validation for the schema builder skill.
+* bp_document: UNKNOWN REQUIREMENT A reference skill for someone looking for references in the Blueprint to cite. Potentially leveraging the OKF bundle?
+
+--- 
+
 # Workflow Thoughts
+
+This is some previous work that is slightly relatd to this section and added for just simple context.
 
 A simple pipeline from URL to metadata record, with schema-guided LLM extraction, SHACL validation, and human vetting.
 

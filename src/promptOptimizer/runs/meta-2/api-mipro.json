@@ -1,0 +1,45 @@
+{
+  "generate.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "task_description": "A microbiome study repository needs a bulk-access endpoint listing all datasets with their licenses and distributions.",
+        "reasoning": "To align with the NIAID Blueprint for Digital Objects, this example prioritizes interoperability and FAIR principles. \n1.  **Metadata Standard**: We use `schema.org/Dataset` encoded in JSON-LD. This ensures the data is machine-readable and linkable across the web of data.\n2.  **API Design**: The OpenAPI specification defines a bulk access endpoint (`GET /datasets`) that returns a collection of these JSON-LD objects. This separates the metadata description from the access mechanism while keeping them semantically consistent.\n3.  **Domain Grounding**: The example uses microbiome-specific identifiers (e.g., NCBI BioProject accession) and data types (16S rRNA sequencing) to demonstrate real-world applicability.\n4.  **Licenses & Distributions**: Explicit fields for `license` (URL) and `distribution` (DataDownload) are included to satisfy reuse and access requirements.\n5.  **Persistent Identifiers**: DOIs are used for the dataset itself, ensuring long-term citability.",
+        "api_example": "### 1. Schema.org JSON-LD Metadata Example\nThis represents a single dataset object returned by the bulk endpoint. It includes the required license and distribution information.\n\n```json\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Dataset\",\n  \"@id\": \"https://doi.org/10.2345/microbiome.study.001\",\n  \"identifier\": [\n    {\n      \"@type\": \"PropertyValue\",\n      \"propertyID\": \"DOI\",\n      \"value\": \"10.2345/microbiome.study.001\"\n    },\n    {\n      \"@type\": \"PropertyValue\",\n      \"propertyID\": \"BioProject\",\n      \"value\": \"PRJNA123456\"\n    }\n  ],\n  \"name\": \"Human Gut Microbiome 16S rRNA Sequencing Data\",\n  \"description\": \"Longitudinal study of gut microbiota composition in adults over 6 months.\",\n  \"license\": \"https://creativecommons.org/publicdomain/zero/1.0/\",\n  \"distribution\": [\n    {\n      \"@type\": \"DataDownload\",\n      \"encodingFormat\": \"application/fastq\",\n      \"contentUrl\": \"https://repo.microbiome.org/download/PRJNA123456/fastq\"\n    },\n    {\n      \"@type\": \"DataDownload\",\n      \"encodingFormat\": \"application/json\",\n      \"contentUrl\": \"https://repo.microbiome.org/download/PRJNA123456/metadata\"\n    }\n  ],\n  \"creator\": {\n    \"@type\": \"Organization\",\n    \"name\": \"Microbiome Research Consortium\"\n  }\n}\n```\n\n### 2. OpenAPI Specification Snippet\nThis defines the bulk access endpoint. The response schema is designed to return a list of the JSON-LD objects defined above.\n\n```yaml\nopenapi: 3.0.3\ninfo:\n  title: Microbiome Repository Bulk Access API\n  version: 1.0.0\n  description: Provides bulk listing of datasets with license and distribution metadata.\nservers:\n  - url: https://api.repo.microbiome.org/v1\npaths:\n  /datasets:\n    get:\n      summary: List all datasets\n      operationId: listDatasets\n      parameters:\n        - in: query\n          name: limit\n          schema:\n            type: integer\n            default: 100\n          description: Maximum number of datasets to return.\n        - in: query\n          name: offset\n          schema:\n            type: integer\n            default: 0\n          description: Pagination offset.\n      responses:\n        '200':\n          description: Successful bulk retrieval\n          content:\n            application/ld+json:\n              schema:\n                type: object\n                properties:\n                  \"@context\":\n                    type: string\n                    example: \"https://schema.org\"\n                  \"@type\":\n                    type: string\n                    example: \"Collection\"\n                  \"member\":\n                    type: array\n                    items:\n                      $ref: '#/components/schemas/Dataset'\n        '429':\n          description: Too many requests\ncomponents:\n  schemas:\n    Dataset:\n      type: object\n      required:\n        - \"@type\"\n        - \"@id\"\n        - \"license\"\n        - \"distribution\"\n      properties:\n        \"@type\":\n          type: string\n          enum:\n            - Dataset\n        \"@id\":\n          type: string\n          format: uri\n          description: Persistent Identifier (DOI URL)\n        identifier:\n          type: array\n          items:\n            $ref: '#/components/schemas/PropertyValue'\n        license:\n          type: string\n          format: uri\n          description: URL to the license document\n        distribution:\n          type: array\n          items:\n            $ref: '#/components/schemas/DataDownload'\n    PropertyValue:\n      type: object\n      properties:\n        propertyID:\n          type: string\n        value:\n          type: string\n    DataDownload:\n      type: object\n      properties:\n        \"@type\":\n          type: string\n          enum:\n            - DataDownload\n        encodingFormat:\n          type: string\n        contentUrl:\n          type: string\n          format: uri\n```"
+      },
+      {
+        "task_description": "An immunology lab's cytokine-assay data repository needs an endpoint that returns schema.org JSON-LD for a dataset by its DOI."
+      },
+      {
+        "task_description": "A structural-biology resource wants to attach ORCID and ROR identifiers to creators and affiliations in its dataset metadata API."
+      }
+    ],
+    "signature": {
+      "instructions": "You are a scientific data infrastructure specialist tasked with generating **FAIR-aligned API documentation artifacts** following the **NIAID Blueprint for Digital Objects** standards.\n\n**Your Task:**\nGiven a repository/API scenario description, produce two structured outputs:\n\n1. **Reasoning Section:** A chain-of-thought explanation that explicitly maps the scenario to FAIR principles (Findable, Accessible, Interoperable, Reusable) and justifies your technical decisions. Address:\n   - Which persistent identifiers apply (DOI for datasets, ORCID for researchers, ROR for institutions)\n   - What domain-specific metadata requirements exist (e.g., microbiome formats, immunology assays, structural biology techniques)\n   - Why you selected specific schema.org vocabulary and OpenAPI structures\n   - How your solution ensures machine-actionability and semantic interoperability\n\n2. **API Example Section:** Concrete, implementation-ready technical artifacts consisting of:\n   - **Schema.org JSON-LD Metadata:** A well-formed JSON-LD block using `@context: \"https://schema.org/\"` with appropriate types (`Dataset`, `Person`, `Organization`, `DataDownload`). Include all relevant fields like `@id`, `identifier`, `name`, `description`, `creator`, `license`, `distribution`, and domain-specific properties.\n   - **OpenAPI 3.0 Specification:** A YAML snippet defining the RESTful endpoint(s) needed for the scenario. Include `info`, `servers`, `paths`, `parameters`, `responses`, and `components/schemas` with proper content-type negotiation (e.g., `application/ld+json`).\n\n**Quality Requirements:**\n- Ground all examples in the specific domain context provided (do not use generic placeholders)\n- Use real, well-formed fenced code blocks (```json and ```yaml)\n- Ensure persistent identifiers follow proper URL formats (https://doi.org/, https://orcid.org/, https://ror.org/)\n- Keep outputs focused on technical artifacts—avoid lengthy essays\n- Maintain Blueprint alignment throughout (machine-readable, standards-compliant, interoperable)\n\n**Output Format:**\nStructure your response as:\n```\nReasoning: [Your FAIR-aligned justification]\nApi Example: [Your JSON-LD and OpenAPI artifacts with brief explanations]\n```",
+      "fields": [
+        {
+          "prefix": "Task Description:",
+          "description": "The repository / API scenario to produce a Blueprint-aligned example for."
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Api Example:",
+          "description": "JSON-LD metadata block and OpenAPI snippet (fenced code), briefly explained."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.13",
+      "dspy": "3.2.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}

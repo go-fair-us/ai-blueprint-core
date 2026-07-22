@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=./schemas/task.schema.json
+# Active run profile for this config root. Switch goals by editing this file,
+# copying from profiles/, or passing --profile <name|path>.
+name: api
+description: "Blueprint-aligned API examples (JSON-LD + OpenAPI + PIDs)"
+
+generation:
+  output_field: api_example
+  input_field: task_description
+  input_desc: "The repository / API scenario to produce a Blueprint-aligned example for."
+  output_desc: "JSON-LD metadata block and OpenAPI snippet (fenced code), briefly explained."
+  # Path relative to config root, or an inline string
+  instructions: prompts/api.seed.md
+
+scoring:
+  rubric: prompts/api.rubric.md
+  weights:
+    jsonld: 0.12
+    openapi: 0.18
+    table1: 0.30
+    pid: 0.12
+    judge: 0.28
+
+scenarios:
+  # Prefer scenarios-api.json under inputdir/outputdir (existing workflow).
+  # file is an optional extra name to try under config root / inputdir.
+  file: scenarios-api.json
+  seeds:
+    - "A repository of pathogen genomic sequences wants to expose each dataset's metadata via a machine-readable API."
+    - "An immunology lab's cytokine-assay data repository needs an endpoint that returns schema.org JSON-LD for a dataset by its DOI."
+    - "A clinical-cohort data resource wants to let clients content-negotiate between HTML and JSON-LD for the same dataset URL."
+    - "A vaccine-trial data catalog wants an API that resolves a dataset's persistent identifier to its landing page and metadata."
+    - "A microbiome study repository needs a bulk-access endpoint listing all datasets with their licenses and distributions."
+    - "A structural-biology resource wants to attach ORCID and ROR identifiers to creators and affiliations in its dataset metadata API."
+    - "An antimicrobial-resistance surveillance repository wants an OpenAPI-described search endpoint filtering datasets by organism and date."
+    - "A reagent/antibody repository wants its dataset metadata API to include RRIDs and link to the NIAID Data Ecosystem Discovery Portal."
+
+brainstorm:
+  domain_context: |
+    The NIAID Blueprint for Digital Objects is a FAIR-data initiative whose
+    machine-access area asks repositories to expose datasets via APIs using
+    schema.org/JSON-LD and OpenAPI, with persistent identifiers, feeding the
+    NIAID Data Ecosystem Discovery Portal. Generate scenarios in which a
+    NIAID-funded repository needs a Blueprint-aligned API — metadata exposure,
+    content negotiation, PID resolution, search, or bulk access.

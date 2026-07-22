@@ -1,0 +1,253 @@
+{
+  "updated_at": "2026-07-20T00:21:13Z",
+  "last": {
+    "timestamp": "2026-07-20T00:21:13Z",
+    "command": "mipro",
+    "task": "api",
+    "flags": {
+      "command": "compare",
+      "backend": "nrp",
+      "reflection_backend": "openrouter",
+      "judge": "reflection",
+      "seed": 0,
+      "num_threads": 8,
+      "auto": "light",
+      "workdir": "runs/meta-2"
+    },
+    "models": {
+      "task_model": "custom_openai/qwen3",
+      "reflection_model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free"
+    },
+    "paths": {
+      "workdir": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2",
+      "inputdir": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2",
+      "outputdir": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2",
+      "config_root": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/config",
+      "config_default": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/config/default.yaml"
+    },
+    "data": {
+      "task": "api",
+      "scenarios_source": "seed_scenarios",
+      "n_scenarios": 8,
+      "split": {
+        "train": 3,
+        "val": 3,
+        "test": 2
+      }
+    },
+    "result": {
+      "name": "mipro",
+      "score": 0.42829999999999996,
+      "seconds": 3513.3727868080023,
+      "total_tokens": 1455942,
+      "prompt_tokens": 940181,
+      "completion_tokens": 515761,
+      "cost": 0.0,
+      "artifact": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2/api-mipro.json",
+      "usage_by_lm": {
+        "custom_openai/qwen3": {
+          "prompt_tokens": 167738,
+          "completion_tokens": 230556,
+          "total_tokens": 398294,
+          "cost": 0.0,
+          "calls": 78
+        },
+        "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free": {
+          "prompt_tokens": 772443,
+          "completion_tokens": 285205,
+          "total_tokens": 1057648,
+          "cost": 0.0,
+          "calls": 77
+        }
+      }
+    }
+  },
+  "commands": {
+    "baseline": {
+      "timestamp": "2026-07-19T23:14:59Z",
+      "command": "baseline",
+      "task": "api",
+      "flags": {
+        "command": "compare",
+        "backend": "nrp",
+        "reflection_backend": "openrouter",
+        "judge": "reflection",
+        "seed": 0,
+        "num_threads": 8,
+        "auto": "light",
+        "workdir": "runs/meta-2"
+      },
+      "models": {
+        "task_model": "custom_openai/qwen3",
+        "reflection_model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free"
+      },
+      "paths": {
+        "workdir": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2",
+        "inputdir": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2",
+        "outputdir": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2",
+        "config_root": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/config",
+        "config_default": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/config/default.yaml"
+      },
+      "data": {
+        "task": "api",
+        "scenarios_source": "seed_scenarios",
+        "n_scenarios": 8,
+        "split": {
+          "train": 3,
+          "val": 3,
+          "test": 2
+        }
+      },
+      "result": {
+        "name": "baseline",
+        "score": 0.39880000000000004,
+        "seconds": 165.86434964998625,
+        "total_tokens": 33152,
+        "prompt_tokens": 20211,
+        "completion_tokens": 12941,
+        "cost": 0.0,
+        "artifact": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2/api-baseline.json",
+        "usage_by_lm": {
+          "custom_openai/qwen3": {
+            "prompt_tokens": 693,
+            "completion_tokens": 5764,
+            "total_tokens": 6457,
+            "cost": 0.0,
+            "calls": 2
+          },
+          "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free": {
+            "prompt_tokens": 19518,
+            "completion_tokens": 7177,
+            "total_tokens": 26695,
+            "cost": 0.0,
+            "calls": 2
+          }
+        }
+      }
+    },
+    "bootstrap": {
+      "timestamp": "2026-07-19T23:22:39Z",
+      "command": "bootstrap",
+      "task": "api",
+      "flags": {
+        "command": "compare",
+        "backend": "nrp",
+        "reflection_backend": "openrouter",
+        "judge": "reflection",
+        "seed": 0,
+        "num_threads": 8,
+        "auto": "light",
+        "workdir": "runs/meta-2"
+      },
+      "models": {
+        "task_model": "custom_openai/qwen3",
+        "reflection_model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free"
+      },
+      "paths": {
+        "workdir": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2",
+        "inputdir": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2",
+        "outputdir": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2",
+        "config_root": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/config",
+        "config_default": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/config/default.yaml"
+      },
+      "data": {
+        "task": "api",
+        "scenarios_source": "seed_scenarios",
+        "n_scenarios": 8,
+        "split": {
+          "train": 3,
+          "val": 3,
+          "test": 2
+        }
+      },
+      "result": {
+        "name": "bootstrap",
+        "score": 0.3023,
+        "seconds": 459.78727166197496,
+        "total_tokens": 118041,
+        "prompt_tokens": 71028,
+        "completion_tokens": 47013,
+        "cost": 0.0,
+        "artifact": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2/api-bootstrap.json",
+        "usage_by_lm": {
+          "custom_openai/qwen3": {
+            "prompt_tokens": 2421,
+            "completion_tokens": 21278,
+            "total_tokens": 23699,
+            "cost": 0.0,
+            "calls": 7
+          },
+          "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free": {
+            "prompt_tokens": 68607,
+            "completion_tokens": 25735,
+            "total_tokens": 94342,
+            "cost": 0.0,
+            "calls": 7
+          }
+        }
+      }
+    },
+    "mipro": {
+      "timestamp": "2026-07-20T00:21:13Z",
+      "command": "mipro",
+      "task": "api",
+      "flags": {
+        "command": "compare",
+        "backend": "nrp",
+        "reflection_backend": "openrouter",
+        "judge": "reflection",
+        "seed": 0,
+        "num_threads": 8,
+        "auto": "light",
+        "workdir": "runs/meta-2"
+      },
+      "models": {
+        "task_model": "custom_openai/qwen3",
+        "reflection_model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free"
+      },
+      "paths": {
+        "workdir": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2",
+        "inputdir": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2",
+        "outputdir": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2",
+        "config_root": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/config",
+        "config_default": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/config/default.yaml"
+      },
+      "data": {
+        "task": "api",
+        "scenarios_source": "seed_scenarios",
+        "n_scenarios": 8,
+        "split": {
+          "train": 3,
+          "val": 3,
+          "test": 2
+        }
+      },
+      "result": {
+        "name": "mipro",
+        "score": 0.42829999999999996,
+        "seconds": 3513.3727868080023,
+        "total_tokens": 1455942,
+        "prompt_tokens": 940181,
+        "completion_tokens": 515761,
+        "cost": 0.0,
+        "artifact": "/home/fils/src/Projects/NIAID/ai-blueprint-core/src/promptOptimizer/runs/meta-2/api-mipro.json",
+        "usage_by_lm": {
+          "custom_openai/qwen3": {
+            "prompt_tokens": 167738,
+            "completion_tokens": 230556,
+            "total_tokens": 398294,
+            "cost": 0.0,
+            "calls": 78
+          },
+          "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free": {
+            "prompt_tokens": 772443,
+            "completion_tokens": 285205,
+            "total_tokens": 1057648,
+            "cost": 0.0,
+            "calls": 77
+          }
+        }
+      }
+    }
+  }
+}

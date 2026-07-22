@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.promptOptimizer/config/schemas/task.schema.json",
+  "title": "promptOptimizer profile config",
+  "description": "Active goal profile for promptOptimizer (config/profile.yaml or config/profiles/*.yaml).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "generation", "scoring", "scenarios", "brainstorm"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Task id (must match the YAML filename stem)."
+    },
+    "description": {
+      "type": "string"
+    },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["output_field", "input_field", "instructions"],
+      "properties": {
+        "output_field": { "type": "string" },
+        "input_field": { "type": "string" },
+        "input_desc": { "type": "string" },
+        "output_desc": { "type": "string" },
+        "instructions": {
+          "type": "string",
+          "description": "Inline seed prompt, or path to a .md/.txt sidecar relative to config root."
+        }
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rubric", "weights"],
+      "properties": {
+        "rubric": {
+          "type": "string",
+          "description": "Inline rubric, or path to a .md/.txt sidecar."
+        },
+        "weights": {
+          "type": "object",
+          "description": "Component weights; must sum to 1.0. Keys: jsonld, openapi, table1, pid, judge.",
+          "additionalProperties": { "type": "number", "minimum": 0, "maximum": 1 },
+          "minProperties": 1
+        }
+      }
+    },
+    "scenarios": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["seeds"],
+      "properties": {
+        "file": {
+          "type": ["string", "null"],
+          "description": "Optional scenarios JSON basename/path."
+        },
+        "seeds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" },
+          "description": "Fallback scenario strings when no scenarios JSON is present."
+        }
+      }
+    },
+    "brainstorm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["domain_context"],
+      "properties": {
+        "domain_context": {
+          "type": "string",
+          "description": "Framing text for gen-scenarios brainstorming."
+        }
+      }
+    }
+  }
+}
