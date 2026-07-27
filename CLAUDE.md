@@ -12,20 +12,24 @@ The repository is **content-first, not code-first**: its primary deliverables ar
 
 The repo offers three ways to apply the Blueprint, layered from most to least integrated with Claude Code:
 
-1. **Claude Code skills** (`.claude/skills/`) — the main deliverable. Auto-loaded when Claude Code opens in this project. See below.
+1. **Claude Code skills** (`skills/`) — the main deliverable. Skill directories use the `niaid-bp-` prefix. See below.
 2. **Prompt personas** (`prompts/`) — standalone system prompts for the "flipped interaction" pattern: paste one into any modern LLM and it drives the conversation, interviewing the user and producing an artifact. These are model-agnostic (used outside Claude Code too).
 3. **DSPy RLM script** (`secret/rv2.py`) — runnable Python that analyzes a directory of Markdown docs and writes a report. `secret/` is **gitignored** (contains source work-plan PDFs and outputs).
 
-The same domain logic often appears in more than one layer (e.g. FAIR assessment exists as both the `fair-assess` skill and the `fairAssessmentInterview.md` prompt). When changing assessment/intake behavior, check whether a parallel copy needs the same change.
+The same domain logic often appears in more than one layer (e.g. FAIR assessment exists as both the `niaid-bp-fair-assess` skill and the `fairAssessmentInterview.md` prompt). When changing assessment/intake behavior, check whether a parallel copy needs the same change.
 
-## Claude Code skills (`.claude/skills/`)
+## Claude Code skills (`skills/`)
 
 Each skill follows the standard layout: a `SKILL.md` (frontmatter + persona + flow) plus `references/` (loaded on demand during the interview) and `assets/` (templates/skeletons). The skills are **interview-driven**: they ask one or two questions at a time and progressively load reference files rather than front-loading everything.
 
-- **`fair-assess`** — six-phase Blueprint FAIR assessment interview → prioritized gap report. Phases and question sets live in `references/interview-phases.md`; output uses `assets/report-template.md`. Priority rules (High/Medium/Low) are defined in the SKILL.
-- **`dataset-intake`** — conversational metadata interview across five element groups (identity, provenance, content, access, context) → valid schema.org `Dataset` JSON-LD. Element questions/formats in `references/element-guide.md`; JSON-LD assembly guided by `references/jsonld-structure.md` + `assets/blank-dataset.jsonld`. `references/pid-help.md` walks users through finding PIDs (ORCID, ROR, NCBITaxon, MONDO, SPDX).
-- **`blueprint-metadata-extract`** — URL-driven metadata extraction: fetches a target resource page (Blueprint spec and example JSON from GitHub raw URLs), extracts Table 1 elements, and produces JSON-LD plus metadata notes. Workflow in `references/extraction-workflow.md`. Documented in `docs/metadataGeneration.md`.
-- **`model-statement`** — conversational interview for producing a Model Influence Statement (voluntary disclosure of ML model use in a research work), branching on whether a model was used → a markdown statement plus a one-paragraph acknowledgment summary. Mirrors the upstream [Model Influence Statement Generator](https://github.com/pengyin-shan/Model-Influence-Statement) by Pengyin Shan; bundles verbatim `statement-template.md` + `example-influence-statement.md`. Output rendering and timestamped file artifacts come from `scripts/save_statement.py` (stdlib only, tested in `tests/`).
+**Naming:** directory name = frontmatter `name` = slash command; pattern `niaid-bp-<activity>`. (`skills/hermes/` is a separate packaging path and is not under this convention.)
+
+- **`niaid-bp-fair-assess`** — six-phase Blueprint FAIR assessment interview → prioritized gap report. Phases and question sets live in `references/interview-phases.md`; output uses `assets/report-template.md`. Priority rules (High/Medium/Low) are defined in the SKILL.
+- **`niaid-bp-dataset-intake`** — conversational metadata interview across five element groups (identity, provenance, content, access, context) → valid schema.org `Dataset` JSON-LD. Element questions/formats in `references/element-guide.md`; JSON-LD assembly guided by `references/jsonld-structure.md` + `assets/blank-dataset.jsonld`. `references/pid-help.md` walks users through finding PIDs (ORCID, ROR, NCBITaxon, MONDO, SPDX).
+- **`niaid-bp-metadata-extract`** — URL-driven metadata extraction: fetches a target resource page (Blueprint spec and example JSON from GitHub raw URLs), extracts Table 1 elements, and produces JSON-LD plus metadata notes. Workflow in `references/extraction-workflow.md`. Documented in `docs/metadataGeneration.md`.
+- **`niaid-bp-citation`** — conversational interview for Blueprint Section 4 citation text and BibTeX (original deposits, reused data, repository-level citations, "How to Cite" drafts). Guidelines in `references/citation-guidelines.md`; optional save helper in `scripts/save_citation.py`.
+- **`niaid-bp-model-influence`** — conversational interview for producing a Model Influence Statement (voluntary disclosure of ML model use in a research work), branching on whether a model was used → a markdown statement plus a one-paragraph acknowledgment summary. Mirrors the upstream [Model Influence Statement Generator](https://github.com/pengyin-shan/Model-Influence-Statement) by Pengyin Shan; bundles verbatim `statement-template.md` + `example-influence-statement.md`. Output rendering and timestamped file artifacts come from `scripts/save_statement.py` (stdlib only, tested in `tests/`).
+- **`niaid-bp-teach`** — multi-session Blueprint teaching workspace (MISSION, HTML lessons, learning records, glossary, resources). Hands-on curriculum steps hand off to sibling skills.
 
 When editing a skill, keep the `SKILL.md` frontmatter (`name`, `description`, `when_to_use`) accurate — that text is what triggers the skill — and remember reference files are read mid-interview, so their structure is load-bearing.
 

@@ -42,7 +42,7 @@ When creating `RESOURCES.md`, seed at least these entries (update URLs if the re
   Use for: official NIAID framing, PDF distribution, and program context when the markdown spec is insufficient.
 
 - [GO FAIR US — ai-blueprint-core](https://github.com/go-fair-us/ai-blueprint-core)  
-  Use for: skills (`fair-assess`, `dataset-intake`, `blueprint-metadata-extract`), examples, and implementation tooling in this repository.
+  Use for: skills (`niaid-bp-fair-assess`, `niaid-bp-dataset-intake`, `niaid-bp-metadata-extract`), examples, and implementation tooling in this repository.
 
 - [NIAID Data Ecosystem Discovery Portal](https://data.niaid.nih.gov/)  
   Use for: why repositories implement the Blueprint; discovery and integration motivation.

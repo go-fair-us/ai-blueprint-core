@@ -4,12 +4,12 @@ Extract Blueprint-aligned schema.org JSON-LD metadata from a web resource URL â€
 
 ## Claude Code skill (recommended)
 
-Use the **`blueprint-metadata-extract`** skill in `.claude/skills/blueprint-metadata-extract/`. It loads the extraction workflow from `references/extraction-workflow.md`, fetches authoritative references from GitHub raw URLs, retrieves the target page, and produces a JSON-LD record plus metadata notes.
+Use the **`niaid-bp-metadata-extract`** skill in `skills/niaid-bp-metadata-extract/`. It loads the extraction workflow from `references/extraction-workflow.md`, fetches authoritative references from GitHub raw URLs, retrieves the target page, and produces a JSON-LD record plus metadata notes.
 
 **Invoke:**
 
 ```
-/blueprint-metadata-extract https://immport.org/shared/study/SDY998
+/niaid-bp-metadata-extract https://immport.org/shared/study/SDY998
 ```
 
 Or paste a URL in natural language: "extract Blueprint metadata from https://â€¦"
@@ -20,7 +20,7 @@ The skill requires a **resource URL** (skill argument or user message). If none 
 
 For a web-retrieval-capable LLM outside Claude Code, use the extraction workflow in:
 
-`.claude/skills/blueprint-metadata-extract/references/extraction-workflow.md`
+`skills/niaid-bp-metadata-extract/references/extraction-workflow.md`
 
 Before running, substitute `{{RESOURCE_URL}}` with the target URL. Fetch these authoritative references from GitHub (do not rely on local copies):
 
@@ -59,5 +59,5 @@ Three sections (defined in the extraction workflow):
 
 - Blueprint spec (raw): https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 - Example record (raw): https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/example.json
-- Interview-based alternative: `.claude/skills/dataset-intake/` (user provides values, no web fetch)
+- Interview-based alternative: `skills/niaid-bp-dataset-intake/` (user provides values, no web fetch)
 - Pipeline sketch: `docs/workflowThoughts.md`

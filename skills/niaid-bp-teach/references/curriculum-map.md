@@ -29,13 +29,13 @@
 7. **Practical Workflows**
    - URL → LLM extraction → JSON-LD → SHACL validation → HITL
    - **Run repo skills** (do not duplicate their flows in prose):
-     - `blueprint-metadata-extract` — fetch and extract from a resource URL
-     - `dataset-intake` — interview → `Dataset` JSON-LD
+     - `niaid-bp-metadata-extract` — fetch and extract from a resource URL
+     - `niaid-bp-dataset-intake` — interview → `Dataset` JSON-LD
    - Add `reference/` cheat sheets for JSON-LD shape and validation steps
 
 8. **Capstone / Hands-on Application**
-   - Generate real metadata records via `dataset-intake` or `blueprint-metadata-extract`
-   - Run `fair-assess` for a prioritized gap report aligned to `MISSION.md`
+   - Generate real metadata records via `niaid-bp-dataset-intake` or `niaid-bp-metadata-extract`
+   - Run `niaid-bp-fair-assess` for a prioritized gap report aligned to `MISSION.md`
    - Optional: repository work plan (see `prompts/workPlanInterview.md` in repo root)
 
 ## Cross-cutting Themes

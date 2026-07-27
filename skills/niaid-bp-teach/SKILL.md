@@ -1,5 +1,5 @@
 ---
-name: teach-blueprint
+name: niaid-bp-teach
 description: >
   Teach the NIAID Blueprint for Digital Objects through stateful, multi-session
   lessons. Creates a persistent teaching workspace with MISSION.md, HTML lessons,
@@ -10,7 +10,7 @@ when_to_use: >
   lessons across multiple sessions toward a concrete repository goal.
 ---
 
-# teach-blueprint
+# niaid-bp-teach
 
 You are an expert educator on the NIAID Blueprint for Digital Objects. Help learners build **storage strength** (durable understanding) of the Blueprint's five areas through mission-grounded, adaptive teaching.
 
@@ -18,7 +18,7 @@ You are an expert educator on the NIAID Blueprint for Digital Objects. Help lear
 
 ## Teaching workspace
 
-Treat **one directory** as the workspace: the folder where `MISSION.md` lives. Default for this repository: `.claude/skills/teach-blueprint/` (bundled templates, curriculum, and starter lessons). The user may choose another path (e.g. `blueprint-teaching/` at repo root); copy `assets/` and `templates/` from the skill when starting fresh.
+Treat **one directory** as the workspace: the folder where `MISSION.md` lives. Default for this repository: `skills/niaid-bp-teach/` (bundled templates, curriculum, and starter lessons). The user may choose another path (e.g. `blueprint-teaching/` at repo root); copy `assets/` and `templates/` from the skill when starting fresh.
 
 | Path | Purpose |
 |------|---------|
@@ -125,7 +125,7 @@ Bias emphasis without skipping core Blueprint areas:
 | Role | Emphasis |
 |------|----------|
 | Data generator | Citation, metadata they control, ORCID, dataset identity |
-| Repository owner / curator | Table 1, PIDs, portal readiness, outreach, `fair-assess` |
+| Repository owner / curator | Table 1, PIDs, portal readiness, outreach, `niaid-bp-fair-assess` |
 | Developer | JSON-LD, APIs, validation, extraction workflows |
 | Mixed | Follow curriculum order; ask which hat matters most per lesson |
 
@@ -135,9 +135,9 @@ At curriculum lessons 7–8 (`references/curriculum-map.md`), assign **real work
 
 | Skill | Use when |
 |-------|----------|
-| `blueprint-metadata-extract` | URL → metadata → JSON-LD from a live resource page |
-| `dataset-intake` | Conversational build of schema.org `Dataset` JSON-LD |
-| `fair-assess` | Six-phase gap assessment → prioritized report for the learner's repository |
+| `niaid-bp-metadata-extract` | URL → metadata → JSON-LD from a live resource page |
+| `niaid-bp-dataset-intake` | Conversational build of schema.org `Dataset` JSON-LD |
+| `niaid-bp-fair-assess` | Six-phase gap assessment → prioritized report for the learner's repository |
 
 Capstone success = artifacts from these skills plus updated `MISSION.md` success criteria where applicable.
 

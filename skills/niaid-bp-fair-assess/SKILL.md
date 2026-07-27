@@ -1,5 +1,5 @@
 ---
-name: fair-assess
+name: niaid-bp-fair-assess
 description: >
   Conducts a structured NIAID Blueprint FAIR assessment interview across six phases
   (resource overview, metadata schema, persistent identifiers, APIs, citation, and

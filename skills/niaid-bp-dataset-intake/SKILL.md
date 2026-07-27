@@ -1,5 +1,5 @@
 ---
-name: dataset-intake
+name: niaid-bp-dataset-intake
 description: >
   Conducts a conversational interview to collect metadata for a schema.org Dataset
   and produces a valid JSON-LD document aligned with the NIAID Blueprint for Digital

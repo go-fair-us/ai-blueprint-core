@@ -1,4 +1,4 @@
-# Teaching Phases for teach-blueprint
+# Teaching Phases for niaid-bp-teach
 
 ## Phase 0: Mission & Workspace Setup
 - Confirm or create `MISSION.md` (`formats/MISSION-FORMAT.md`, `MISSION-EXAMPLE.md`)

@@ -23,7 +23,7 @@ question sequence, collects structured responses, and produces:
 ## Directory Layout
 
 ```
-model-statement/
+niaid-bp-model-influence/
 ├── SKILL.md                        # Main skill definition (interview + output rules)
 ├── README.md                       # This file
 ├── statement-template.md           # Verbatim upstream blank template
@@ -38,14 +38,12 @@ model-statement/
 
 No extra Python dependencies are required (stdlib only).
 
-The skill lives at `.claude/skills/model-statement/SKILL.md` in this repository. Claude
-Code auto-discovers skills placed under `.claude/skills/` when it opens in the project,
-so no manual registration is needed.
+The skill lives at `skills/niaid-bp-model-influence/SKILL.md` in this repository.
 
 Optional: make the save script executable:
 
 ```bash
-chmod +x .claude/skills/model-statement/scripts/save_statement.py
+chmod +x skills/niaid-bp-model-influence/scripts/save_statement.py
 ```
 
 ## Usage
@@ -55,7 +53,7 @@ chmod +x .claude/skills/model-statement/scripts/save_statement.py
 Invoke the skill in conversation with the slash command:
 
 ```
-/model-statement
+/niaid-bp-model-influence
 ```
 
 Or ask naturally:
@@ -88,7 +86,7 @@ used, support single or multiple model entries, and produce final outputs on com
 After the interview, pass collected JSON to the save helper:
 
 ```bash
-python .claude/skills/model-statement/scripts/save_statement.py '<json_data>' [output_dir]
+python skills/niaid-bp-model-influence/scripts/save_statement.py '<json_data>' [output_dir]
 ```
 
 Produces timestamped files:
@@ -122,7 +120,7 @@ text.
 ## Testing
 
 ```bash
-python -m pytest .claude/skills/model-statement/tests/test_save_statement.py -v
+python -m pytest skills/niaid-bp-model-influence/tests/test_save_statement.py -v
 ```
 
 ## Non-goals

@@ -1,11 +1,11 @@
 ---
-name: model-statement
+name: niaid-bp-model-influence
 description: >
   Guide authors through developing a complete Model Influence Statement using the
   exact questions, fields, branching, and output structures from the Model Influence
   Statement Generator (https://model-influence-statement-generator.netlify.app/).
   Use when the user wants to create, fill out, or export a model influence statement,
-  disclose ML model use in research, acknowledge AI assistance, or runs /model-statement.
+  disclose ML model use in research, acknowledge AI assistance, or runs /niaid-bp-model-influence.
 license: Apache-2.0
 metadata:
   author: GoFAIR US
@@ -309,7 +309,7 @@ What is the title of the work you are disclosing?
 ### No-model path (abbreviated)
 
 ```
-User: /model-statement
+User: /niaid-bp-model-influence
 
 Assistant: Question 1: Did you use a machine-learning model in the creation of this work?
 

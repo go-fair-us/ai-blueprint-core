@@ -1,6 +1,6 @@
 # Blueprint Citation Guidelines
 
-Reference for the `blueprint-citation` skill. Source: NIAID Blueprint Section 4
+Reference for the `niaid-bp-citation` skill. Source: NIAID Blueprint Section 4
 (`docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md`).
 
 ## Core Requirements

@@ -1,11 +1,11 @@
 ---
-name: blueprint-citation
+name: niaid-bp-citation
 description: >
   Guide users through generating citation text and BibTeX entries aligned with the
   NIAID Blueprint for Digital Objects (Section 4). Supports original-data deposits,
   reused-data attribution, and repository-level citations with PID integration (DOI,
   RRID, ORCID). Use when the user wants citation examples, BibTeX for a dataset or
-  software object, a "How to Cite" page draft, or runs /blueprint-citation.
+  software object, a "How to Cite" page draft, or runs /niaid-bp-citation.
 license: Apache-2.0
 metadata:
   author: GoFAIR US
@@ -275,7 +275,7 @@ Assistant: [generates citations per example-citation-output.md]
 ### Repository owner — How to Cite page (abbreviated)
 
 ```
-User: /blueprint-citation — I'm the ImmPort team and need a How to Cite page.
+User: /niaid-bp-citation — I'm the ImmPort team and need a How to Cite page.
 
 Assistant: What citation scenarios should the page cover — original deposits, reused
 data, repository as a whole, or all?
