@@ -18,6 +18,9 @@ mcp = [
     "rank-bm25>=0.2",
     "rapidfuzz>=3.0",
 ]
+validation = [
+    "pyshacl>=0.40.0",
+]
 
 [dependency-groups]
 dev = [

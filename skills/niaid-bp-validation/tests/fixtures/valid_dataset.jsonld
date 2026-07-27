@@ -1,0 +1,8 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Dataset",
+  "@id": "https://doi.org/10.21430/M3KXJHSP4T",
+  "name": "AMP Rheumatoid Arthritis Phase 1",
+  "description": "The primary goal for RA arthroplasty Phase 1 studies is to collect high-quality multi-modal data from patients undergoing joint replacement surgery for rheumatoid arthritis research use.",
+  "url": "https://immport.org/shared/study/SDY998"
+}

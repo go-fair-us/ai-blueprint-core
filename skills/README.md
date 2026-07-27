@@ -92,6 +92,23 @@ Multi-session teaching of the Blueprint: mission, HTML lessons, learning records
 
 ---
 
+## `/niaid-bp-validation` — SHACL Dataset Validation
+
+Validates a `schema:Dataset` graph (JSON-LD or Turtle) against a bundled SHACL shapes graph using **pySHACL**. Emits a severity-aware conformance verdict plus structured results (`report.ttl`, `results.json`, `conforms.json`).
+
+**Use when:** You have Dataset JSON-LD (e.g. from `niaid-bp-dataset-intake` or `niaid-bp-metadata-extract`) and want machine-checkable required-field validation.
+
+**How to invoke:**
+```
+/niaid-bp-validation path/to/dataset.jsonld
+```
+
+**Dependency:** `uv sync --extra validation` (installs `pyshacl`).
+
+**Initial shape:** `assets/blueprint-required.ttl` — required `name`, `description` (50–5000 chars), and `url` on `schema:Dataset` (derived from Google Dataset / EarthCube `googleRequired.ttl`). Expandable for full Blueprint Table 1 later.
+
+---
+
 ## Skill files
 
 Skills live in `skills/` and follow the standard Claude Code skill layout (`SKILL.md` + optional `references/`, `assets/`, `scripts/`). The `hermes/` directory is a separate packaging path and is not part of the `niaid-bp-*` naming set.
@@ -133,6 +150,15 @@ skills/
 │   ├── references/
 │   ├── lessons/
 │   └── …
+├── niaid-bp-validation/
+│   ├── SKILL.md
+│   ├── assets/
+│   │   └── blueprint-required.ttl
+│   ├── scripts/
+│   │   └── validate.py
+│   ├── references/
+│   │   └── validation-workflow.md
+│   └── tests/
 └── hermes/                    # excluded from niaid-bp naming
     └── fair-assessor/
 ```
