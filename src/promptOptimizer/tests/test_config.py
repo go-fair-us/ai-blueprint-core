@@ -11,7 +11,12 @@ from defs.config import (
     set_active_config,
     set_active_profile_config,
 )
-from defs.lm import make_lm, refresh_backends, resolved_model_ids
+from defs.lm import (
+    _ensure_http_scheme,
+    make_lm,
+    refresh_backends,
+    resolved_model_ids,
+)
 from tasks import clear_task_cache, get_task, list_profiles, set_active_profile
 from tasks.base import task_from_config
 
@@ -36,9 +41,19 @@ def test_default_config_has_xai_and_core_backends(app):
     assert "nrp" in names
     assert "openrouter" in names
     assert "xai" in names
+    assert "ollama" in names
     xai = app.get_backend("xai")
     assert xai.env_key == "XAI_API_KEY"
     assert xai.task_model.startswith("xai/")
+    assert xai.require_api_key is True
+
+
+def test_ollama_backend_config(app):
+    ollama = app.get_backend("ollama")
+    assert ollama.require_api_key is False
+    assert ollama.api_base  # URL configured (host may be customized)
+    assert ollama.task_model.startswith("ollama/")
+    assert ollama.reflection_model.startswith("ollama/")
 
 
 def test_active_profile_loads(app):
@@ -122,6 +137,82 @@ def test_resolved_model_ids(app):
     )
     assert "qwen" in ids["task_model"] or "custom_openai" in ids["task_model"]
     assert ids["reflection_model"].startswith("xai/")
+
+
+def test_make_lm_ollama_without_api_key(app, monkeypatch):
+    monkeypatch.delenv("OLLAMA_API_KEY", raising=False)
+    monkeypatch.delenv("OLLAMA_API_BASE", raising=False)
+    monkeypatch.delenv("OLLAMA_HOST", raising=False)
+    lm = make_lm("ollama", role="task", cfg=app)
+    assert str(lm.model).startswith("ollama/")
+    base = lm.kwargs.get("api_base") or ""
+    assert base.startswith(("http://", "https://"))
+    assert lm.kwargs.get("api_key") == "ollama"
+
+
+def test_make_lm_ollama_model_and_api_base_override(app, monkeypatch):
+    monkeypatch.delenv("OLLAMA_API_KEY", raising=False)
+    monkeypatch.delenv("OLLAMA_API_BASE", raising=False)
+    monkeypatch.delenv("OLLAMA_HOST", raising=False)
+    lm = make_lm(
+        "ollama",
+        role="task",
+        model="qwen2.5:14b",  # bare name → ollama/ prefix
+        api_base="http://192.168.1.10:11434",
+        cfg=app,
+    )
+    assert lm.model == "ollama/qwen2.5:14b"
+    assert lm.kwargs.get("api_base") == "http://192.168.1.10:11434"
+
+
+def test_make_lm_ollama_env_api_base(app, monkeypatch):
+    monkeypatch.delenv("OLLAMA_API_KEY", raising=False)
+    monkeypatch.delenv("OLLAMA_HOST", raising=False)
+    monkeypatch.setenv("OLLAMA_API_BASE", "http://10.0.0.5:11434/")
+    lm = make_lm("ollama", role="reflection", cfg=app)
+    # Trailing slash stripped; env wins over YAML default.
+    assert lm.kwargs.get("api_base") == "http://10.0.0.5:11434"
+
+
+def test_ensure_http_scheme():
+    assert _ensure_http_scheme("http://localhost:11434") == "http://localhost:11434"
+    assert _ensure_http_scheme("https://remote:11434/") == "https://remote:11434"
+    assert _ensure_http_scheme("win.lan:11434") == "http://win.lan:11434"
+    assert _ensure_http_scheme("127.0.0.1:11434") == "http://127.0.0.1:11434"
+
+
+def test_make_lm_ollama_bare_host_api_base(app, monkeypatch):
+    """Bare host:port (common OLLAMA_HOST form) must get http:// for LiteLLM."""
+    monkeypatch.delenv("OLLAMA_API_KEY", raising=False)
+    monkeypatch.delenv("OLLAMA_API_BASE", raising=False)
+    monkeypatch.delenv("OLLAMA_HOST", raising=False)
+    lm = make_lm(
+        "ollama",
+        role="task",
+        api_base="win.lan:11434",
+        cfg=app,
+    )
+    assert lm.kwargs.get("api_base") == "http://win.lan:11434"
+
+
+def test_make_lm_ollama_host_env_without_scheme(app, monkeypatch):
+    monkeypatch.delenv("OLLAMA_API_KEY", raising=False)
+    monkeypatch.delenv("OLLAMA_API_BASE", raising=False)
+    monkeypatch.setenv("OLLAMA_HOST", "0.0.0.0:11434")
+    lm = make_lm("ollama", role="task", cfg=app)
+    assert lm.kwargs.get("api_base") == "http://0.0.0.0:11434"
+
+
+def test_resolved_model_ids_ollama_bare_name(app):
+    ids = resolved_model_ids(
+        task_backend="ollama",
+        reflection_backend="ollama",
+        task_model="mistral",
+        reflection_model="ollama_chat/mistral",
+        cfg=app,
+    )
+    assert ids["task_model"] == "ollama/mistral"
+    assert ids["reflection_model"] == "ollama_chat/mistral"
 
 
 def test_task_from_config_signature(app):

@@ -1,8 +1,8 @@
-"""LM factory driven by YAML config (NRP, OpenRouter, xAI, NVIDIA, …).
+"""LM factory driven by YAML config (NRP, OpenRouter, xAI, NVIDIA, Ollama, …).
 
 Backends and default models live in ``config/default.yaml``. Secrets come only
 from environment variables named by each backend's ``env_key`` (never from YAML
-values).
+values). Local backends may set ``require_api_key: false`` (e.g. Ollama).
 
 Roles:
 
@@ -22,6 +22,9 @@ from defs.config import AppConfig, BackendConfig, get_active_config, load_app_co
 
 Role = Literal["task", "reflection"]
 
+# Env vars that override Ollama base URL (checked in this order).
+_OLLAMA_BASE_ENV = ("OLLAMA_API_BASE", "OLLAMA_HOST")
+
 
 def backend_names(cfg: AppConfig | None = None) -> tuple[str, ...]:
     cfg = cfg or get_active_config() or load_app_config()
@@ -29,7 +32,7 @@ def backend_names(cfg: AppConfig | None = None) -> tuple[str, ...]:
 
 
 # Backward-compatible name used by main argparse choices — refreshed when config loads.
-BACKENDS: tuple[str, ...] = ("nrp", "openrouter", "xai", "nvidia")
+BACKENDS: tuple[str, ...] = ("nrp", "openrouter", "xai", "nvidia", "ollama")
 
 
 def refresh_backends(cfg: AppConfig) -> tuple[str, ...]:
@@ -47,7 +50,85 @@ def _normalize_model(backend: str, model: str) -> str:
             return m
         # Integrate API is OpenAI-compatible; send full nvidia/… id upstream.
         return f"openai/{m}" if not m.startswith("openai/") else m
+    if backend == "ollama":
+        # Accept bare names (llama3.2) or already-prefixed ollama/ / ollama_chat/.
+        if m.startswith(("ollama/", "ollama_chat/", "openai/")):
+            return m
+        return f"ollama/{m}"
     return m
+
+
+def _ensure_http_scheme(url: str) -> str:
+    """LiteLLM/httpx require an absolute URL with http(s) scheme.
+
+    ``OLLAMA_HOST`` is often ``host:port`` (no scheme). Bare YAML values
+    like ``win.lan:11434`` fail with:
+    ``Request URL is missing an 'http://' or 'https://' protocol``.
+    """
+    u = url.strip().rstrip("/")
+    if not u:
+        return u
+    lower = u.lower()
+    if lower.startswith(("http://", "https://")):
+        return u
+    # host:port or host alone
+    return f"http://{u}"
+
+
+def _resolve_api_base(
+    backend: str,
+    bcfg: BackendConfig,
+    api_base: str | None = None,
+) -> str | None:
+    """CLI override > env (ollama) > YAML api_base.
+
+    For ollama, the result always has an ``http://`` or ``https://`` scheme.
+    """
+    raw: str | None = None
+
+    if api_base is not None and str(api_base).strip():
+        raw = str(api_base).strip()
+    elif backend == "ollama":
+        for env_name in _OLLAMA_BASE_ENV:
+            val = os.environ.get(env_name)
+            if val and val.strip():
+                raw = val.strip()
+                break
+
+    if raw is None and bcfg.api_base:
+        raw = str(bcfg.api_base).strip() or None
+
+    if not raw:
+        return None
+
+    if backend == "ollama":
+        return _ensure_http_scheme(raw)
+    return raw.rstrip("/")
+
+
+def _resolve_api_key(backend: str, bcfg: BackendConfig) -> str:
+    """Return API key string for dspy.LM / LiteLLM.
+
+    Cloud backends require a non-empty env value. Local backends
+    (``require_api_key: false``) may use a dummy key when unset.
+    """
+    key: str | None = None
+    if bcfg.env_key:
+        key = os.environ.get(bcfg.env_key)
+        if key is not None:
+            key = key.strip() or None
+
+    if key:
+        return key
+
+    if bcfg.require_api_key:
+        env_name = bcfg.env_key or "(no env_key)"
+        raise SystemExit(
+            f"{env_name} is not set (needed for backend {backend!r})"
+        )
+
+    # LiteLLM often wants a non-empty string even when the server ignores it.
+    return "ollama" if backend == "ollama" else "local"
 
 
 def make_lm(
@@ -55,20 +136,18 @@ def make_lm(
     *,
     role: Role = "task",
     model: str | None = None,
+    api_base: str | None = None,
     cfg: AppConfig | None = None,
 ) -> dspy.LM:
     """Build a ``dspy.LM`` for the given backend and role.
 
     ``model`` overrides the backend default for that role when set.
+    ``api_base`` overrides YAML / env base URL when set.
     """
     cfg = cfg or get_active_config() or load_app_config()
     bcfg: BackendConfig = cfg.get_backend(backend)
 
-    key = os.environ.get(bcfg.env_key)
-    if not key:
-        raise SystemExit(
-            f"{bcfg.env_key} is not set (needed for backend {backend!r}, role {role})"
-        )
+    key = _resolve_api_key(backend, bcfg)
 
     if model:
         model_id = model.strip()
@@ -85,6 +164,8 @@ def make_lm(
         temperature = bcfg.temperature_task
         max_tokens = bcfg.max_tokens_task
 
+    base = _resolve_api_base(backend, bcfg, api_base=api_base)
+
     kwargs: dict = dict(
         model=model_id,
         api_key=key,
@@ -94,8 +175,8 @@ def make_lm(
         timeout=bcfg.timeout,
         num_retries=bcfg.num_retries,
     )
-    if bcfg.api_base:
-        kwargs["api_base"] = bcfg.api_base
+    if base:
+        kwargs["api_base"] = base
 
     return dspy.LM(**kwargs)
 
@@ -103,6 +184,7 @@ def make_lm(
 def get_task_lm(
     backend: str | None = None,
     model: str | None = None,
+    api_base: str | None = None,
     cfg: AppConfig | None = None,
 ) -> dspy.LM:
     """LM that generates artifacts (and is optimized against)."""
@@ -111,6 +193,7 @@ def get_task_lm(
         backend or cfg.models.task_backend,
         role="task",
         model=model,
+        api_base=api_base,
         cfg=cfg,
     )
 
@@ -118,6 +201,7 @@ def get_task_lm(
 def get_reflection_lm(
     backend: str | None = None,
     model: str | None = None,
+    api_base: str | None = None,
     cfg: AppConfig | None = None,
 ) -> dspy.LM:
     """Strong LM for GEPA reflection and (by default) judging."""
@@ -126,6 +210,7 @@ def get_reflection_lm(
         backend or cfg.models.reflection_backend,
         role="reflection",
         model=model,
+        api_base=api_base,
         cfg=cfg,
     )
 

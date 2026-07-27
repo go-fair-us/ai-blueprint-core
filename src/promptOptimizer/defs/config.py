@@ -47,10 +47,11 @@ _TEXT_SUFFIXES = {".md", ".txt", ".markdown"}
 @dataclass(frozen=True)
 class BackendConfig:
     name: str
-    env_key: str
+    env_key: str | None
     task_model: str
     reflection_model: str
     api_base: str | None = None
+    require_api_key: bool = True
     temperature_task: float = 0.0
     temperature_reflection: float = 1.0
     max_tokens_task: int = 16_000
@@ -254,13 +255,27 @@ def resolve_text(value: str | None, config_root: Path, *, field_name: str) -> st
 def _parse_backend(name: str, raw: dict[str, Any]) -> BackendConfig:
     if not isinstance(raw, dict):
         raise SystemExit(f"Backend {name!r} must be a mapping")
-    for req in ("env_key", "task_model", "reflection_model"):
+    for req in ("task_model", "reflection_model"):
         if req not in raw or raw[req] in (None, ""):
             raise SystemExit(f"Backend {name!r}: missing required key {req!r}")
+
+    require_api_key = bool(raw.get("require_api_key", True))
+    env_raw = raw.get("env_key")
+    if env_raw in (None, ""):
+        if require_api_key:
+            raise SystemExit(
+                f"Backend {name!r}: missing required key 'env_key' "
+                f"(or set require_api_key: false for local backends)"
+            )
+        env_key: str | None = None
+    else:
+        env_key = str(env_raw)
+
     return BackendConfig(
         name=name,
-        env_key=str(raw["env_key"]),
+        env_key=env_key,
         api_base=(str(raw["api_base"]) if raw.get("api_base") else None),
+        require_api_key=require_api_key,
         task_model=str(raw["task_model"]),
         reflection_model=str(raw["reflection_model"]),
         temperature_task=float(raw.get("temperature_task", 0.0)),

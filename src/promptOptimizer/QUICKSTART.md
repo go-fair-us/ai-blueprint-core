@@ -23,12 +23,16 @@ export NRP_API_KEY=...          # --backend nrp
 export OPENROUTER_API_KEY=...   # openrouter
 export XAI_API_KEY=...          # xai
 export NVIDIA_API_KEY=...       # nvidia
+# Ollama needs no key; optional: export OLLAMA_API_BASE=http://localhost:11434
 uv sync                          # from repo root
 cd src/promptOptimizer
 ```
 
 > Only OpenRouter? `--backend openrouter --reflection-backend openrouter`  
-> Only xAI? `--backend xai --reflection-backend xai`
+> Only xAI? `--backend xai --reflection-backend xai`  
+> Local Ollama? `ollama pull llama3.2` then  
+> `--backend ollama --reflection-backend ollama`  
+> (URL: `--api-base` or `OLLAMA_API_BASE`; model: `--task-model` / YAML)
 
 ## 2. Sanity check
 
@@ -75,6 +79,7 @@ uv run main.py show-prompt
 | `--workdir DIR` | Isolate inputs/outputs for this run |
 | `--backend` / `--task-model` | Generation LM |
 | `--reflection-backend` / `--reflection-model` | Judge / GEPA reflection LM |
+| `--api-base` | Override base URL (e.g. Ollama host) |
 | `--gepa-budget N` | Cap GEPA rollouts |
 | `--config DIR` | Alternate config root |
 

@@ -42,7 +42,7 @@ on top.
 ```
 main.py                 CLI
 config/
-  default.yaml          models (nrp, openrouter, xai, nvidia), run/data knobs
+  default.yaml          models (nrp, openrouter, xai, nvidia, ollama), run/data knobs
   profile.yaml          ACTIVE goal (edit this for the default run)
   profiles/             optional recipes (api.yaml, metadata.yaml, …)
   prompts/*.md          long seed / rubric text
@@ -107,6 +107,8 @@ uv run main.py show-prompt
 | `OPENROUTER_API_KEY` | OpenRouter (default reflection backend) |
 | `XAI_API_KEY` | xAI Grok API key (not OAuth) |
 | `NVIDIA_API_KEY` | NVIDIA Integrate API |
+| `OLLAMA_API_BASE` or `OLLAMA_HOST` | Optional URL override for `--backend ollama` (default `http://localhost:11434`) |
+| `OLLAMA_API_KEY` | Optional; not required for local Ollama |
 
 ```bash
 uv sync            # from repo root
@@ -114,7 +116,7 @@ cd src/promptOptimizer
 ```
 
 By default the judge is the reflection LM — align backends or use `--judge task`
-if you only have one key.
+if you only have one key (or use Ollama for both).
 
 ## Usage
 
@@ -134,9 +136,9 @@ uv run main.py show-prompt --program artifacts/api-gepa.json
 uv run main.py report
 ```
 
-Flags: `--config`, `--profile`, `--backend {nrp,openrouter,xai,nvidia}`,
-`--task-model`, `--reflection-backend`, `--reflection-model`, `--auto`,
-`--seed`, `--num-threads`, `--judge`, `--gepa-budget`,
+Flags: `--config`, `--profile`, `--backend {nrp,openrouter,xai,nvidia,ollama}`,
+`--task-model`, `--reflection-backend`, `--reflection-model`, `--api-base`,
+`--auto`, `--seed`, `--num-threads`, `--judge`, `--gepa-budget`,
 `--workdir` / `--inputdir` / `--outputdir`.
 
 ```bash
@@ -146,7 +148,31 @@ uv run main.py baseline --backend xai --reflection-backend xai
 # Generate on OpenRouter, reflect on xAI
 uv run main.py gepa --backend openrouter --reflection-backend xai \
   --reflection-model xai/grok-4 --gepa-budget 60
+
+# Local Ollama (pull a model first: ollama pull llama3.2)
+uv run main.py baseline --backend ollama --reflection-backend ollama
+
+# Custom Ollama host + model
+uv run main.py baseline \
+  --backend ollama --reflection-backend ollama \
+  --api-base http://192.168.1.10:11434 \
+  --task-model ollama/qwen2.5:14b \
+  --reflection-model ollama/qwen2.5:14b
 ```
+
+URL and model for Ollama are configurable three ways:
+
+| | URL | Model |
+|---|---|---|
+| YAML | `backends.ollama.api_base` | `task_model` / `reflection_model` |
+| Env | `OLLAMA_API_BASE` or `OLLAMA_HOST` | — |
+| CLI | `--api-base` | `--task-model` / `--reflection-model` |
+
+Bare hosts like `win.lan:11434` or `0.0.0.0:11434` are accepted; the harness
+prepends `http://` (LiteLLM requires a full URL). Prefer `http://host:11434`
+in YAML for clarity.
+
+Local models are often slower: prefer a higher `timeout` in YAML (default 300s for ollama) and lower `--num-threads` on first runs.
 
 ## Cost & comparison
 

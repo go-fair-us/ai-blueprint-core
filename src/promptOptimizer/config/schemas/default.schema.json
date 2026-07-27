@@ -15,9 +15,13 @@
           "type": "object",
           "additionalProperties": {
             "type": "object",
-            "required": ["env_key", "task_model", "reflection_model"],
+            "required": ["task_model", "reflection_model"],
             "properties": {
-              "env_key": { "type": "string" },
+              "env_key": { "type": ["string", "null"] },
+              "require_api_key": {
+                "type": "boolean",
+                "description": "If false, missing env key is OK (local backends like Ollama)."
+              },
               "api_base": { "type": ["string", "null"] },
               "task_model": { "type": "string" },
               "reflection_model": { "type": "string" },

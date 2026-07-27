@@ -59,6 +59,22 @@ models:
       timeout: 180
       num_retries: 2
 
+    # Local Ollama (LiteLLM ollama/ prefix; api_base has no /v1).
+    # Override URL via api_base, OLLAMA_API_BASE / OLLAMA_HOST, or --api-base.
+    # Override model via task_model / reflection_model or --task-model / --reflection-model.
+    ollama:
+      env_key: OLLAMA_API_KEY
+      require_api_key: false
+      api_base: http://win.lan:11434
+      task_model: ollama/qwen3:8b
+      reflection_model: ollama/qwen3:8b
+      temperature_task: 0.0
+      temperature_reflection: 1.0
+      max_tokens_task: 16000
+      max_tokens_reflection: 12000
+      timeout: 300
+      num_retries: 1
+
 run:
   seed: 0
   num_threads: 8

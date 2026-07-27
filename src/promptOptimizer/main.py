@@ -18,8 +18,8 @@ scenarios) lives in ``config/profile.yaml`` or a library recipe under
     #   cp config/profiles/metadata.yaml config/profile.yaml
 
 Shared flags: --config, --profile, --backend, --task-model, --reflection-backend,
---reflection-model, --seed, --num-threads, --auto, --judge, --workdir,
---inputdir, --outputdir.
+--reflection-model, --api-base, --seed, --num-threads, --auto, --judge,
+--workdir, --inputdir, --outputdir.
 """
 from __future__ import annotations
 
@@ -102,11 +102,20 @@ def _configure_paths(args) -> None:
     )
 
 
+def _api_base_of(args) -> str | None:
+    return getattr(args, "api_base", None)
+
+
 def _configure(args, app, *, need_judge: bool = True) -> None:
     _configure_paths(args)
     dspy.configure_cache(enable_disk_cache=False, enable_memory_cache=False)
     dspy.configure(
-        lm=get_task_lm(args.backend, model=getattr(args, "task_model", None), cfg=app)
+        lm=get_task_lm(
+            args.backend,
+            model=getattr(args, "task_model", None),
+            api_base=_api_base_of(args),
+            cfg=app,
+        )
     )
     if not need_judge:
         set_judge_lm(None)
@@ -115,6 +124,7 @@ def _configure(args, app, *, need_judge: bool = True) -> None:
             get_reflection_lm(
                 args.reflection_backend,
                 model=args.reflection_model,
+                api_base=_api_base_of(args),
                 cfg=app,
             )
         )
@@ -194,7 +204,12 @@ def cmd_single(args, app) -> None:
     _configure(args, app)
     trainset, valset, testset = build_examples(task, seed=args.seed)
     reflection_lm = (
-        get_reflection_lm(args.reflection_backend, args.reflection_model, cfg=app)
+        get_reflection_lm(
+            args.reflection_backend,
+            args.reflection_model,
+            api_base=_api_base_of(args),
+            cfg=app,
+        )
         if args.command == "gepa" else None
     )
     rr = _run_one(args.command, args, task, trainset, valset, testset, reflection_lm)
@@ -225,7 +240,10 @@ def cmd_compare(args, app) -> None:
     _configure(args, app)
     trainset, valset, testset = build_examples(task, seed=args.seed)
     reflection_lm = get_reflection_lm(
-        args.reflection_backend, args.reflection_model, cfg=app
+        args.reflection_backend,
+        args.reflection_model,
+        api_base=_api_base_of(args),
+        cfg=app,
     )
     rows: list[RunResult] = []
     for name in ("baseline", "bootstrap", "mipro", "gepa"):
@@ -396,6 +414,13 @@ def _add_common(p: argparse.ArgumentParser, app) -> None:
         default=None,
         help="Override generation model slug for --backend "
              "(else config backends.<b>.task_model).",
+    )
+    p.add_argument(
+        "--api-base",
+        default=None,
+        help="Override backend api_base for this run (task + reflection LMs). "
+             "Useful for local Ollama, e.g. http://localhost:11434. "
+             "For ollama, OLLAMA_API_BASE / OLLAMA_HOST also work.",
     )
     p.add_argument("--seed", type=int, default=app.run.seed)
     p.add_argument("--num-threads", type=int, default=app.run.num_threads)
