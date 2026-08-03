@@ -4,6 +4,13 @@ title: Background and Introduction
 description: Context for NIAID digital objects, FAIR partnership, and Blueprint development
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [faire, odset, gfu, digital-object, iid]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: Background and Introduction (lines 39-53)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 39-53
 section: Background and Introduction
@@ -11,7 +18,7 @@ normative: false
 concept_range: 3-11
 ---
 
-NIAID-funded research produces millions of digital objects, yet barriers to discoverability and reuse persist. ODSET partnered with GO FAIR US to apply the FAIR Principles and developed the NIAID Blueprint—a set of specifications spanning metadata, PIDs, APIs, citation, and outreach. The section defines digital objects and cites foundational literature on barriers and FAIR.
+NIAID-funded research produces millions of digital objects, yet barriers to discoverability and reuse persist. ODSET partnered with GO FAIR US to apply the FAIR Principles and developed the NIAID Blueprint—a set of specifications spanning metadata, PIDs, APIs, citation, and outreach. The section defines digital objects and cites foundational literature on barriers and FAIR.[^blueprint-v2]
 
 See also: [Blueprint Scope](/overview/blueprint-scope.md).
 
@@ -29,6 +36,4 @@ See also: [Blueprint Scope](/overview/blueprint-scope.md).
 | 10 | Barriers to digital object reuse are documented in Hughes et al. (2023), Musen (2022), and Tsueng et al. (2023). | 51 |
 | 11 | The FAIR Principles framework is cited from Wilkinson et al. (2016). | 53 |
 
-# Citations
-
-[1] [Background and Introduction](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 39–53)
+[^blueprint-v2]: Background and Introduction (lines 39-53)

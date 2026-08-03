@@ -4,6 +4,13 @@ title: Outreach and Training — Requirements
 description: Contact Point designation, visibility, and training material expectations
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [contact-point, training, discovery-portal]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: 5.2. Blueprint Requirements (lines 253-259)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 253-259
 section: 5.2. Blueprint Requirements
@@ -11,7 +18,7 @@ normative: true
 concept_range: 173-183
 ---
 
-Major repositories should designate a Contact Point for outreach, training, and Portal collaboration, with prominent contact information and community training materials that include user engagement support.
+Major repositories should designate a Contact Point for outreach, training, and Portal collaboration, with prominent contact information and community training materials that include user engagement support.[^blueprint-v2]
 
 See also: [Motivation](/outreach-training/motivation.md).
 
@@ -31,6 +38,4 @@ See also: [Motivation](/outreach-training/motivation.md).
 | 182 | Generators and repositories of NIAID digital objects should develop training materials for the community, detailing how to effectively use the digital objects provided. | 259 |
 | 183 | Training materials should include contact information to support user engagement and resource adoption. | 259 |
 
-# Citations
-
-[1] [5.2. Blueprint Requirements](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 253–259)
+[^blueprint-v2]: 5.2. Blueprint Requirements (lines 253-259)

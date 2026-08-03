@@ -4,6 +4,13 @@ title: Worked Example — JSON-LD Encodings
 description: Supplemental Table 7 ImmPort-based JSON-LD API examples
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [json-ld, schema.org, immport, supplemental-table-7]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: Supplemental Table 7. Example JSON-LD Encodings (lines 430-436)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 430-436
 section: Supplemental Table 7. Example JSON-LD Encodings
@@ -11,7 +18,7 @@ normative: false
 concept_range: 235-239
 ---
 
-Supplemental Table 7 presents truncated ImmPort SDY998 JSON-LD examples illustrating Blueprint-aligned schema.org metadata, recommended API request patterns, and @id resolution expectations.
+Supplemental Table 7 presents truncated ImmPort SDY998 JSON-LD examples illustrating Blueprint-aligned schema.org metadata, recommended API request patterns, and @id resolution expectations.[^blueprint-v2]
 
 See also: [Requirements](/api-specification/requirements.md).
 
@@ -25,6 +32,4 @@ See also: [Requirements](/api-specification/requirements.md).
 | 238 | An IRI request to obtain JSON-LD data can follow a pattern like https://data.<domain.org>/<entity>/<instanceID>?format=json-ld, analogous to the ImmPort API pattern. | 434 |
 | 239 | The JSON-LD document's '@id' node (at the top) should resolve to the document when de-referenced; the examples use a demonstration @id based on the example.org domain. | 436 |
 
-# Citations
-
-[1] [Supplemental Table 7. Example JSON-LD Encodings](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 430–436)
+[^blueprint-v2]: Supplemental Table 7. Example JSON-LD Encodings (lines 430-436)

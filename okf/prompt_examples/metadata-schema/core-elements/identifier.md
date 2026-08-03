@@ -1,0 +1,28 @@
+---
+type: PromptExample
+title: Recommend appropriate persistent identifiers
+description: Filled example of the identifier recommendation prompt, grounded in ImmPort SDY2968 (Long COVID vaccination perspectives).
+source_template: src/promptLibrary/okf-bundle/metadata-schema/core-elements/identifier.md
+domain_sources:
+  - https://www.immport.org/
+  - https://www.immport.org/shared/study/SDY2968
+placeholders:
+  type: ImmPort shared immunology study dataset (human subjects; clinical/survey + associated assay metadata)
+  existing_ids: "ImmPort accession SDY2968; DOI 10.21430/M3J8UMVGT6"
+  repository: ImmPort Shared Data (https://www.immport.org/)
+tags: [metadata-schema, core-elements, identifier, doi, pid, immport, sdy2968]
+---
+
+# Prompt
+
+You are helping a research team implement the NIAID Blueprint Persistent Identifiers requirements.
+
+A researcher has the following digital object and wants to know what persistent identifier(s) they should use and how to record it in metadata.
+
+Digital object type: ImmPort shared immunology study dataset (human subjects; clinical/survey responses and associated study metadata for a qualitative Long COVID vaccination-perspectives study)
+Current identifiers they have: ImmPort study accession SDY2968; DOI 10.21430/M3J8UMVGT6 (resolvable as https://doi.org/10.21430/M3J8UMVGT6); study landing page https://www.immport.org/shared/study/SDY2968
+Repository they plan to deposit in: ImmPort Shared Data (https://www.immport.org/) — already deposited; goal is Blueprint-compliant `identifier` metadata for the NIAID Data Ecosystem Discovery Portal
+
+Recommend the best identifier strategy according to the NIAID Blueprint. Explain why and show exactly how it should appear in the `identifier` metadata field.
+
+Reference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding.

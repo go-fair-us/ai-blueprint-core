@@ -4,6 +4,13 @@ title: Minimal API Specifications — Requirements
 description: Flexible exposure options and minimum API objectives for JSON-LD metadata
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [api, json-ld, openapi, object-server]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: 3.2. Blueprint Requirements (lines 182-199)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 182-199
 section: 3.2. Blueprint Requirements
@@ -11,7 +18,7 @@ normative: true
 concept_range: 121-137
 ---
 
-API recommendations are customizable per repository, with alternatives ranging from HTML-embedded metadata to advanced knowledge graphs. Minimum objectives require exposing Table 1 elements via JSON-LD, resource-oriented IRIs, HTTP GET retrieval, and OpenAPI/Swagger documentation.
+API recommendations are customizable per repository, with alternatives ranging from HTML-embedded metadata to advanced knowledge graphs. Minimum objectives require exposing Table 1 elements via JSON-LD, resource-oriented IRIs, HTTP GET retrieval, and OpenAPI/Swagger documentation.[^blueprint-v2]
 
 See also: [Requirements](/metadata-schema/requirements.md), [JSON Ld Examples](/appendix/json-ld-examples.md).
 
@@ -37,6 +44,4 @@ See also: [Requirements](/metadata-schema/requirements.md), [JSON Ld Examples](/
 | 136 | Documentation objective: API documentation should adhere to OpenAPI/Swagger specifications for machine-readability and ease of use. | 198 |
 | 137 | An example of API-exposed metadata formatted to meet these objectives is given in Supplemental Table 7. | 199 |
 
-# Citations
-
-[1] [3.2. Blueprint Requirements](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 182–199)
+[^blueprint-v2]: 3.2. Blueprint Requirements (lines 182-199)

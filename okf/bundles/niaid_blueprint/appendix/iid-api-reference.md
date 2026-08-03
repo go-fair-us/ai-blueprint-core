@@ -4,6 +4,13 @@ title: Reference Table — IID APIs
 description: Supplemental Table 6 APIs for infectious and immune disease research data
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [api, supplemental-table-6, iid]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: Application Programming Interface (API) Reference (lines 400-428)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 400-428
 section: Application Programming Interface (API) Reference
@@ -11,7 +18,7 @@ normative: false
 concept_range: 223-234
 ---
 
-The API Reference appendix defines APIs as inter-system communication protocols and lists Supplemental Table 6 resources providing programmatic access to IID research data.
+The API Reference appendix defines APIs as inter-system communication protocols and lists Supplemental Table 6 resources providing programmatic access to IID research data.[^blueprint-v2]
 
 See also: [Requirements](/api-specification/requirements.md).
 
@@ -32,6 +39,4 @@ See also: [Requirements](/api-specification/requirements.md).
 | 233 | The FHIR API is a standard describing data formats and elements for exchanging electronic health records. | 416 |
 | 234 | Additional listed APIs include PubChem PUG REST, OHDSI WebAPI, NCBI E-utilities, ClinicalTrials.gov, OpenFDA, BioMart, UMLS, ATLAS, BioSample, and CDC WONDER. | 417-428 |
 
-# Citations
-
-[1] [Application Programming Interface (API) Reference](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 400–428)
+[^blueprint-v2]: Application Programming Interface (API) Reference (lines 400-428)

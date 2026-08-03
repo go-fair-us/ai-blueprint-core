@@ -4,6 +4,13 @@ title: Persistent Identifiers — Requirements
 description: Table 2 PID mappings and ontology population guidance
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [doi, orcid, ror, rrid, isni, table-2]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: 2.2. Blueprint Requirements (lines 149-170)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 149-170
 section: 2.2. Blueprint Requirements
@@ -11,7 +18,7 @@ normative: true
 concept_range: 99-116
 ---
 
-The Blueprint maps Table 1 metadata elements to default PIDs in Table 2, with DOI as the default object identifier and ORCID, ROR, and IRI for other fields. Researchers may register DOIs through agencies when repositories lack registration services. Ontologies complement PID usage for several elements.
+The Blueprint maps Table 1 metadata elements to default PIDs in Table 2, with DOI as the default object identifier and ORCID, ROR, and IRI for other fields. Researchers may register DOIs through agencies when repositories lack registration services. Ontologies complement PID usage for several elements.[^blueprint-v2]
 
 See also: [Requirements](/metadata-schema/requirements.md), [Ontology Mappings](/appendix/ontology-mappings.md).
 
@@ -38,6 +45,4 @@ See also: [Requirements](/metadata-schema/requirements.md), [Ontology Mappings](
 | 115 | Table 2 author—International Standard Name Identifier (ISNI): a unique identifier for public contributors to creative works. | 169 |
 | 116 | Table 2 author—Research Organization Registry (ROR) is also listed as an author identifier type. | 170 |
 
-# Citations
-
-[1] [2.2. Blueprint Requirements](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 149–170)
+[^blueprint-v2]: 2.2. Blueprint Requirements (lines 149-170)

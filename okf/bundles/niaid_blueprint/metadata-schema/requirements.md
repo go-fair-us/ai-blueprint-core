@@ -4,6 +4,13 @@ title: NIAID Minimal Metadata Schema — Requirements
 description: Table 1 metadata elements, formats, and schema.org basis
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [table-1, schema.org, doi, orcid, ror, ncbitaxon, mondo]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: 1.2. Blueprint Requirements (lines 97-133)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 97-133
 section: 1.2. Blueprint Requirements
@@ -11,7 +18,7 @@ normative: true
 concept_range: 56-83
 ---
 
-Table 1 defines the minimum metadata standard with schema.org as the preferred basis and default value formats for each element. Repositories choose their own storage format. The table spans core descriptive fields through IID-specific elements, with default PIDs and ontologies noted and alternatives permitted in certain circumstances.
+Table 1 defines the minimum metadata standard with schema.org as the preferred basis and default value formats for each element. Repositories choose their own storage format. The table spans core descriptive fields through IID-specific elements, with default PIDs and ontologies noted and alternatives permitted in certain circumstances.[^blueprint-v2]
 
 See also: [Metadata Schema — Motivation](/metadata-schema/motivation.md), [Persistent Identifiers — Requirements](/persistent-identifiers/requirements.md), [Metadata Schemas](/appendix/metadata-schemas.md).
 
@@ -48,6 +55,4 @@ See also: [Metadata Schema — Motivation](/metadata-schema/motivation.md), [Per
 | 82 | Default PIDs and ontologies in the 'Required Element Representation' column may have acceptable alternatives in certain circumstances. | 133 |
 | 83 | Refer to Table 2 for PIDs and Supplementary Table 5 for ontologies. | 133 |
 
-# Citations
-
-[1] [1.2. Blueprint Requirements](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 97–133)
+[^blueprint-v2]: 1.2. Blueprint Requirements (lines 97-133)

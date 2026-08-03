@@ -1,7 +1,7 @@
 # NIAID Blueprint — OKF concept extraction sample
 
 Extracts grouped atomic concepts from the NIAID Blueprint for Digital Objects
-into an [Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle.
+into an [Open Knowledge Format (OKF) v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle.
 
 ## Prerequisites
 
@@ -26,11 +26,13 @@ Output mode: files. Save OKF bundle to okf/bundles/niaid_blueprint/.
 
 ## What you get
 
-An OKF bundle under `okf/bundles/niaid_blueprint/`:
+An OKF v0.2 bundle under `okf/bundles/niaid_blueprint/`:
 
 - Semantic subdirectories (`overview/`, `metadata-schema/`, `appendix/`, …)
-- One concept file per thematic group with YAML frontmatter
-- `index.md` at bundle root and in each subdirectory (progressive disclosure)
+- One concept file per thematic group with YAML frontmatter (`type`, recommended
+  fields, `sources`, `generated`, `status`, plus producer extensions)
+- Per-claim attribution via footnotes keyed to `sources[].id` (no body `# Citations`)
+- `index.md` at bundle root (`okf_version: "0.2"`) and in each subdirectory
 - `log.md` recording bundle creation/updates
 - 239 globally numbered atomic concepts with line citations (from Blueprint v2)
 

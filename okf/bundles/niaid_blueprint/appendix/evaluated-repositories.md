@@ -4,6 +4,13 @@ title: Appendix — Evaluated NIAID Repositories
 description: Supplemental Table 1 repositories assessed by GO FAIR US
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [supplemental-table-1, repositories, discovery-portal]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: Appendix (lines 271-290)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 271-290
 section: Appendix
@@ -11,7 +18,7 @@ normative: false
 concept_range: 185-197
 ---
 
-Supplemental Table 1 catalogs NIAID-funded data repositories across divisions evaluated by GO FAIR US, spanning clinical, immunology, pathogen, and discovery resources.
+Supplemental Table 1 catalogs NIAID-funded data repositories across divisions evaluated by GO FAIR US, spanning clinical, immunology, pathogen, and discovery resources.[^blueprint-v2]
 
 See also: [Approach](/implementation/approach.md).
 
@@ -33,6 +40,4 @@ See also: [Approach](/implementation/approach.md).
 | 196 | Pathogen Data Network is a global consortium developing an ecosystem of data and tools supporting research and public health across diverse biodata types. | 288 |
 | 197 | The NIAID Data Ecosystem Discovery Portal finds datasets on Infectious and Immune-mediated Diseases (IID) across many repositories. | 290 |
 
-# Citations
-
-[1] [Appendix](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 271–290)
+[^blueprint-v2]: Appendix (lines 271-290)

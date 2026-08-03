@@ -4,6 +4,13 @@ title: The NIAID Blueprint for Digital Objects
 description: Foundational scope, goals, and five key Blueprint areas
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [metadata-schema, pids, api, citation, outreach]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: The NIAID Blueprint for Digital Objects (lines 55-63)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 55-63
 section: The NIAID Blueprint for Digital Objects
@@ -11,7 +18,7 @@ normative: false
 concept_range: 12-21
 ---
 
-The Blueprint provides a minimal foundational specification rather than meeting every repository's unique needs. Its three primary goals are alignment under a shared framework, prospective metadata capture guidance, and flexible ecosystem integration including the Discovery Portal. Five key areas structure the specification.
+The Blueprint provides a minimal foundational specification rather than meeting every repository's unique needs. Its three primary goals are alignment under a shared framework, prospective metadata capture guidance, and flexible ecosystem integration including the Discovery Portal. Five key areas structure the specification.[^blueprint-v2]
 
 See also: [Motivation](/metadata-schema/motivation.md), [Motivation](/persistent-identifiers/motivation.md), [Motivation](/api-specification/motivation.md), [Motivation](/citation/motivation.md), [Motivation](/outreach-training/motivation.md).
 
@@ -30,6 +37,4 @@ See also: [Motivation](/metadata-schema/motivation.md), [Motivation](/persistent
 | 20 | Area 3—APIs for Metadata: exposure of metadata elements through a standard, open API that complies with minimal specifications. | 61 |
 | 21 | Area 4—Citation guidance on how digital objects should be cited; Area 5—Outreach and Training: establishment of a point of contact at major repositories for community outreach and training to benefit the NIAID Data Ecosystem Discovery Portal. | 62-63 |
 
-# Citations
-
-[1] [The NIAID Blueprint for Digital Objects](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 55–63)
+[^blueprint-v2]: The NIAID Blueprint for Digital Objects (lines 55-63)

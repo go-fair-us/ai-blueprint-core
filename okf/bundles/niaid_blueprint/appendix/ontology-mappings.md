@@ -4,6 +4,13 @@ title: Appendix — Ontology Mappings
 description: Supplemental Table 5 default and alternative ontologies for metadata elements
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [ontologies, ncbitaxon, mondo, spdx, obo-foundry]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: Ontologies (lines 370-396)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 370-396
 section: Ontologies
@@ -11,7 +18,7 @@ normative: false
 concept_range: 214-222
 ---
 
-The appendix surveys biomedical ontologies relevant to IID metadata, referencing ImmPort, OBO Foundry, and BioPortal resources, and maps Table 1 elements to default and alternative ontologies in Supplemental Table 5.
+The appendix surveys biomedical ontologies relevant to IID metadata, referencing ImmPort, OBO Foundry, and BioPortal resources, and maps Table 1 elements to default and alternative ontologies in Supplemental Table 5.[^blueprint-v2]
 
 See also: [Requirements](/persistent-identifiers/requirements.md).
 
@@ -29,6 +36,4 @@ See also: [Requirements](/persistent-identifiers/requirements.md).
 | 221 | infectiousAgent default is NCBITaxon (alternative OBI); host default is NCBITaxon. | 387-389 |
 | 222 | healthCondition default is MONDO; spatialCoverage defaults to Country Code (ISO 3166) with alternatives GeoNames ID, GeoCoordinates, and GeoShape. | 390-395 |
 
-# Citations
-
-[1] [Ontologies](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 370–396)
+[^blueprint-v2]: Ontologies (lines 370-396)

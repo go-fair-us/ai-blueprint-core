@@ -4,6 +4,13 @@ title: Implementation
 description: Collaborative development, adaptability, and Discovery Portal integration
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [odset, gfu, iedb, immunespace, discovery-portal]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: Implementation (lines 79-87)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 79-87
 section: Implementation
@@ -11,7 +18,7 @@ normative: false
 concept_range: 36-47
 ---
 
-ODSET and GFU developed the Blueprint collaboratively with major NIAID repositories. The specification is adaptable across repository contexts, accommodates repositories that do not strictly separate metadata from data, and supports ongoing improvement and Discovery Portal integration.
+ODSET and GFU developed the Blueprint collaboratively with major NIAID repositories. The specification is adaptable across repository contexts, accommodates repositories that do not strictly separate metadata from data, and supports ongoing improvement and Discovery Portal integration.[^blueprint-v2]
 
 See also: [Blueprint Scope](/overview/blueprint-scope.md).
 
@@ -32,6 +39,4 @@ See also: [Blueprint Scope](/overview/blueprint-scope.md).
 | 46 | The Portal aggregates and enhances metadata from NIAID-relevant data resources to support search across data repositories. | 87 |
 | 47 | To learn more about how to add data to the Portal, visit its documentation on Contributing to the NIAID Data Ecosystem or contact niaiddataecosystem@mail.nih.gov. | 87 |
 
-# Citations
-
-[1] [Implementation](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 79–87)
+[^blueprint-v2]: Implementation (lines 79-87)

@@ -4,6 +4,13 @@ title: Persistent Identifiers — Motivation
 description: Why PIDs and GUPRIs matter for traceability and reproducibility
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [pids, gupri, doi, fair]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: 2.1. Motivation (lines 139-147)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 139-147
 section: 2.1. Motivation
@@ -11,7 +18,7 @@ normative: false
 concept_range: 89-98
 ---
 
-PIDs populated in metadata support persistence, traceability, and reproducibility. The FAIR Principles call for globally unique, persistently resolvable identifiers. The section distinguishes resolvable DOIs from basic DOI strings and notes that URLs lack DOI-level persistence without organizational commitment.
+PIDs populated in metadata support persistence, traceability, and reproducibility. The FAIR Principles call for globally unique, persistently resolvable identifiers. The section distinguishes resolvable DOIs from basic DOI strings and notes that URLs lack DOI-level persistence without organizational commitment.[^blueprint-v2]
 
 See also: [Requirements](/persistent-identifiers/requirements.md).
 
@@ -30,6 +37,4 @@ See also: [Requirements](/persistent-identifiers/requirements.md).
 | 97 | URLs are commonly used, but without organizational commitment they lack the same level of persistence as a resolvable DOI. | 147 |
 | 98 | URL persistence limitations undermine the citation stability and reproducibility that are crucial for scientific research. | 147 |
 
-# Citations
-
-[1] [2.1. Motivation](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 139–147)
+[^blueprint-v2]: 2.1. Motivation (lines 139-147)

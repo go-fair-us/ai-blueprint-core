@@ -4,6 +4,13 @@ title: Data Repository Owners
 description: Implementation responsibilities for repository managers under the Blueprint
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [repository-owners, metadata, pids, api]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: Data repository owners (lines 75-77)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 75-77
 section: Data repository owners
@@ -11,7 +18,7 @@ normative: true
 concept_range: 30-35
 ---
 
-Repository owners receive guidance on metadata practices, PID assignment, API exposure, public citation instructions, and community outreach. They are responsible for operationalizing the Blueprint within their systems.
+Repository owners receive guidance on metadata practices, PID assignment, API exposure, public citation instructions, and community outreach. They are responsible for operationalizing the Blueprint within their systems.[^blueprint-v2]
 
 See also: [Data Generators](/audience/data-generators.md).
 
@@ -26,6 +33,4 @@ See also: [Data Generators](/audience/data-generators.md).
 | 34 | Repositories are encouraged to offer outreach and training resources to support their contributor communities. | 77 |
 | 35 | The Blueprint audience section distinguishes responsibilities between data generators and data repository owners. | 75-77 |
 
-# Citations
-
-[1] [Data repository owners](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 75–77)
+[^blueprint-v2]: Data repository owners (lines 75-77)

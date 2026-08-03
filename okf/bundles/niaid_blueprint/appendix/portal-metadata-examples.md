@@ -4,6 +4,13 @@ title: Worked Example — Portal Metadata Entries
 description: Supplementary Tables 3 and 4 completed metadata for ACDN and ImmPort datasets
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [acdn, immport, supplementary-table-3, supplementary-table-4]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: Examples of Metadata Elements and Entries for NIAID-funded Datasets Indexed in the NIAID Data Ecosystem Discovery Portal (lines 304-366)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 304-366
 section: Examples of Metadata Elements and Entries for NIAID-funded Datasets Indexed in the NIAID Data Ecosystem Discovery Portal
@@ -11,7 +18,7 @@ normative: false
 concept_range: 203-213
 ---
 
-Supplementary Tables 3 and 4 demonstrate completed Blueprint metadata for controlled access ACDN and open access ImmPort datasets indexed in the Discovery Portal, with ODSET-supplemented example entries where submitter metadata was incomplete.
+Supplementary Tables 3 and 4 demonstrate completed Blueprint metadata for controlled access ACDN and open access ImmPort datasets indexed in the Discovery Portal, with ODSET-supplemented example entries where submitter metadata was incomplete.[^blueprint-v2]
 
 See also: [Requirements](/metadata-schema/requirements.md).
 
@@ -31,6 +38,4 @@ See also: [Requirements](/metadata-schema/requirements.md).
 | 212 | The ImmPort example includes multiple author ORCIDs, funders (NIAID and NIAMS ROR), grant 1UH2AR067676-01, and measurementTechnique values for flow cytometry (C16585) and RNA sequence (C89252). | 349-352 |
 | 213 | The ImmPort example temporal coverage spans 2016-03-15/2024-07-25. | 366 |
 
-# Citations
-
-[1] [Examples of Metadata Elements and Entries for NIAID-funded Datasets Indexed in the NIAID Data Ecosystem Discovery Portal](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 304–366)
+[^blueprint-v2]: Examples of Metadata Elements and Entries for NIAID-funded Datasets Indexed in the NIAID Data Ecosystem Discovery Portal (lines 304-366)

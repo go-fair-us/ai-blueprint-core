@@ -4,6 +4,13 @@ title: Minimal Citation Requirements — Blueprint Requirements
 description: Repository owner citation guidance and Table 3 style examples
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [citation, doi, apa, mla, chicago]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: 4.2. Blueprint Requirements (lines 217-241)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 217-241
 section: 4.2. Blueprint Requirements
@@ -11,7 +18,7 @@ normative: true
 concept_range: 157-165
 ---
 
-Repository owners should provide PID-integrated, consistent citation guidance for original and reused data in standard publication formats. Table 3 illustrates dataset and software citation examples across APA, MLA, and Chicago styles.
+Repository owners should provide PID-integrated, consistent citation guidance for original and reused data in standard publication formats. Table 3 illustrates dataset and software citation examples across APA, MLA, and Chicago styles.[^blueprint-v2]
 
 See also: [Requirements](/persistent-identifiers/requirements.md).
 
@@ -29,6 +36,4 @@ See also: [Requirements](/persistent-identifiers/requirements.md).
 | 164 | Table 3 MLA dataset example: Author(s). Title of dataset. Version number, Repository, Year, DOI. | 235 |
 | 165 | Table 3 Chicago software example includes version and DOI; bracketed citations (e.g., APA '[Data set]') are optimal for publication systems to index data citations properly. | 236, 241 |
 
-# Citations
-
-[1] [4.2. Blueprint Requirements](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 217–241)
+[^blueprint-v2]: 4.2. Blueprint Requirements (lines 217-241)

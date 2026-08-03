@@ -4,6 +4,13 @@ title: Minimal Citation Requirements — Motivation
 description: Attribution, provenance, and repository-specific citation patterns
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [citation, pids, orcid, rrid]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: 4.1. Motivation (lines 205-215)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 205-215
 section: 4.1. Motivation
@@ -11,7 +18,7 @@ normative: false
 concept_range: 143-156
 ---
 
-Citing digital objects supports attribution, provenance, reproducibility, and usage tracking. The section addresses citation variability across repositories, the role of PIDs including ORCIDs and RRIDs, and how citation granularity should match typical access patterns—with guidance made prominently available.
+Citing digital objects supports attribution, provenance, reproducibility, and usage tracking. The section addresses citation variability across repositories, the role of PIDs including ORCIDs and RRIDs, and how citation granularity should match typical access patterns—with guidance made prominently available.[^blueprint-v2]
 
 See also: [Requirements](/citation/requirements.md).
 
@@ -34,6 +41,4 @@ See also: [Requirements](/citation/requirements.md).
 | 155 | Citations to a repository as a whole should always include PIDs like RRIDs or DOIs when they exist; e.g., many NIAID repositories have RRIDs such as ITN Trialshare. | 213 |
 | 156 | Citation and acknowledgement recommendations should be very easy to find on the website (e.g., section titled 'How to Cite') and included in communications such as workshops, newsletters, documentation pages, and metadata for individual data assets. | 215 |
 
-# Citations
-
-[1] [4.1. Motivation](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 205–215)
+[^blueprint-v2]: 4.1. Motivation (lines 205-215)

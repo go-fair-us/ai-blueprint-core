@@ -4,6 +4,13 @@ title: NIAID Minimal Metadata Schema — Motivation
 description: Rationale for a flexible minimal metadata framework
 resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 tags: [metadata, schema.org, discovery-portal]
+status: stable
+generated: { by: niaid-bp-okf-migrate/0.2, at: 2026-08-03T12:00:00Z }
+sources:
+  - id: blueprint-v2
+    resource: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+    title: 1.1. Motivation (lines 89-95)
+    author: process:niaid-blueprint-publisher
 source_document: NIAID_Blueprint_v2_26Sep2025_forExternal.md
 source_lines: 89-95
 section: 1.1. Motivation
@@ -11,7 +18,7 @@ normative: false
 concept_range: 48-55
 ---
 
-Metadata provides essential context for digital objects and can be exposed even when data sharing is limited. The Blueprint defines a minimal, flexible element set to improve discovery, encouraging full collection while recognizing that partial adoption still supports alignment. Capture is expected at submission time by repository managers, with researchers encouraged to document metadata during object creation.
+Metadata provides essential context for digital objects and can be exposed even when data sharing is limited. The Blueprint defines a minimal, flexible element set to improve discovery, encouraging full collection while recognizing that partial adoption still supports alignment. Capture is expected at submission time by repository managers, with researchers encouraged to document metadata during object creation.[^blueprint-v2]
 
 See also: [Requirements](/metadata-schema/requirements.md).
 
@@ -28,6 +35,4 @@ See also: [Requirements](/metadata-schema/requirements.md).
 | 54 | Data generators (e.g., researchers) are encouraged to generate and document these metadata elements during the creation or collection of their digital objects. | 95 |
 | 55 | Where appropriate, researchers should share these metadata elements alongside any digital objects shared from their scientific research. | 95 |
 
-# Citations
-
-[1] [1.1. Motivation](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md) (lines 89–95)
+[^blueprint-v2]: 1.1. Motivation (lines 89-95)
