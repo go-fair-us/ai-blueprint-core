@@ -125,3 +125,5 @@ More practical examples and case studies are available in the DSPy tutorials and
 
 ---
 
+Example results:
+The starting prompt at [impact.md](../okf/bundles/niaid_blueprint/citation/impact.md) became [citation-outreach-citation-guidance-optimized-prompt.md](../src/libraryOptimizer/runs/okf-batch/citation-outreach-citation-guidance/citation-outreach-citation-guidance-optimized-prompt.md)
