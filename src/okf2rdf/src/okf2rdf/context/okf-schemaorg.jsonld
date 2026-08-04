@@ -1,0 +1,31 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "schema": "https://schema.org/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "okf": "https://go-fair-us.github.io/ai-blueprint-core/ns/okf#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "name": "schema:name",
+    "description": "schema:description",
+    "text": "schema:text",
+    "url": { "@id": "schema:url", "@type": "@id" },
+    "keywords": "schema:keywords",
+    "creativeWorkStatus": "schema:creativeWorkStatus",
+    "hasPart": { "@id": "schema:hasPart", "@type": "@id" },
+    "isPartOf": { "@id": "dcterms:isPartOf", "@type": "@id" },
+    "references": { "@id": "dcterms:references", "@type": "@id" },
+    "wasDerivedFrom": { "@id": "prov:wasDerivedFrom", "@type": "@id" },
+    "wasAttributedTo": { "@id": "prov:wasAttributedTo", "@type": "@id" },
+    "generatedAtTime": {
+      "@id": "prov:generatedAtTime",
+      "@type": "xsd:dateTime"
+    },
+    "atomicNumber": { "@id": "okf:atomicNumber", "@type": "xsd:integer" },
+    "sourceLines": "okf:sourceLines",
+    "AtomicConcept": "okf:AtomicConcept",
+    "notation": "skos:notation"
+  }
+}

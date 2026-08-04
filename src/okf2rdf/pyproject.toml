@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "okf2rdf"
+version = "0.2.0"
+description = "Convert Open Knowledge Format (OKF) bundles to schema.org-centered RDF"
+requires-python = ">=3.11"
+dependencies = [
+    "okf-core",
+    "rdflib>=7.0",
+    "pyyaml>=6.0",
+]
+readme = "README.md"
+license = { text = "Apache-2.0" }
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+okf2rdf = "okf2rdf.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+okf2rdf = ["context/*.jsonld"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "../okf_core/src"]
