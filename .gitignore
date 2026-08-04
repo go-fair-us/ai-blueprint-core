@@ -4,5 +4,4 @@ src/genMeta/runs/*
 !src/genMeta/runs/.gitkeep
 src/libraryOptimizer/artifacts/*
 !src/libraryOptimizer/artifacts/.gitkeep
-src/libraryOptimizer/runs/*
 !src/libraryOptimizer/runs/.gitkeep
