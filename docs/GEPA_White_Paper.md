@@ -122,3 +122,6 @@ More practical examples and case studies are available in the DSPy tutorials and
 ---
 
 *This white paper summarizes public research and documentation as of July 2026. Results may vary by task, data, and implementation. Always validate optimizations on representative test sets for your specific use case.*
+
+---
+
