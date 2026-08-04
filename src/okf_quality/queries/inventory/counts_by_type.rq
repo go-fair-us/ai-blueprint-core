@@ -1,0 +1,18 @@
+# Inventory: counts of core classes (informational; empty is not a failure)
+PREFIX okf: <https://go-fair-us.github.io/ai-blueprint-core/ns/okf#>
+
+SELECT ?class (COUNT(DISTINCT ?s) AS ?count)
+WHERE {
+  {
+    ?s a okf:Bundle .
+    BIND(okf:Bundle AS ?class)
+  } UNION {
+    ?s a okf:Concept .
+    BIND(okf:Concept AS ?class)
+  } UNION {
+    ?s a okf:AtomicConcept .
+    BIND(okf:AtomicConcept AS ?class)
+  }
+}
+GROUP BY ?class
+ORDER BY ?class

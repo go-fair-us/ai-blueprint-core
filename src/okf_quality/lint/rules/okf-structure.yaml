@@ -1,0 +1,45 @@
+# P0 — OKF structural lint rules (niaid_blueprint profile)
+# Consumers: scripts/okf_lint.py
+id: okf-structure
+version: "0.1.0"
+profile: niaid_blueprint
+description: >
+  Deterministic structure and frontmatter contract checks for OKF v0.2 bundles.
+
+rules:
+  - id: concept-has-type
+    severity: error
+    description: Every non-reserved concept file must have non-empty frontmatter type.
+    enabled: true
+
+  - id: broken-body-link
+    severity: error
+    description: Markdown links to .md paths inside the bundle must resolve to a concept file.
+    enabled: true
+
+  - id: atomic-table-present
+    severity: warning
+    description: >
+      Concept files should include a "# Atomic concepts" table (NIAID extraction profile).
+    enabled: true
+
+  - id: atomic-numbers-unique
+    severity: error
+    description: Atomic concept numbers must be unique across the bundle.
+    enabled: true
+
+  - id: concept-range-matches-atomics
+    severity: warning
+    description: >
+      If concept_range is set and atomics exist, min/max atomic numbers should match the range.
+    enabled: true
+
+  - id: sources-resource-required
+    severity: error
+    description: Each sources[] entry must include a non-empty resource.
+    enabled: true
+
+  - id: title-recommended
+    severity: warning
+    description: Concepts should have a title (OKF recommended field).
+    enabled: true

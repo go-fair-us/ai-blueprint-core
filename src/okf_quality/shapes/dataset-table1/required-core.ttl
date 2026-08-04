@@ -1,0 +1,87 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex:   <https://niaid.nih.gov/blueprint/shapes#> .
+@prefix schema: <https://schema.org/> .
+
+#################################################################
+# NIAID Blueprint — initial Dataset SHACL shape (required fields)
+#
+# Derived from the EarthCube / Google Dataset "required" shape
+# (googleRequired.ttl): name, description, url on schema:Dataset.
+#
+# Conventions:
+#   * All schema.org IRIs use the canonical https://schema.org/
+#     namespace so they match JSON-LD with "@context": "https://schema.org/".
+#   * Severity defaults to sh:Violation (blocking) for these
+#     required constraints — see scripts/validate.py for how
+#     "conforms" is defined (zero Violation results).
+#
+# This is a starter shape. Future revisions can layer Blueprint
+# Table 1 fields (identifier, license, conditionsOfAccess, PIDs,
+# infectiousAgent, …) as additional NodeShapes with Violation or
+# Warning severity.
+#
+# Sources:
+#   - googleRequired.ttl (EarthCube DOOS SHACL set)
+#   - https://schema.org/Dataset
+#   - NIAID Blueprint for Digital Objects (metadata schema / Table 1)
+#################################################################
+
+<https://niaid.nih.gov/blueprint/shapes>
+    rdf:type owl:Ontology ;
+    rdfs:label "NIAID Blueprint Dataset shapes (required, initial)"@en ;
+    rdfs:comment "Initial required-field SHACL for schema:Dataset, based on Google Dataset required constraints."@en ;
+.
+
+#################################################################
+# REQUIRED  (sh:Violation)
+#################################################################
+
+ex:NameShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Dataset ;
+    sh:property [
+        sh:path schema:name ;
+        sh:name "name" ;
+        sh:nodeKind sh:Literal ;
+        sh:minCount 1 ;
+        sh:minLength 1 ;
+        sh:severity sh:Violation ;
+        sh:message "REQUIRED: schema:name must be non-empty text."@en ;
+    ] ;
+    sh:message "This needs to be a schema:name"@en ;
+.
+
+ex:DescriptionShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Dataset ;
+    sh:property [
+        sh:path schema:description ;
+        sh:name "description" ;
+        sh:nodeKind sh:Literal ;
+        sh:minCount 1 ;
+        sh:minLength 50 ;
+        sh:maxLength 5000 ;
+        sh:severity sh:Violation ;
+        sh:message "REQUIRED: schema:description must be text between 50 and 5000 characters."@en ;
+    ] ;
+    sh:message "Needs to be Text between 50 and 5000 characters"@en ;
+.
+
+ex:URLShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Dataset ;
+    sh:property [
+        sh:path schema:url ;
+        sh:name "url" ;
+        sh:nodeKind sh:IRIOrLiteral ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "REQUIRED: schema:url (dataset landing page) must be present as an IRI or literal."@en ;
+    ] ;
+    sh:message "This needs to be a schema:url"@en ;
+.

@@ -1,0 +1,10 @@
+# Integrity: dcterms:references target is not an okf:Concept in the graph
+PREFIX okf: <https://go-fair-us.github.io/ai-blueprint-core/ns/okf#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?source ?target
+WHERE {
+  ?source a okf:Concept ;
+          dcterms:references ?target .
+  FILTER NOT EXISTS { ?target a okf:Concept }
+}

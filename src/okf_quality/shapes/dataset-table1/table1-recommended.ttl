@@ -1,0 +1,72 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <https://schema.org/> .
+@prefix ex:   <https://niaid.nih.gov/blueprint/shapes#> .
+
+#################################################################
+# Blueprint Table 1 — recommended / progressive fields (P0→P1)
+# Severity: Warning (non-blocking). Promote to Violation over time.
+# Combine with required-core.ttl when validating.
+#################################################################
+
+ex:IdentifierRecommendedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Dataset ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:name "identifier" ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "RECOMMENDED (Table 1): schema:identifier (e.g. resolvable DOI)."@en ;
+    ] ;
+.
+
+ex:LicenseRecommendedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Dataset ;
+    sh:property [
+        sh:path schema:license ;
+        sh:name "license" ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "RECOMMENDED (Table 1): schema:license (SPDX or license URL)."@en ;
+    ] ;
+.
+
+ex:ConditionsOfAccessRecommendedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Dataset ;
+    sh:property [
+        sh:path schema:conditionsOfAccess ;
+        sh:name "conditionsOfAccess" ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "RECOMMENDED (Table 1): schema:conditionsOfAccess."@en ;
+    ] ;
+.
+
+ex:AuthorRecommendedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Dataset ;
+    sh:property [
+        sh:path schema:author ;
+        sh:name "author" ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "RECOMMENDED (Table 1): schema:author (ORCID preferred)."@en ;
+    ] ;
+.
+
+ex:DateCreatedRecommendedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Dataset ;
+    sh:property [
+        sh:path schema:dateCreated ;
+        sh:name "dateCreated" ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "RECOMMENDED (Table 1): schema:dateCreated (ISO 8601)."@en ;
+    ] ;
+.

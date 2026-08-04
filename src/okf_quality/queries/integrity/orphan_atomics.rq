@@ -1,0 +1,15 @@
+# Integrity: atomic concepts without a parent Concept
+# Any row is a finding.
+PREFIX okf: <https://go-fair-us.github.io/ai-blueprint-core/ns/okf#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?atomic ?num
+WHERE {
+  ?atomic a okf:AtomicConcept .
+  OPTIONAL { ?atomic okf:atomicNumber ?num }
+  FILTER NOT EXISTS {
+    ?atomic dcterms:isPartOf ?parent .
+    ?parent a okf:Concept .
+  }
+}

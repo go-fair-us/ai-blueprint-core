@@ -1,0 +1,135 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <https://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix okf:  <https://go-fair-us.github.io/ai-blueprint-core/ns/okf#> .
+@prefix oq:   <https://go-fair-us.github.io/ai-blueprint-core/ns/okf-quality#> .
+
+#################################################################
+# SHACL shapes for okf2rdf knowledge graphs (P1 starter)
+#
+# Data graph: export of an OKF v0.2 bundle via src/okf2rdf.
+#################################################################
+
+oq:OkfGraphShapes
+    a owl:Ontology ;
+    rdfs:label "OKF graph shapes (starter)"@en ;
+    rdfs:comment "Structural SHACL for okf:Bundle, okf:Concept, okf:AtomicConcept."@en ;
+.
+
+#################################################################
+# okf:Bundle
+#################################################################
+
+oq:BundleShape
+    a sh:NodeShape ;
+    sh:targetClass okf:Bundle ;
+    sh:property [
+        sh:path schema:name ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:severity sh:Violation ;
+        sh:message "okf:Bundle must have schema:name."@en ;
+    ] ;
+    sh:property [
+        sh:path schema:hasPart ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "okf:Bundle must have at least one schema:hasPart."@en ;
+    ] ;
+.
+
+#################################################################
+# okf:Concept (group / file-level concept)
+#################################################################
+
+oq:ConceptShape
+    a sh:NodeShape ;
+    sh:targetClass okf:Concept ;
+    sh:property [
+        sh:path schema:name ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:minLength 1 ;
+        sh:severity sh:Violation ;
+        sh:message "okf:Concept must have non-empty schema:name."@en ;
+    ] ;
+    sh:property [
+        sh:path schema:description ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:severity sh:Warning ;
+        sh:message "okf:Concept should have schema:description."@en ;
+    ] ;
+    sh:property [
+        sh:path okf:okfType ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:severity sh:Violation ;
+        sh:message "okf:Concept must record okf:okfType (original OKF type string)."@en ;
+    ] ;
+    sh:property [
+        sh:path okf:conceptId ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:severity sh:Warning ;
+        sh:message "okf:Concept should have okf:conceptId (path id)."@en ;
+    ] ;
+.
+
+#################################################################
+# okf:AtomicConcept (table row)
+#################################################################
+
+oq:AtomicConceptShape
+    a sh:NodeShape ;
+    sh:targetClass okf:AtomicConcept ;
+    sh:property [
+        sh:path schema:text ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:minLength 1 ;
+        sh:severity sh:Violation ;
+        sh:message "okf:AtomicConcept must have schema:text (claim)."@en ;
+    ] ;
+    sh:property [
+        sh:path okf:atomicNumber ;
+        sh:minCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:severity sh:Violation ;
+        sh:message "okf:AtomicConcept must have okf:atomicNumber."@en ;
+    ] ;
+    sh:property [
+        sh:path dcterms:isPartOf ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:severity sh:Violation ;
+        sh:message "okf:AtomicConcept must have dcterms:isPartOf parent concept."@en ;
+    ] ;
+    sh:property [
+        sh:path okf:sourceLines ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:severity sh:Warning ;
+        sh:message "okf:AtomicConcept should cite okf:sourceLines."@en ;
+    ] ;
+.
+
+#################################################################
+# Soft provenance on any CreativeWork with generation time
+#################################################################
+
+oq:GeneratedWorkShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf prov:generatedAtTime ;
+    sh:property [
+        sh:path prov:wasAttributedTo ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Resources with prov:generatedAtTime should have prov:wasAttributedTo."@en ;
+    ] ;
+.

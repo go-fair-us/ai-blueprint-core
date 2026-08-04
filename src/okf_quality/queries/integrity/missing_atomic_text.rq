@@ -1,0 +1,10 @@
+# Integrity: atomics missing schema:text
+PREFIX okf: <https://go-fair-us.github.io/ai-blueprint-core/ns/okf#>
+PREFIX schema: <https://schema.org/>
+
+SELECT ?atomic ?num
+WHERE {
+  ?atomic a okf:AtomicConcept .
+  OPTIONAL { ?atomic okf:atomicNumber ?num }
+  FILTER NOT EXISTS { ?atomic schema:text ?t }
+}
