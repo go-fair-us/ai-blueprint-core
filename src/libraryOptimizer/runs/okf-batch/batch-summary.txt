@@ -1,0 +1,11 @@
+OK  apis-metadata-exposure-api-requirements
+OK  citation-outreach-citation-guidance
+OK  citation-outreach-outreach-training
+OK  metadata-schema-attribution-provenance-author
+OK  metadata-schema-attribution-provenance-funder-grant
+OK  metadata-schema-core-elements-identifier
+OK  metadata-schema-core-elements-name-description
+OK  metadata-schema-domain-specific-health-condition
+OK  metadata-schema-domain-specific-infectious-agent-host
+OK  persistent-identifiers-pid-strategy
+ok=10 fail=0 total=10

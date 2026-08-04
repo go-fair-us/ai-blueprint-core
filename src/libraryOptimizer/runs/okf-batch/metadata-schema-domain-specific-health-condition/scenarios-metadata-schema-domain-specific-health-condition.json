@@ -1,0 +1,16 @@
+{
+  "scenarios": [
+    "ImmPort SDY2968 researchers are submitting qualitative vaccination-perspectives data where free-text entries describing 'post-acute sequelae of COVID-19' must be mapped to specific MONDO ontology terms to ensure consistent indexing across all NIAID Blueprint vaccination studies.",
+    "The NIAID TB Portals multi-domain case collection requires standardized metadata for 'pulmonary TB' and 'multi-drug resistant tuberculosis' entries so that global surveillance systems can interoperate using unique MONDO identifiers rather than variable local text descriptions.",
+    "An Immune Tolerance Network (ITN) study on Rheumatoid Arthritis Phase 1 trials needs to map health conditions like 'seropositive rheumatoid arthritis' to precise MONDO terms to verify inclusion criteria and facilitate automated querying of trial eligibility metadata.",
+    "ClinEpiDB users uploading epidemiological data from malaria-endemic regions must convert local disease names and synonyms into standard MONDO identifiers for 'Plasmodium falciparum malaria' to enable accurate cross-database integration and comparative analysis.",
+    "The Minority Wellness Cohort Study (MWCCS) involves complex comorbidities such as 'type 2 diabetes' and 'hypertension' which require structured ontology mapping to support FAIR principles when analyzing health disparities within NIAID-funded community cohorts.",
+    "Host-pathogen genomic data submissions need to link sequencing records to specific patient phenotypes by mapping the underlying infectious disease condition to a MONDO term, ensuring that genomic repositories can filter samples by disease ontology correctly.",
+    "A pediatric HIV cohort study must distinguish between 'HIV infection' and age-specific developmental conditions by assigning distinct MONDO terms to each health condition metadata field to support accurate age-stratified searches within the repository.",
+    "Researchers submitting data on 'Zika virus disease' need to carefully map conditions to differentiate between the acute viral infection and 'congenital Zika syndrome' sequelae within the metadata schema to prevent conflation of distinct clinical entities.",
+    "Legacy NIAID biobank serum samples labeled with non-standard health condition descriptions require retrospective mapping to current MONDO terms to enhance findability and allow reuse of historical data in new FAIR-compliant research contexts.",
+    "A longitudinal study tracking 'Long COVID' symptoms over time needs consistent MONDO mapping for 'post-acute sequelae of SARS-CoV-2 infection' across different trial phases to allow for robust trend analysis of chronic conditions in the AccessClinicalData@NIAID system.",
+    "The Primary Immunodeficiency Registry requires precise MONDO ontology alignment for rare disease entries like 'common variable immunodeficiency' to distinguish subtypes accurately for patient matching and specialized research collaboration networks.",
+    "A cross-repository meta-analysis project combining data from ImmPort and TB Portals needs unified MONDO mapping for overlapping conditions like 'respiratory infectious diseases' to ensure interoperable metadata standards during large-scale data harmonization efforts."
+  ]
+}

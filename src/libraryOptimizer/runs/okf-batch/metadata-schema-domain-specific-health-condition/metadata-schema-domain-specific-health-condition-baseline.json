@@ -1,0 +1,32 @@
+{
+  "generate.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "Map the following health conditions or diseases to MONDO ontology terms for use in NIAID Blueprint metadata.\n\nHealth conditions mentioned:\n- COVID-19 and post-acute sequelae of COVID-19 / Long COVID (as studied in ImmPort SDY2968 qualitative vaccination-perspectives work; also relevant to AccessClinicalData@NIAID ACTT-series COVID treatment trials)\n- Rheumatoid arthritis (ImmPort SDY998 AMP Rheumatoid Arthritis Phase 1)\n- Tuberculosis / pulmonary TB (NIAID TB Portals multi-domain case collection)\n- HIV infection and HIV-associated comorbidities (MACS/WIHS Combined Cohort Study — MWCCS; https://statepi.jhsph.edu/mwccs/)\n- Malaria and other infectious-disease epidemiology endpoints typical of ClinEpiDB-hosted observational studies (https://clinepidb.org/)\n- Type 1 diabetes mellitus and immune-tolerance clinical contexts associated with ITN TrialShare-style interventional immunology trials (https://www.itntrialshare.org/)\n\nFor each condition return the preferred MONDO label and identifier. Format the output for the `healthCondition` metadata field.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding.",
+      "fields": [
+        {
+          "prefix": "Scenario:",
+          "description": "Concrete repository or digital-object situation to apply the prompt to. Vary biomedical domain, data type, and repository context."
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Artifact:",
+          "description": "The full response the prompt asks for: free text and/or structured JSON as specified by the instructions."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.13",
+      "dspy": "3.2.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}

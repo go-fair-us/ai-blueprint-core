@@ -1,0 +1,32 @@
+{
+  "generate.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "You are helping a NIAID-supported data repository fulfill the 'Point of Contact for Outreach and Training' requirement in the Blueprint.\n\nRepository: ImmuneSpace — homepage and data access portal for the Human Immunology Project Consortium (HIPC) (https://immunespace.org/), established by the NIAID Division of Allergy, Immunology, and Transplantation. ImmuneSpace provides curated human immune-profiling studies (vaccination, infection, medication, immune-mediated disease), linked resources from ImmPort and GEO/SRA, immune signatures, data standards, modules, and a community discussion forum. Peer NIAID resources for interoperability context: ImmPort Shared Data (https://www.immport.org/), IEDB (https://www.iedb.org/), and VEuPathDB pathogen portals (https://veupathdb.org/).\nCurrent team size and skills:\n- Small-to-medium core: HIPC Coordinating Center staff plus contributions from ~8 US HIPC centers (e.g., Benaroya, Columbia, Mount Sinai, La Jolla Institute for Immunology, MIT, Seattle Children’s, Stanford, Yale — as listed on ImmuneSpace)\n- Skills mix: human immunology domain experts, multi-omics / systems immunology analysts, data curators familiar with ImmPort study models, web/portal engineers, and community managers for discuss.immunespace.org\n- Existing outreach assets: documentation and user guides on the discussion forum (site features, data standards, announcements); publication tracking (~1300+ related publications); open data access UI with filters on sample types, experiments, and demographics; HIPC data standards materials\n- Constraints: keep the plan realistic for a small-to-medium team that already juggles multi-center data integration; designate a single Blueprint-facing point of contact without inventing a large new training department\n\nCreate a lightweight, practical plan that includes:\n- Who should be the designated point of contact\n- What minimal training/outreach activities they should offer\n- How this supports the NIAID Data Ecosystem Discovery Portal\n\nKeep it realistic for a small to medium team.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding.",
+      "fields": [
+        {
+          "prefix": "Scenario:",
+          "description": "Concrete repository or digital-object situation to apply the prompt to. Vary biomedical domain, data type, and repository context."
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Artifact:",
+          "description": "The full response the prompt asks for: free text and/or structured JSON as specified by the instructions."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.13",
+      "dspy": "3.2.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}

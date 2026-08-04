@@ -1,0 +1,16 @@
+{
+  "scenarios": [
+    "The ImmPort team needs to assign persistent identifiers to individual clinical study submissions rather than just the overall project, ensuring that specific datasets involving flow cytometry and clinical observations can be cited independently in publications while maintaining a hierarchical link to the parent study ID.",
+    "IEDB curators are debating whether to issue DOIs for individual epitope records that undergo frequent updates due to new literature, requiring a PID strategy that handles versioning so researchers can cite the exact state of the knowledge base used in their analysis.",
+    "BV-BRC is integrating genomic sequences from multiple sources and needs a PID strategy that distinguishes between the original submitted sequence and the enhanced, annotated version produced by their pipeline, ensuring both remain resolvable and linked.",
+    "EuPathDB managers want to implement PIDs for gene sets associated with specific eukaryotic pathogens, allowing researchers to reference dynamic collections of genes that change as new annotation evidence becomes available without breaking existing citations.",
+    "A new NIAID-supported repository for raw microscopy images of infected tissues requires a PID strategy that assigns identifiers at the batch level to avoid identifier explosion, while still allowing metadata queries to retrieve specific images within the batch.",
+    "The data integration team is building a federated search across ImmPort and BV-BRC and needs a PID resolution strategy that allows a single identifier to redirect users to the appropriate repository based on the data type requested.",
+    "Researchers submitting data to an NIAID archive require an embargo period where the PID is resolvable but returns a metadata-only record until the publication date, necessitating a PID strategy that supports state changes from private to public.",
+    "The BV-BRC bioinformatics team wants to cite their specific analysis workflows and software versions used to process genomic data, requiring PIDs that attach to the computational environment rather than just the resulting data files.",
+    "A clinical data repository handling sensitive patient information needs a PID strategy for de-identified metadata subsets that ensures privacy compliance while still allowing the data objects to be tracked and cited in compliance with FAIR principles.",
+    "IEDB ontology managers need stable PIDs for specific immunological terms used in data annotation, ensuring that even if the underlying ontology structure changes, the identifiers used in legacy datasets remain valid and mappable.",
+    "A legacy immunology database is being migrated to a new cloud infrastructure, and the team needs a PID strategy that ensures existing identifiers in published literature continue to resolve correctly to the new location without requiring re-citation.",
+    "An NIAID data portal wants to assign PIDs to specific subsets of a larger dataset, such as only the T-cell receptor sequences within a broader immunoprofiling study, to facilitate granular data reuse and specific attribution."
+  ]
+}

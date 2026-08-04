@@ -1,0 +1,32 @@
+{
+  "generate.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "You are helping a research team implement the NIAID Blueprint Persistent Identifiers requirements.\n\nA researcher has the following digital object and wants to know what persistent identifier(s) they should use and how to record it in metadata.\n\nDigital object type: ImmPort shared immunology study dataset (human subjects; clinical/survey responses and associated study metadata for a qualitative Long COVID vaccination-perspectives study)\nCurrent identifiers they have: ImmPort study accession SDY2968; DOI 10.21430/M3J8UMVGT6 (resolvable as https://doi.org/10.21430/M3J8UMVGT6); study landing page https://www.immport.org/shared/study/SDY2968\nRepository they plan to deposit in: ImmPort Shared Data (https://www.immport.org/) — already deposited; goal is Blueprint-compliant `identifier` metadata for the NIAID Data Ecosystem Discovery Portal\n\nRecommend the best identifier strategy according to the NIAID Blueprint. Explain why and show exactly how it should appear in the `identifier` metadata field.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding.",
+      "fields": [
+        {
+          "prefix": "Scenario:",
+          "description": "Concrete repository or digital-object situation to apply the prompt to. Vary biomedical domain, data type, and repository context."
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Artifact:",
+          "description": "The full response the prompt asks for: free text and/or structured JSON as specified by the instructions."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.13",
+      "dspy": "3.2.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}

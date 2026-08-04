@@ -1,0 +1,16 @@
+{
+  "scenarios": [
+    "A research team submitting an influenza vaccine trial dataset to ImmPort needs to identify the correct study accession format to ensure their data is findable within the NIAID ecosystem, specifically distinguishing between the overall study accession (SDY) and individual dataset identifiers for flow cytometry results.",
+    "A neuroscience consortium sharing structural MRI scans via the Informatics Data Archive (IDA) must determine whether to use the NDA Global Unique Identifier (GUID) system or assign a DOI to the aggregated imaging package to comply with Blueprint data sharing policies.",
+    "Investigators generating bulk RNA-seq data from HIV-infected cell lines are preparing to submit to GEO and need guidance on linking the BioProject accession to the specific Sample accessions to maintain interoperability across NCBI resources.",
+    "A bioinformatician developing a Python pipeline for analyzing single-cell transcriptomics wants to archive the code on Zenodo to obtain a versioned DOI, ensuring the software component of their NIAID grant deliverables is citable and reusable.",
+    "Clinical coordinators managing protected health information (PHI) for a malaria susceptibility study must understand how to reference the dbGaP study accession in their metadata without exposing sensitive participant identifiers in public-facing documentation.",
+    "Proteomics researchers characterizing host-pathogen protein interactions intend to deposit mass spectrometry data in PRIDE and need to know how to associate the project-level identifier with specific peptide evidence files for maximum granularity.",
+    "A laboratory documenting the specific monoclonal antibodies used in flow cytometry experiments requires the correct Research Resource Identifier (RRID) format to ensure reagent provenance is tracked accurately within their metadata schema.",
+    "Methods developers publishing a standardized protocol for neural organoid differentiation on Protocols.io seek advice on embedding the protocol's DOI into their grant reporting metadata to satisfy methodological transparency requirements.",
+    "Authors releasing a preprint on Zika virus neurotropism prior to journal publication need to decide whether to cite the bioRxiv DOI or wait for the final published article DOI when referencing the work in their data management plan.",
+    "Social scientists collecting qualitative survey data on patient experiences with chronic Lyme disease plan to store responses in Dataverse and require guidance on assigning a dataset DOI while maintaining consent-based access restrictions.",
+    "A multi-omics project integrating metabolomics, transcriptomics, and clinical data aims to use BioStudies as a central registry and needs to understand how to link multiple subordinate repository accessions under a single study identifier.",
+    "A team creating an interactive visualization dashboard for West Nile virus surveillance data wants to archive the static snapshot on Figshare to obtain a PID, ensuring the derived data product remains accessible even if the live web service changes."
+  ]
+}

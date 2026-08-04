@@ -1,0 +1,32 @@
+{
+  "generate.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "Help a researcher create compliant `funder` and `grant` metadata for the NIAID Blueprint.\n\nProject title: SDY998: AMP Rheumatoid Arthritis Phase 1 — open-access ImmPort study dataset (https://www.immport.org/shared/study/SDY998; DOI https://doi.org/10.21430/M3KXJHSP4T), generated under the Accelerating Medicines Partnership RA/SLE program and indexed as a worked example in the NIAID Blueprint Supplementary Table 4\nFunding organizations: National Institute of Allergy and Infectious Diseases (NIAID), NIH — ROR https://ror.org/043z4tv69; National Institute of Arthritis and Musculoskeletal and Skin Diseases (NIAMS), NIH — ROR https://ror.org/006zn3t30; program vehicle: Accelerating Medicines Partnership RA/SLE (AMP RA/SLE)\nGrant or contract numbers: 1UH2AR067676-01 (NIAID is secondary funder per Blueprint Supplementary Table 4)\n\nGenerate the metadata as JSON with `funder` (using ROR where possible) and `grant` fields.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding.",
+      "fields": [
+        {
+          "prefix": "Scenario:",
+          "description": "Concrete repository or digital-object situation to apply the prompt to. Vary biomedical domain, data type, and repository context."
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Artifact:",
+          "description": "The full response the prompt asks for: free text and/or structured JSON as specified by the instructions."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.13",
+      "dspy": "3.2.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}

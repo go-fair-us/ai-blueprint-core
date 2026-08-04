@@ -1,0 +1,16 @@
+{
+  "scenarios": [
+    "An ImmPort principal investigator submits clinical trial data for a Rheumatoid Arthritis study (SDY998) and needs to format the author metadata array to include full names, available ORCIDs, and institutional affiliations mapped to ROR IDs for FAIR compliance.",
+    "A researcher depositing HIV genomic sequences into dbGaP must generate author metadata that balances attribution with privacy, ensuring all public-facing contributors have ORCIDs and their institutions are identified by ROR codes.",
+    "A consortium submitting Influenza sequencing data to the Sequence Read Archive (SRA) requires a standardized author list where hundreds of contributors are aggregated, with lead authors providing ORCIDs and coordinating institutions linked via ROR.",
+    "Data stewards at the NIAID Data Discovery Portal (DDP) are integrating Malaria research datasets from multiple sites and need to harmonize author metadata fields to ensure consistent ORCID and ROR usage across linked digital objects.",
+    "A computational biologist uploading immunology analysis code to Zenodo wants to cite software contributors properly by generating an author metadata array that includes developer ORCIDs and their laboratory ROR identifiers.",
+    "An ImmPort vaccine study team includes authors with dual affiliations across academia and industry, requiring the metadata prompt to correctly map each affiliation to its specific ROR ID while maintaining ORCID linkage for each person.",
+    "A Diabetes immunology study registered on ClinicalTrials.gov needs to align its Responsible Party and Principal Investigator information with publication author metadata, ensuring ORCIDs and ROR IDs are consistent across both records.",
+    "Proteomics data from a Sepsis study submitted to PRIDE involves technical staff and principal investigators, necessitating an author metadata array that attributes contribution roles clearly alongside ORCID and ROR information.",
+    "An epidemiological cohort study archived in ICPSR involves field workers and data analysts, requiring a metadata schema that distinguishes these roles in the author array while still enforcing ORCID and ROR standards where possible.",
+    "Chest X-ray imaging data for Tuberculosis research stored in the Imaging Data Commons (IDC) involves radiologists and AI developers, needing a unified author metadata format that captures both clinical and technical expertise with persistent identifiers.",
+    "A multi-omics project on Lyme disease requires identification of the corresponding author for metadata records, ensuring their ORCID is prioritized and their institution's ROR ID is accurately resolved for communication purposes.",
+    "A legacy data migration project for historical NIAID grants involves converting plain text author lists from 2010 into modern FAIR metadata, requiring the prompt to infer or flag missing ORCIDs and map old institution names to current ROR IDs."
+  ]
+}

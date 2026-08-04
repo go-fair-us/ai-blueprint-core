@@ -1,0 +1,16 @@
+{
+  "scenarios": [
+    "A researcher submitting flow cytometry data from a peanut allergy desensitization trial to ImmPort needs to map their NIH R01 award number and the participating university's ROR ID to the study metadata fields to ensure compliance with NIAID data sharing policies.",
+    "A genomics lab uploading Mycobacterium tuberculosis whole-genome sequencing reads to the NCBI Sequence Read Archive must correctly format the funding string to include both the NIH grant ID and the Wellcome Trust award, ensuring machine-actionable links to the Funder Registry.",
+    "An immunology group depositing transcriptomic profiles of HIV-resistant individuals into GEO needs to generate standardized funder metadata that links the dataset to the specific NIAID contract number and the institution's DUNS number for federal reporting.",
+    "A multi-institutional consortium publishing a curated dataset of viral epitopes on Zenodo requires a structured metadata block that attributes funding to three separate NIH institutes while maintaining a single DOI for citation purposes.",
+    "A proteomics core facility submitting mass spectrometry data of influenza-infected lung tissue to PRIDE must resolve the principal investigator's organization to a valid ROR ID to satisfy the journal's data availability statement requirements.",
+    "A team sharing confocal microscopy images of Zika virus infection via the NIAID Data Archive needs to embed grant metadata within the image file headers and the accompanying JSON manifest to ensure long-term provenance tracking.",
+    "A phase II vaccine trial registered on ClinicalTrials.gov requires synchronization between the protocol registration funding section and the eventual data repository deposit to prevent discrepancies in public award reporting.",
+    "A researcher publishing negative results from a drug screening assay on Figshare wants to ensure the underlying NIAID SBIR grant is properly acknowledged in the metadata to comply with funding terms despite the lack of a associated journal article.",
+    "A study involving human host genetics and malaria susceptibility submitted to dbGaP must handle sensitive funding metadata that links to the grant without exposing personally identifiable information in the public-facing record.",
+    "A single-cell RNA sequencing atlas of immune cells hosted on CellxGene needs standardized funding tags that allow users to filter datasets by specific NIAID program codes like the Human Immunology Project Consortium.",
+    "A team pre-registering an observational study on OSF requires a metadata template that captures anticipated funding sources, including pending NIAID awards, to establish transparency before data collection begins.",
+    "A computational biology group sharing an algorithm for predicting antigenicity on Code Ocean must link the software version to the specific grant milestone that funded its development, ensuring accurate attribution for resource tracking."
+  ]
+}

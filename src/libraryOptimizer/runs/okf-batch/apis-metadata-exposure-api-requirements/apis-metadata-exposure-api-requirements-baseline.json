@@ -1,0 +1,32 @@
+{
+  "generate.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "You are helping a repository implement the 'Minimal API Specifications for Exposing Metadata to Machines' section of the NIAID Blueprint.\n\nRepository name: ImmPort Shared Data (https://www.immport.org/) — primary target. Peer patterns to keep in mind for NIAID IID interoperability: TB Portals programmatic access to clinical/radiological/genomic TB case data (https://tbportals.niaid.nih.gov/), and BV-BRC Data API + FTP + CLI batch access (https://www.bv-brc.org/api/doc/; https://www.bv-brc.org/).\nCurrent tech stack:\n- ImmPort Shared Data endpoints documented with OpenAPI 3.0 and exposed via Swagger UI for interactive exploration (https://docs.immport.org/apidocumentation/)\n- Scoped API keys / Bearer token authentication for API access\n- Study metadata example pattern: https://immport.org/data/query/api/study/SDY998?format=json (landing page counterpart https://immport.org/shared/study/SDY998)\n- Additional machine interfaces already in use or documented: GA4GH DRS for data objects; FHIR endpoints for some clinical-style resources\n- Download paths require authenticated access under the ImmPort user agreement\n- Goal: extend or wrap existing JSON study APIs so responses can be requested as schema.org JSON-LD covering Blueprint Table 1 core elements (identifier, name, description, author, funder, license, distribution, infectiousAgent, host, healthCondition, etc.), following Blueprint Supplemental Table 7 ImmPort-based JSON-LD patterns\n\nPropose a minimal but compliant API design. Include:\n- Recommended endpoints\n- Required query parameters\n- Response format (JSON-LD preferred)\n- How to handle the core metadata elements from the Blueprint\n\nKeep it practical and aligned with the Blueprint's goals.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding.",
+      "fields": [
+        {
+          "prefix": "Scenario:",
+          "description": "Concrete repository or digital-object situation to apply the prompt to. Vary biomedical domain, data type, and repository context."
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Artifact:",
+          "description": "The full response the prompt asks for: free text and/or structured JSON as specified by the instructions."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.13",
+      "dspy": "3.2.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}

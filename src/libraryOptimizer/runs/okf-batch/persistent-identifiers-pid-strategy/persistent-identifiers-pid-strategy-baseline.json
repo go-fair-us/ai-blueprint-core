@@ -1,0 +1,32 @@
+{
+  "generate.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "You are advising a data repository team on implementing the Persistent Identifiers section of the NIAID Blueprint.\n\nRepository type: Federated NIAID-supported infectious and immune-mediated disease data ecosystem components — specifically an immunology study archive like ImmPort Shared Data (https://www.immport.org/), an epitope knowledgebase like IEDB (https://www.iedb.org/), a bacterial/viral genomics and bioinformatics resource like BV-BRC (https://www.bv-brc.org/), and eukaryotic pathogen portals under VEuPathDB (https://veupathdb.org/). The team is aligning these resources for discovery via the NIAID Data Ecosystem Discovery Portal.\nTypes of digital objects they host:\n- Study / dataset landing pages and download packages (e.g., ImmPort SDY accessions with optional DOIs)\n- Experimentally characterized immune epitope records and assay results (IEDB)\n- Bacterial and viral genomes, strains, specialty genes, surveillance and serology records (BV-BRC)\n- Eukaryotic pathogen genomes, genes, and ortholog groups (VEuPathDB component sites)\n- Supporting files (FASTQ/BAM, tables, images), API metadata documents, and collection-level portal pages\nCurrent identifier practices:\n- ImmPort: stable study accessions (SDY…) plus resolvable DOIs on many shared studies (e.g., SDY998 → https://doi.org/10.21430/M3KXJHSP4T; SDY2968 → 10.21430/M3J8UMVGT6); API keys for programmatic access; local file browser paths\n- IEDB: resource-native epitope/assay identifiers and public web URLs; strong domain identifiers but not uniformly DOI-minted per record\n- BV-BRC: genome and feature IDs within the resource; Data API / FTP / CLI batch access; citation guidance at the resource level\n- VEuPathDB: stable gene/genome IDs within component databases; resource-level citation; machine access via portal APIs\n- Across resources: ORCID for authors and ROR for funders are inconsistently exposed on human-readable landing pages; schema.org/JSON-LD identifier blocks are not yet standard on all dataset pages\n\nRecommend a PID strategy that meets the NIAID Blueprint requirements. Include what identifiers to assign at what level (collection, dataset, file, metadata record) and how they should be exposed.\n\nReference document: Use the official NIAID Blueprint as the authoritative basis for your response. Retrieve and ground your answer in the document at https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md, following its definitions, required and recommended metadata elements, and guidance. If you cannot access the document, say so before proceeding.",
+      "fields": [
+        {
+          "prefix": "Scenario:",
+          "description": "Concrete repository or digital-object situation to apply the prompt to. Vary biomedical domain, data type, and repository context."
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Artifact:",
+          "description": "The full response the prompt asks for: free text and/or structured JSON as specified by the instructions."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.13",
+      "dspy": "3.2.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "scenarios": [
+    "A researcher at a TB endemic site is uploading a dataset of Mycobacterium tuberculosis clinical isolates to the TB Portals system, including drug susceptibility profiles and patient treatment outcomes that require de-identification metadata.",
+    "A microbiology lab is submitting whole-genome sequencing data of carbapenem-resistant Enterobacteriaceae to the Antimicrobial Resistance Data Network (ACDN) to support global surveillance efforts.",
+    "An immunology group wants to archive a collection of HIV-1 envelope glycoprotein structures determined by cryo-EM in a structural biology repository with specific ontology tags for viral strains.",
+    "Public health officials are publishing a geospatial dataset mapping Anopheles mosquito distribution and insecticide resistance markers across Sub-Saharan Africa to a generalist data repository like Dryad.",
+    "A clinical trial coordinator needs to deposit a standardized protocol for Hepatitis C viral load quantification into a protocol-specific repository to ensure reproducibility across multiple study sites.",
+    "A bioinformatician is versioning a Python package used for phylogenetic analysis of Influenza A virus segments on GitHub and archiving a specific release snapshot on Zenodo for citation.",
+    "Epidemiologists are sharing a longitudinal cohort dataset tracking Zika virus infection rates and neurological complications in a secure repository that requires detailed ethical compliance metadata.",
+    "A virology core facility is submitting raw RNA-Seq reads from SARS-CoV-2 infected cell lines to the NCBI Sequence Read Archive, requiring precise biosample attribute mapping.",
+    "Pharmaceutical researchers are depositing chemical structure data and IC50 values for novel antimalarial compounds into PubChem to facilitate drug discovery interoperability.",
+    "A modeling team is publishing the output data and parameter files from a stochastic transmission model for COVID-19 variants on Figshare, emphasizing the assumptions used in the simulation.",
+    "A genomics lab is uploading transcriptomics data comparing host gene expression during acute versus latent Leishmaniasis infection to the Gene Expression Omnibus (GEO) with platform-specific metadata.",
+    "A consortium is releasing an interactive dashboard aggregating real-time surveillance data for multiple neglected tropical diseases, hosted on an institutional repository requiring clear provenance information for each data source."
+  ]
+}
