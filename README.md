@@ -1,37 +1,32 @@
 # ai-blueprint-core
 
-AI agent tooling to help NIAID-funded data repositories implement the [NIAID Blueprint for Digital Objects](https://datascience.niaid.nih.gov/resources).
+AI agent tools help NIAID-funded data repositories apply the [NIAID Blueprint for Digital Objects](https://datascience.niaid.nih.gov/resources).
 
-The Blueprint is a FAIR data initiative from NIAID/ODSET that defines minimal metadata schemas, persistent identifiers (PIDs), API standards, and citation practices for research data repositories. This project provides LLM-driven agents — guided by structured prompt personas — to help repository owners and staff assess and implement Blueprint requirements across its five areas:
+The Blueprint is a FAIR data program from NIAID/ODSET. It defines minimal metadata schemas, persistent identifiers (PIDs), API standards, and citation practices for research data repositories.
 
-1. **Metadata schema** — schema.org-based metadata elements for digital objects
-2. **Persistent identifiers** — DOIs, ORCIDs, RORs, RRIDs, and ontology terms
-3. **APIs and machine access** — JSON-LD endpoints, OpenAPI documentation, structured data
-4. **Citation guidance** — PID-based citation examples in standard formats
-5. **Outreach and training** — Contact Points, training materials, Portal onboarding
+This project supplies LLM-driven agents, guided by structured prompt personas. The agents help repository owners and staff assess and apply Blueprint requirements in five areas:
 
-## Flipped Interaction Pattern  
+1. **Metadata schema**: schema.org-based metadata elements for digital objects
+2. **Persistent identifiers**: DOIs, ORCIDs, RORs, RRIDs, and ontology terms
+3. **APIs and machine access**: JSON-LD endpoints, OpenAPI documentation, structured data
+4. **Citation guidance**: PID-based citation examples in standard formats
+5. **Outreach and training**: Contact Points, training materials, Portal onboarding
 
-This is not an agent, rather just a pattern that inverts the normal chat mode to where
-the language model initializes with a prompt and waits for user input to continue the conversation.
+## Flipped Interaction Pattern
 
-I have an example in the prompts directory, but it's long and verbose, so it would likely be good to 
-make a version that is more concise and easier to understand.
+This is not an agent. It is a pattern that reverses normal chat mode. The language model starts from a prompt and waits for user input to continue the conversation.
+
+An example lives in the `prompts` directory. That example is long and verbose. A shorter, clearer version would help.
 
 | Prompt | Purpose |
 |--------|---------|
-| `fairAssessmentInterview.md` | Conducts a structured 6-phase interview to assess a repository's current Blueprint alignment and produces a gap report with prioritized recommendations |
+| `fairAssessmentInterview.md` | Runs a structured 6-phase interview to assess a repository Blueprint alignment and produces a gap report with ranked recommendations |
 
-Paste the above document into your prompt, and all modern models should begin the interview 
-process and then conclude with a summary of the responses.    Again, this can get long, so if you get to a point
-you want to stop, tell the model something like; "stop the interview and give me the summary now".
-
+Paste the document into your prompt. Modern models start the interview and end with a summary of the responses. The exchange can get long. If you want to stop, tell the model: "stop the interview and give me the summary now".
 
 ## Usage
 
-There is no executable code in this repository at this time that you need to run.   This is just
-used to convert PDF to Markdown, and the results are already in the __docs__ directory. 
-
+This repository has no executable code that you must run. The tooling converts PDF to Markdown. The converted results already live in the `docs` directory.
 
 ## Requirements
 
@@ -47,16 +42,15 @@ cd ai-blueprint-core
 uv sync
 ```
 
-
 ## Reference
 
-The authoritative Blueprint specification is in `docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md` (converted from the PDF via `docling`/`marker-pdf`).
+The authoritative Blueprint specification is in `docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md`. The tools `docling` and `marker-pdf` converted that file from the PDF.
 
-If you wish to pass this to a model, use the GitHub raw link: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+To pass this to a model, use the GitHub raw link: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 
 ## Dependencies
 
-- [`docling`](https://github.com/docling-project/docling) — structured document parsing and extraction
-- [`marker-pdf`](https://github.com/VikParuchuri/marker) — high-quality PDF-to-Markdown conversion
+- [`docling`](https://github.com/docling-project/docling): structured document parsing and extraction
+- [`marker-pdf`](https://github.com/VikParuchuri/marker): PDF-to-Markdown conversion
 
-Both are ML-based libraries; expect a large `.venv` and model downloads on first run.
+Both are ML-based libraries. Expect a large `.venv` and model downloads on the first run.

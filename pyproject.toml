@@ -5,10 +5,16 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "depy>=0.0.2",
     "docling>=2.94.0",
     "dspy[optuna]>=3.2.1",
+    "html5rdf>=1.2.1",
     "marker-pdf>=1.10.2",
+    "owlrl>=7.6.2",
+    "pyshacl>=0.40.0",
     "pyyaml>=6.0",
+    "rdflib>=7.6.0",
+    "update>=0.0.1",
 ]
 
 [project.optional-dependencies]
@@ -20,6 +26,10 @@ mcp = [
 ]
 validation = [
     "pyshacl>=0.40.0",
+]
+genmeta = [
+    "pyshacl>=0.40.0",
+    "herdr-python-client @ git+https://github.com/54rt1n/herdr-python-client.git",
 ]
 
 [dependency-groups]

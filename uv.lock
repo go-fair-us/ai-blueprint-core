@@ -37,13 +37,23 @@ name = "ai-blueprint-core"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "depy" },
     { name = "docling" },
     { name = "dspy", extra = ["optuna"] },
+    { name = "html5rdf" },
     { name = "marker-pdf" },
+    { name = "owlrl" },
+    { name = "pyshacl" },
     { name = "pyyaml" },
+    { name = "rdflib" },
+    { name = "update" },
 ]
 
 [package.optional-dependencies]
+genmeta = [
+    { name = "herdr-python-client" },
+    { name = "pyshacl" },
+]
 mcp = [
     { name = "fastembed" },
     { name = "fastmcp" },
@@ -61,17 +71,25 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "depy", specifier = ">=0.0.2" },
     { name = "docling", specifier = ">=2.94.0" },
     { name = "dspy", extras = ["optuna"], specifier = ">=3.2.1" },
     { name = "fastembed", marker = "extra == 'mcp'", specifier = ">=0.4" },
     { name = "fastmcp", marker = "extra == 'mcp'", specifier = ">=2.0" },
+    { name = "herdr-python-client", marker = "extra == 'genmeta'", git = "https://github.com/54rt1n/herdr-python-client.git" },
+    { name = "html5rdf", specifier = ">=1.2.1" },
     { name = "marker-pdf", specifier = ">=1.10.2" },
+    { name = "owlrl", specifier = ">=7.6.2" },
+    { name = "pyshacl", specifier = ">=0.40.0" },
+    { name = "pyshacl", marker = "extra == 'genmeta'", specifier = ">=0.40.0" },
     { name = "pyshacl", marker = "extra == 'validation'", specifier = ">=0.40.0" },
     { name = "pyyaml", specifier = ">=6.0" },
     { name = "rank-bm25", marker = "extra == 'mcp'", specifier = ">=0.2" },
     { name = "rapidfuzz", marker = "extra == 'mcp'", specifier = ">=3.0" },
+    { name = "rdflib", specifier = ">=7.6.0" },
+    { name = "update", specifier = ">=0.0.1" },
 ]
-provides-extras = ["mcp", "validation"]
+provides-extras = ["mcp", "validation", "genmeta"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=8.0" }]
@@ -629,6 +647,15 @@ sdist = { url = "https://files.pythonhosted.org/packages/0f/d5/c66da9b79e5bdb124
 wheels = [
     { url = "https://files.pythonhosted.org/packages/07/6c/aa3f2f849e01cb6a001cd8554a88d4c77c5c1a31c95bdf1cf9301e6d9ef4/defusedxml-0.7.1-py2.py3-none-any.whl", hash = "sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61", size = 25604, upload-time = "2021-03-08T10:59:24.45Z" },
 ]
+
+[[package]]
+name = "depy"
+version = "0.0.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pydotplus" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/93/fa/0e43cbc9b3232179085ef76bb9ac8cab83759497a1afc5aa1c63e4c84d54/depy-0.0.2.zip", hash = "sha256:8bc7209ea0a6ca352b0df5518ff0f472f306deaa261365b5169bcc5fcaf3112c", size = 4041, upload-time = "2015-04-09T16:53:03.976Z" }
 
 [[package]]
 name = "dill"
@@ -1258,6 +1285,11 @@ sdist = { url = "https://files.pythonhosted.org/packages/01/ee/02a2c011bdab74c6f
 wheels = [
     { url = "https://files.pythonhosted.org/packages/04/4b/29cac41a4d98d144bf5f6d33995617b185d14b22401f75ca86f384e87ff1/h11-0.16.0-py3-none-any.whl", hash = "sha256:63cf8bbe7522de3bf65932fda1d9c2772064ffb3dae62d55932da54b31cb6c86", size = 37515, upload-time = "2025-04-24T03:35:24.344Z" },
 ]
+
+[[package]]
+name = "herdr-python-client"
+version = "0.4.11"
+source = { git = "https://github.com/54rt1n/herdr-python-client.git#f4fdb61946bc200039e814e0cc1fba1d9904605d" }
 
 [[package]]
 name = "hf-xet"
@@ -2985,6 +3017,15 @@ wheels = [
 ]
 
 [[package]]
+name = "pydotplus"
+version = "2.0.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pyparsing" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/60/bf/62567830b700d9f6930e9ab6831d6ba256f7b0b730acb37278b0ccdffacf/pydotplus-2.0.2.tar.gz", hash = "sha256:91e85e9ee9b85d2391ead7d635e3d9c7f5f44fd60a60e59b13e2403fa66505c4", size = 278677, upload-time = "2014-12-09T00:53:49.515Z" }
+
+[[package]]
 name = "pygments"
 version = "2.20.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3764,6 +3805,15 @@ wheels = [
 ]
 
 [[package]]
+name = "style"
+version = "1.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/6d/43/1aea4a07f3755195e6bf4b4f1a6667eda4bd1d23c5f5d12e92d894d8a052/style-1.1.0.tar.gz", hash = "sha256:8eb365fc15039b19b728bd4e6e85fb7daf24e7aeeec6a15a666f97484c564005", size = 3766, upload-time = "2017-08-25T15:11:35.151Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4c/0b/6be2071e20c621e7beb01b86e8474c2ec344a9750ba5315886f24d6e7386/style-1.1.0-py2.py3-none-any.whl", hash = "sha256:6485a4bcb84629341a5fd1587fe3ac4887daa4741f0c8a1d01b9c3c8a263afe7", size = 6427, upload-time = "2017-08-25T15:11:34.439Z" },
+]
+
+[[package]]
 name = "surya-ocr"
 version = "0.17.1"
 source = { registry = "https://pypi.org/simple" }
@@ -4157,6 +4207,17 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/b5/82/345cc927f7fbdae6065e7768759932fcc827fc20b29b45dfbafa2f1f7da4/uncalled_for-0.3.2.tar.gz", hash = "sha256:89f5dbcd71e2b8f47c030b1fa302e6cce2ec795d1ac565eeb6525c5fe55cb8a2", size = 50032, upload-time = "2026-05-06T13:38:25.204Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/3b/25/2c87754f3a9e692315f7b811244090e68f362979fc8886b3fbd2985a1d8c/uncalled_for-0.3.2-py3-none-any.whl", hash = "sha256:0ff60b142c7d1f8070bde9d42afaa70aedc77dcc10998c227687e9c15713418e", size = 11444, upload-time = "2026-05-06T13:38:24.025Z" },
+]
+
+[[package]]
+name = "update"
+version = "0.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "style" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9f/c4/dfe8a392edd35cc635c35cd3b20df6a746aacdeb39b685d1668b56bf819b/update-0.0.1-py2.py3-none-any.whl", hash = "sha256:a25522b4bf60e3e3c1a3ff3ca3a4f5a328ac4b8ff400fdc9614483147e313323", size = 2882, upload-time = "2017-11-13T21:12:53.479Z" },
 ]
 
 [[package]]

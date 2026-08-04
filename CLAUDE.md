@@ -32,6 +32,23 @@ Each skill follows the standard layout: a `SKILL.md` (frontmatter + persona + fl
 - **`niaid-bp-teach`** — multi-session Blueprint teaching workspace (MISSION, HTML lessons, learning records, glossary, resources). Hands-on curriculum steps hand off to sibling skills.
 - **`niaid-bp-validation`** — SHACL validation of `schema:Dataset` graphs with pySHACL. Bundled initial shape in `assets/blueprint-required.ttl` (required name/description/url); runner in `scripts/validate.py` (severity-aware `conforms`). Needs optional extra: `uv sync --extra validation`.
 
+### genMeta (Herdr + Pi pipeline)
+
+`src/genMeta/` orchestrates **Pi agents via Herdr** (not Hermes): extract JSON-LD from a URL → host pySHACL → repair until pass. See `src/genMeta/README.md`. Run: `uv sync --extra genmeta` then `uv run python src/genMeta/main.py --url …` with a running Herdr server.
+
+### libraryOptimizer (GEPA on OKF prompt examples)
+
+`src/libraryOptimizer/` optimizes one filled prompt from `okf/prompt_examples/` at a time with **DSPy GEPA** (no multi-optimizer compare). Seed = `# Prompt` body (YAML stripped); metric = LLM judge against local Blueprint + Work Plans (section-sliced). See `src/libraryOptimizer/README.md`. Run: `uv run python src/libraryOptimizer/main.py optimize --prompt okf/prompt_examples/… --gepa-budget 40`.
+
+### OKF tooling (`okf_core`, `visualize-okf`, `okf2rdf`, `okf_quality`)
+
+- **`src/okf_core/`** — shared OKF v0.2 parse/walk library (`walk_bundle`, `OKFDocument`, atomic tables).
+- **`src/visualize-okf/`** — HTML / Gephi graph of a bundle (uses `okf_core`).
+- **`src/okf2rdf/`** — export a bundle to schema.org-centered RDF (Turtle or JSON-LD; PROV/DCTERMS/okf:; atomics as `okf:AtomicConcept`).  
+  Example: `PYTHONPATH=src/okf_core/src:src/okf2rdf/src python -m okf2rdf --bundle okf/bundles/niaid_blueprint --out /tmp/bundle.ttl`.
+- **`src/okf_quality/`** — lint, SHACL shapes, SPARQL packs, and rule catalogs (P0–P3). See `src/okf_quality/README.md`.  
+  Example: `PYTHONPATH=src:src/okf_core/src python -m okf_quality.scripts.okf_lint --bundle okf/bundles/niaid_blueprint`.
+
 When editing a skill, keep the `SKILL.md` frontmatter (`name`, `description`, `when_to_use`) accurate — that text is what triggers the skill — and remember reference files are read mid-interview, so their structure is load-bearing.
 
 ## Prompts (`prompts/`)

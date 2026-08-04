@@ -9,6 +9,7 @@ description = "Self-contained HTML graph visualizer for Open Knowledge Format (O
 requires-python = ">=3.11"
 dependencies = [
     "pyyaml>=6.0",
+    "okf-core",
 ]
 readme = "README.md"
 license = { text = "Apache-2.0" }
@@ -27,4 +28,4 @@ visualize_okf = ["viewer/templates/*.html", "viewer/static/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src"]
+pythonpath = ["src", "../okf_core/src"]

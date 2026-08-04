@@ -1,0 +1,886 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix okf: <https://go-fair-us.github.io/ai-blueprint-core/ns/okf#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/api-specification/impact> a okf:Concept,
+        schema:Article ;
+    rdfs:label "Minimal API Specifications — Impact" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/api-specification/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "api-specification/impact" ;
+    okf:conceptRange "138-142" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "201-203" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "3.3. Impact (lines 201-203)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Ecosystem benefits of standardized metadata APIs" ;
+    schema:headline "3.3. Impact" ;
+    schema:keywords "api",
+        "discovery-portal",
+        "metadata-catalog" ;
+    schema:name "Minimal API Specifications — Impact" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/evaluated-repositories> a okf:Concept,
+        schema:Table ;
+    rdfs:label "Appendix — Evaluated NIAID Repositories" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/implementation/approach> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "appendix/evaluated-repositories" ;
+    okf:conceptRange "185-197" ;
+    okf:normative false ;
+    okf:okfType "Reference Table" ;
+    okf:sourceLines "271-290" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "Appendix (lines 271-290)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Supplemental Table 1 repositories assessed by GO FAIR US" ;
+    schema:headline "Appendix" ;
+    schema:keywords "discovery-portal",
+        "repositories",
+        "supplemental-table-1" ;
+    schema:name "Appendix — Evaluated NIAID Repositories" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/iid-api-reference> a okf:Concept,
+        schema:Table ;
+    rdfs:label "Reference Table — IID APIs" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/api-specification/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "appendix/iid-api-reference" ;
+    okf:conceptRange "223-234" ;
+    okf:normative false ;
+    okf:okfType "Reference Table" ;
+    okf:sourceLines "400-428" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "Application Programming Interface (API) Reference (lines 400-428)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Supplemental Table 6 APIs for infectious and immune disease research data" ;
+    schema:headline "Application Programming Interface (API) Reference" ;
+    schema:keywords "api",
+        "iid",
+        "supplemental-table-6" ;
+    schema:name "Reference Table — IID APIs" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/portal-metadata-examples> a okf:Concept,
+        schema:CreativeWork ;
+    rdfs:label "Worked Example — Portal Metadata Entries" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "appendix/portal-metadata-examples" ;
+    okf:conceptRange "203-213" ;
+    okf:normative false ;
+    okf:okfType "Worked Example" ;
+    okf:sourceLines "304-366" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "Examples of Metadata Elements and Entries for NIAID-funded Datasets Indexed in the NIAID Data Ecosystem Discovery Portal (lines 304-366)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Supplementary Tables 3 and 4 completed metadata for ACDN and ImmPort datasets" ;
+    schema:headline "Examples of Metadata Elements and Entries for NIAID-funded Datasets Indexed in the NIAID Data Ecosystem Discovery Portal" ;
+    schema:keywords "acdn",
+        "immport",
+        "supplementary-table-3",
+        "supplementary-table-4" ;
+    schema:name "Worked Example — Portal Metadata Entries" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/citation/impact> a okf:Concept,
+        schema:Article ;
+    rdfs:label "Minimal Citation Requirements — Impact" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/citation/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "citation/impact" ;
+    okf:conceptRange "166-169" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "243-245" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "4.3. Impact (lines 243-245)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Visibility, attribution, and broader impact of PID-backed citations" ;
+    schema:headline "4.3. Impact" ;
+    schema:keywords "citation",
+        "impact",
+        "pids" ;
+    schema:name "Minimal Citation Requirements — Impact" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/impact> a okf:Concept,
+        schema:Article ;
+    rdfs:label "NIAID Minimal Metadata Schema — Impact" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "metadata-schema/impact" ;
+    okf:conceptRange "84-88" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "135-137" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "1.3. Impact (lines 135-137)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Expected benefits of standardized metadata with PIDs and ontologies" ;
+    schema:headline "1.3. Impact" ;
+    schema:keywords "metadata",
+        "ontologies",
+        "pids",
+        "reuse" ;
+    schema:name "NIAID Minimal Metadata Schema — Impact" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/outreach-training/impact> a okf:Concept,
+        schema:Article ;
+    rdfs:label "Outreach and Training — Impact" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/outreach-training/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "outreach-training/impact" ;
+    okf:conceptRange "184-184" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "261-263" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "5.3. Impact (lines 261-263)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Human infrastructure complementing technical interoperability" ;
+    schema:headline "5.3. Impact" ;
+    schema:keywords "contact-point",
+        "interoperability" ;
+    schema:name "Outreach and Training — Impact" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/overview/background> a okf:Concept,
+        schema:Article ;
+    rdfs:label "Background and Introduction" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/overview/blueprint-scope> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "overview/background" ;
+    okf:conceptRange "3-11" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "39-53" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "Background and Introduction (lines 39-53)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Context for NIAID digital objects, FAIR partnership, and Blueprint development" ;
+    schema:headline "Background and Introduction" ;
+    schema:keywords "digital-object",
+        "faire",
+        "gfu",
+        "iid",
+        "odset" ;
+    schema:name "Background and Introduction" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/overview/document-status> a okf:Concept,
+        schema:DigitalDocument ;
+    rdfs:label "Document Status" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "overview/document-status" ;
+    okf:conceptRange "1-2" ;
+    okf:normative false ;
+    okf:okfType "Document Status" ;
+    okf:sourceLines "1" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "Document header (lines 1)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Living-document status and contact information for the NIAID Blueprint" ;
+    schema:headline "Document header" ;
+    schema:keywords "contact",
+        "living-document" ;
+    schema:name "Document Status" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/persistent-identifiers/impact> a okf:Concept,
+        schema:Article ;
+    rdfs:label "Persistent Identifiers — Impact" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/persistent-identifiers/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "persistent-identifiers/impact" ;
+    okf:conceptRange "117-117" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "172-174" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "2.3. Impact (lines 172-174)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Discoverability and citation accessibility from PID-ontology integration" ;
+    schema:headline "2.3. Impact" ;
+    schema:keywords "citation",
+        "ontologies",
+        "pids" ;
+    schema:name "Persistent Identifiers — Impact" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/api-specification/motivation> a okf:Concept,
+        schema:Article ;
+    rdfs:label "Minimal API Specifications — Motivation" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/api-specification/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "api-specification/motivation" ;
+    okf:conceptRange "118-120" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "176-180" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "3.1. Motivation (lines 176-180)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Repository landscape variability and need for common metadata access standards" ;
+    schema:headline "3.1. Motivation" ;
+    schema:keywords "api",
+        "discovery",
+        "metadata" ;
+    schema:name "Minimal API Specifications — Motivation" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/json-ld-examples> a okf:Concept,
+        schema:CreativeWork ;
+    rdfs:label "Worked Example — JSON-LD Encodings" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/api-specification/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "appendix/json-ld-examples" ;
+    okf:conceptRange "235-239" ;
+    okf:normative false ;
+    okf:okfType "Worked Example" ;
+    okf:sourceLines "430-436" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "Supplemental Table 7. Example JSON-LD Encodings (lines 430-436)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Supplemental Table 7 ImmPort-based JSON-LD API examples" ;
+    schema:headline "Supplemental Table 7. Example JSON-LD Encodings" ;
+    schema:keywords "immport",
+        "json-ld",
+        "schema.org",
+        "supplemental-table-7" ;
+    schema:name "Worked Example — JSON-LD Encodings" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/metadata-schemas> a okf:Concept,
+        schema:Table ;
+    rdfs:label "Appendix — Metadata Schemas" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "appendix/metadata-schemas" ;
+    okf:conceptRange "198-202" ;
+    okf:normative false ;
+    okf:okfType "Reference Table" ;
+    okf:sourceLines "292-302" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "Metadata Schemas (lines 292-302)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Schema.org, Bioschemas, and FHIR as interoperable schema options" ;
+    schema:headline "Metadata Schemas" ;
+    schema:keywords "bioschemas",
+        "fhir",
+        "schema.org" ;
+    schema:name "Appendix — Metadata Schemas" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/ontology-mappings> a okf:Concept,
+        schema:Table ;
+    rdfs:label "Appendix — Ontology Mappings" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/persistent-identifiers/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "appendix/ontology-mappings" ;
+    okf:conceptRange "214-222" ;
+    okf:normative false ;
+    okf:okfType "Reference Table" ;
+    okf:sourceLines "370-396" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "Ontologies (lines 370-396)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Supplemental Table 5 default and alternative ontologies for metadata elements" ;
+    schema:headline "Ontologies" ;
+    schema:keywords "mondo",
+        "ncbitaxon",
+        "obo-foundry",
+        "ontologies",
+        "spdx" ;
+    schema:name "Appendix — Ontology Mappings" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/audience/data-generators> a okf:Concept,
+        schema:Article ;
+    rdfs:label "Data Generators" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/audience/repository-owners> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "audience/data-generators" ;
+    okf:conceptRange "22-29" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "65-71" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "Data generators (lines 65-71)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Blueprint expectations for researchers capturing metadata, PIDs, and citations" ;
+    schema:headline "Data generators" ;
+    schema:keywords "citation",
+        "data-generators",
+        "metadata",
+        "pids" ;
+    schema:name "Data Generators" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/audience/repository-owners> a okf:Concept,
+        schema:Article ;
+    rdfs:label "Data Repository Owners" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/audience/data-generators> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "audience/repository-owners" ;
+    okf:conceptRange "30-35" ;
+    okf:normative true ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "75-77" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "Data repository owners (lines 75-77)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Implementation responsibilities for repository managers under the Blueprint" ;
+    schema:headline "Data repository owners" ;
+    schema:keywords "api",
+        "metadata",
+        "pids",
+        "repository-owners" ;
+    schema:name "Data Repository Owners" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/citation/motivation> a okf:Concept,
+        schema:Article ;
+    rdfs:label "Minimal Citation Requirements — Motivation" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/citation/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "citation/motivation" ;
+    okf:conceptRange "143-156" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "205-215" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "4.1. Motivation (lines 205-215)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Attribution, provenance, and repository-specific citation patterns" ;
+    schema:headline "4.1. Motivation" ;
+    schema:keywords "citation",
+        "orcid",
+        "pids",
+        "rrid" ;
+    schema:name "Minimal Citation Requirements — Motivation" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/implementation/approach> a okf:Concept,
+        schema:Article ;
+    rdfs:label "Implementation" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/overview/blueprint-scope> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "implementation/approach" ;
+    okf:conceptRange "36-47" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "79-87" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "Implementation (lines 79-87)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Collaborative development, adaptability, and Discovery Portal integration" ;
+    schema:headline "Implementation" ;
+    schema:keywords "discovery-portal",
+        "gfu",
+        "iedb",
+        "immunespace",
+        "odset" ;
+    schema:name "Implementation" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/persistent-identifiers/motivation> a okf:Concept,
+        schema:Article ;
+    rdfs:label "Persistent Identifiers — Motivation" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/persistent-identifiers/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "persistent-identifiers/motivation" ;
+    okf:conceptRange "89-98" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "139-147" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "2.1. Motivation (lines 139-147)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Why PIDs and GUPRIs matter for traceability and reproducibility" ;
+    schema:headline "2.1. Motivation" ;
+    schema:keywords "doi",
+        "fair",
+        "gupri",
+        "pids" ;
+    schema:name "Persistent Identifiers — Motivation" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/citation/requirements> a okf:Concept,
+        schema:TechArticle ;
+    rdfs:label "Minimal Citation Requirements — Blueprint Requirements" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/persistent-identifiers/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "citation/requirements" ;
+    okf:conceptRange "157-165" ;
+    okf:normative true ;
+    okf:okfType "NIAID Blueprint Requirements" ;
+    okf:sourceLines "217-241" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "4.2. Blueprint Requirements (lines 217-241)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Repository owner citation guidance and Table 3 style examples" ;
+    schema:headline "4.2. Blueprint Requirements" ;
+    schema:keywords "apa",
+        "chicago",
+        "citation",
+        "doi",
+        "mla" ;
+    schema:name "Minimal Citation Requirements — Blueprint Requirements" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/motivation> a okf:Concept,
+        schema:Article ;
+    rdfs:label "NIAID Minimal Metadata Schema — Motivation" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "metadata-schema/motivation" ;
+    okf:conceptRange "48-55" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "89-95" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "1.1. Motivation (lines 89-95)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Rationale for a flexible minimal metadata framework" ;
+    schema:headline "1.1. Motivation" ;
+    schema:keywords "discovery-portal",
+        "metadata",
+        "schema.org" ;
+    schema:name "NIAID Minimal Metadata Schema — Motivation" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/outreach-training/motivation> a okf:Concept,
+        schema:Article ;
+    rdfs:label "Outreach and Training — Motivation" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/outreach-training/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "outreach-training/motivation" ;
+    okf:conceptRange "170-172" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "247-251" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "5.1. Motivation (lines 247-251)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Social-cultural adoption challenges and community contact network" ;
+    schema:headline "5.1. Motivation" ;
+    schema:keywords "community-engagement",
+        "outreach",
+        "training" ;
+    schema:name "Outreach and Training — Motivation" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/outreach-training/requirements> a okf:Concept,
+        schema:TechArticle ;
+    rdfs:label "Outreach and Training — Requirements" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/outreach-training/motivation> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "outreach-training/requirements" ;
+    okf:conceptRange "173-183" ;
+    okf:normative true ;
+    okf:okfType "NIAID Blueprint Requirements" ;
+    okf:sourceLines "253-259" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "5.2. Blueprint Requirements (lines 253-259)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Contact Point designation, visibility, and training material expectations" ;
+    schema:headline "5.2. Blueprint Requirements" ;
+    schema:keywords "contact-point",
+        "discovery-portal",
+        "training" ;
+    schema:name "Outreach and Training — Requirements" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/overview/blueprint-scope> a okf:Concept,
+        schema:Article ;
+    rdfs:label "The NIAID Blueprint for Digital Objects" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/api-specification/motivation>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/citation/motivation>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/motivation>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/outreach-training/motivation>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/persistent-identifiers/motivation> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "overview/blueprint-scope" ;
+    okf:conceptRange "12-21" ;
+    okf:normative false ;
+    okf:okfType "NIAID Blueprint Section" ;
+    okf:sourceLines "55-63" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "The NIAID Blueprint for Digital Objects (lines 55-63)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Foundational scope, goals, and five key Blueprint areas" ;
+    schema:headline "The NIAID Blueprint for Digital Objects" ;
+    schema:keywords "api",
+        "citation",
+        "metadata-schema",
+        "outreach",
+        "pids" ;
+    schema:name "The NIAID Blueprint for Digital Objects" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/api-specification/requirements> a okf:Concept,
+        schema:TechArticle ;
+    rdfs:label "Minimal API Specifications — Requirements" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/json-ld-examples>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "api-specification/requirements" ;
+    okf:conceptRange "121-137" ;
+    okf:normative true ;
+    okf:okfType "NIAID Blueprint Requirements" ;
+    okf:sourceLines "182-199" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "3.2. Blueprint Requirements (lines 182-199)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Flexible exposure options and minimum API objectives for JSON-LD metadata" ;
+    schema:headline "3.2. Blueprint Requirements" ;
+    schema:keywords "api",
+        "json-ld",
+        "object-server",
+        "openapi" ;
+    schema:name "Minimal API Specifications — Requirements" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/persistent-identifiers/requirements> a okf:Concept,
+        schema:TechArticle ;
+    rdfs:label "Persistent Identifiers — Requirements" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/ontology-mappings>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "persistent-identifiers/requirements" ;
+    okf:conceptRange "99-116" ;
+    okf:normative true ;
+    okf:okfType "NIAID Blueprint Requirements" ;
+    okf:sourceLines "149-170" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "2.2. Blueprint Requirements (lines 149-170)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Table 2 PID mappings and ontology population guidance" ;
+    schema:headline "2.2. Blueprint Requirements" ;
+    schema:keywords "doi",
+        "isni",
+        "orcid",
+        "ror",
+        "rrid",
+        "table-2" ;
+    schema:name "Persistent Identifiers — Requirements" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/requirements> a okf:Concept,
+        schema:TechArticle ;
+    rdfs:label "NIAID Minimal Metadata Schema — Requirements" ;
+    dcterms:isPartOf <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> ;
+    dcterms:references <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/metadata-schemas>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/motivation>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/persistent-identifiers/requirements> ;
+    dcterms:source <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md>,
+        "NIAID_Blueprint_v2_26Sep2025_forExternal.md" ;
+    prov:generatedAtTime "2026-08-03T12:00:00+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> ;
+    prov:wasDerivedFrom <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ;
+    okf:conceptId "metadata-schema/requirements" ;
+    okf:conceptRange "56-83" ;
+    okf:normative true ;
+    okf:okfType "NIAID Blueprint Requirements" ;
+    okf:sourceLines "97-133" ;
+    okf:trustTier "unverified" ;
+    schema:citation [ a schema:CreativeWork ;
+            schema:author <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> ;
+            schema:identifier "blueprint-v2" ;
+            schema:name "1.2. Blueprint Requirements (lines 97-133)" ;
+            schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> ] ;
+    schema:creativeWorkStatus "stable" ;
+    schema:description "Table 1 metadata elements, formats, and schema.org basis" ;
+    schema:headline "1.2. Blueprint Requirements" ;
+    schema:keywords "doi",
+        "mondo",
+        "ncbitaxon",
+        "orcid",
+        "ror",
+        "schema.org",
+        "table-1" ;
+    schema:name "NIAID Minimal Metadata Schema — Requirements" ;
+    schema:url <https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md> .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/> a okf:Bundle,
+        schema:Collection ;
+    rdfs:label "NIAID Blueprint" ;
+    okf:okfVersion "0.2" ;
+    schema:hasPart <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/api-specification/impact>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/api-specification/motivation>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/api-specification/requirements>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/evaluated-repositories>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/iid-api-reference>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/json-ld-examples>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/metadata-schemas>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/ontology-mappings>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/appendix/portal-metadata-examples>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/audience/data-generators>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/audience/repository-owners>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/citation/impact>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/citation/motivation>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/citation/requirements>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/implementation/approach>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/impact>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/motivation>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/metadata-schema/requirements>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/outreach-training/impact>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/outreach-training/motivation>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/outreach-training/requirements>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/overview/background>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/overview/blueprint-scope>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/overview/document-status>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/persistent-identifiers/impact>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/persistent-identifiers/motivation>,
+        <https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/persistent-identifiers/requirements> ;
+    schema:name "NIAID Blueprint" .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/niaid-bp-okf-migrate_0.2> a prov:SoftwareAgent ;
+    rdfs:label "niaid-bp-okf-migrate/0.2" .
+
+<https://go-fair-us.github.io/ai-blueprint-core/okf/bundles/niaid_blueprint/agents/process_niaid-blueprint-publisher> a prov:SoftwareAgent ;
+    rdfs:label "process:niaid-blueprint-publisher" .
+
