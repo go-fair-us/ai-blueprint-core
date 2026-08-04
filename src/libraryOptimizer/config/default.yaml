@@ -1,0 +1,116 @@
+# libraryOptimizer default configuration.
+# Secrets are NEVER stored here — only env var *names* under backends.*.env_key.
+# CLI flags override these values (see README).
+
+models:
+  task_backend: nrp
+  reflection_backend: nrp
+  judge: reflection   # task | reflection
+
+  backends:
+    nrp:
+      env_key: NRP_API_KEY
+      api_base: https://ellm.nrp-nautilus.io/v1
+      # Defaults: task = glm-5, GEPA reflection / judge = gpt-oss
+      task_model: custom_openai/qwen3
+      reflection_model: custom_openai/gpt-oss
+      temperature_task: 0.0
+      temperature_reflection: 1.0
+      max_tokens_task: 16000
+      max_tokens_reflection: 12000
+      timeout: 300
+      num_retries: 1
+
+    openrouter:
+      env_key: OPENROUTER_API_KEY
+      api_base: https://openrouter.ai/api/v1
+      task_model: openrouter/tencent/hy3:free
+      reflection_model: openrouter/nvidia/nemotron-3-ultra-550b-a55b:free
+      temperature_task: 0.0
+      temperature_reflection: 1.0
+      max_tokens_task: 16000
+      max_tokens_reflection: 12000
+      timeout: 180
+      num_retries: 2
+
+    xai:
+      env_key: XAI_API_KEY
+      task_model: xai/grok-4.5
+      reflection_model: xai/grok-4.5
+      temperature_task: 0.0
+      temperature_reflection: 1.0
+      max_tokens_task: 16000
+      max_tokens_reflection: 12000
+      timeout: 180
+      num_retries: 2
+
+    ollama:
+      env_key: OLLAMA_API_KEY
+      require_api_key: false
+      api_base: http://localhost:11434
+      task_model: ollama/qwen3:8b
+      reflection_model: ollama/qwen3:8b
+      temperature_task: 0.0
+      temperature_reflection: 1.0
+      max_tokens_task: 16000
+      max_tokens_reflection: 12000
+      timeout: 300
+      num_retries: 1
+
+run:
+  seed: 0
+  num_threads: 8
+  auto: light          # light | medium | heavy
+  gepa_budget: null    # or int, e.g. 40
+
+data:
+  n_scenarios: 20
+  train_frac: 0.5
+  val_frac: 0.25
+  min_val: 3
+  min_test: 3
+
+guidance:
+  # Paths relative to the repository root (parent of src/).
+  blueprint: docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+  workplans: docs/WorkPlans/20260515_Work-Plans_Supplementary_DSJ.md
+  max_chars: 14000
+  keep_keywords:
+    - metadata
+    - schema.org
+    - table 1
+    - identifier
+    - doi
+    - orcid
+    - ror
+    - rrid
+    - persistent identifier
+    - pid
+    - api
+    - machine
+    - openapi
+    - swagger
+    - json-ld
+    - jsonld
+    - citation
+    - outreach
+    - training
+    - fair
+    - work plan
+    - repository
+    - digital object
+    - access
+    - license
+    - funder
+    - author
+    - infectious
+    - host
+    - health condition
+    - interoper
+    - endpoint
+    - discovery
+    - portal
+
+prompts:
+  # Default tree of OKF filled prompt examples (relative to repo root).
+  examples_root: okf/prompt_examples
