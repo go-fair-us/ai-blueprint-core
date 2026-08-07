@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-Teams that want better AI results on a specific task have two common options. They can craft prompts by hand. They can also use expensive reinforcement learning (RL) that updates the model itself.
+Teams that want better AI results on a specific task have some common options. They can craft prompts by hand. They can also use reinforcement learning (RL) that updates the model itself or fine-tuning of a model. 
 
 **GEPA** is a middle path. It improves the natural language instructions (prompts) that guide AI models. It often beats RL methods and uses much less computation.
 

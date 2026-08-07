@@ -30,7 +30,9 @@ The Application layer acts as the connections and interface of the ecosystem. It
 ### Compute
 The Compute layer is the underlying backbone that powers the entire system, representing the hosted infrastructure where the workload physically executes. This includes the specialized hardware (like GPUs and TPUs), local compute, cloud instances, and memory allocation required to host the model and run the application. It dictates the overall speed, latency, and scalability of the workflow.
 
-We can define **Self-sovereign and local-only AI** as refering to running large language models (LLMs) and AI applications entirely on your own computer or local network and with **zero data leaving your machine**.
+## Thoughts
+
+We can define **Self-sovereign and local-only AI** as referring to running large language models (LLMs) and AI applications entirely on your own computer or local network and with **zero data leaving your machine**.
 
 If that is the case, then all three of the layers in Figure 1 must be under your direct control and hosting, or within in your communities control and trust.   
 
