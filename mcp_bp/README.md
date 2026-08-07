@@ -1,9 +1,32 @@
 # Blueprint MCP Server
 
-A [FastMCP](https://gofastmcp.com/) server that exposes the NIAID Blueprint
-documentation in `../docs` and the prompt personas in `../prompts` over the
-**Model Context Protocol (MCP)** using an HTTP (Streamable HTTP / SSE-compatible)
-transport.
+This package is a small **knowledge server** for the NIAID Blueprint for Digital
+Objects. It does not assess a repository or mint metadata by itself. Instead it
+makes the material already in this repository—**Blueprint Markdown under
+`docs/`** and **prompt personas under `prompts/`**—available to any AI client
+that speaks the **Model Context Protocol (MCP)** over HTTP.
+
+In plain terms: when an agent or chat tool is connected to this server, it can
+**look up** the Blueprint, **search** related docs, **navigate** by section or
+FAIR pillar, and **start structured interviews** (FAIR assessment, crawl-style
+web assessment, work-plan intake) whose wording lives in the prompt files. The
+server is the bridge between “files in a git repo” and “tools an agent can call
+mid-conversation.”
+
+It exposes three MCP surface areas:
+
+1. **Resources** — read-only documents and prompt text by URI (for example the
+   canonical Blueprint spec, or a named persona).
+2. **Tools** — model-invoked functions to list and read docs, hybrid-search the
+   corpus, pull a Blueprint section or requirements pillar, and list prompts.
+3. **Prompts** — user-invoked personas (interview or web assessor flows) with
+   optional arguments such as a target URL; arguments are prepended as a short
+   instruction block so they override example values in the files.
+
+Everything is **read-only** with respect to the corpus: the server serves and
+searches content; it does not write back into `docs/` or `prompts/`. Content
+roots default to the sibling directories in this repository and can be overridden
+with environment variables (see Configuration below).
 
 ## What it exposes
 

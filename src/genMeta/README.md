@@ -1,21 +1,149 @@
-# genMeta — Herdr + Pi metadata extract / SHACL loop
+# genMeta — extract, validate, repair
 
-First-try orchestrator: **extract** Dataset JSON-LD from a resource URL (Pi agent),
-**validate** with host pySHACL (`niaid-bp-validation`), **repair** (Pi agent) until
-conformance or max iterations.
+## What this is
 
-**Not Hermes.** Pattern adapted from coffeenotes `python_herdr` (Herdr 0.7.x + Pi).
+**genMeta** is a small orchestrator that turns a **public resource URL** into a
+**Blueprint-oriented schema.org Dataset JSON-LD** record, then **checks** that
+record with **SHACL** and, if needed, asks an agent to **fix** it until the
+check passes (or a retry budget runs out).
+
+It answers a practical need: the extract skill
+(`skills/niaid-bp-metadata-extract/`) can draft rich metadata from a page, but
+drafts are uneven—missing `url`, a too-short `description`, broken structure.
+genMeta keeps the LLM where it helps (reading the web, drafting and patching
+JSON-LD) and keeps **conformance** where it is reliable: a **deterministic
+host-side validator**, not another model claiming “this looks fine.”
+
+This is **not Hermes**. Transport is **Herdr** (Unix socket client) with **Pi**
+agents in panes. Pattern adapted from coffeenotes `python_herdr` (Herdr 0.7.x +
+Pi).
+
+For the broader “why URL extraction” story, see
+[`docs/metadataGeneration.md`](../../docs/metadataGeneration.md).
+
+## The idea in one picture
+
+```text
+                    ┌─────────────────────────────────────┐
+  resource URL ──►  │  Pi: genmeta-extractor              │
+                    │  (follow niaid-bp-metadata-extract) │
+                    └─────────────────┬───────────────────┘
+                                      │ writes
+                                      ▼
+                              record.jsonld + notes.md
+                                      │
+                                      ▼
+                    ┌─────────────────────────────────────┐
+                    │  Host Python (no LLM)               │
+                    │  pySHACL + blueprint-required.ttl   │
+                    │  → validation/iter-NN/…             │
+                    └─────────────────┬───────────────────┘
+                                      │
+                    conforms? ──yes──► final-report.md (done)
+                         │
+                         no (and iters left)
+                         ▼
+                    ┌─────────────────────────────────────┐
+                    │  Pi: genmeta-repairer               │
+                    │  patches record from SHACL results  │
+                    └─────────────────┬───────────────────┘
+                                      │
+                                      └──► validate again
+```
+
+| Who | Role |
+|-----|------|
+| **You / CLI** | Supply `--url`; receive a run directory and exit code |
+| **Herdr** | Workspace, panes, agent aliases (`genmeta-extractor`, `genmeta-repairer`) |
+| **Pi extractor** | Fetch page (jina fallback if needed); write `record.jsonld` + `notes.md` |
+| **Host `validate_host`** | Import `skills/niaid-bp-validation/scripts/validate.py`; run **pySHACL** |
+| **Pi repairer** | Read SHACL `results.json`; evidence-safe edits only; overwrite `record.jsonld` |
+
+Orchestration lives in `main.py`. Agents never run SHACL themselves; the host
+always re-validates after extract and after each repair.
+
+## How SHACL is used
+
+**Yes — SHACL is central to the loop**, but only as a **host-side quality gate**,
+not as something the LLM “implements.”
+
+### What runs
+
+1. After extraction (and after each repair), `defs/validate_host.py` calls
+   `run_validation()` from
+   `skills/niaid-bp-validation/scripts/validate.py`.
+2. That loads the data graph from `record.jsonld` and the shapes graph from
+   `skills/niaid-bp-validation/assets/blueprint-required.ttl`.
+3. **[pySHACL](https://github.com/RDFLib/pySHACL)** evaluates the shapes and
+   writes three artifacts under `validation/iter-NN/`:
+   - `report.ttl` — full SHACL validation report
+   - `results.json` — normalized findings for the repairer
+   - `conforms.json` — summary including the boolean the loop uses
+
+### What “conforms” means
+
+The starter shape uses **`sh:Violation`** severity for required constraints.
+**Conforms** means **zero Violation results** (warnings alone would not block,
+but the current starter shape is almost all violations).
+
+The process exit code is **0** if the final iteration conforms, **1** otherwise
+(still writes `final-report.md`).
+
+### What the starter shape actually checks
+
+`blueprint-required.ttl` is an **initial** Dataset shape (inspired by Google
+Dataset / EarthCube “required” constraints), **not** full Blueprint Table 1:
+
+| Constraint | Rule (simplified) |
+|------------|-------------------|
+| `schema:name` | Required, non-empty literal |
+| `schema:description` | Required literal, length **50–5000** |
+| `schema:url` | Required landing-page IRI or literal (exactly one) |
+
+Passing SHACL here means: “this JSON-LD is a minimally usable Dataset shell for
+downstream tooling.” It does **not** mean every Blueprint element (DOI, ORCID,
+license, infectiousAgent, …) is present or correct. The extractor still tries
+to populate Table 1 from the page; SHACL only **forces** the three required
+fields above (and structural alignment with `schema:Dataset`).
+
+The shape file itself notes that later revisions can add more Table 1
+properties as Violations or Warnings. genMeta will pick those up automatically
+when the shape file grows—no orchestrator change required beyond re-running.
+
+### How SHACL drives repair
+
+When validation **fails**:
+
+1. The host does **not** invent fixes.
+2. The **repairer** agent receives paths to `results.json` and `conforms.json`.
+3. It patches `record.jsonld` using **on-page evidence** (or the known resource
+   URL for `url`)—same “never invent PIDs” rules as extract.
+4. The host runs pySHACL again.
+
+Typical first failures: missing `url`, description shorter than 50 characters.
+The extractor prompt already steers toward those requirements so fewer repair
+rounds are needed.
+
+### What SHACL is *not* doing in genMeta
+
+- Not run inside the Pi agent REPL as a tool call (host only).
+- Not a FAIR assessment or a full Blueprint interview.
+- Not a guarantee of Portal-ready completeness.
+- Not Hermes or a multi-optimizer GEPA loop (see `src/libraryOptimizer/` for
+  that family of work).
 
 ## Prerequisites
 
 1. **Herdr** running (`herdr` or `herdr server &`)
 2. **Pi** available to Herdr (`kind=pi`)
-3. Python deps:
+3. Python deps (includes validation stack used by the host):
 
 ```bash
 # from ai-blueprint-core repo root
 uv sync --extra genmeta
 ```
+
+(`genmeta` depends on the same pySHACL path as `uv sync --extra validation`.)
 
 4. Model credentials in the environment that **starts Herdr** (panes inherit that env), e.g.:
 
@@ -48,7 +176,7 @@ Env overrides: `GENMETA_MAX_ITERS`, `GENMETA_TIMEOUT`, `GENMETA_MODEL_EXTRACTOR`
 `GENMETA_MODEL_REPAIRER`, `GENMETA_CLEANUP=1`, `GENMETA_CLOSE_STALE=1`,
 `HERDR_CLIENT_TIMEOUT`.
 
-## Pipeline
+## Pipeline (code map)
 
 ```text
 URL → [Pi extractor] → record.jsonld
@@ -57,13 +185,15 @@ URL → [Pi extractor] → record.jsonld
     → final-report.md
 ```
 
-Host validation uses:
+| Step | Code | Prompts / assets |
+|------|------|------------------|
+| Extract | `main.py` phase 1 | `prompts/extractor_*.md` → skill `niaid-bp-metadata-extract` |
+| Validate | `defs/validate_host.py` | `validate.py` + `blueprint-required.ttl` |
+| Repair | `main.py` phase 3 | `prompts/repairer_*.md` + SHACL `results.json` |
+| Report | `defs/report.py` | `final-report.md` |
 
-- `skills/niaid-bp-validation/scripts/validate.py`
-- `skills/niaid-bp-validation/assets/blueprint-required.ttl`
-
-Starter shape requires `schema:name`, `schema:description` (50–5000 chars), and
-`schema:url`. Passing SHACL is **not** full Blueprint Table 1 compliance.
+Default models (overridable): both agents `xai-auth/grok-4.5`. Default max
+validate/repair iterations: **3**.
 
 ## Agents
 
@@ -97,6 +227,7 @@ src/genMeta/
   defs/           # herdr client helpers, config, host validate, report
   prompts/        # system + user prompts for extractor/repairer
   runs/           # generated (gitignored contents)
+  tests/          # unit tests (e.g. artifact helpers)
 ```
 
 ## Troubleshooting
@@ -108,8 +239,14 @@ src/genMeta/
 | OpenRouter fails in pane | Export key **before** starting Herdr; restart Herdr |
 | No `record.jsonld` | Check `01-extractor.txt`; orchestrator tries to recover fenced JSON |
 | Always NON-CONFORMING | Inspect `validation/iter-*/results.json`; often short description or missing url |
+| `pyshacl` import errors | `uv sync --extra genmeta` (or `--extra validation`) from repo root |
 
 ## Skills used as instructions
 
-- `skills/niaid-bp-metadata-extract/`
-- `skills/niaid-bp-validation/`
+- `skills/niaid-bp-metadata-extract/` — what to extract and how (Table 1 mapping, PID rules)
+- `skills/niaid-bp-validation/` — host SHACL runner and starter shape
+
+Related docs:
+
+- `docs/metadataGeneration.md` — human-oriented URL extraction overview
+- `skills/niaid-bp-validation/references/validation-workflow.md` — SHACL workflow detail
