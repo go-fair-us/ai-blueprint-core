@@ -26,6 +26,9 @@ from .config import (
 from .content import list_markdown
 from .sections import parse_sections
 
+# Optional OKF chunk source (imported lazily in _build_chunks to avoid
+# hard-failing when okf_core is unavailable).
+
 try:
     from rank_bm25 import BM25Okapi
 
@@ -58,7 +61,7 @@ class Chunk:
     """A searchable unit of content — one parsed section or an entire file."""
 
     chunk_id: str
-    source: str  # "docs" or "prompts"
+    source: str  # "docs", "prompts", or "okf"
     path: str  # relative path within source root
     section_number: str | None
     section_title: str
@@ -162,6 +165,27 @@ def _build_chunks() -> list[Chunk]:
                         body=text,
                     )
                 )
+
+    # OKF concept + atomic chunks (opt-in via collection="okf"; also included
+    # when collection is None so agents can discover them, with stable source).
+    try:
+        from . import okf_content
+
+        for row in okf_content.search_chunks_for_index():
+            chunks.append(
+                Chunk(
+                    chunk_id=str(row["chunk_id"]),
+                    source=str(row["source"]),
+                    path=str(row["path"]),
+                    section_number=row.get("section_number"),  # type: ignore[arg-type]
+                    section_title=str(row["section_title"] or ""),
+                    body=str(row["body"] or ""),
+                )
+            )
+    except Exception:
+        # OKF is optional: missing tree or okf_core must not break search.
+        pass
+
     return chunks
 
 
@@ -202,12 +226,14 @@ def _rrf(ranks: list[int | None], k: int = RRF_K) -> float:
 
 def hybrid_search(
     query: str,
-    collection: Literal["docs", "prompts"] | None = None,
+    collection: Literal["docs", "prompts", "okf"] | None = None,
     max_results: int = DEFAULT_SEARCH_RESULTS,
 ) -> list[HybridHit]:
     """Return ranked results using BM25 (+ optional semantic) RRF fusion.
 
-    ``collection`` limits results to ``"docs"`` or ``"prompts"``; omit for both.
+    ``collection`` limits results to ``"docs"``, ``"prompts"``, or ``"okf"``;
+    omit to search all three.  Prefer ``collection="okf"`` for claim-level
+    Blueprint requirements so ranking is not diluted by narrative docs.
     """
     query = (query or "").strip()
     if not query:
@@ -215,11 +241,18 @@ def hybrid_search(
 
     idx = _get_index()
 
-    # Filter chunks to the requested collection.
+    # Filter chunks to the requested collection. When collection is None,
+    # search docs + prompts only by default so existing clients keep stable
+    # rankings; pass collection="okf" (or use search_okf) for OKF hits.
+    if collection is None:
+        allowed = {"docs", "prompts"}
+    else:
+        allowed = {collection}
+
     mask = [
         i
         for i, c in enumerate(idx.chunks)
-        if collection is None or c.source == collection
+        if c.source in allowed
     ]
     if not mask:
         return []

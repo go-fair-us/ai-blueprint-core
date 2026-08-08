@@ -1,4 +1,4 @@
-"""FastMCP server exposing NIAID Blueprint docs and prompt personas over HTTP.
+"""FastMCP server exposing NIAID Blueprint docs, OKF knowledge, and prompts.
 
 Run as a module (the package uses relative imports, so launch it with
 ``-m`` rather than by file path)::
@@ -6,11 +6,9 @@ Run as a module (the package uses relative imports, so launch it with
     uv run --extra mcp python -m mcp_bp.server
 
 The server registers:
-  * Resources: docs://list, docs://{path}, blueprint://spec,
-    prompts://list, prompts://{name}
-  * Tools: list_docs, read_doc, search_docs, get_context_window, kb_stats,
-    get_blueprint_section, list_blueprint_sections, get_blueprint_requirements,
-    list_prompts, blueprint_citation
+  * Resources: docs://…, blueprint://spec, prompts://…, okf://…
+  * Tools: list/read docs, hybrid search, Blueprint navigation, OKF concept
+    and atomic tools, prompt listing
   * Prompts: the personas defined in prompts_registry.PROMPT_SPECS
   * Transform: ResourcesAsTools (resources accessible as tools for clients
     that don't support the MCP resources protocol)
@@ -24,18 +22,24 @@ from fastmcp import FastMCP
 from fastmcp.server.transforms import ResourcesAsTools
 from mcp.types import ToolAnnotations
 
-from . import config, content, hybrid_search, prompts_registry, search, sections
+from . import config, content, hybrid_search, okf_content, prompts_registry, search, sections
+from .okf_content import OkfError
 
 mcp: FastMCP = FastMCP(
     name="ai-blueprint",
     instructions=(
-        "Serves the NIAID Blueprint for Digital Objects v2 and related FAIR "
-        "assessment materials. The corpus includes the Blueprint specification, "
-        "supporting documents, and prompt personas for FAIR assessment interviews. "
-        "Use search_docs for natural-language queries across the full corpus. "
-        "Use get_blueprint_section or get_blueprint_requirements for targeted "
-        "retrieval of specific Blueprint content. Use the prompts to launch "
-        "interactive FAIR assessment or Work Plan interviews."
+        "Serves the NIAID Blueprint for Digital Objects v2, the OKF knowledge "
+        "bundle (atomic concepts with line citations), and FAIR assessment "
+        "prompt personas.\n\n"
+        "When to use which surface:\n"
+        "- Blueprint docs tools (get_blueprint_section, get_blueprint_requirements, "
+        "search_docs on docs): full narrative text and official section wording.\n"
+        "- OKF tools (list_okf_concepts, read_okf_concept, get_okf_atomic, "
+        "search_docs with collection='okf', get_okf_requirements): structured "
+        "concept graph and claim-level requirements with source line numbers.\n"
+        "- Prompts: interactive FAIR assessment / work-plan interviews.\n"
+        "- OKF prompt examples: filled domain few-shots (ImmPort, etc.), not "
+        "interview personas."
     ),
 )
 
@@ -84,6 +88,48 @@ def prompts_get(name: str) -> str:
     return content.read_prompt_file(filename)
 
 
+@mcp.resource("okf://bundles", mime_type="application/json")
+def okf_bundles_list() -> str:
+    """JSON listing of available OKF knowledge bundles."""
+    return json.dumps(okf_content.list_bundles(), indent=2)
+
+
+@mcp.resource("okf://bundles/{name}/list", mime_type="application/json")
+def okf_bundle_concepts(name: str) -> str:
+    """JSON concept catalog for an OKF bundle (id, type, title, tags, …)."""
+    return json.dumps(okf_content.list_concepts(name), indent=2)
+
+
+@mcp.resource("okf://bundles/{name}/index", mime_type="text/markdown")
+def okf_bundle_index(name: str) -> str:
+    """Root index.md for progressive disclosure of an OKF bundle."""
+    return okf_content.read_bundle_index(name)
+
+
+@mcp.resource("okf://bundles/{name}/concept/{id*}", mime_type="text/markdown")
+def okf_concept_md(name: str, id: str) -> str:
+    """Raw Markdown of one OKF concept (frontmatter + body)."""
+    return okf_content.read_concept_markdown(id, bundle=name)
+
+
+@mcp.resource("okf://bundles/{name}/atomic/{number}", mime_type="application/json")
+def okf_atomic_resource(name: str, number: str) -> str:
+    """Single atomic concept claim as JSON."""
+    return json.dumps(okf_content.get_atomic(int(number), bundle=name), indent=2)
+
+
+@mcp.resource("okf://prompt_examples/list", mime_type="application/json")
+def okf_prompt_examples_list() -> str:
+    """JSON listing of filled OKF prompt examples."""
+    return json.dumps(okf_content.list_prompt_examples(), indent=2)
+
+
+@mcp.resource("okf://prompt_examples/{path*}", mime_type="text/markdown")
+def okf_prompt_example_get(path: str) -> str:
+    """Raw Markdown of a filled prompt example."""
+    return okf_content.read_prompt_example(path)
+
+
 # --------------------------------------------------------------------------
 # Discovery & retrieval tools
 # --------------------------------------------------------------------------
@@ -118,7 +164,7 @@ def read_doc(path: str) -> str:
 def kb_stats() -> dict[str, object]:
     """Return corpus statistics: document counts, total sizes, section count.
 
-    Also reports whether semantic (embedding) search is enabled.
+    Also reports OKF bundle/atomic counts and whether semantic search is enabled.
     Useful for understanding the available corpus before issuing queries.
     """
     docs = content.list_docs()
@@ -131,6 +177,7 @@ def kb_stats() -> dict[str, object]:
             "total_bytes": sum(p.bytes for p in prompts),
         },
         "blueprint_sections": section_count,
+        "okf": okf_content.okf_stats(),
         "semantic_search_enabled": config.SEMANTIC_ENABLED,
     }
 
@@ -153,13 +200,18 @@ def search_docs(
     (enabled via the ``BLUEPRINT_SEMANTIC_ENABLED`` env var) via Reciprocal
     Rank Fusion (RRF).
 
-    ``collection`` filters to ``"docs"`` (specification + supporting docs) or
-    ``"prompts"`` (interview personas); omit to search both.
+    ``collection`` filters to:
+    - ``"docs"`` — specification + supporting docs
+    - ``"prompts"`` — interview personas
+    - ``"okf"`` — OKF concept graph + atomic claims (preferred for
+      claim-level requirements)
+    Omit to search docs + prompts only (OKF is opt-in so existing clients keep
+    stable rankings). Use ``collection="okf"`` for structured knowledge hits.
 
     Each result includes:
-    - ``chunk_id``: stable ID usable with ``get_context_window``
+    - ``chunk_id``: stable ID (OKF atomics use ``okf::atomic/{n}``)
     - ``source`` / ``path``: where the chunk comes from
-    - ``section_number`` / ``section_title``: Blueprint heading context
+    - ``section_number`` / ``section_title``: heading or atomic context
     - ``excerpt``: up to 400 chars of the matching passage
     - ``rrf_score``: fusion score (higher = more relevant)
     - ``bm25_rank`` / ``semantic_rank``: per-signal ranks for transparency
@@ -170,6 +222,9 @@ def search_docs(
     if results:
         return results
     # Graceful fallback when BM25 index unavailable (e.g. missing rank-bm25).
+    # Fuzzy search does not cover OKF yet.
+    if collection == "okf":
+        return []
     fuzzy = search.search_as_dicts(query, max_results=max_results)
     if collection:
         fuzzy = [r for r in fuzzy if r.get("source") == collection]
@@ -268,6 +323,157 @@ def list_prompts() -> list[dict[str, object]]:
     Invoke a prompt by name via the MCP prompts protocol (not this tool).
     """
     return prompts_registry.list_prompt_specs()
+
+
+# --------------------------------------------------------------------------
+# OKF (Open Knowledge Format) tools
+# --------------------------------------------------------------------------
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def list_okf_bundles() -> list[dict[str, object]]:
+    """List available OKF knowledge bundles under okf/bundles.
+
+    Returns name, path, whether index.md is present, and which bundle is default.
+    """
+    return okf_content.list_bundles()
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def list_okf_concepts(
+    bundle: str | None = None,
+    type: str | None = None,
+    prefix: str | None = None,
+    tag: str | None = None,
+    normative: bool | None = None,
+) -> list[dict[str, object]]:
+    """List OKF concepts (structured Blueprint knowledge units).
+
+    Filters (all optional):
+    - ``bundle``: bundle name (default niaid_blueprint)
+    - ``type``: substring match on concept type (e.g. ``"Requirements"``)
+    - ``prefix``: concept id prefix (e.g. ``"metadata-schema"``)
+    - ``tag``: exact tag match (case-insensitive)
+    - ``normative``: if set, only concepts with that normative flag
+
+    Returns catalog entries (id, type, title, tags, atomic_count, …) without body.
+    Use ``read_okf_concept`` or ``get_okf_atomic`` for full content.
+    """
+    return okf_content.list_concepts(
+        bundle, type=type, prefix=prefix, tag=tag, normative=normative
+    )
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def read_okf_concept(
+    concept_id: str,
+    bundle: str | None = None,
+    include_body: bool = True,
+) -> dict[str, object]:
+    """Read one OKF concept as structured JSON (frontmatter fields + atomics).
+
+    ``concept_id`` is the path id without ``.md`` (e.g.
+    ``"metadata-schema/requirements"``). Set ``include_body=false`` for a
+    lighter payload when you only need metadata and the atomic table.
+    """
+    try:
+        c = okf_content.get_concept(concept_id, bundle=bundle)
+    except OkfError as exc:
+        raise ValueError(str(exc)) from exc
+    return okf_content.concept_as_dict(c, include_body=include_body)
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def get_okf_atomic(
+    number: int,
+    bundle: str | None = None,
+) -> dict[str, object]:
+    """Return a single atomic claim by global number (1–239 in niaid_blueprint).
+
+    Each atomic includes claim text, Blueprint source line numbers, and parent
+    concept id/title. Prefer this over loading a whole concept when you need
+    one obligation or fact.
+    """
+    try:
+        return okf_content.get_atomic(number, bundle=bundle)
+    except OkfError as exc:
+        raise ValueError(str(exc)) from exc
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def list_okf_atomics(
+    bundle: str | None = None,
+    parent_id: str | None = None,
+    query: str | None = None,
+    max_results: int = 50,
+) -> list[dict[str, object]]:
+    """List atomic claims, optionally filtered by parent concept or text query.
+
+    ``parent_id`` limits to one concept (e.g. ``"persistent-identifiers/requirements"``).
+    ``query`` is a case-insensitive substring match on claim text.
+    """
+    return okf_content.list_atomics(
+        bundle, parent_id=parent_id, query=query, max_results=max_results
+    )
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def get_okf_requirements(
+    pillar: str | None = None,
+    bundle: str | None = None,
+) -> dict[str, object]:
+    """Return OKF requirements concepts for a FAIR pillar.
+
+    Valid pillars: ``"metadata"``, ``"identifiers"``, ``"api"``, ``"citation"``,
+    ``"outreach"``. Omit ``pillar`` for an index of all pillars.
+
+    Unlike ``get_blueprint_requirements`` (narrative Blueprint sections), this
+    returns structured concepts with atomic claim tables and line citations.
+    """
+    try:
+        return okf_content.get_requirements(pillar, bundle=bundle)
+    except OkfError as exc:
+        raise ValueError(str(exc)) from exc
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def get_okf_related(
+    concept_id: str,
+    bundle: str | None = None,
+) -> dict[str, object]:
+    """Return concepts linked from / linking to an OKF concept id."""
+    try:
+        return okf_content.get_related(concept_id, bundle=bundle)
+    except OkfError as exc:
+        raise ValueError(str(exc)) from exc
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def okf_stats(bundle: str | None = None) -> dict[str, object]:
+    """OKF corpus statistics: concept counts, atomics, types, prompt examples."""
+    return okf_content.okf_stats(bundle)
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def list_okf_prompt_examples() -> list[dict[str, object]]:
+    """List filled Prompt Library examples under okf/prompt_examples.
+
+    These are domain-grounded few-shots (ImmPort, ACDN, etc.), not the
+    interactive interview personas from ``list_prompts``.
+    """
+    return okf_content.list_prompt_examples()
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def read_okf_prompt_example(path: str) -> str:
+    """Read a filled prompt example by relative path from list_okf_prompt_examples.
+
+    Example path: ``"metadata-schema/core-elements/identifier.md"``.
+    """
+    try:
+        return okf_content.read_prompt_example(path)
+    except Exception as exc:
+        raise ValueError(str(exc)) from exc
 
 
 # --------------------------------------------------------------------------

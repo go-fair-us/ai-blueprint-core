@@ -1,8 +1,8 @@
-"""FastMCP server exposing the NIAID Blueprint docs and prompt personas.
+"""FastMCP server exposing NIAID Blueprint docs, OKF knowledge, and prompts.
 
-This package serves the Markdown content in ``./docs`` and the prompt
-personas in ``./prompts`` over the Model Context Protocol (MCP) using an
-HTTP (Streamable HTTP / SSE-compatible) transport.
+This package serves Markdown under ``./docs``, OKF bundles under ``./okf``,
+and prompt personas under ``./prompts`` over the Model Context Protocol (MCP)
+using an HTTP (Streamable HTTP / SSE-compatible) transport.
 """
 
 __all__ = ["__version__"]

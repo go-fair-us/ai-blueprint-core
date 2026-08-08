@@ -23,6 +23,23 @@ def _env_path(var: str, default: Path) -> Path:
 DOCS_DIR: Path = _env_path("BLUEPRINT_DOCS_DIR", REPO_ROOT / "docs")
 PROMPTS_DIR: Path = _env_path("BLUEPRINT_PROMPTS_DIR", REPO_ROOT / "prompts")
 
+# OKF (Open Knowledge Format) knowledge bundles and prompt examples.
+OKF_BUNDLES_DIR: Path = _env_path(
+    "BLUEPRINT_OKF_BUNDLES_DIR", REPO_ROOT / "okf" / "bundles"
+)
+OKF_DEFAULT_BUNDLE: str = os.environ.get(
+    "BLUEPRINT_OKF_DEFAULT_BUNDLE", "niaid_blueprint"
+)
+OKF_PROMPT_EXAMPLES_DIR: Path = _env_path(
+    "BLUEPRINT_OKF_PROMPT_EXAMPLES_DIR", REPO_ROOT / "okf" / "prompt_examples"
+)
+# Soft-disable OKF when the tree is absent or when explicitly turned off.
+OKF_ENABLED: bool = os.environ.get("BLUEPRINT_OKF_ENABLED", "1").lower() in (
+    "1",
+    "true",
+    "yes",
+)
+
 # Only Markdown is served for now.
 ALLOWED_EXTENSIONS: tuple[str, ...] = (".md",)
 

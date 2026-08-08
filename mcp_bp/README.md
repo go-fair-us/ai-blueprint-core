@@ -3,30 +3,42 @@
 This package is a small **knowledge server** for the NIAID Blueprint for Digital
 Objects. It does not assess a repository or mint metadata by itself. Instead it
 makes the material already in this repository—**Blueprint Markdown under
-`docs/`** and **prompt personas under `prompts/`**—available to any AI client
-that speaks the **Model Context Protocol (MCP)** over HTTP.
+`docs/`**, **OKF knowledge bundles under `okf/`**, and **prompt personas under
+`prompts/`**—available to any AI client that speaks the **Model Context
+Protocol (MCP)** over HTTP.
 
 In plain terms: when an agent or chat tool is connected to this server, it can
-**look up** the Blueprint, **search** related docs, **navigate** by section or
-FAIR pillar, and **start structured interviews** (FAIR assessment, crawl-style
-web assessment, work-plan intake) whose wording lives in the prompt files. The
+**look up** the Blueprint, **navigate the OKF concept graph** (atomic claims
+with line citations), **search** related docs, **navigate** by section or FAIR
+pillar, and **start structured interviews** (FAIR assessment, crawl-style web
+assessment, work-plan intake) whose wording lives in the prompt files. The
 server is the bridge between “files in a git repo” and “tools an agent can call
 mid-conversation.”
 
 It exposes three MCP surface areas:
 
-1. **Resources** — read-only documents and prompt text by URI (for example the
-   canonical Blueprint spec, or a named persona).
+1. **Resources** — read-only documents, OKF concepts, and prompt text by URI.
 2. **Tools** — model-invoked functions to list and read docs, hybrid-search the
-   corpus, pull a Blueprint section or requirements pillar, and list prompts.
+   corpus (including `collection="okf"`), pull a Blueprint or OKF requirements
+   pillar, fetch atomic claims, and list prompts / prompt examples.
 3. **Prompts** — user-invoked personas (interview or web assessor flows) with
    optional arguments such as a target URL; arguments are prepended as a short
    instruction block so they override example values in the files.
 
 Everything is **read-only** with respect to the corpus: the server serves and
-searches content; it does not write back into `docs/` or `prompts/`. Content
-roots default to the sibling directories in this repository and can be overridden
-with environment variables (see Configuration below).
+searches content; it does not write back into `docs/`, `okf/`, or `prompts/`.
+Content roots default to the sibling directories in this repository and can be
+overridden with environment variables (see Configuration below).
+
+### When to use docs vs OKF
+
+| Need | Prefer |
+|------|--------|
+| Full narrative Blueprint text / section wording | `get_blueprint_section`, `docs://…` |
+| Claim-level obligations with source line numbers | `get_okf_atomic`, `list_okf_atomics`, `search_docs(collection="okf")` |
+| Pillar requirements as a structured checklist | `get_okf_requirements` (atomics) vs `get_blueprint_requirements` (prose) |
+| Filled domain few-shot prompts (ImmPort, etc.) | `list_okf_prompt_examples` |
+| Interactive FAIR / work-plan interviews | MCP prompts (`fair_assessment_interview`, …) |
 
 ## What it exposes
 
@@ -39,6 +51,13 @@ with environment variables (see Configuration below).
 | `blueprint://spec` | The canonical Blueprint specification |
 | `prompts://list` | JSON listing of registered prompt personas |
 | `prompts://{name}` | Raw text of a prompt persona (by name or filename) |
+| `okf://bundles` | JSON listing of OKF knowledge bundles |
+| `okf://bundles/{name}/list` | Concept catalog for a bundle |
+| `okf://bundles/{name}/index` | Root `index.md` (progressive disclosure) |
+| `okf://bundles/{name}/concept/{id}` | Raw concept Markdown |
+| `okf://bundles/{name}/atomic/{n}` | Single atomic claim (JSON) |
+| `okf://prompt_examples/list` | Filled prompt examples catalog |
+| `okf://prompt_examples/{path}` | One filled prompt example |
 
 Resources are also available as tools via the `list_resources` / `read_resource`
 tools generated automatically by the `ResourcesAsTools` transform, so clients
@@ -64,7 +83,7 @@ client-side caching and retry.
 
 | Tool | Parameters | Purpose |
 |------|-----------|---------|
-| `search_docs(query, collection, max_results)` | `query: str`, `collection: "docs"\|"prompts"\|None`, `max_results: int=10` | Hybrid BM25 + semantic search across docs and prompts. Returns `chunk_id`, `source`, `path`, `section_number`, `section_title`, `excerpt`, `rrf_score`, `bm25_rank`, `semantic_rank` |
+| `search_docs(query, collection, max_results)` | `query: str`, `collection: "docs"\|"prompts"\|"okf"\|None`, `max_results: int=10` | Hybrid BM25 + semantic search. Omit `collection` for docs+prompts; use `"okf"` for concept/atomic claims. |
 | `get_context_window(source, path, line, radius)` | `source: str`, `path: str`, `line: int`, `radius: int=10` | Expand line-level context around a fuzzy-search hit |
 
 #### Blueprint navigation
@@ -75,6 +94,24 @@ client-side caching and retry.
 | `get_blueprint_section(section)` | `section: str` | Extract one section by number (`"3"`, `"2.1"`) or heading keyword |
 | `get_blueprint_requirements(pillar)` | `pillar: str\|None` | Return requirement sections for a FAIR pillar: `"metadata"`, `"identifiers"`, `"api"`, `"citation"`, `"outreach"`. Omit for a summary index of all pillars. |
 | `blueprint_citation(section)` | `section: str\|None` | Canonical raw GitHub citation URL (+ optional section title/number) |
+
+#### OKF (Open Knowledge Format)
+
+| Tool | Parameters | Purpose |
+|------|-----------|---------|
+| `list_okf_bundles()` | — | Enumerate bundles under `okf/bundles` |
+| `list_okf_concepts(...)` | `bundle`, `type`, `prefix`, `tag`, `normative` | Catalog concepts (no body) |
+| `read_okf_concept(concept_id, …)` | `concept_id`, `bundle`, `include_body` | Structured concept + atomics |
+| `get_okf_atomic(number)` | `number: int` | One atomic claim + source lines |
+| `list_okf_atomics(...)` | `parent_id`, `query`, `max_results` | Filter atomic claims |
+| `get_okf_requirements(pillar)` | same pillars as Blueprint tools | Requirements concepts + atomics |
+| `get_okf_related(concept_id)` | — | Outbound / inbound concept links |
+| `okf_stats()` | `bundle` optional | Concept/atomic counts and types |
+| `list_okf_prompt_examples()` | — | Filled few-shot prompt files |
+| `read_okf_prompt_example(path)` | relative path | Read one filled example |
+
+OKF parsing reuses `src/okf_core` (`walk_bundle`, atomic tables). Default bundle:
+`niaid_blueprint` (239 atomics in the live repo tree).
 
 #### Prompts
 
@@ -144,6 +181,10 @@ The server listens on `http://127.0.0.1:8000/mcp` by default.
 | `MCP_PATH` | `/mcp` | HTTP endpoint path |
 | `BLUEPRINT_DOCS_DIR` | `../docs` | Docs content root |
 | `BLUEPRINT_PROMPTS_DIR` | `../prompts` | Prompts content root |
+| `BLUEPRINT_OKF_BUNDLES_DIR` | `../okf/bundles` | OKF bundles parent directory |
+| `BLUEPRINT_OKF_DEFAULT_BUNDLE` | `niaid_blueprint` | Default bundle name |
+| `BLUEPRINT_OKF_PROMPT_EXAMPLES_DIR` | `../okf/prompt_examples` | Filled prompt examples root |
+| `BLUEPRINT_OKF_ENABLED` | `1` | Set to `0` to disable OKF tools/index |
 | `BLUEPRINT_SEMANTIC_ENABLED` | *(off)* | Set to `1` to enable embedding-based semantic search (downloads ~33 MB model on first run) |
 | `BLUEPRINT_SEMANTIC_MODEL` | `BAAI/bge-small-en-v1.5` | fastembed model name for semantic embeddings |
 
