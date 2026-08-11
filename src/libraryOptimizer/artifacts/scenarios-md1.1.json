@@ -1,0 +1,24 @@
+{
+  "scenarios": [
+    "A research team finalizing a Phase 3 vaccine trial needs to submit clinical study data to ImmPort, requiring alignment with NIAID Blueprint Section 1 for metadata elements like study type and intervention description.",
+    "Investigators generating bulk RNA-seq data from infected lung tissue plan to deposit records in the Gene Expression Omnibus, necessitating a check of Blueprint requirements for platform identifiers and sample attributes.",
+    "A pathogen surveillance group preparing raw sequencing reads for the Sequence Read Archive must determine the correct metadata fields for library layout and instrument model according to Blueprint standards.",
+    "Researchers handling human genomic data with phenotypic links aim to submit to dbGaP, focusing on Blueprint-compliant metadata for data use certificates and consent codes.",
+    "A multidisciplinary consortium archiving diverse outputs including datasets and presentations in Zenodo needs to identify generic metadata elements for creators and publication dates per the Blueprint.",
+    "Proteomics data characterizing host-pathogen interactions is being curated for the PRIDE repository, requiring specific metadata elements for mass spectrometry parameters and protein accession numbers.",
+    "Metabolomic profiling results from a clinical cohort are destined for MetaboLights, demanding adherence to Blueprint metadata standards for assay technology and sample extraction methods.",
+    "A complex multi-omics study integrating various data types requires a master record in BioStudies, focusing on Blueprint metadata elements that link to subordinate repository entries.",
+    "Before data sharing, a clinical trial must be registered on ClinicalTrials.gov, requiring metadata elements for eligibility criteria and primary outcome measures aligned with the Blueprint.",
+    "Supplementary figures and raw data tables for a journal article are being shared via Figshare, necessitating Blueprint-compliant metadata for licensing terms and attribution formats.",
+    "Underlying data supporting a manuscript on infectious disease dynamics is curated in Dryad, focusing on metadata elements that ensure persistent linkage to the publication DOI.",
+    "Social behavioral data influencing health outcomes in specific populations is submitted to ICPSR, requiring metadata elements regarding confidentiality agreements and variable coding schemes.",
+    "Computational epidemiology tools developed during the project are archived via GitHub linked to Zenodo, needing metadata elements for software versioning and dependency specifications.",
+    "A pre-registered study protocol for outbreak response is managed on the Open Science Framework, requiring metadata elements that capture workflow stages and contributor roles.",
+    "Neuroimaging data related to HIV-associated neurocognitive disorders is submitted to NDAR, focusing on Blueprint metadata standards for image modalities and acquisition parameters.",
+    "Viral sequence and epitope data are being organized within the Virus Pathogen Resource, necessitating metadata elements for host species and geographic isolation source.",
+    "Specific flow cytometry datasets within the broader ImmPort system require detailed annotation, involving metadata elements for antibody panel design and compensation matrices.",
+    "Single-cell RNA sequencing data from immune cell sorting is prepared for GEO, requiring metadata elements for cell type ontologies and tissue dissociation protocols.",
+    "Shotgun metagenomics data from environmental samples is being deposited in SRA, focusing on metadata elements describing the biome environment and collection device used.",
+    "An institution uses Dataverse to host NIAID-funded data before public release, involving mapping Blueprint Section 1 to institutional metadata blocks for citation and contact information."
+  ]
+}
