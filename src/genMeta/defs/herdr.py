@@ -14,6 +14,7 @@ from __future__ import annotations
 import json
 import os
 import select
+import tempfile
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -199,6 +200,47 @@ def ensure_agent_name(pane_id: str, name: str) -> Dict[str, Any]:
     return agent
 
 
+def _shell_safe_append_system_prompt(system_prompt: str | Path) -> str:
+    """Resolve ``--append-system-prompt`` to a shell-safe value for Herdr.
+
+    Herdr encodes each agent arg for the pane's shell and rejects values that
+    cannot be encoded safely (newlines, backticks, unbalanced quotes, etc.).
+    Pi accepts a **file path** for ``--append-system-prompt`` and reads the
+    file itself — so we always pass a path when the value is multi-line text
+    or already refers to an existing file.
+    """
+    if isinstance(system_prompt, Path):
+        if not system_prompt.is_file():
+            raise FileNotFoundError(f"System prompt file not found: {system_prompt}")
+        return str(system_prompt.resolve())
+
+    text = system_prompt
+    # Existing path string (no newlines) — preferred call shape from main.py.
+    if "\n" not in text and "\r" not in text and len(text) < 4096:
+        path = Path(text)
+        try:
+            if path.is_file():
+                return str(path.resolve())
+        except OSError:
+            pass
+        # Single-line, no shell metacharacters — pass through (rare).
+        if all(c not in text for c in "`$\\\"'") and len(text) < 512:
+            return text
+
+    # Multi-line content or unsafe chars: persist so Herdr only sees a path.
+    fd, tmp = tempfile.mkstemp(prefix="genmeta-system-", suffix=".md", text=True)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            fh.write(text)
+    except Exception:
+        try:
+            os.close(fd)
+        except OSError:
+            pass
+        raise
+    return tmp
+
+
 def free_agent_names(names: Sequence[str]) -> None:
     """Free global Herdr agent names so a new run can claim them.
 
@@ -248,7 +290,7 @@ def free_agent_names(names: Sequence[str]) -> None:
 
 def start_agent(
     name: str,
-    role: str,
+    system_prompt: str | Path,
     *,
     pane_id: str,
     model: Optional[str] = None,
@@ -261,11 +303,19 @@ def start_agent(
     the empty shell ``pane_id``. ``agent.start`` no longer accepts workspace /
     tab / cwd / split — only ``name``, ``kind``, ``pane_id``, optional
     ``timeout_ms``, and agent ``args`` after the kind selects the executable.
+
+    ``system_prompt`` should be a **path** to a prompt file. Pi accepts either
+    text or a file for ``--append-system-prompt``, but Herdr refuses multi-line
+    / special-character args (``invalid_agent_argument``). Prefer a path.
+    If a multi-line string is passed, it is written under ``/tmp`` and that
+    path is used instead.
     """
+    append_arg = _shell_safe_append_system_prompt(system_prompt)
+
     args: List[str] = []
     if model:
         args += ["--model", model]
-    args += ["--name", name, "--append-system-prompt", role]
+    args += ["--name", name, "--append-system-prompt", append_arg]
 
     params: Dict[str, Any] = {
         "name": name,
@@ -558,6 +608,9 @@ class AgentSession:
         timeout_s: int = 300,
         allow_initial_idle: bool = False,
         base_revision: Optional[int] = None,
+        *,
+        require_activity: bool = True,
+        activity_grace_s: float | None = None,
     ) -> bool:
         """Wait for a post-submit turn to finish (activity then idle/done).
 
@@ -566,7 +619,13 @@ class AgentSession:
         ``agent.prompt`` can advance revision while status is still idle, which
         previously let the orchestrator start the lead while the reviewer was
         still about to run.
+
+        For long-running Pi turns (extract/repair), pass
+        ``activity_grace_s`` equal to the full timeout (or use
+        :meth:`wait_idle_after`) so a quiet agent is not treated as finished
+        after the default 45s grace.
         """
+        grace = float(timeout_s) if activity_grace_s is None else activity_grace_s
         return wait_all_settled(
             [self],
             timeout_s=timeout_s,
@@ -574,7 +633,34 @@ class AgentSession:
                 self.name: base_revision if base_revision is not None else self.revision
             },
             allow_initial_idle=allow_initial_idle,
+            require_activity=require_activity,
+            activity_grace_s=grace,
         )
+
+    def wait_idle_after(
+        self,
+        timeout_s: float = 120.0,
+        *,
+        poll_s: float = 2.0,
+    ) -> bool:
+        """Wait until this agent reports idle/done (best-effort, no false settle).
+
+        Used after extract/repair *artifacts* are already on disk. Returns True
+        if idle/done observed; False on timeout (caller may still proceed when
+        files are the source of truth).
+        """
+        deadline = time.time() + max(1.0, timeout_s)
+        while time.time() < deadline:
+            try:
+                status = self.status
+            except (HerdrApiError, HerdrClientError, RuntimeError):
+                status = "unknown"
+            if status in ("idle", "done"):
+                print(f"  {self.name} idle after artifacts ({status})")
+                return True
+            time.sleep(poll_s)
+        print(f"  warning: {self.name} still not idle after artifacts; continuing")
+        return False
 
 
 # ---------------------------------------------------------------------------

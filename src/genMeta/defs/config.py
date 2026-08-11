@@ -9,12 +9,19 @@ from typing import Dict
 GENMETA_DIR = Path(__file__).resolve().parent.parent
 REPO_ROOT = GENMETA_DIR.parent.parent
 
-EXTRACT_SKILL = REPO_ROOT / "skills" / "niaid-bp-metadata-extract"
-VALIDATE_SKILL = REPO_ROOT / "skills" / "niaid-bp-validation"
+# Agent plugin skills (formerly repo-root skills/, then gfubp-plugin/skills/)
+SKILLS_ROOT = REPO_ROOT / "niaid-blueprint" / "skills"
+EXTRACT_SKILL = SKILLS_ROOT / "niaid-bp-metadata-extract"
+VALIDATE_SKILL = SKILLS_ROOT / "niaid-bp-validation"
 EXTRACTION_WORKFLOW = EXTRACT_SKILL / "references" / "extraction-workflow.md"
 VALIDATION_WORKFLOW = VALIDATE_SKILL / "references" / "validation-workflow.md"
 VALIDATE_SCRIPT = VALIDATE_SKILL / "scripts" / "validate.py"
 DEFAULT_SHAPE = VALIDATE_SKILL / "assets" / "blueprint-required.ttl"
+
+# Repo-relative paths for agent prompts (cwd is REPO_ROOT).
+SKILLS_REL = "niaid-blueprint/skills"
+EXTRACT_SKILL_REL = f"{SKILLS_REL}/niaid-bp-metadata-extract"
+VALIDATE_SKILL_REL = f"{SKILLS_REL}/niaid-bp-validation"
 
 BLUEPRINT_RAW_URL = (
     "https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/"
@@ -56,3 +63,25 @@ def render_prompt(name: str, **kwargs: str) -> str:
     for key, value in kwargs.items():
         text = text.replace("{{" + key + "}}", value)
     return text
+
+
+def assert_skill_paths() -> None:
+    """Raise FileNotFoundError if extract/validate skill assets are missing.
+
+    Catches silent path drift after skill package moves (e.g. repo-root
+    ``skills/`` → ``niaid-blueprint/skills/``).
+    """
+    required = (
+        EXTRACT_SKILL / "SKILL.md",
+        EXTRACTION_WORKFLOW,
+        VALIDATE_SCRIPT,
+        DEFAULT_SHAPE,
+        VALIDATION_WORKFLOW,
+    )
+    missing = [str(p) for p in required if not p.is_file()]
+    if missing:
+        raise FileNotFoundError(
+            "genMeta skill assets missing (expected under "
+            f"{SKILLS_ROOT}):\n  - "
+            + "\n  - ".join(missing)
+        )

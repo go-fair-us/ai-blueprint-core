@@ -4,6 +4,13 @@
 First-try pipeline for NIAID Blueprint Dataset JSON-LD generation.
 Does not use Hermes. Transport: herdr-python-client (Unix socket).
 
+Pipeline (single handoff; no re-submit of the extract URL)::
+
+    URL → Pi extractor (once) → record.jsonld + notes.md
+        → host pySHACL
+        → if fail: Pi repairer patches record → host pySHACL (repeat)
+        → final-report.md
+
 Usage (from repo root, with Herdr running)::
 
     uv run python src/genMeta/main.py --url https://example.org/dataset
@@ -15,7 +22,7 @@ from __future__ import annotations
 import argparse
 import os
 import sys
-from datetime import datetime
+import time
 from pathlib import Path
 
 # Allow ``from defs…`` when run as a script from src/genMeta or via path.
@@ -28,9 +35,11 @@ from herdr_client import HerdrApiError, HerdrClientError  # noqa: E402
 from defs import artifacts  # noqa: E402
 from defs.config import (  # noqa: E402
     AGENTS,
+    PROMPTS_DIR,
     REPO_ROOT,
     ROLE_EXTRACTOR,
     ROLE_REPAIRER,
+    assert_skill_paths,
     render_prompt,
 )
 from defs.herdr import (  # noqa: E402
@@ -41,7 +50,6 @@ from defs.herdr import (  # noqa: E402
     ensure_agent_name,
     ensure_reachable,
     free_agent_names,
-    list_agents,
     split_pane,
     start_agent,
 )
@@ -56,8 +64,24 @@ from defs.task import (  # noqa: E402
 from defs.validate_host import run_host_validation  # noqa: E402
 
 
-def _load_system(name: str) -> str:
-    return render_prompt(name)
+def _system_prompt_path(name: str) -> Path:
+    """Path to a system prompt file (passed to Pi via --append-system-prompt).
+
+    Must be a path, not file contents: Herdr rejects multi-line agent args
+    with invalid_agent_argument.
+    """
+    path = PROMPTS_DIR / name
+    if not path.is_file():
+        raise FileNotFoundError(f"System prompt not found: {path}")
+    return path
+
+
+def _save_transcript(session: AgentSession, path: Path) -> None:
+    """Best-effort transcript dump (never aborts the pipeline)."""
+    try:
+        session.save_notes(path)
+    except (HerdrApiError, HerdrClientError, RuntimeError, OSError) as exc:
+        print(f"  warning: could not save transcript {path.name}: {exc}")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -85,6 +109,12 @@ def main(argv: list[str] | None = None) -> int:
     url = args.url.strip()
     if not url.startswith("http"):
         print("error: --url must be an http(s) URL", file=sys.stderr)
+        return 2
+
+    try:
+        assert_skill_paths()
+    except FileNotFoundError as exc:
+        print(f"error: {exc}", file=sys.stderr)
         return 2
 
     max_iters = resolve_max_iters(args.max_iters)
@@ -151,13 +181,13 @@ def main(argv: list[str] | None = None) -> int:
     sessions: dict[str, AgentSession] = {}
     sessions[ROLE_EXTRACTOR] = start_agent(
         ROLE_EXTRACTOR,
-        _load_system("extractor_system.md"),
+        _system_prompt_path("extractor_system.md"),
         pane_id=pane_extractor,
         model=models[ROLE_EXTRACTOR],
     )
     sessions[ROLE_REPAIRER] = start_agent(
         ROLE_REPAIRER,
-        _load_system("repairer_system.md"),
+        _system_prompt_path("repairer_system.md"),
         pane_id=pane_repairer,
         model=models[ROLE_REPAIRER],
     )
@@ -166,7 +196,6 @@ def main(argv: list[str] | None = None) -> int:
         sessions[name].wait_until_idle(timeout_s=90)
 
     print("\n==> Verifying agent aliases…")
-    live = {a.get("pane_id"): a for a in list_agents()}
     for name, session in sessions.items():
         ensure_agent_name(session.pane_id, name)
         info = session.refresh()
@@ -182,33 +211,50 @@ def main(argv: list[str] | None = None) -> int:
     iterations: list[dict] = []
     final_conforms = False
     record: Path | None = None
+    exit_code = 1
 
     try:
         # ------------------------------------------------------------------
-        # PHASE 1 — Extract
+        # PHASE 1 — Extract (once). Completion = artifacts on disk, not a
+        # Herdr idle flake. The extractor is never re-prompted with the URL.
         # ------------------------------------------------------------------
-        print("\n==> PHASE 1: extract (Pi)")
+        print("\n==> PHASE 1: extract (Pi) — single turn")
         extract_prompt = render_prompt(
             "extractor_user.md",
             url=url,
             run_dir=str(run_dir),
+            run_id=label,
         )
         extractor = sessions[ROLE_EXTRACTOR]
         extractor.refresh()
-        base_rev = extractor.revision
+        extract_submitted_at = time.time()
         extractor.submit(extract_prompt)
-        if not extractor.wait_settled(timeout_s=timeout_s, base_revision=base_rev):
-            raise TimeoutError(f"extractor did not settle within {timeout_s}s")
-        extractor.save_notes(run_dir / "01-extractor.txt")
-        transcript = (run_dir / "01-extractor.txt").read_text(encoding="utf-8")
-        record = artifacts.ensure_record_jsonld(run_dir, transcript=transcript)
-        print(f"  record → {record}")
+        print(
+            f"  submitted extract task at {time.strftime('%H:%M:%S')}; "
+            f"waiting for {artifacts.RECORD_NAME} + {artifacts.NOTES_NAME}…"
+        )
+
+        # Source of truth: files written under run_dir (not agent status alone).
+        record = artifacts.wait_for_extract_artifacts(
+            run_dir,
+            not_before=extract_submitted_at,
+            timeout_s=float(timeout_s),
+            require_notes=True,
+        )
+        # Best-effort: let the agent finish its confirmation message.
+        extractor.wait_idle_after(timeout_s=min(120.0, float(timeout_s)))
+        _save_transcript(extractor, run_dir / "01-extractor.txt")
+        record = artifacts.ensure_record_jsonld(run_dir)
+        print(f"  record → {record} (extract complete; no re-submit)")
 
         # ------------------------------------------------------------------
-        # PHASE 2/3 — Validate / Repair loop
+        # PHASE 2/3 — Host SHACL validate / Pi repair loop
+        #
+        # SHACL always runs on the host (deterministic). The repairer only
+        # patches record.jsonld from results.json — it does not re-extract.
         # ------------------------------------------------------------------
         for iteration in range(1, max_iters + 1):
-            print(f"\n==> PHASE 2: validate (host) iter={iteration}")
+            print(f"\n==> PHASE 2: validate (host pySHACL) iter={iteration}")
             out_dir = artifacts.validation_iter_dir(run_dir, iteration)
             summary = run_host_validation(record, out_dir)
             sample = (summary.get("results") or [])[:8]
@@ -248,37 +294,63 @@ def main(argv: list[str] | None = None) -> int:
                 "repairer_user.md",
                 url=url,
                 run_dir=str(run_dir),
+                run_id=label,
                 iteration=str(iteration),
                 results_json=str(results_json),
                 conforms_json=str(conforms_json),
             )
+            prev_mtime = artifacts.mtime(record)
             repairer.refresh()
-            repair_base = repairer.revision
+            repair_submitted_at = time.time()
             repairer.submit(repair_prompt)
-            if not repairer.wait_settled(timeout_s=timeout_s, base_revision=repair_base):
-                raise TimeoutError(f"repairer did not settle within {timeout_s}s")
+            print(
+                f"  submitted repair iter={iteration}; "
+                f"waiting for updated {artifacts.RECORD_NAME}…"
+            )
+
+            record = artifacts.wait_for_record_update(
+                run_dir,
+                previous_mtime=prev_mtime,
+                not_before=repair_submitted_at,
+                timeout_s=float(timeout_s),
+            )
+            repairer.wait_idle_after(timeout_s=min(120.0, float(timeout_s)))
             repair_notes = run_dir / f"02-repair-iter-{iteration:02d}.txt"
-            repairer.save_notes(repair_notes)
-            transcript = repair_notes.read_text(encoding="utf-8")
-            record = artifacts.ensure_record_jsonld(run_dir, transcript=transcript)
+            _save_transcript(repairer, repair_notes)
+            record = artifacts.ensure_record_jsonld(run_dir)
             print(f"  record updated → {record}")
 
+        exit_code = 0 if final_conforms else 1
+
+    except KeyboardInterrupt:
+        print("\ninterrupted", file=sys.stderr)
+        exit_code = 130
+    except Exception as exc:
+        print(f"\nerror during pipeline: {exc}", file=sys.stderr)
+        exit_code = 1
     finally:
-        # ------------------------------------------------------------------
-        # Report + optional cleanup
-        # ------------------------------------------------------------------
+        # Prefer in-memory path; fall back to whatever the agents wrote on disk
+        # so the report is useful after timeouts / mid-run failures.
+        if record is None or not Path(record).is_file():
+            disk = artifacts.record_path(run_dir)
+            if disk.is_file():
+                record = disk
+
         print("\n==> Writing report…")
-        write_final_report(
-            run_dir / "final-report.md",
-            url=url,
-            label=label,
-            ws_id=ws_id,
-            models=models,
-            run_dir=run_dir,
-            iterations=iterations,
-            final_conforms=final_conforms,
-            record_path=record,
-        )
+        try:
+            write_final_report(
+                run_dir / "final-report.md",
+                url=url,
+                label=label,
+                ws_id=ws_id,
+                models=models,
+                run_dir=run_dir,
+                iterations=iterations,
+                final_conforms=final_conforms,
+                record_path=record,
+            )
+        except OSError as exc:
+            print(f"  warning: could not write report: {exc}")
 
         cleanup = args.cleanup or os.environ.get("GENMETA_CLEANUP", "").lower() in (
             "1",
@@ -292,11 +364,11 @@ def main(argv: list[str] | None = None) -> int:
             print("\nAgents left running for inspection.")
             print(f"  Close later with:  herdr workspace close {ws_id}")
 
-    print("\n✅ genMeta complete")
+    print("\n✅ genMeta complete" if exit_code in (0, 1) else "\n⏹ genMeta stopped")
     print(f"  run dir:  {run_dir}")
     print(f"  report:   {run_dir / 'final-report.md'}")
     print(f"  conforms: {final_conforms}")
-    return 0 if final_conforms else 1
+    return exit_code
 
 
 if __name__ == "__main__":

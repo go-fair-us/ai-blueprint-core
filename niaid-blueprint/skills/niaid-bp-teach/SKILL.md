@@ -4,10 +4,9 @@ description: >
   Teach the NIAID Blueprint for Digital Objects through stateful, multi-session
   lessons. Creates a persistent teaching workspace with MISSION.md, HTML lessons,
   learning records, glossary, and reference sheets. Grounds all claims in RESOURCES.md.
-when_to_use: >
-  User wants to learn or teach the NIAID Blueprint, says "teach me the Blueprint",
-  "Blueprint course", "FAIR digital objects training", or wants structured progressive
-  lessons across multiple sessions toward a concrete repository goal.
+  Use when the user wants to learn or teach the Blueprint, says "teach me the Blueprint",
+  "Blueprint course", or "FAIR digital objects training", or wants progressive lessons
+  across sessions toward a concrete repository goal.
 ---
 
 # niaid-bp-teach

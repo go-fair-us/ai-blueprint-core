@@ -1,0 +1,209 @@
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <https://schema.org/> .
+@prefix bp:     <https://niaid.nih.gov/blueprint/shapes#> .
+
+#################################################################
+# NIAID Blueprint — simple Dataset SHACL shape graph
+#
+# Target data: schema.org Dataset JSON-LD as illustrated in:
+#   - docs/example.json  (Supplemental Table 7 small example)
+#   - docs/BluePrint/... Supplemental Table 7 expanded example
+#   - docs/GEPA_comparisons/*.md citation JSON-LD blocks
+#
+# Scope: a few key Table 1 elements only — not the full schema.
+#   REQUIRED (sh:Violation): name, description, url, identifier
+#   RECOMMENDED (sh:Warning): license, distribution, author,
+#                             conditionsOfAccess
+#
+# Conventions:
+#   * schema.org IRIs use https://schema.org/ so they match
+#     JSON-LD with "@context": "https://schema.org/".
+#   * identifier may be a PropertyValue node (preferred in
+#     docs/example.json) or a literal/IRI (also accepted).
+#
+# Related (do not confuse):
+#   - niaid-blueprint/skills/niaid-bp-validation/assets/
+#   - src/okf_quality/shapes/dataset-table1/
+#
+# schema.org HTTP vs HTTPS:
+#   JSON-LD with "@context": "https://schema.org/" often expands terms to
+#   http://schema.org/… while this shapes graph uses https://schema.org/….
+#   Prefer the skill runner (rewrites http→https on the data graph):
+#     uv run --extra validation python \
+#       niaid-blueprint/skills/niaid-bp-validation/scripts/validate.py \
+#       docs/example.json --shape shapes/blueprint-dataset.ttl
+#################################################################
+
+<https://niaid.nih.gov/blueprint/shapes/dataset>
+    a owl:Ontology ;
+    rdfs:label "NIAID Blueprint Dataset shapes (key elements)"@en ;
+    rdfs:comment "Simple SHACL for schema:Dataset keyed to Blueprint Table 1 and docs/example.json."@en ;
+.
+
+#################################################################
+# REQUIRED core identity / discovery fields
+#################################################################
+
+bp:DatasetCoreShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Dataset ;
+    rdfs:label "Blueprint Dataset — core required fields"@en ;
+    sh:message "schema:Dataset is missing one or more required Blueprint core fields."@en ;
+
+    # --- name (Table 1: free text title) ---
+    sh:property [
+        sh:path schema:name ;
+        sh:name "name" ;
+        sh:description "Descriptive title of the digital object (Blueprint Table 1)."@en ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:minLength 1 ;
+        sh:severity sh:Violation ;
+        sh:message "REQUIRED: schema:name must be non-empty text."@en ;
+    ] ;
+
+    # --- description (Table 1: free text) ---
+    # docs/example.json uses a short truncated string; real records
+    # should be longer. Enforce non-empty only at this severity.
+    sh:property [
+        sh:path schema:description ;
+        sh:name "description" ;
+        sh:description "Description of the digital object (Blueprint Table 1)."@en ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:minLength 1 ;
+        sh:severity sh:Violation ;
+        sh:message "REQUIRED: schema:description must be non-empty text."@en ;
+    ] ;
+
+    # --- url (landing page; present in all docs examples) ---
+    sh:property [
+        sh:path schema:url ;
+        sh:name "url" ;
+        sh:description "Landing-page URL for the dataset."@en ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRIOrLiteral ;
+        sh:severity sh:Violation ;
+        sh:message "REQUIRED: schema:url (dataset landing page) must be present."@en ;
+    ] ;
+
+    # --- identifier (Table 1: resolvable DOI preferred) ---
+    # Accepts PropertyValue node(s), literal, or IRI — as seen across
+    # docs/example.json and GEPA comparison citation blocks.
+    sh:property [
+        sh:path schema:identifier ;
+        sh:name "identifier" ;
+        sh:description "Globally unique persistent identifier (DOI default)."@en ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "REQUIRED: schema:identifier (e.g. resolvable DOI as PropertyValue or IRI)."@en ;
+        sh:or (
+            [ sh:node bp:PropertyValueIdentifierShape ]
+            [ sh:nodeKind sh:IRI ]
+            [ sh:nodeKind sh:Literal ; sh:minLength 1 ]
+        ) ;
+    ] ;
+
+    # -----------------------------------------------------------------
+    # RECOMMENDED Table 1 fields (present in expanded docs examples)
+    # -----------------------------------------------------------------
+
+    sh:property [
+        sh:path schema:license ;
+        sh:name "license" ;
+        sh:description "License under which the object is distributed (SPDX or license URL)."@en ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "RECOMMENDED: schema:license (SPDX id or license document URL)."@en ;
+    ] ;
+
+    sh:property [
+        sh:path schema:distribution ;
+        sh:name "distribution" ;
+        sh:description "Link(s) to downloadable bitstreams (DataDownload)."@en ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "RECOMMENDED: schema:distribution with schema:DataDownload / contentUrl."@en ;
+        sh:node bp:DataDownloadShape ;
+    ] ;
+
+    sh:property [
+        sh:path schema:author ;
+        sh:name "author" ;
+        sh:description "Person or organization responsible for creation (ORCID preferred)."@en ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "RECOMMENDED: schema:author (Person with ORCID @id when possible)."@en ;
+    ] ;
+
+    sh:property [
+        sh:path schema:conditionsOfAccess ;
+        sh:name "conditionsOfAccess" ;
+        sh:description "Conditions under which the object can be accessed."@en ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "RECOMMENDED: schema:conditionsOfAccess (e.g. open / registered / controlled)."@en ;
+    ] ;
+.
+
+#################################################################
+# Supporting node shapes (structure from docs/example.json)
+#################################################################
+
+# identifier as schema:PropertyValue:
+#   {
+#     "@type": "PropertyValue",
+#     "propertyID": "https://registry.identifiers.org/registry/doi",
+#     "value": "doi:10.21430/…",
+#     "url": "https://doi.org/10.21430/…"
+#   }
+bp:PropertyValueIdentifierShape
+    a sh:NodeShape ;
+    rdfs:label "PropertyValue identifier block"@en ;
+    sh:class schema:PropertyValue ;
+    sh:property [
+        sh:path schema:value ;
+        sh:name "value" ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:minLength 1 ;
+        sh:severity sh:Violation ;
+        sh:message "PropertyValue identifier must include schema:value."@en ;
+    ] ;
+    sh:property [
+        sh:path schema:url ;
+        sh:name "url" ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRIOrLiteral ;
+        sh:severity sh:Warning ;
+        sh:message "PropertyValue identifier should include a resolvable schema:url (e.g. https://doi.org/…)."@en ;
+    ] ;
+    sh:property [
+        sh:path schema:propertyID ;
+        sh:name "propertyID" ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "PropertyValue identifier should include schema:propertyID (e.g. identifiers.org DOI registry)."@en ;
+    ] ;
+.
+
+# distribution entry:
+#   { "@type": "DataDownload", "contentUrl": "…", "encodingFormat": "…" }
+bp:DataDownloadShape
+    a sh:NodeShape ;
+    rdfs:label "DataDownload distribution entry"@en ;
+    sh:class schema:DataDownload ;
+    sh:property [
+        sh:path schema:contentUrl ;
+        sh:name "contentUrl" ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRIOrLiteral ;
+        sh:severity sh:Warning ;
+        sh:message "DataDownload should include schema:contentUrl pointing at the bitstream or browser path."@en ;
+    ] ;
+.

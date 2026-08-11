@@ -4,13 +4,10 @@ description: >
   Conducts a structured NIAID Blueprint FAIR assessment interview across six phases
   (resource overview, metadata schema, persistent identifiers, APIs, citation, and
   outreach/training) and produces a prioritized gap report with actionable next steps.
-  Use when a repository owner, data steward, or PI wants to evaluate Blueprint alignment
-  or prepare for NIAID Data Ecosystem Discovery Portal integration.
-when_to_use: >
-  User wants to assess a repository's FAIR or Blueprint compliance, says "assess my
-  repository", "Blueprint assessment", "FAIR gap analysis", "how do we integrate with
-  the NIAID Portal", or wants to know what their resource is missing for Blueprint
-  alignment.
+  Use when a repository owner, data steward, or PI wants to evaluate Blueprint or FAIR
+  alignment, prepare for NIAID Data Ecosystem Discovery Portal integration, or says
+  "assess my repository", "Blueprint assessment", "FAIR gap analysis", or "how do we
+  integrate with the NIAID Portal".
 ---
 
 # FAIR Assessment Interview Skill

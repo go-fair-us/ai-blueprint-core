@@ -3,13 +3,9 @@ name: niaid-bp-validation
 description: >
   Validate a schema.org Dataset graph (JSON-LD or Turtle) against NIAID Blueprint
   SHACL shapes using pySHACL. Emits a severity-aware conformance verdict plus
-  structured violation results. Use when the user wants to SHACL-validate dataset
-  metadata, check Blueprint JSON-LD required fields, run pyshacl, or runs
-  /niaid-bp-validation.
-when_to_use: >
-  User provides Dataset JSON-LD or Turtle and wants SHACL validation, says
-  "validate this metadata", "check my JSON-LD against SHACL", "does this pass
-  Blueprint required fields", "run pyshacl", or invokes /niaid-bp-validation.
+  structured violation results. Use when the user provides Dataset JSON-LD or Turtle
+  for SHACL checks, wants Blueprint required-field validation, or says "validate this
+  metadata", "check my JSON-LD against SHACL", "run pyshacl", or /niaid-bp-validation.
 license: Apache-2.0
 metadata:
   author: GoFAIR US

@@ -5,12 +5,8 @@ description: >
   and produces a valid JSON-LD document aligned with the NIAID Blueprint for Digital
   Objects. Covers all 16 Blueprint metadata elements across five natural groups:
   identity, provenance, content, access, and context. Use when a researcher or
-  repository manager needs to generate structured metadata for a dataset.
-when_to_use: >
-  User wants to create dataset metadata, generate a JSON-LD document for a dataset,
-  describe a dataset in a structured format, or produce Blueprint-compliant metadata.
-  Triggered by phrases like "create metadata for my dataset", "generate JSON-LD",
-  "describe my dataset", or "Blueprint metadata".
+  repository manager needs structured dataset metadata, or says "create metadata for
+  my dataset", "generate JSON-LD", "describe my dataset", or "Blueprint metadata".
 ---
 
 # Dataset Intake Skill

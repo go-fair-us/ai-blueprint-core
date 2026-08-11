@@ -4,11 +4,9 @@ description: >
   Fetches a web resource URL and extracts Blueprint-aligned schema.org JSON-LD
   metadata (Table 1 elements) by retrieving and analyzing the target page.
   Produces a JSON-LD record plus metadata notes — no user interview required.
-when_to_use: >
-  User provides a dataset or resource URL and wants metadata extracted from the
-  web automatically. Triggered by "/niaid-bp-metadata-extract", "extract metadata
-  from URL", "generate JSON-LD from this page", "Blueprint metadata from URL",
-  or "scrape metadata for this resource".
+  Use when the user provides a dataset or resource URL for automatic extraction, or
+  says "/niaid-bp-metadata-extract", "extract metadata from URL", "generate JSON-LD
+  from this page", "Blueprint metadata from URL", or "scrape metadata for this resource".
 ---
 
 # NIAID Blueprint Metadata Extract Skill
