@@ -226,6 +226,26 @@ The same host validation path is used by automated pipelines such as
 
 ---
 
+### `niaid-bp-shaclrules` — SHACL 1.2 Rules (SRL) via eyeleng
+
+Materializes **SHACL 1.2 Rules** programs written in SRL using the
+[eyeleng](https://github.com/eyereasoner/eyeleng) JavaScript engine, invoked
+from a self-contained Deno script (`npm:eyeleng` import — no local
+`package.json`).
+
+**Use when:** You have an `.srl` file (or pasted SRL) and want inferred triples
+from `DATA` + `RULE` materialization.
+
+**Args:** path to an `.srl` file; optional `--all` (full closure) and `--json`.
+
+**Dependency:** Deno 2+ on `PATH`. First run downloads eyeleng and transitive
+deps into Deno’s cache.
+
+This is **rules reasoning**, not Dataset shape validation — for pySHACL checks
+on `schema:Dataset`, use `niaid-bp-validation`.
+
+---
+
 ## How the skills fit together
 
 ```text
@@ -243,7 +263,10 @@ The same host validation path is used by automated pipelines such as
                                 │
                                 ▼
                       niaid-bp-validation
-                      (SHACL gate on Dataset)
+                      (SHACL shapes on Dataset)
+
+ niaid-bp-shaclrules  — SHACL 1.2 Rules (SRL) materialization via eyeleng
+                        (rules reasoning; not Dataset shape validation)
 ```
 
 `niaid-bp-model-influence` sits alongside the Blueprint core: research
@@ -301,6 +324,15 @@ skills/
 │   │   └── validate.py
 │   ├── references/
 │   │   └── validation-workflow.md
+│   └── tests/
+├── niaid-bp-shaclrules/
+│   ├── SKILL.md
+│   ├── assets/examples/
+│   │   └── socrates.srl
+│   ├── scripts/
+│   │   └── run_rules.ts      # Deno + npm:eyeleng
+│   ├── references/
+│   │   └── rules-workflow.md
 │   └── tests/
 └── hermes/                   # optional alternate packaging; not niaid-bp-*
     └── fair-assessor/

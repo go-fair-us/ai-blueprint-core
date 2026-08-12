@@ -46,6 +46,7 @@ Each skill follows the standard layout: a `SKILL.md` (frontmatter + persona + fl
 | **`niaid-bp-model-influence`** | Model Influence Statement interview (ML disclosure). Bundles template + example; `scripts/save_statement.py` (stdlib, tested). |
 | **`niaid-bp-teach`** | Multi-session teaching workspace (MISSION, HTML lessons, learning records, glossary). Hands-on steps hand off to sibling skills. |
 | **`niaid-bp-validation`** | SHACL validation of `schema:Dataset` graphs via pySHACL. Shape: `assets/blueprint-required.ttl`; runner: `scripts/validate.py`. Extra: `uv sync --extra validation`. |
+| **`niaid-bp-shaclrules`** | SHACL 1.2 Rules (SRL) materialization via eyeleng (Deno + `npm:eyeleng`). Script: `scripts/run_rules.ts`. Requires Deno 2+. |
 
 When editing a skill, keep frontmatter (`name`, `description`, `when_to_use`) accurate — that text drives discovery — and treat mid-interview reference structure as load-bearing.
 
