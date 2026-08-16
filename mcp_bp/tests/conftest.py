@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from mcp_bp import config, content, hybrid_search, okf_content, search
+from mcp_bp import config, content, hybrid_search, okf_content, search, skills_content
 
 
 BLUEPRINT_FIXTURE = """\
@@ -111,6 +111,32 @@ tags: [identifier, immport]
 Recommend a DOI for ImmPort SDY2968.
 """
 
+SKILL_ASSESS_FIXTURE = """\
+---
+name: niaid-bp-fair-assess
+description: >
+  Conducts a structured NIAID Blueprint FAIR assessment interview.
+when_to_use: assess a repository against the Blueprint
+license: Apache-2.0
+---
+
+# FAIR Assessment Interview Skill
+
+Read `references/interview-phases.md` first.
+"""
+
+SKILL_VALIDATE_FIXTURE = """\
+---
+name: niaid-bp-validation
+description: Validate a schema.org Dataset graph with pySHACL.
+license: Apache-2.0
+---
+
+# niaid-bp-validation
+
+Run scripts/validate.py.
+"""
+
 
 @pytest.fixture
 def content_tree(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, Path]:
@@ -146,14 +172,30 @@ def content_tree(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, P
     (meta / "motivation.md").write_text(OKF_MOTIVATION_FIXTURE, encoding="utf-8")
     (examples / "identifier.md").write_text(OKF_PROMPT_EXAMPLE, encoding="utf-8")
 
+    skills = tmp_path / "skills"
+    assess = skills / "niaid-bp-fair-assess"
+    (assess / "references").mkdir(parents=True)
+    (assess / "SKILL.md").write_text(SKILL_ASSESS_FIXTURE, encoding="utf-8")
+    (assess / "references" / "interview-phases.md").write_text(
+        "# Phases\n\nPhase 1 is resource overview.\n", encoding="utf-8"
+    )
+    validate = skills / "niaid-bp-validation"
+    (validate / "scripts").mkdir(parents=True)
+    (validate / "SKILL.md").write_text(SKILL_VALIDATE_FIXTURE, encoding="utf-8")
+    (validate / "scripts" / "validate.py").write_text(
+        "# stub — real runner lives in the repo skill\n", encoding="utf-8"
+    )
+    (validate / "secret.bin").write_bytes(b"\x00\x01do-not-serve")
+
     # Point all modules at the fixture tree.
-    for module in (config, content, search, hybrid_search, okf_content):
+    for module in (config, content, search, hybrid_search, okf_content, skills_content):
         monkeypatch.setattr(module, "DOCS_DIR", docs, raising=False)
         monkeypatch.setattr(module, "PROMPTS_DIR", prompts, raising=False)
         monkeypatch.setattr(module, "OKF_BUNDLES_DIR", bundles, raising=False)
         monkeypatch.setattr(module, "OKF_DEFAULT_BUNDLE", "niaid_blueprint", raising=False)
         monkeypatch.setattr(module, "OKF_PROMPT_EXAMPLES_DIR", examples, raising=False)
         monkeypatch.setattr(module, "OKF_ENABLED", True, raising=False)
+        monkeypatch.setattr(module, "SKILLS_DIR", skills, raising=False)
 
     # Clear caches so each test builds fresh from the fixture.
     monkeypatch.setattr(hybrid_search, "_INDEX", None)
@@ -166,4 +208,5 @@ def content_tree(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, P
         "bundles": bundles,
         "bundle": bundle,
         "examples": examples,
+        "skills": skills,
     }

@@ -1,0 +1,144 @@
+# LibreChat config for the NIAID Blueprint localhost stack.
+# Docs: https://www.librechat.ai/docs/configuration/librechat_yaml
+
+version: 1.3.13
+cache: true
+
+interface:
+  customWelcome: "NIAID Blueprint chat. Enable the ai-blueprint MCP server and $niaid-bp-* skills."
+  modelSelect: true
+  parameters: true
+  presets: true
+  fileSearch: false
+  prompts:
+    use: true
+    create: true
+    share: false
+    public: false
+  agents:
+    use: true
+    create: true
+    share: false
+    public: false
+  defaultPinnedTools:
+    - mcp
+    - skills
+
+# Allow the compose-network MCP host (private). Do not add this to allowedDomains
+# or LibreChat switches into a strict public-domain whitelist.
+mcpSettings:
+  allowedAddresses:
+    - "mcp_bp:8000"
+    - "host.docker.internal:8000"
+
+mcpServers:
+  ai-blueprint:
+    type: streamable-http
+    url: http://mcp_bp:8000/mcp
+    timeout: 120000
+    chatMenu: true
+    serverInstructions: |
+      Use a few targeted lookups: search_docs, get_blueprint_section,
+      or get_blueprint_requirements (pillar: metadata, identifiers,
+      api, citation, outreach). One or two tools per round. Do not
+      walk every pillar unless the user asked for a full review.
+
+endpoints:
+  agents:
+    # Recursion 5 = first completion + four tool follow-ups. Higher
+    # (8–12) plus all 26 MCP schemas (~4.7k tokens) made NRP drop
+    # the stream ("terminated").
+    recursionLimit: 5
+    maxRecursionLimit: 6
+    disableBuilder: false
+    capabilities: ["tools", "actions"]
+  custom:
+    - name: "NRP"
+      apiKey: "${NRP_API_KEY}"
+      baseURL: "https://ellm.nrp-nautilus.io/v1"
+      models:
+        default:
+          - "deepseek-v4-flash"
+          - "qwen3"
+          - "glm-5"
+          - "gpt-oss"
+        fetch: true
+      # Title calls on deepseek-v4-flash have timed out and add extra NRP load.
+      titleConvo: false
+      modelDisplayLabel: "NRP"
+      dropParams: ["user"]
+
+# Default chat: NRP + lookup protocol. promptPrefix is sent as standing
+# instructions; the user message is a separate turn. Do not paste the
+# Blueprint spec here — MCP already serves it in sections.
+#
+# Do not set enforce: true. LibreChat then fights modelSelect / presets /
+# parameters and the MCP + skills pins look like a regression.
+modelSpecs:
+  enforce: false
+  prioritize: true
+  addedEndpoints:
+    - agents
+  list:
+    - name: "blueprint-nrp"
+      label: "Blueprint (NRP)"
+      description: "NRP chat that looks up the Blueprint via MCP and answers with short examples."
+      softDefault: true
+      # Attach MCP to this spec. Without this, LibreChat builds an ephemeral
+      # agent with 0 tools and the model only streams Thoughts until it stalls.
+      mcpServers:
+        - ai-blueprint
+      skills: true
+      preset:
+        endpoint: "NRP"
+        model: "deepseek-v4-flash"
+        promptPrefix: |
+          You help data generators and repository owners apply the NIAID
+          Blueprint for Digital Objects so NIAID-funded digital objects
+          (data, software, methods, workflows) are more FAIR and can be
+          found in the NIAID Data Ecosystem Discovery Portal.
+
+          The Blueprint is a minimal, flexible starting point — not a
+          full repository standard. Its five areas:
+
+          1. Minimal metadata (schema.org; Table 1: type, identifier,
+             name, description, dateCreated, author, funder, grant,
+             measurementTechnique, distribution, citation,
+             infectiousAgent, host, healthCondition,
+             conditionsOfAccess, license, spatialCoverage,
+             temporalCoverage).
+          2. Persistent identifiers (resolvable DOI; ORCID; ROR; NCIT,
+             NCBITaxon, MONDO; SPDX or license IRI).
+          3. Machine access (JSON-LD; resource-oriented IRIs; HTTP GET;
+             OpenAPI). HTML-embedded metadata is acceptable if a full
+             API is not ready.
+          4. Citation (How to Cite with resolvable PIDs; original vs
+             reused data; APA/MLA/Chicago/NLM plus BibTeX).
+          5. Outreach (named contact point; training materials).
+
+          Canonical spec (cite this URL; do not fetch it):
+          https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
+
+          Lookup (enough to answer, not a full crawl):
+          use search_docs, get_blueprint_section, and
+          get_blueprint_requirements (pillar: metadata, identifiers,
+          api, citation, or outreach). Typical questions need 2–5
+          calls. Hard cap 6. One or two tools per round. Stop as soon
+          as you can give examples. Do not walk all five pillars
+          unless the user asked for a full review.
+
+          How to answer:
+          - Focus on delivering answers in a pithy, brief, forceful, 
+            and meaningful manner 
+          - Give a short argument grounded in Blueprint + FAIR
+            (Findable, Accessible, Interoperable, Reusable), then one
+            or two concrete examples (a Table 1 field, a resolvable
+            DOI, a JSON-LD snippet, a citation line).
+          - Do not tell the user to "just read the Blueprint" or dump
+            a section. Teach the point.
+          - Do not center any specific repository, study, or brand
+            unless the user names one or gives a URL. If they do,
+            use that name or URL in the examples and argument.
+          - Write the answer in the normal reply, not only in thoughts.
+            Quote Blueprint section numbers from tool results. If
+            tools fail, say so. Do not invent PIDs or requirements.

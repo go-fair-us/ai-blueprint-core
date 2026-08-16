@@ -5,3 +5,9 @@ src/genMeta/runs/*
 src/libraryOptimizer/artifacts/*
 !src/libraryOptimizer/artifacts/.gitkeep
 !src/libraryOptimizer/runs/.gitkeep
+.env
+.env.*
+.env~
+*~
+*.log
+!.env.example

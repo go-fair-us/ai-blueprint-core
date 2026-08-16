@@ -1,0 +1,83 @@
+# Localhost LibreChat + Blueprint MCP.
+# From this directory:
+#   cp .env.example .env   # then set NRP_API_KEY
+#   docker compose up --build
+#
+# UI:  http://127.0.0.1:3080
+# MCP: http://127.0.0.1:8000/mcp
+#
+# RAG / admin-panel from upstream LibreChat are omitted on purpose.
+
+services:
+  mcp_bp:
+    build:
+      context: ../..
+      dockerfile: deployment/mcp_bp/Dockerfile
+    environment:
+      MCP_HOST: "0.0.0.0"
+      MCP_PORT: "8000"
+      MCP_PATH: "/mcp"
+      BLUEPRINT_SKILLS_DIR: /app/niaid-blueprint/skills
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ../../docs:/app/docs:ro
+      - ../../okf:/app/okf:ro
+      - ../../prompts:/app/prompts:ro
+      - ../../niaid-blueprint/skills:/app/niaid-blueprint/skills:ro
+    restart: unless-stopped
+
+  api:
+    image: registry.librechat.ai/danny-avila/librechat-dev:latest
+    depends_on:
+      - mongodb
+      - meilisearch
+      - mcp_bp
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "127.0.0.1:3080:3080"
+    env_file:
+      - .env
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "3080"
+      MONGO_URI: mongodb://mongodb:27017/LibreChat
+      MEILI_HOST: http://meilisearch:7700
+      DEPLOYMENT_SKILLS_DIR: /app/skill
+    # No `./.env` bind mount: `env_file` above already injects every variable,
+    # and mounting the file would put the plaintext secrets on the container FS
+    # for nothing.
+    volumes:
+      - ./librechat.yaml:/app/librechat.yaml:ro
+      - ../../niaid-blueprint/skills:/app/skill:ro
+      - librechat-images:/app/client/public/images
+      - librechat-uploads:/app/uploads
+      - librechat-logs:/app/logs
+      - librechat-data:/app/data
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:8.0.20
+    command: mongod --noauth
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.35.1
+    environment:
+      MEILI_HOST: http://meilisearch:7700
+      MEILI_NO_ANALYTICS: "true"
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+    volumes:
+      - meili-data:/meili_data
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
+  meili-data:
+  librechat-images:
+  librechat-uploads:
+  librechat-logs:
+  librechat-data:

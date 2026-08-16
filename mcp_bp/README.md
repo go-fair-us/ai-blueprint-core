@@ -15,7 +15,11 @@ assessment, work-plan intake) whose wording lives in the prompt files. The
 server is the bridge between “files in a git repo” and “tools an agent can call
 mid-conversation.”
 
-It exposes three MCP surface areas:
+It also lists the `niaid-bp-*` Agent Skills and can run the bundled SHACL
+validator. Interview skills stay procedures (`read_skill` + follow `SKILL.md`);
+they are not one MCP tool per question.
+
+It exposes four MCP surface areas:
 
 1. **Resources** — read-only documents, OKF concepts, and prompt text by URI.
 2. **Tools** — model-invoked functions to list and read docs, hybrid-search the
@@ -24,6 +28,8 @@ It exposes three MCP surface areas:
 3. **Prompts** — user-invoked personas (interview or web assessor flows) with
    optional arguments such as a target URL; arguments are prepended as a short
    instruction block so they override example values in the files.
+4. **Skills** — catalog and progressive file reads for `niaid-blueprint/skills`,
+   plus `validate_dataset` for host-side SHACL.
 
 Everything is **read-only** with respect to the corpus: the server serves and
 searches content; it does not write back into `docs/`, `okf/`, or `prompts/`.
@@ -75,7 +81,7 @@ client-side caching and retry.
 |------|-----------|---------|
 | `list_docs()` | — | Enumerate available Markdown docs (path, title, bytes) |
 | `read_doc(path)` | `path: str` | Read a doc's full Markdown content |
-| `kb_stats()` | — | Corpus statistics: doc counts, total size, section count, semantic search status |
+| `kb_stats()` | — | Corpus statistics: doc counts, total size, section count, OKF, skills, semantic search status |
 | `list_resources()` | — | Auto-generated: list all MCP resources as tools |
 | `read_resource(uri)` | `uri: str` | Auto-generated: read a resource by URI |
 
@@ -109,6 +115,17 @@ client-side caching and retry.
 | `okf_stats()` | `bundle` optional | Concept/atomic counts and types |
 | `list_okf_prompt_examples()` | — | Filled few-shot prompt files |
 | `read_okf_prompt_example(path)` | relative path | Read one filled example |
+
+#### Agent Skills
+
+| Tool | Parameters | Purpose |
+|------|-----------|---------|
+| `list_skills()` | — | Catalog `SKILL.md` bundles (name, description, `when_to_use`, scripts/references/assets flags) |
+| `read_skill(name)` | `name: str` | Full `SKILL.md` procedure |
+| `read_skill_file(name, path)` | skill name + relative path | Progressive read of `references/`, `assets/`, or scripts (path-safe) |
+| `validate_dataset(graph, data_format)` | JSON-LD or Turtle **text** | Run `niaid-bp-validation` SHACL on a `schema:Dataset` graph |
+
+These tools do **not** re-encode interview skills as one function per question. Load the skill, then follow it. `validate_dataset` is the exception: the SHACL runner is a host script a browser UI cannot execute.
 
 OKF parsing reuses `src/okf_core` (`walk_bundle`, atomic tables). Default bundle:
 `niaid_blueprint` (239 atomics in the live repo tree).
@@ -185,6 +202,7 @@ The server listens on `http://127.0.0.1:8000/mcp` by default.
 | `BLUEPRINT_OKF_DEFAULT_BUNDLE` | `niaid_blueprint` | Default bundle name |
 | `BLUEPRINT_OKF_PROMPT_EXAMPLES_DIR` | `../okf/prompt_examples` | Filled prompt examples root |
 | `BLUEPRINT_OKF_ENABLED` | `1` | Set to `0` to disable OKF tools/index |
+| `BLUEPRINT_SKILLS_DIR` | `../niaid-blueprint/skills` | Agent Skill bundle root (`SKILL.md` directories) |
 | `BLUEPRINT_SEMANTIC_ENABLED` | *(off)* | Set to `1` to enable embedding-based semantic search (downloads ~33 MB model on first run) |
 | `BLUEPRINT_SEMANTIC_MODEL` | `BAAI/bge-small-en-v1.5` | fastembed model name for semantic embeddings |
 

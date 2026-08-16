@@ -33,6 +33,11 @@ OKF_DEFAULT_BUNDLE: str = os.environ.get(
 OKF_PROMPT_EXAMPLES_DIR: Path = _env_path(
     "BLUEPRINT_OKF_PROMPT_EXAMPLES_DIR", REPO_ROOT / "okf" / "prompt_examples"
 )
+
+# Agent Skills (SKILL.md bundles). Default is the plugin skill tree.
+SKILLS_DIR: Path = _env_path(
+    "BLUEPRINT_SKILLS_DIR", REPO_ROOT / "niaid-blueprint" / "skills"
+)
 # Soft-disable OKF when the tree is absent or when explicitly turned off.
 OKF_ENABLED: bool = os.environ.get("BLUEPRINT_OKF_ENABLED", "1").lower() in (
     "1",

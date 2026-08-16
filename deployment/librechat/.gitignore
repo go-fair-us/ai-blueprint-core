@@ -1,0 +1,8 @@
+.env
+*.log
+
+# Editor backups: the root .gitignore's `.env.*` does NOT match `.env~`.
+*~
+*.bak
+*.orig
+*.swp

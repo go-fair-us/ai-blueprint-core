@@ -71,6 +71,22 @@ JSON-LD parsers often expand `"@context": "https://schema.org/"` terms to
 the data graph before pySHACL runs so `sh:targetClass` and property paths match.
 Without that rewrite, validation can silently report **false CONFORMS**.
 
+## JSON-LD contexts are resolved offline
+
+`scripts/validate.py` never dereferences a `@context` over the network.
+`"@context": "https://schema.org/"` (and the other spellings on the allowlist)
+is served from the vendored copy in `assets/contexts/`; every other remote
+reference — including `file://` and `@import` — is refused with a
+`RemoteContextError` rather than fetched.
+
+The graph text is untrusted: it is whatever a user pasted or handed to the MCP
+`validate_dataset` tool. Left alone, rdflib would fetch the IRI at parse time,
+so a crafted document could make the validating process issue arbitrary
+outbound requests. Validation therefore also works fully offline.
+
+If a record needs vocabulary the allowlist does not cover, inline the context
+object in the document rather than pointing at a URL.
+
 ## Conformance rule (important)
 
 pySHACL’s raw `conforms` boolean is **False whenever any result exists**, including

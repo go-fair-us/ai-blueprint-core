@@ -24,6 +24,7 @@ import argparse
 import json
 import sys
 from datetime import datetime, timezone
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -54,6 +55,108 @@ _SKOLEM_AUTHORITY = "https://niaid.nih.gov/blueprint/validation"
 # sh:targetClass and property paths match (avoids silent false "conforms").
 _SCHEMA_HTTP = "http://schema.org/"
 _SCHEMA_HTTPS = "https://schema.org/"
+
+#################################################################
+# JSON-LD context resolution: offline, allowlisted.
+#
+# rdflib dereferences remote "@context" IRIs over the network while parsing.
+# The graph text here is untrusted -- it arrives from the MCP
+# ``validate_dataset`` tool, so it is whatever a user pasted or a model was
+# talked into passing along. A crafted "@context" therefore turns validation
+# into an outbound request of the attacker's choosing (http://, and also
+# file://, which rdflib resolves as a local read).
+#
+# So: never let the parser fetch. Every context is resolved from a vendored
+# copy on disk, and any reference not on the allowlist is refused with an
+# error instead of a request. This also makes validation work offline.
+#################################################################
+
+_CONTEXTS_DIR = _SKILL_DIR / "assets" / "contexts"
+_SCHEMA_ORG_CONTEXT_FILE = _CONTEXTS_DIR / "schemaorg-jsonldcontext.jsonld"
+
+# Every spelling of the schema.org context IRI that appears in Blueprint
+# examples, all served from the one vendored file above.
+_ALLOWED_CONTEXT_IRIS = frozenset(
+    {
+        "http://schema.org",
+        "http://schema.org/",
+        "https://schema.org",
+        "https://schema.org/",
+        "http://www.schema.org",
+        "http://www.schema.org/",
+        "https://www.schema.org",
+        "https://www.schema.org/",
+        "http://schema.org/docs/jsonldcontext.json",
+        "https://schema.org/docs/jsonldcontext.json",
+    }
+)
+
+
+class RemoteContextError(RuntimeError):
+    """Raised for a JSON-LD context this validator will not dereference."""
+
+
+@lru_cache(maxsize=1)
+def _schema_org_context() -> Any:
+    """Return the vendored schema.org term map (parsed once, then cached)."""
+    if not _SCHEMA_ORG_CONTEXT_FILE.is_file():
+        raise RemoteContextError(
+            "Vendored schema.org context is missing: "
+            f"{_SCHEMA_ORG_CONTEXT_FILE}. Restore it from "
+            "https://schema.org/docs/jsonldcontext.json"
+        )
+    doc = json.loads(_SCHEMA_ORG_CONTEXT_FILE.read_text(encoding="utf-8"))
+    # Upstream ships the term map wrapped in a top-level "@context".
+    if isinstance(doc, dict) and "@context" in doc:
+        return doc["@context"]
+    return doc
+
+
+def _localize_context_value(value: Any) -> Any:
+    """Resolve one ``@context`` value locally, or refuse it."""
+    if value is None or isinstance(value, dict):
+        # An inline context object. Term definitions can carry their own
+        # scoped @context / @import, so keep walking.
+        return _localize_contexts(value) if value is not None else value
+    if isinstance(value, str):
+        if value in _ALLOWED_CONTEXT_IRIS:
+            return _schema_org_context()
+        raise RemoteContextError(
+            f"Refusing to dereference remote JSON-LD context {value!r}. "
+            "Inline the context object instead, or use one of: "
+            + ", ".join(sorted(_ALLOWED_CONTEXT_IRIS))
+        )
+    if isinstance(value, list):
+        return [_localize_context_value(item) for item in value]
+    raise RemoteContextError(
+        f"Unsupported @context value of type {type(value).__name__}."
+    )
+
+
+def _localize_contexts(node: Any) -> Any:
+    """Rewrite every ``@context`` in a JSON-LD structure to a local one.
+
+    Recurses the whole document because JSON-LD allows scoped contexts on any
+    node and inside any term definition -- checking only the top level would
+    leave a nested remote reference to be fetched at parse time.
+    """
+    if isinstance(node, list):
+        return [_localize_contexts(item) for item in node]
+    if not isinstance(node, dict):
+        return node
+    out: dict[str, Any] = {}
+    for key, value in node.items():
+        if key == "@context":
+            out[key] = _localize_context_value(value)
+        elif key == "@import":
+            # JSON-LD 1.1 context @import is always a remote reference.
+            raise RemoteContextError(
+                f"Refusing to dereference JSON-LD context @import {value!r}. "
+                "Inline the imported terms instead."
+            )
+        else:
+            out[key] = _localize_contexts(value)
+    return out
 
 _FORMAT_BY_SUFFIX = {
     ".ttl": "turtle",
@@ -96,7 +199,18 @@ def normalize_schema_org_iris(graph: Graph) -> Graph:
 
 def _load_graph(path: Path, fmt: str) -> Graph:
     g = Graph()
-    g.parse(path.as_posix(), format=fmt)
+    if fmt == "json-ld":
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        # publicID keeps relative-IRI resolution identical to parsing the
+        # file by path, which is what rdflib would have used as the base.
+        g.parse(
+            data=json.dumps(_localize_contexts(doc)),
+            format=fmt,
+            publicID=path.resolve().as_uri(),
+        )
+    else:
+        # Turtle/N-Triples/RDF-XML have no remote-context mechanism.
+        g.parse(path.as_posix(), format=fmt)
     return normalize_schema_org_iris(g)
 
 
@@ -167,6 +281,9 @@ def run_validation(
             inference=inference,
             serialize_report_graph=False,
         )
+    except RemoteContextError:
+        # Surface the refusal verbatim; it is a rejected input, not a failure.
+        raise
     except Exception as e:
         raise RuntimeError(f"SHACL validation failed for {data_path}: {e}") from e
 

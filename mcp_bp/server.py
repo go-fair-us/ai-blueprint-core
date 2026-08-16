@@ -22,8 +22,18 @@ from fastmcp import FastMCP
 from fastmcp.server.transforms import ResourcesAsTools
 from mcp.types import ToolAnnotations
 
-from . import config, content, hybrid_search, okf_content, prompts_registry, search, sections
+from . import (
+    config,
+    content,
+    hybrid_search,
+    okf_content,
+    prompts_registry,
+    search,
+    sections,
+    skills_content,
+)
 from .okf_content import OkfError
+from .skills_content import SkillsError
 
 mcp: FastMCP = FastMCP(
     name="ai-blueprint",
@@ -39,7 +49,10 @@ mcp: FastMCP = FastMCP(
         "concept graph and claim-level requirements with source line numbers.\n"
         "- Prompts: interactive FAIR assessment / work-plan interviews.\n"
         "- OKF prompt examples: filled domain few-shots (ImmPort, etc.), not "
-        "interview personas."
+        "interview personas.\n"
+        "- Skills tools (list_skills, read_skill, read_skill_file): Agent Skill "
+        "catalog and progressive file reads. Use validate_dataset to run the "
+        "bundled SHACL shape on schema:Dataset JSON-LD or Turtle."
     ),
 )
 
@@ -178,6 +191,7 @@ def kb_stats() -> dict[str, object]:
         },
         "blueprint_sections": section_count,
         "okf": okf_content.okf_stats(),
+        "skills": skills_content.skills_stats(),
         "semantic_search_enabled": config.SEMANTIC_ENABLED,
     }
 
@@ -473,6 +487,67 @@ def read_okf_prompt_example(path: str) -> str:
     try:
         return okf_content.read_prompt_example(path)
     except Exception as exc:
+        raise ValueError(str(exc)) from exc
+
+
+# --------------------------------------------------------------------------
+# Agent Skills (SKILL.md bundles)
+# --------------------------------------------------------------------------
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def list_skills() -> list[dict[str, object]]:
+    """List Agent Skills under the Blueprint skill bundle.
+
+    Returns name, description, when_to_use, and whether scripts / references /
+    assets exist. Use ``read_skill`` for the procedure, then
+    ``read_skill_file`` for references or assets. Interview skills are
+    procedures — do not skip loading ``SKILL.md``. Run SHACL with
+    ``validate_dataset``.
+    """
+    return skills_content.list_skills()
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def read_skill(name: str) -> str:
+    """Read the full ``SKILL.md`` body for a skill listed by ``list_skills``.
+
+    ``name`` is the skill directory / frontmatter name (e.g.
+    ``"niaid-bp-fair-assess"``).
+    """
+    try:
+        return skills_content.read_skill(name)
+    except SkillsError as exc:
+        raise ValueError(str(exc)) from exc
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def read_skill_file(name: str, path: str) -> dict[str, object]:
+    """Read one file from a skill directory (references, assets, scripts).
+
+    ``path`` is relative to the skill root (e.g.
+    ``"references/interview-phases.md"`` or ``"assets/blank-dataset.jsonld"``).
+    Paths that escape the skill directory are rejected.
+    """
+    try:
+        return skills_content.read_skill_file(name, path)
+    except SkillsError as exc:
+        raise ValueError(str(exc)) from exc
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def validate_dataset(graph: str, data_format: str | None = None) -> dict[str, object]:
+    """Validate a schema.org Dataset graph against the Blueprint SHACL shape.
+
+    ``graph`` is the JSON-LD or Turtle text (not a filesystem path).
+    ``data_format`` is ``"json-ld"`` (default) or ``"turtle"``.
+
+    Returns severity-aware ``conforms`` (true iff zero ``sh:Violation``
+    results), counts, and finding rows. Does not invent field values.
+    """
+    try:
+        return skills_content.validate_dataset(graph, data_format=data_format)
+    except SkillsError as exc:
         raise ValueError(str(exc)) from exc
 
 
