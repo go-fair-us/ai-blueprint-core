@@ -43,23 +43,6 @@ mcpServers:
       api, citation, outreach). One or two tools per round. Do not
       walk every pillar unless the user asked for a full review.
 
-  # ImmPort hosted MCP. IMMPORT_API_KEY is the api_key string from the
-  # downloaded JSON (id / api_key / expires_at) — not the whole file.
-  # requiresOAuth: false so LibreChat does not treat ImmPort's 401
-  # Bearer challenge as an OAuth flow and drop the static header.
-  immport:
-    title: ImmPort
-    type: streamable-http
-    url: https://mcp.immport.org
-    timeout: 120000
-    chatMenu: true
-    requiresOAuth: false
-    headers:
-      Authorization: "Bearer ${IMMPORT_API_KEY}"
-    serverInstructions: |
-      Use ImmPort tools for study, subject, and assay lookup.
-      Call get_study_data_availability before fetching study data.
-
 endpoints:
   agents:
     # Recursion 5 = first completion + four tool follow-ups. Higher
@@ -124,7 +107,6 @@ modelSpecs:
       # agent with 0 tools and the model only streams Thoughts until it stalls.
       mcpServers: &blueprint_mcp
         - ai-blueprint
-        - immport
       skills: true
       preset:
         endpoint: "NRP"
