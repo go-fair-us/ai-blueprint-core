@@ -40,8 +40,12 @@ mcpServers:
     serverInstructions: |
       Use a few targeted lookups: search_docs, get_blueprint_section,
       or get_blueprint_requirements (pillar: metadata, identifiers,
-      api, citation, outreach). One or two tools per round. Do not
-      walk every pillar unless the user asked for a full review.
+      api, citation, outreach). If the user names a URL, call
+      inspect_url once with that URL and their question, then Blueprint
+      lookup. If there is no URL and they want the live web, web_search
+      then inspect_url on the best hit. Do not invent site facts.
+      One or two tools per round. Do not walk every pillar unless the
+      user asked for a full review.
 
 endpoints:
   agents:
@@ -143,10 +147,14 @@ modelSpecs:
           Lookup (enough to answer, not a full crawl):
           use search_docs, get_blueprint_section, and
           get_blueprint_requirements (pillar: metadata, identifiers,
-          api, citation, or outreach). Typical questions need 2–5
-          calls. Hard cap 6. One or two tools per round. Stop as soon
-          as you can give examples. Do not walk all five pillars
-          unless the user asked for a full review.
+          api, citation, or outreach). If the user names a URL, call
+          inspect_url once with that URL and their question, then
+          Blueprint lookup. Do not invent site facts. If there is no
+          URL and they want the public web, write 1–2 short queries,
+          call web_search, then inspect_url on the best hit. Typical
+          questions need 2–5 calls. Hard cap 6. One or two tools per
+          round. Stop as soon as you can give examples. Do not walk
+          all five pillars unless the user asked for a full review.
 
           How to answer:
           - Focus on delivering answers in a pithy, brief, forceful, 

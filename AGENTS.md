@@ -58,7 +58,7 @@ Catalog and cross-skill map: `niaid-blueprint/skills/README.md`.
 
 Read-only **Model Context Protocol** server over HTTP. Bridges files in this repo to tools an agent can call mid-conversation. It does **not** assess repositories or mint metadata by itself.
 
-**Surfaces:** resources (docs / OKF / prompts by URI), tools (list/read/search/navigate/OKF atomics, skill catalog / `validate_dataset`), and user-invoked prompts (FAIR interview, web assessor, crawl assessor, work-plan intake). Localhost LibreChat compose: `deployment/README-librechat.md`.
+**Surfaces:** resources (docs / OKF / prompts by URI), tools (list/read/search/navigate/OKF atomics, skill catalog / `validate_dataset`, and with `TAVILY_API_KEY` `inspect_url` / `web_search`), and user-invoked prompts (FAIR interview, web assessor, crawl assessor, work-plan intake). Localhost LibreChat compose: `deployment/README-librechat.md`.
 
 ```bash
 uv sync --extra mcp

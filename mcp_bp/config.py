@@ -86,3 +86,7 @@ SEMANTIC_MODEL: str = os.environ.get(
 SEMANTIC_ENABLED: bool = os.environ.get(
     "BLUEPRINT_SEMANTIC_ENABLED", ""
 ).lower() in ("1", "true", "yes")
+
+# Live web (Tavily). Inspect packs stay small so Blueprint tools still fit.
+WEB_PAGE_CHAR_CAP: int = int(os.environ.get("BLUEPRINT_WEB_PAGE_CHAR_CAP", "4000"))
+WEB_PACK_CHAR_CAP: int = int(os.environ.get("BLUEPRINT_WEB_PACK_CHAR_CAP", "12000"))

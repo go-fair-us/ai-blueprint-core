@@ -24,7 +24,8 @@ It exposes four MCP surface areas:
 1. **Resources** — read-only documents, OKF concepts, and prompt text by URI.
 2. **Tools** — model-invoked functions to list and read docs, hybrid-search the
    corpus (including `collection="okf"`), pull a Blueprint or OKF requirements
-   pillar, fetch atomic claims, and list prompts / prompt examples.
+   pillar, fetch atomic claims, list prompts / prompt examples, and (with
+   `TAVILY_API_KEY`) inspect a live URL or search the public web.
 3. **Prompts** — user-invoked personas (interview or web assessor flows) with
    optional arguments such as a target URL; arguments are prepended as a short
    instruction block so they override example values in the files.
@@ -91,6 +92,16 @@ client-side caching and retry.
 |------|-----------|---------|
 | `search_docs(query, collection, max_results)` | `query: str`, `collection: "docs"\|"prompts"\|"okf"\|None`, `max_results: int=10` | Hybrid BM25 + semantic search. Omit `collection` for docs+prompts; use `"okf"` for concept/atomic claims. |
 | `get_context_window(source, path, line, radius)` | `source: str`, `path: str`, `line: int`, `radius: int=10` | Expand line-level context around a fuzzy-search hit |
+
+#### Live web (Tavily)
+
+Requires `TAVILY_API_KEY`. These call Tavily’s HTTP APIs from this server. They
+are **not** LibreChat native Web Search and **not** Tavily’s hosted MCP.
+
+| Tool | Parameters | Purpose |
+|------|-----------|---------|
+| `inspect_url(url, question, max_pages)` | `url: str`, `question: str`, `max_pages: int=3` (1–3) | Extract the URL (chunks ranked by `question`), same-host search, extract up to two extra pages. Returns a truncated evidence pack. Call once, then Blueprint tools. |
+| `web_search(query, max_results)` | `query: str`, `max_results: int=5` (1–5) | Titles, URLs, snippets. Use when the user did not give a URL, then `inspect_url` on the best hit. |
 
 #### Blueprint navigation
 
@@ -205,6 +216,9 @@ The server listens on `http://127.0.0.1:8000/mcp` by default.
 | `BLUEPRINT_SKILLS_DIR` | `../niaid-blueprint/skills` | Agent Skill bundle root (`SKILL.md` directories) |
 | `BLUEPRINT_SEMANTIC_ENABLED` | *(off)* | Set to `1` to enable embedding-based semantic search (downloads ~33 MB model on first run) |
 | `BLUEPRINT_SEMANTIC_MODEL` | `BAAI/bge-small-en-v1.5` | fastembed model name for semantic embeddings |
+| `TAVILY_API_KEY` | *(unset)* | Enables `inspect_url` and `web_search`. Placeholder values like `replace-me` count as unset. |
+| `TAVILY_API_BASE` | `https://api.tavily.com` | Override only for tests. |
+| `TAVILY_TIMEOUT` | `30` | HTTP timeout in seconds |
 
 ## Test
 

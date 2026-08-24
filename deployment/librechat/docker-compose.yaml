@@ -18,6 +18,7 @@ services:
       MCP_PORT: "8000"
       MCP_PATH: "/mcp"
       BLUEPRINT_SKILLS_DIR: /app/niaid-blueprint/skills
+      TAVILY_API_KEY: ${TAVILY_API_KEY:-}
     ports:
       - "127.0.0.1:8000:8000"
     volumes:

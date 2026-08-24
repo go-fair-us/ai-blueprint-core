@@ -31,9 +31,11 @@ from . import (
     search,
     sections,
     skills_content,
+    web_tavily,
 )
 from .okf_content import OkfError
 from .skills_content import SkillsError
+from .web_tavily import TavilyError
 
 mcp: FastMCP = FastMCP(
     name="ai-blueprint",
@@ -52,7 +54,12 @@ mcp: FastMCP = FastMCP(
         "interview personas.\n"
         "- Skills tools (list_skills, read_skill, read_skill_file): Agent Skill "
         "catalog and progressive file reads. Use validate_dataset to run the "
-        "bundled SHACL shape on schema:Dataset JSON-LD or Turtle."
+        "bundled SHACL shape on schema:Dataset JSON-LD or Turtle.\n"
+        "- Live web (needs TAVILY_API_KEY): if the user names a URL, call "
+        "inspect_url once with that URL and their question, then Blueprint "
+        "lookup. If there is no URL and they want the public web, call "
+        "web_search (1-2 short queries) then inspect_url on the best hit. "
+        "Do not invent site facts. Do not crawl unbounded."
     ),
 )
 
@@ -193,6 +200,7 @@ def kb_stats() -> dict[str, object]:
         "okf": okf_content.okf_stats(),
         "skills": skills_content.skills_stats(),
         "semantic_search_enabled": config.SEMANTIC_ENABLED,
+        "tavily_configured": web_tavily.tavily_configured(),
     }
 
 
@@ -548,6 +556,43 @@ def validate_dataset(graph: str, data_format: str | None = None) -> dict[str, ob
     try:
         return skills_content.validate_dataset(graph, data_format=data_format)
     except SkillsError as exc:
+        raise ValueError(str(exc)) from exc
+
+
+# --------------------------------------------------------------------------
+# Live web (Tavily)
+# --------------------------------------------------------------------------
+
+
+@mcp.tool(annotations=_READ_ONLY_NON_IDEMPOTENT)
+def inspect_url(url: str, question: str, max_pages: int = 3) -> dict[str, object]:
+    """Pull a small evidence pack from a live URL for a Blueprint question.
+
+    Call this **once** when the user names a repository or dataset URL.
+    Tavily Extract fetches the page (JavaScript-aware) and ranks chunks by
+    ``question``. A same-host Tavily Search may add up to two extra pages.
+    Then use ``search_docs`` / ``get_blueprint_requirements`` — do not invent
+    site facts, and do not keep fetching.
+
+    ``max_pages`` is 1–3 (default 3). Requires ``TAVILY_API_KEY``.
+    """
+    try:
+        return web_tavily.inspect_url(url, question, max_pages=max_pages)
+    except TavilyError as exc:
+        raise ValueError(str(exc)) from exc
+
+
+@mcp.tool(annotations=_READ_ONLY_NON_IDEMPOTENT)
+def web_search(query: str, max_results: int = 5) -> dict[str, object]:
+    """Search the public web via Tavily (titles, URLs, snippets).
+
+    Use when the user did **not** give a URL. Write 1–2 short queries, then
+    call ``inspect_url`` on the best hit. Do not auto-fetch every result.
+    Requires ``TAVILY_API_KEY``. ``max_results`` is 1–5 (default 5).
+    """
+    try:
+        return web_tavily.web_search(query, max_results=max_results)
+    except TavilyError as exc:
         raise ValueError(str(exc)) from exc
 
 

@@ -10,7 +10,7 @@ deployment skills.
 | Service | Address | Role |
 |---------|---------|------|
 | LibreChat | http://127.0.0.1:3080 | Chat UI, agents, native `SKILL.md` loader |
-| `mcp_bp` | http://127.0.0.1:8000/mcp | Docs / OKF / prompts / skill catalog / SHACL |
+| `mcp_bp` | http://127.0.0.1:8000/mcp | Docs / OKF / prompts / skill catalog / SHACL / live-web inspect |
 
 Ports bind to loopback only. There is no SSO and no MCP auth — do not publish
 this compose off localhost.
@@ -23,6 +23,7 @@ From the repository root:
 cd deployment/librechat
 cp .env.example .env
 # Put NRP_API_KEY and/or OPENROUTER_KEY in this .env (not only the shell).
+# Optional: TAVILY_API_KEY for MCP inspect_url / web_search (live pages).
 # Replace the JWT / Meili example secrets too.
 docker compose up --build
 ```
@@ -52,6 +53,10 @@ Register a local account on first visit, then:
    - “Load `niaid-bp-fair-assess` and start Phase 1.”
    - Paste `niaid-blueprint/skills/niaid-bp-validation/tests/fixtures/valid_dataset.jsonld`
      and ask the agent to `validate_dataset`.
+   - With `TAVILY_API_KEY` set: “Review https://immunespace.org/ and give
+     Blueprint citation guidance with examples from the site.” The agent
+     should call `inspect_url` once, then a Blueprint tool. Live web is
+     MCP-only (Tavily behind `mcp_bp`), not LibreChat’s globe button.
 
 ## Skills: two paths
 
