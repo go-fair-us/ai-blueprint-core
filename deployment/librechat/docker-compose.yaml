@@ -1,6 +1,6 @@
 # Localhost LibreChat + Blueprint MCP.
 # From this directory:
-#   cp .env.example .env   # then set NRP_API_KEY
+#   cp .env.example .env   # then set NRP_API_KEY and/or OPENROUTER_KEY
 #   docker compose up --build
 #
 # UI:  http://127.0.0.1:3080

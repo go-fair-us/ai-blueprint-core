@@ -43,6 +43,23 @@ mcpServers:
       api, citation, outreach). One or two tools per round. Do not
       walk every pillar unless the user asked for a full review.
 
+  # ImmPort hosted MCP. IMMPORT_API_KEY is the api_key string from the
+  # downloaded JSON (id / api_key / expires_at) — not the whole file.
+  # requiresOAuth: false so LibreChat does not treat ImmPort's 401
+  # Bearer challenge as an OAuth flow and drop the static header.
+  immport:
+    title: ImmPort
+    type: streamable-http
+    url: https://mcp.immport.org
+    timeout: 120000
+    chatMenu: true
+    requiresOAuth: false
+    headers:
+      Authorization: "Bearer ${IMMPORT_API_KEY}"
+    serverInstructions: |
+      Use ImmPort tools for study, subject, and assay lookup.
+      Call get_study_data_availability before fetching study data.
+
 endpoints:
   agents:
     # Recursion 5 = first completion + four tool follow-ups. Higher
@@ -68,12 +85,31 @@ endpoints:
       modelDisplayLabel: "NRP"
       dropParams: ["user"]
 
+    # OPENROUTER_KEY (not OPENROUTER_API_KEY): the latter overrides the
+    # built-in OpenAI endpoint and fights this custom list.
+    - name: "OpenRouter"
+      apiKey: "${OPENROUTER_KEY}"
+      baseURL: "https://openrouter.ai/api/v1"
+      models:
+        default:
+          - "stealth/ox-alpha"
+        fetch: true
+      # ox-alpha is a reasoning model; title calls would add a full think.
+      titleConvo: false
+      modelDisplayLabel: "OpenRouter"
+      dropParams: ["stop"]
+      headers:
+        HTTP-Referer: "http://127.0.0.1:3080"
+        X-Title: "NIAID Blueprint LibreChat"
+
 # Default chat: NRP + lookup protocol. promptPrefix is sent as standing
 # instructions; the user message is a separate turn. Do not paste the
 # Blueprint spec here — MCP already serves it in sections.
 #
-# Do not set enforce: true. LibreChat then fights modelSelect / presets /
-# parameters and the MCP + skills pins look like a regression.
+# Blueprint (OpenRouter) reuses the same MCP servers, skills, and prompt
+# (YAML anchors). Do not set enforce: true. LibreChat then fights
+# modelSelect / presets / parameters and the MCP + skills pins look like
+# a regression.
 modelSpecs:
   enforce: false
   prioritize: true
@@ -86,13 +122,14 @@ modelSpecs:
       softDefault: true
       # Attach MCP to this spec. Without this, LibreChat builds an ephemeral
       # agent with 0 tools and the model only streams Thoughts until it stalls.
-      mcpServers:
+      mcpServers: &blueprint_mcp
         - ai-blueprint
+        - immport
       skills: true
       preset:
         endpoint: "NRP"
         model: "deepseek-v4-flash"
-        promptPrefix: |
+        promptPrefix: &blueprint_prompt |
           You help data generators and repository owners apply the NIAID
           Blueprint for Digital Objects so NIAID-funded digital objects
           (data, software, methods, workflows) are more FAIR and can be
@@ -142,3 +179,13 @@ modelSpecs:
           - Write the answer in the normal reply, not only in thoughts.
             Quote Blueprint section numbers from tool results. If
             tools fail, say so. Do not invent PIDs or requirements.
+
+    - name: "blueprint-openrouter"
+      label: "Blueprint (OpenRouter)"
+      description: "OpenRouter chat (stealth/ox-alpha) that looks up the Blueprint via MCP and answers with short examples."
+      mcpServers: *blueprint_mcp
+      skills: true
+      preset:
+        endpoint: "OpenRouter"
+        model: "stealth/ox-alpha"
+        promptPrefix: *blueprint_prompt

@@ -1,6 +1,7 @@
 # LibreChat + Blueprint MCP (localhost)
 
-Browser chat UI that calls **NRP** (`https://ellm.nrp-nautilus.io/v1`) and the
+Browser chat UI that calls **NRP** (`https://ellm.nrp-nautilus.io/v1`) and
+optionally **OpenRouter** (`https://openrouter.ai/api/v1`), plus the
 Blueprint MCP server, and mounts `niaid-blueprint/skills` as LibreChat
 deployment skills.
 
@@ -21,7 +22,8 @@ From the repository root:
 ```bash
 cd deployment/librechat
 cp .env.example .env
-# set NRP_API_KEY (and replace the JWT / Meili example secrets)
+# set NRP_API_KEY and/or OPENROUTER_KEY, plus IMMPORT_API_KEY
+# (and replace the JWT / Meili example secrets)
 docker compose up --build
 ```
 
@@ -29,11 +31,17 @@ Register a local account on first visit, then:
 
 1. New chats default to the **Blueprint (NRP)** model spec (`deepseek-v4-flash` plus a
    standing prompt that requires MCP lookup before answering Blueprint
-   questions). You can still pick other NRP models. Restart the `api`
-   container after you edit `librechat.yaml`.
-2. The **Blueprint (NRP)** spec now attaches the **ai-blueprint** MCP server
-   (`mcpServers: [ai-blueprint]`). Without that, LibreChat ran an ephemeral
-   agent with 0 tools and the model only streamed Thoughts.
+   questions). Pick **Blueprint (OpenRouter)** for the same MCP, skills, and
+   lookup prompt on OpenRouter `stealth/ox-alpha`. You can still pick other
+   NRP or OpenRouter models. Restart the `api` container after you edit
+   `librechat.yaml`.
+2. Both Blueprint specs attach **ai-blueprint** and **immport**
+   (`mcpServers: [ai-blueprint, immport]`). Without that list, LibreChat ran
+   an ephemeral agent with 0 tools and the model only streamed Thoughts.
+   ImmPort auth is `Authorization: Bearer ${IMMPORT_API_KEY}` — set
+   `IMMPORT_API_KEY` to the `api_key` string from the ImmPort JSON download,
+   not the whole file. Set `OPENROUTER_KEY` (not `OPENROUTER_API_KEY`) from
+   https://openrouter.ai/keys.
 3. Optional: create a saved **agent** and attach a subset of MCP tools plus
    `niaid-bp-*` skills for interviews. Copy the spec’s `promptPrefix` into
    agent Instructions if you want the same lookup rule.
