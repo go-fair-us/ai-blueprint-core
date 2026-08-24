@@ -22,8 +22,8 @@ From the repository root:
 ```bash
 cd deployment/librechat
 cp .env.example .env
-# set NRP_API_KEY and/or OPENROUTER_KEY
-# (and replace the JWT / Meili example secrets)
+# Put NRP_API_KEY and/or OPENROUTER_KEY in this .env (not only the shell).
+# Replace the JWT / Meili example secrets too.
 docker compose up --build
 ```
 
@@ -40,10 +40,14 @@ Register a local account on first visit, then:
    ephemeral agent with 0 tools and the model only streamed Thoughts.
    Set `OPENROUTER_KEY` (not `OPENROUTER_API_KEY`) from
    https://openrouter.ai/keys.
-3. Optional: create a saved **agent** and attach a subset of MCP tools plus
+3. OpenRouter: put `OPENROUTER_KEY` in `deployment/librechat/.env` (a shell
+   `export` is not enough if `.env` still says `replace-me`). Then
+   `docker compose up -d --force-recreate api`. `stealth/ox-alpha` is a
+   free stealth model and can return HTTP 429 when the shared pool is busy.
+4. Optional: create a saved **agent** and attach a subset of MCP tools plus
    `niaid-bp-*` skills for interviews. Copy the spec’s `promptPrefix` into
    agent Instructions if you want the same lookup rule.
-4. First checks:
+5. First checks:
    - “Search the Blueprint for Table 1 identifier requirements.”
    - “Load `niaid-bp-fair-assess` and start Phase 1.”
    - Paste `niaid-blueprint/skills/niaid-bp-validation/tests/fixtures/valid_dataset.jsonld`

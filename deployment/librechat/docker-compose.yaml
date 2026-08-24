@@ -45,6 +45,9 @@ services:
       MONGO_URI: mongodb://mongodb:27017/LibreChat
       MEILI_HOST: http://meilisearch:7700
       DEPLOYMENT_SKILLS_DIR: /app/skill
+      # Shell env wins over a placeholder in .env (env_file alone does not).
+      NRP_API_KEY: ${NRP_API_KEY}
+      OPENROUTER_KEY: ${OPENROUTER_KEY}
     # No `./.env` bind mount: `env_file` above already injects every variable,
     # and mounting the file would put the plaintext secrets on the container FS
     # for nothing.

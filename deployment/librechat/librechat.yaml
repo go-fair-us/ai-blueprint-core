@@ -76,11 +76,13 @@ endpoints:
       models:
         default:
           - "stealth/ox-alpha"
-        fetch: true
+        # Pin the list. fetch: true pulls the whole OpenRouter catalog and
+        # hangs if the container cannot reach openrouter.ai at startup.
+        fetch: false
       # ox-alpha is a reasoning model; title calls would add a full think.
       titleConvo: false
       modelDisplayLabel: "OpenRouter"
-      dropParams: ["stop"]
+      dropParams: ["stop", "user"]
       headers:
         HTTP-Referer: "http://127.0.0.1:3080"
         X-Title: "NIAID Blueprint LibreChat"
@@ -170,4 +172,7 @@ modelSpecs:
       preset:
         endpoint: "OpenRouter"
         model: "stealth/ox-alpha"
+        # ox-alpha is a reasoning model. A small max_tokens budget
+        # can return an empty reply after thinking.
+        maxOutputTokens: 8192
         promptPrefix: *blueprint_prompt
