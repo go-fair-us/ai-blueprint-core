@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>API alignment report — VEuPathDB WDK Rest Service</title>
+<style>
+  @page { size: letter; margin: 0.75in; }
+  body { font-family: "Liberation Serif", "Noto Serif", Georgia, serif; font-size: 11pt; line-height: 1.4; color: #1a1a1a; max-width: 7in; margin: 0 auto; }
+  h1 { font-size: 18pt; margin-bottom: 0.2em; }
+  h2 { font-size: 14pt; margin-top: 1.3em; border-bottom: 1px solid #ccc; padding-bottom: 0.15em; }
+  h3 { font-size: 12pt; margin-top: 1em; }
+  code, .mono { font-family: "Liberation Mono", "Noto Sans Mono", monospace; font-size: 9.5pt; }
+  ul { padding-left: 1.2em; }
+  .meta { color: #333; }
+  table { border-collapse: collapse; width: 100%; font-size: 9.5pt; margin: 0.6em 0 1em; }
+  th, td { border: 1px solid #ccc; padding: 0.3em 0.4em; vertical-align: top; text-align: left; }
+  th { background: #f4f4f4; }
+</style>
+</head>
+<body>
+<h1>API alignment report</h1>
+<p class="meta">VEuPathDB service API page · NIAID Blueprint Section 3 · docs assessment from <span class="mono">niaid-bp-api-assess</span>, plus later unauthenticated GETs</p>
+
+<h2>Input</h2>
+<ul>
+  <li><strong>Source:</strong> <span class="mono">https://veupathdb.org/service-api.html</span></li>
+  <li><strong>Kind:</strong> docs (no spec hop)</li>
+  <li><strong>Spec format:</strong> none parsed. The page title is “WDK Rest Service (3.0)” and the HTML generator is <span class="mono">raml2html</span> 7.8.0. No OpenAPI or Swagger document was linked or parsed.</li>
+  <li><strong>Confidence:</strong> low. No OpenAPI or Swagger document was parsed.</li>
+  <li><strong>Outside this rubric:</strong> none. The page does not name GraphQL, SPARQL, or FHIR. RAML is machine-readable documentation, but Section 3’s documentation objective is OpenAPI/Swagger, and this run did not score the RAML as a substitute.</li>
+</ul>
+<p>The analyzer did not produce an operation list. Practice checks that need a parsed spec are therefore not stated. This is not proof those practices are missing.</p>
+
+<h2>Blueprint alignment</h2>
+<p>Section 3 asks for JSON-LD (at least as an option), resource IRIs usable as <span class="mono">@id</span>, GET for retrieval, and an OpenAPI/Swagger document.</p>
+
+<h3><span class="mono">bp_openapi_doc</span> — Medium</h3>
+<ul>
+  <li><strong>Evidence:</strong> The documentation page has no parseable OpenAPI or Swagger document. Discovery stopped on this page: no linked <span class="mono">.json</span> / <span class="mono">.yaml</span> spec, no springdoc config, and no Swagger UI initializer.</li>
+  <li><strong>Recommended next step:</strong> Publish an OpenAPI 3 document for the WDK Rest Service and link it from this page (a converted RAML file is enough). Point the link at the spec itself, not only at this HTML rendering.</li>
+</ul>
+
+<h3><span class="mono">bp_resource_iris</span> — Medium</h3>
+<ul>
+  <li><strong>Evidence:</strong> The page states a verb-like path <span class="mono">POST /users/{user-id}/favorites/query</span>. The same path is the only verb-like path the analyzer recorded.</li>
+  <li><strong>Recommended next step:</strong> Replace <span class="mono">/favorites/query</span> with a resource IRI, for example <span class="mono">GET /users/{user-id}/favorites</span> with the query in optional parameters, or <span class="mono">POST /users/{user-id}/favorite-queries</span> if the call creates a stored query.</li>
+</ul>
+
+<p><strong>Passed:</strong> <span class="mono">bp_version_in_path</span>. The page did not state a <span class="mono">/v1/</span>-style segment. The “(3.0)” in the title was not treated as a path version.</p>
+<p><strong>Not stated by the docs run (not a Blueprint failure of the HTML page):</strong> <span class="mono">bp_jsonld_declared</span> and <span class="mono">bp_get_retrieval</span>. The service-api page does not declare <span class="mono">application/ld+json</span> or <span class="mono">@context</span>. That absence is not, by itself, proof the API lacks JSON-LD.</p>
+<p>The later live GETs are separate evidence. They did not return JSON-LD. See Samples. That observation does not change <span class="mono">bp_jsonld_declared</span>, which is about the document, and it does not raise confidence: no OpenAPI document was parsed.</p>
+
+<h2>Common practice</h2>
+<p>These are not Blueprint failures. Every practice check is <strong>not stated</strong>, because no OpenAPI document was parsed: contact, license, summaries, operation ids, examples, error responses, pagination, and local <span class="mono">$ref</span>s. Do not read that list as a set of failures.</p>
+<p><strong>Recommended next step:</strong> once an OpenAPI document exists, re-run this assessment. Those checks cannot be scored from the HTML page alone.</p>
+
+<h2>Samples</h2>
+<p>The analyzer’s <span class="mono">sample_plan</span> was empty, so the script made no calls. After that run, unauthenticated GETs were made by hand. No API key was sent. No user id or record id was invented. The base pattern in the HTML is <span class="mono">//{siteUrl}/{webApp}/service</span>.</p>
+<table>
+  <thead><tr><th>URL</th><th>Status</th><th>Content type</th><th>JSON-LD <span class="mono">@context</span></th></tr></thead>
+  <tbody>
+    <tr><td><span class="mono">GET https://plasmodb.org/plasmo/service/</span></td><td>200</td><td>application/json</td><td>no</td></tr>
+    <tr><td><span class="mono">GET https://vectorbase.org/vectorbase/service</span></td><td>200</td><td>application/json</td><td>no (first 800 bytes)</td></tr>
+    <tr><td><span class="mono">GET https://tritrypdb.org/tritrypdb/service</span></td><td>200</td><td>application/json</td><td>no (first 800 bytes)</td></tr>
+    <tr><td><span class="mono">GET https://fungidb.org/fungidb/service</span></td><td>200</td><td>application/json</td><td>no (first 800 bytes)</td></tr>
+    <tr><td><span class="mono">GET https://hostdb.org/hostdb/service</span></td><td>200</td><td>application/json</td><td>no (first 800 bytes)</td></tr>
+    <tr><td><span class="mono">GET https://veupathdb.org/veupathdb/service</span></td><td>200</td><td>application/json</td><td>no (first 800 bytes)</td></tr>
+    <tr><td><span class="mono">GET https://veupathdb.org/plasmo/service</span></td><td>404</td><td>text/html</td><td>no</td></tr>
+    <tr><td><span class="mono">GET https://plasmodb.org/plasmo/service/record-types</span></td><td>200</td><td>application/json</td><td>no</td></tr>
+    <tr><td><span class="mono">GET https://plasmodb.org/plasmo/service/record-types/gene</span></td><td>200</td><td>application/json</td><td>no</td></tr>
+    <tr><td><span class="mono">GET https://plasmodb.org/plasmo/service/</span> with <span class="mono">Accept: application/ld+json</span></td><td>406</td><td>text/plain</td><td>no</td></tr>
+    <tr><td><span class="mono">GET https://plasmodb.org/plasmo/service/</span> with <span class="mono">Accept: text/turtle</span></td><td>406</td><td>text/plain</td><td>no</td></tr>
+    <tr><td><span class="mono">GET https://plasmodb.org/plasmo/service/ontologies</span></td><td>401</td><td>application/json</td><td>no</td></tr>
+    <tr><td><span class="mono">GET https://plasmodb.org/plasmo/service/record-types/gene/searches</span></td><td>401</td><td>application/json</td><td>no</td></tr>
+    <tr><td><span class="mono">GET https://plasmodb.org/plasmo/service/system/caches</span></td><td>401</td><td>application/json</td><td>no</td></tr>
+    <tr><td><span class="mono">GET https://plasmodb.org/plasmo/service/strategy-list/public</span></td><td>404</td><td>text/plain</td><td>no</td></tr>
+    <tr><td><span class="mono">GET https://plasmodb.org/plasmo/service/user-datasets/config</span></td><td>404</td><td>text/plain</td><td>no</td></tr>
+  </tbody>
+</table>
+<p>The PlasmoDB root body (2358 bytes) names displayName PlasmoDB, projectId PlasmoDB, buildNumber 71, releaseDate 20 August 2026, and description “Welcome to the WDK 3.0 Web Service”. <span class="mono">GET /record-types</span> returned 24 names, including gene, organism, dataset, and pathway. <span class="mono">GET /record-types/gene</span> returned a 327,363-byte JSON description of the Gene record type. The same four paths on <span class="mono">https://veupathdb.org/veupathdb/service</span> matched PlasmoDB: 200, 401, 200, and 404.</p>
+<p>The 401 bodies say a valid API key is required and point registered users to a profile page. No key was requested or sent. Login, password reset, and every POST were not called.</p>
+<p>A 200 JSON body without <span class="mono">@context</span> does not flip <span class="mono">bp_jsonld_declared</span>. The document still does not offer JSON-LD, and the live root refuses <span class="mono">application/ld+json</span> with 406.</p>
+
+<h2>Not checked</h2>
+<ul>
+  <li>HTML pages with embedded JSON-LD, and a downloadable metadata index. Both are Blueprint fallbacks. This run did not crawl the site for them.</li>
+  <li>Authenticated operations beyond the 401 responses above. No API key was sent.</li>
+  <li>Table 1 fields. <span class="mono">observed_property_names</span> is empty, so no Table 1 field is reported.</li>
+  <li>The RAML source behind this HTML page, if it is published elsewhere. This run did not search the site for a <span class="mono">.raml</span> file.</li>
+</ul>
+
+<h2>Overall</h2>
+<p>Confidence stays low: the service-api page is a human rendering of a RAML API, not an OpenAPI document, so most Section 3 checks still cannot be scored from the spec. Live calls show the service is up and that retrieval of the root and record-type catalog uses GET and returns JSON, not JSON-LD. The highest-priority gap is still metadata encoding: the document does not declare JSON-LD, and <span class="mono">GET https://plasmodb.org/plasmo/service/</span> answers <span class="mono">Accept: application/ld+json</span> with 406. Publish OpenAPI, and add JSON-LD at least on the record-type and dataset reads, before treating path cleanup as the first task.</p>
+</body>
+</html>

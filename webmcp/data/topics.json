@@ -1,0 +1,101 @@
+[
+  {
+    "slug": "overview",
+    "title": "What the Blueprint is",
+    "href": "/topics/overview.html",
+    "summary": "The NIAID Blueprint for Digital Objects is a minimal shared framework for FAIR metadata, identifiers, APIs, citation, and outreach across NIAID-funded repositories.",
+    "keywords": [
+      "blueprint",
+      "fair",
+      "niaid",
+      "odset",
+      "digital objects",
+      "discovery portal",
+      "iid",
+      "goals"
+    ],
+    "excerpt": "NIAID-funded research produces millions of digital objects for infectious and immune-mediated disease work, but discoverability and reuse still fail when metadata, identifiers, and access rules vary. The Blueprint is a starting specification, not a complete repository design. Its goals are shared alignment, prospective metadata capture, and flexible integration with the NIAID Data Ecosystem Discovery Portal."
+  },
+  {
+    "slug": "metadata",
+    "title": "Minimal metadata schema",
+    "href": "/topics/metadata.html",
+    "summary": "A schema.org-based minimum set of metadata elements for digital objects, with default formats that repositories can store however they choose.",
+    "keywords": [
+      "metadata",
+      "schema.org",
+      "table 1",
+      "dataset",
+      "author",
+      "funder",
+      "infectious agent",
+      "host",
+      "health condition"
+    ],
+    "excerpt": "Metadata is the context that makes a digital object findable, even when the bits themselves cannot be fully shared. The Blueprint lists a minimum element set based on schema.org. Repositories pick their own storage format. Adopting even a subset still helps alignment; capture is expected at deposit time."
+  },
+  {
+    "slug": "persistent-identifiers",
+    "title": "Persistent identifiers",
+    "href": "/topics/persistent-identifiers.html",
+    "summary": "Globally unique, persistently resolvable identifiers (GUPRIs) for objects, people, organizations, and ontology terms, with DOI as the default object identifier.",
+    "keywords": [
+      "pid",
+      "gupri",
+      "doi",
+      "orcid",
+      "ror",
+      "rrid",
+      "mondo",
+      "ncbitaxon",
+      "resolvable"
+    ],
+    "excerpt": "Persistent identifiers keep objects findable when locations change. FAIR asks for globally unique, persistently resolvable identifiers. The Blueprint defaults to a resolvable DOI for the object itself, ORCID for people, ROR for organizations, and ontology IRIs for several scientific fields. A bare DOI string is not enough; prefix it with https://doi.org/."
+  },
+  {
+    "slug": "apis",
+    "title": "APIs and machine access",
+    "href": "/topics/apis.html",
+    "summary": "Minimum machine-access objectives: JSON-LD metadata, resource-oriented IRIs, HTTP GET, and OpenAPI documentation, with HTML-embedded metadata as a fallback.",
+    "keywords": [
+      "api",
+      "json-ld",
+      "openapi",
+      "http get",
+      "iri",
+      "object server",
+      "embedded metadata"
+    ],
+    "excerpt": "NIAID repositories range from sites with almost no machine access to full APIs. They do not need identical stacks, but a common access pattern makes metadata findable. The minimum is JSON-LD for Table 1 elements, resource-oriented URLs, GET for retrieval, and OpenAPI docs. If an API is not feasible, embed metadata in HTML or serve a downloadable index."
+  },
+  {
+    "slug": "citation",
+    "title": "Citation guidance",
+    "href": "/topics/citation.html",
+    "summary": "Repository owners should publish consistent, PID-based citation examples for original and reused data in common publication styles.",
+    "keywords": [
+      "citation",
+      "doi",
+      "apa",
+      "mla",
+      "chicago",
+      "attribution",
+      "reused data"
+    ],
+    "excerpt": "Citation gives credit, records provenance, and lets repositories see reuse. Guidance should be easy to find and should include PIDs such as DOIs. Original-data citations name the repository and its PID plus the object PID. Reused-data citations use the object PID and a local accession when needed. Offer copy-ready examples in APA, MLA, Chicago, and similar styles."
+  },
+  {
+    "slug": "outreach",
+    "title": "Outreach and training",
+    "href": "/topics/outreach.html",
+    "summary": "Major repositories designate a Contact Point for community questions, Portal collaboration, and training materials that explain how to use their digital objects.",
+    "keywords": [
+      "outreach",
+      "training",
+      "contact point",
+      "discovery portal",
+      "community"
+    ],
+    "excerpt": "Technical interoperability is not enough. Major repositories should name a Contact Point who answers access questions, works with the NIAID Data Ecosystem Discovery Portal, and passes Blueprint guidance to staff. Contact details belong on public pages. Training materials should explain how to use the repository’s objects and how to reach a person."
+  }
+]

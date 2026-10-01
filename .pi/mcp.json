@@ -1,5 +1,10 @@
 {
   "mcpServers": {
+    "immport": {
+      "url": "https://mcp.immport.org",
+      "auth": "bearer",
+      "bearerToken": "!python3 -c \"import json,os; print(json.loads(os.environ['IMMPORT_API_KEY'])['api_key'], end='')\""
+    },
     "niaid-blueprint__ai-blueprint": {
       "url": "http://localhost:8000/mcp"
     }

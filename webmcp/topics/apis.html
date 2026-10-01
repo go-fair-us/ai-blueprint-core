@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>APIs and machine access — NIAID Blueprint Handbook</title>
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body data-page="apis">
+  <div id="site-header"></div>
+  <div class="layout">
+    <main>
+      <h1>APIs and machine access</h1>
+      <p class="lede">
+        Repositories do not need identical APIs. They do need a common way to
+        retrieve the minimum metadata.
+      </p>
+      <p>
+        NIAID systems range from sites with almost no machine access to stacks
+        with full query APIs. Alignment on a small access pattern makes metadata
+        findable across those differences.
+      </p>
+      <h2>Minimum objectives</h2>
+      <p>WebMCP tool on this page: <code>get_api_objectives</code>.</p>
+      <ol id="api-objectives"></ol>
+      <h2>When a full API is not feasible</h2>
+      <ul id="api-fallbacks"></ul>
+      <p>
+        HTML-embedded metadata and an object server are alternative ways to reach
+        the same resource, not two simultaneous pipes. In practice an API may
+        return one object or many, each with a data stream and a metadata stream.
+      </p>
+      <p class="source">
+        Source themes: <code>okf/bundles/niaid_blueprint/api-specification/</code>.
+      </p>
+    </main>
+    <div id="page-extras"></div>
+  </div>
+  <div id="site-footer"></div>
+  <script src="/js/catalog.js"></script>
+  <script src="/js/webmcp.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/tables.js"></script>
+  <script src="/js/site-tools.js"></script>
+  <script src="/js/page-tools.js"></script>
+  <script src="/js/tester.js"></script>
+</body>
+</html>

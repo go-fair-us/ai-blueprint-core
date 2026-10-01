@@ -1,0 +1,229 @@
+{
+  "@context": {
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "pav": "http://purl.org/pav/",
+    "schema": "http://schema.org/",
+    "oslc": "http://open-services.net/ns/core#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "rdfs:label": {
+      "@type": "xsd:string"
+    },
+    "schema:isBasedOn": {
+      "@type": "@id"
+    },
+    "schema:name": {
+      "@type": "xsd:string"
+    },
+    "schema:description": {
+      "@type": "xsd:string"
+    },
+    "pav:derivedFrom": {
+      "@type": "@id"
+    },
+    "pav:createdOn": {
+      "@type": "xsd:dateTime"
+    },
+    "pav:createdBy": {
+      "@type": "@id"
+    },
+    "pav:lastUpdatedOn": {
+      "@type": "xsd:dateTime"
+    },
+    "oslc:modifiedBy": {
+      "@type": "@id"
+    },
+    "skos:notation": {
+      "@type": "xsd:string"
+    },
+    "type": "https://schema.metadatacenter.org/properties/d90a26e2-10c4-4462-873d-145f72a5392a",
+    "identifier": "https://schema.metadatacenter.org/properties/813eaa20-c1c4-4be5-9243-25cb33608d1a",
+    "name": "https://schema.metadatacenter.org/properties/5e4ff576-8618-45c4-9d87-caf4d1972ac5",
+    "description": "https://schema.metadatacenter.org/properties/3adcb2f0-45be-4d58-8123-ddfd1eb563a3",
+    "dateCreated": "https://schema.metadatacenter.org/properties/fd42b0ff-8ac0-4b7f-869f-65af9e3a15c3",
+    "funder": "https://schema.metadatacenter.org/properties/43a86178-45c0-4f7b-a587-edea69b36b09",
+    "grant": "https://schema.metadatacenter.org/properties/808f8050-cf4f-4ec8-8fe9-2e89f5e276e9",
+    "measurementTechnique": "https://schema.metadatacenter.org/properties/ae2cd134-781b-4353-bbea-ded37db55f9b",
+    "distribution": "https://schema.metadatacenter.org/properties/80876328-5b7b-4e83-a808-89358ac49640",
+    "citation": "https://schema.metadatacenter.org/properties/dd341557-6b54-4d31-8642-6d2165590b3b",
+    "infectiousAgent": "https://schema.metadatacenter.org/properties/7f469f73-4bcf-4e36-897c-3cd386d70b30",
+    "host": "https://schema.metadatacenter.org/properties/e84bc98b-84ec-42fb-ab83-b9758775d8cc",
+    "healthCondition": "https://schema.metadatacenter.org/properties/9a53fdea-198f-41bb-ab85-fef891f29843",
+    "Spatial Coverage": "https://schema.metadatacenter.org/properties/cd53df96-269f-4ab6-9686-5836ca10fda4",
+    "conditionsOfAccess": "https://schema.metadatacenter.org/properties/0e0a96cb-8a91-4a9b-a119-18f309005bfe",
+    "Temporal Coverage": "https://schema.metadatacenter.org/properties/f4d4f69d-e6f9-4583-bbff-21f735900b19",
+    "Author": "https://schema.metadatacenter.org/properties/b0f64050-5863-4f6d-ac74-9abd2a375e2c",
+    "LIcense(s)": "https://schema.metadatacenter.org/properties/330b23ef-5677-4b5d-96fa-1490ab0bc00e"
+  },
+  "type": {
+    "@id": "http://purl.org/dc/dcmitype/Dataset",
+    "rdfs:label": "Dataset"
+  },
+  "identifier": {},
+  "name": {
+    "@value": "(Released May 2022) Adaptive COVID-19 Treatment Trial 4 (ACTT-4)"
+  },
+  "description": {
+    "@value": "The dataset includes patient-level data from the ACTT-4 study, covering demographics (age, gender, comorbidities), treatment arms (baricitinib + remdesivir or dexamethasone + remdesivir… "
+  },
+  "dateCreated": {
+    "@value": "2022-05-01",
+    "@type": "xsd:date"
+  },
+  "Author": {
+    "@context": {
+      "author-person": "https://schema.metadatacenter.org/properties/87e71003-25ea-48fa-b20b-ae0513e3f800",
+      "author-organization": "https://schema.metadatacenter.org/properties/b16db205-318f-4a45-901c-8f8fd0deff04"
+    },
+    "author-person": [
+      {
+        "@id": "https://orcid.org/0000-0001-8922-0488",
+        "rdfs:label": "Nina Kreuzberger"
+      },
+      {
+        "@id": "https://orcid.org/0000-0002-2011-1010",
+        "rdfs:label": "Caroline Hirsch"
+      }
+    ],
+    "author-organization": [
+      {}
+    ],
+    "@id": "https://repo.metadatacenter.org/template-element-instances/df0c509f-56f0-4aed-94a8-3a1abfec8b58"
+  },
+  "funder": [
+    {
+      "@id": "https://ror.org/043z4tv69",
+      "rdfs:label": "National Institute of Allergy and Infectious Diseases"
+    }
+  ],
+  "grant": [
+    {
+      "@value": "UM1AI148684"
+    },
+    {
+      "@value": "UM1AI148576"
+    },
+    {
+      "@value": "UM1AI148575"
+    },
+    {
+      "@value": "UM1AI148685"
+    },
+    {
+      "@value": "UM1AI148450"
+    },
+    {
+      "@value": "UM1AI148689"
+    }
+  ],
+  "measurementTechnique": [
+    {
+      "@id": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C83312",
+      "rdfs:label": "Laboratory Test Method"
+    }
+  ],
+  "distribution": [
+    {
+      "@id": "https://accessclinicaldata.niaid.nih.gov/study-viewer/clinical_trials/NCT04640168"
+    }
+  ],
+  "citation": [
+    {
+      "@id": "https://www.thelancet.com/journals/lanres/article/PIIS2213-2600(22)00088-1/fulltext"
+    }
+  ],
+  "infectiousAgent": [
+    {
+      "@id": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C169076",
+      "rdfs:label": "SARS Coronavirus 2"
+    }
+  ],
+  "host": [
+    {
+      "@id": "http://purl.bioontology.org/ontology/NCBITAXON/9606",
+      "rdfs:label": "Homo sapiens"
+    }
+  ],
+  "healthCondition": [
+    {
+      "@id": "http://purl.obolibrary.org/obo/MONDO_0100096",
+      "rdfs:label": "COVID-19"
+    }
+  ],
+  "conditionsOfAccess": [
+    {
+      "@value": "https://accessclinicaldata.niaid.nih.gov/dashboard/Public/files/NIAID_DAR.pdf"
+    }
+  ],
+  "LIcense(s)": {
+    "@context": {
+      "licenseIdentifier": "https://schema.metadatacenter.org/properties/7048c909-cd47-43ef-807f-fe9de03e1c7a",
+      "licenseDescription": "https://schema.metadatacenter.org/properties/52dec18b-cedf-4b92-94f2-c950ccd2d357",
+      "licenseIRI": "https://schema.metadatacenter.org/properties/6482ecf3-edcf-49c4-969d-de6f91b5c640"
+    },
+    "licenseIdentifier": [
+      {}
+    ],
+    "licenseDescription": [
+      {
+        "@value": null
+      }
+    ],
+    "licenseIRI": [
+      {
+        "@value": "https://accessclinicaldata.niaid.nih.gov/dashboard/Public/files/NIAIDDUA2021Accessclinicaldata@NIAID.pdf"
+      }
+    ],
+    "@id": "https://repo.metadatacenter.org/template-element-instances/629dc944-9aec-4259-ada2-e1c7518b8465"
+  },
+  "Spatial Coverage": {
+    "@context": {
+      "geoNamesID": "https://schema.metadatacenter.org/properties/80858814-c0ab-42c4-83b8-d528c55df5ba",
+      "geoCoordinates": "https://schema.metadatacenter.org/properties/9489d8ab-69de-4eb4-bee1-3447f4b825a1",
+      "geoShape": "https://schema.metadatacenter.org/properties/7e36b385-7964-48fd-be82-7a10470f73f0",
+      "countryCode": "https://schema.metadatacenter.org/properties/166ad95c-4c18-4277-8af9-c9d0e0bf30c3"
+    },
+    "countryCode": [
+      {}
+    ],
+    "geoNamesID": [
+      {}
+    ],
+    "geoCoordinates": [
+      {
+        "@value": null
+      }
+    ],
+    "geoShape": [
+      {
+        "@value": null
+      }
+    ],
+    "@id": "https://repo.metadatacenter.org/template-element-instances/7279abe5-d61d-4f29-a036-ce1bf448e824"
+  },
+  "Temporal Coverage": [
+    {
+      "@context": {
+        "startTime": "https://schema.metadatacenter.org/properties/e76971db-e1fe-4a06-b9d8-84314937fde6",
+        "endTime": "https://schema.metadatacenter.org/properties/ea7b398d-1f3f-4377-860d-6e9f21ec8b2a"
+      },
+      "startTime": {
+        "@value": "2020-11-24T00:00:00",
+        "@type": "xsd:dateTime"
+      },
+      "endTime": {
+        "@value": "2021-06-30T00:00:00",
+        "@type": "xsd:dateTime"
+      },
+      "@id": "https://repo.metadatacenter.org/template-element-instances/c54af4f9-7d32-4318-b1ab-d08c09669bc0"
+    }
+  ],
+  "schema:isBasedOn": "https://repo.metadatacenter.org/templates/32028c04-b8d0-4fb2-bd8a-8130f8030989",
+  "schema:name": "NIAID Blueprint Compliant Schema metadata",
+  "schema:description": "Schema compliant with the NIAID Blueprint for FAIR metadata. This version provides more specific and correct profiles for many fields.",
+  "pav:createdOn": "2026-07-30T12:09:13-07:00",
+  "pav:createdBy": "https://metadatacenter.org/users/1adf5ee5-cee0-47d1-9769-efbe00cdebee",
+  "pav:lastUpdatedOn": "2026-07-31T16:25:22-07:00",
+  "oslc:modifiedBy": "https://metadatacenter.org/users/1adf5ee5-cee0-47d1-9769-efbe00cdebee",
+  "@id": "https://repo.metadatacenter.org/template-instances/a02dfe7b-10f4-4a65-bf3b-8d0246e07ed2"
+}

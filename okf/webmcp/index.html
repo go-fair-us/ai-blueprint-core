@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NIAID Blueprint OKF</title>
+  <meta name="description" content="Browse and search the NIAID Blueprint OKF knowledge bundle. Chrome WebMCP tools share the same document view.">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-row">
+      <div>
+        <p class="site-title"><a href="#/index">NIAID Blueprint OKF</a></p>
+        <p class="site-tag" id="bundle-stats">Loading bundle…</p>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="ghost drawer-toggle" id="toggle-tree" aria-controls="pane-tree">Tree</button>
+        <button type="button" class="ghost drawer-toggle" id="toggle-chat" aria-controls="pane-chat">Search</button>
+        <span id="webmcp-badge" class="webmcp-badge" data-state="missing">Checking WebMCP…</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <aside id="pane-tree" class="pane pane-tree" aria-label="Bundle tree">
+      <div class="pane-head">
+        <h2>Bundle</h2>
+        <label class="sr-only" for="tree-filter">Filter tree</label>
+        <input id="tree-filter" type="search" placeholder="Filter files…">
+      </div>
+      <nav id="tree-root" class="tree" aria-label="OKF documents"></nav>
+    </aside>
+
+    <main id="pane-reader" class="pane pane-reader" aria-label="Document">
+      <article id="reader" class="reader">
+        <p class="muted">Select a document in the tree, or search.</p>
+      </article>
+    </main>
+
+    <aside id="pane-chat" class="pane pane-chat" aria-label="Search chat">
+      <div class="pane-head">
+        <h2>Search</h2>
+        <p class="hint">Free-form sentences pick a page tool. No LLM. WebMCP <code>executeTool</code> when the browser supports it.</p>
+      </div>
+      <form id="chat-form" class="chat-form">
+        <label class="sr-only" for="chat-input">Search the bundle</label>
+        <textarea id="chat-input" rows="2" placeholder="Show me material related to citation"></textarea>
+        <button type="submit">Search</button>
+      </form>
+      <div id="search-results" class="search-results" aria-live="polite"></div>
+      <div id="chat-log" class="chat-activity" role="log" aria-label="Activity"></div>
+      <div id="tool-result" class="tool-result" hidden>
+        <strong data-result-title>Last tool result</strong>
+        <pre></pre>
+      </div>
+      <details class="tester-wrap">
+        <summary>WebMCP tester</summary>
+        <div id="webmcp-tester" class="tester"></div>
+      </details>
+    </aside>
+  </div>
+
+  <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+
+  <footer class="site-footer">
+    Reads <code>okf/bundles/niaid_blueprint/</code>. This is not the paraphrased handbook in
+    <code>webmcp/</code> and not the MCP knowledge server in <code>mcp_bp/</code>.
+    Serve with <code>python okf/webmcp/serve.py</code> so origin isolation headers are set.
+  </footer>
+
+  <script src="/js/vendor/marked.min.js"></script>
+  <script src="/js/webmcp.js"></script>
+  <script src="/js/bundle.js"></script>
+  <script src="/js/intent.js"></script>
+  <script src="/js/tree.js"></script>
+  <script src="/js/reader.js"></script>
+  <script src="/js/chat.js"></script>
+  <script src="/js/tools.js"></script>
+  <script src="/js/tester.js"></script>
+</body>
+</html>

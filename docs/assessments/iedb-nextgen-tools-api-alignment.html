@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>API alignment report — Next-Generation IEDB Tools API</title>
+<style>
+  @page { size: letter; margin: 0.75in; }
+  body { font-family: "Liberation Serif", "Noto Serif", Georgia, serif; font-size: 11pt; line-height: 1.4; color: #1a1a1a; max-width: 7in; margin: 0 auto; }
+  h1 { font-size: 18pt; margin-bottom: 0.2em; }
+  h2 { font-size: 14pt; margin-top: 1.3em; border-bottom: 1px solid #ccc; padding-bottom: 0.15em; }
+  h3 { font-size: 12pt; margin-top: 1em; }
+  p, li { orphans: 3; widows: 3; }
+  code, .mono { font-family: "Liberation Mono", "Noto Sans Mono", monospace; font-size: 9.5pt; }
+  ul { padding-left: 1.2em; }
+  .meta { color: #333; }
+  .note { font-size: 10pt; color: #333; }
+</style>
+</head>
+<body>
+<h1>API alignment report</h1>
+<p class="meta">Next-Generation IEDB Tools API · NIAID Blueprint Section 3 · generated from <span class="mono">niaid-bp-api-assess</span></p>
+
+<h2>Input</h2>
+<ul>
+  <li><strong>Source:</strong> <span class="mono">https://api-nextgen-tools.iedb.org/apidocs</span></li>
+  <li><strong>Kind:</strong> openapi (the docs URL itself parsed; hop: none)</li>
+  <li><strong>Spec format:</strong> Swagger 2.0 — <em>Next-Generation IEDB Tools API</em>, info version <span class="mono">v3.0</span>, server <span class="mono">https://api-nextgen-tools.iedb.org</span></li>
+  <li><strong>Confidence:</strong> high. A spec parsed and response media types are present. No samples were attempted.</li>
+  <li><strong>Outside this rubric:</strong> none</li>
+</ul>
+<p>The document describes 42 operations. They are tool and job endpoints (MHC prediction, peptide tools, pipelines, plots, sequence downloads), not a dataset catalog. Every operation is marked secured, so no unauthenticated sample was planned.</p>
+
+<h2>Blueprint alignment</h2>
+<p>Section 3 asks for JSON-LD (at least as an option), resource IRIs usable as <span class="mono">@id</span>, GET for retrieval, and an OpenAPI/Swagger document.</p>
+
+<h3><span class="mono">bp_jsonld_declared</span> — High</h3>
+<ul>
+  <li><strong>Evidence:</strong> No response offers <span class="mono">application/ld+json</span>, and no schema or example declares <span class="mono">@context</span>. Documented media types are <span class="mono">application/json</span> (for example <span class="mono">GET /api/v1/results/{result_id}</span>), <span class="mono">text</span> (<span class="mono">GET /api/v1/download_sequences/{sequences_id}</span>), or <span class="mono">application/json</span> plus <span class="mono">text/fas</span> (<span class="mono">GET /api/v1/sequences/{sequences_id}</span>). That pattern holds for all 42 operations.</li>
+  <li><strong>Recommended next step:</strong> Add <span class="mono">application/ld+json</span> (or a <span class="mono">?format=json-ld</span> response) on at least the resource reads — <span class="mono">GET /api/v1/results/{result_id}</span>, <span class="mono">GET /api/v1/pipeline/{pipeline_id}</span>, <span class="mono">GET /api/v1/sequences/{sequences_id}</span> — with <span class="mono">@context</span> and <span class="mono">@id</span> using schema.org types from Blueprint Table 1.</li>
+</ul>
+
+<h3><span class="mono">bp_resource_iris</span> — Medium</h3>
+<ul>
+  <li><strong>Evidence:</strong> <span class="mono">GET /api/v1/alleles/search</span> (verb-like segment <span class="mono">search</span>); <span class="mono">GET /api/v1/get_object/{object_id}</span> (verb-like segment <span class="mono">get_object</span>). Other paths are noun-shaped (<span class="mono">/results/{result_id}</span>, <span class="mono">/sequences/{sequences_id}</span>).</li>
+  <li><strong>Recommended next step:</strong> Replace those two with resource IRIs, for example <span class="mono">/alleles/{allele_id}</span>, and <span class="mono">/objects/{object_id}</span> instead of <span class="mono">get_object</span>.</li>
+</ul>
+
+<h3><span class="mono">bp_version_in_path</span> — Medium</h3>
+<ul>
+  <li><strong>Evidence:</strong> Segment <span class="mono">v1</span> is in the path of every <span class="mono">/api/v1…</span> operation, including <span class="mono">GET /api/v1</span> and <span class="mono">GET /api/v1/results/{result_id}</span>. The info version is <span class="mono">v3.0</span> while the paths say <span class="mono">v1</span>. A version segment is unstable if that URL is used as a JSON-LD <span class="mono">@id</span>.</li>
+  <li><strong>Recommended next step:</strong> Keep version negotiation in a header or a media-type parameter, and publish stable IRIs without <span class="mono">/v1/</span> for any object that should be an <span class="mono">@id</span>.</li>
+</ul>
+
+<p><strong>Passed:</strong> <span class="mono">bp_openapi_doc</span> (Swagger 2.0 parsed), <span class="mono">bp_get_retrieval</span> (retrieval is GET; the POSTs are not bare retrievals).</p>
+<p><strong>Not stated (not a failure):</strong> <span class="mono">bp_jsonld_observed</span>. No unauthenticated sample was fetched, so this run does not claim the live API returns or lacks JSON-LD.</p>
+
+<h2>Common practice</h2>
+<p>These are not Blueprint failures.</p>
+
+<h3><span class="mono">prac_info_license</span></h3>
+<ul>
+  <li><strong>Evidence:</strong> <span class="mono">info.license</span> name or url is absent.</li>
+  <li><strong>Recommended next step:</strong> Add a license name and URL on the Swagger <span class="mono">info</span> object.</li>
+</ul>
+
+<h3><span class="mono">prac_operation_summaries</span></h3>
+<ul>
+  <li><strong>Evidence:</strong> No summary or description on 12 operations, including <span class="mono">GET /api/</span>, <span class="mono">GET /api/v1/alleles/search</span>, <span class="mono">GET /api/v1/citations</span>, <span class="mono">GET /api/v1/pipeline/{pipeline_id}</span>, <span class="mono">GET /api/v1/pipeline_spec/{pipeline_spec_id}</span>, <span class="mono">GET /api/v1/stage/{stage_id}</span>, and <span class="mono">GET /api/v1/version_info</span>.</li>
+  <li><strong>Recommended next step:</strong> Add a one-line summary to each of those 12 operations.</li>
+</ul>
+
+<h3><span class="mono">prac_response_examples</span></h3>
+<ul>
+  <li><strong>Evidence:</strong> Every 2xx response has no example (all 42 operations).</li>
+  <li><strong>Recommended next step:</strong> Add one example body for <span class="mono">GET /api/v1/results/{result_id}</span> and <span class="mono">GET /api/v1/pipeline/{pipeline_id}</span> first, then the collection GETs.</li>
+</ul>
+
+<h3><span class="mono">prac_error_responses</span></h3>
+<ul>
+  <li><strong>Evidence:</strong> No 4xx or 5xx response is documented on any operation.</li>
+  <li><strong>Recommended next step:</strong> Document 401/404 (and 400 for the pipeline POST) once at the shared response level and reference them from each operation.</li>
+</ul>
+
+<h3><span class="mono">prac_pagination</span></h3>
+<ul>
+  <li><strong>Evidence:</strong> Collection GETs have no <span class="mono">limit</span>, <span class="mono">offset</span>, <span class="mono">page</span>, or <span class="mono">cursor</span>. Examples: <span class="mono">GET /api/v1/citations</span>, <span class="mono">GET /api/v1/mhci</span>, <span class="mono">GET /api/v1/pipeline/valid_steps</span>, <span class="mono">GET /api/v1/results/{result_id}/plots</span>.</li>
+  <li><strong>Recommended next step:</strong> Document a <span class="mono">limit</span> and <span class="mono">offset</span> (or <span class="mono">cursor</span>) on each collection GET, or state in the operation description that the list is complete and unpaged.</li>
+</ul>
+
+<p><strong>Passed:</strong> <span class="mono">prac_info_contact</span>, <span class="mono">prac_operation_ids</span>, <span class="mono">prac_local_refs</span>.</p>
+
+<h2>Samples</h2>
+<p><span class="mono">sample_plan</span> was empty. Every operation is secured, and the script does not invent path ids or send credentials. No live GET was made. This run does not say whether any response body contains <span class="mono">@context</span>.</p>
+
+<h2>Not checked</h2>
+<ul>
+  <li>HTML pages with embedded JSON-LD, and a downloadable metadata index. Both are Blueprint fallbacks. This run did not crawl the site for them.</li>
+  <li>Authenticated operations. No API key was sent.</li>
+  <li>Table 1 fields that are absent from <span class="mono">observed_property_names</span>. Names that did appear: <span class="mono">cancel_run</span>, <span class="mono">email</span>, <span class="mono">input_parameters</span>, <span class="mono">input_sequence_text</span>, <span class="mono">pipeline_id</span>, <span class="mono">pipeline_title</span>, <span class="mono">run_stage_range</span>, <span class="mono">stage_number</span>, <span class="mono">stages</span>, <span class="mono">tool_group</span>. None of those is a Blueprint Table 1 dataset property.</li>
+</ul>
+
+<h2>Overall</h2>
+<p>The API is machine-documented (Swagger 2.0) and retrieval uses GET, so two Section 3 objectives are met. The highest-priority gap is metadata encoding: responses are declared as JSON or text, not JSON-LD, so a catalog cannot treat these URLs as linked metadata. Fix that before the path cleanup (<span class="mono">search</span>, <span class="mono">get_object</span>, and <span class="mono">/v1/</span>). The practice gaps (license, examples, errors, pagination) matter for clients, but they are not Blueprint misses. A landing-page JSON-LD check, if wanted, is <span class="mono">niaid-bp-metadata-extract</span> — this run did not look for HTML-embedded metadata.</p>
+</body>
+</html>

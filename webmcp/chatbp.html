@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ask the Blueprint</title>
+  <meta name="description" content="Chat over the NIAID Blueprint handbook. Search the topic index and read a short answer with links to the full pages.">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/css/chatbp.css">
+</head>
+<body data-page="chat">
+  <div id="site-header"></div>
+  <div class="chat-shell">
+    <div id="chat-log" class="chat-log" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <div class="chat-dock">
+      <p id="chat-status" class="chat-status" hidden></p>
+      <form id="chat-form" class="chat-form">
+        <label class="sr-only" for="chat-input">Ask about the Blueprint</label>
+        <textarea id="chat-input" rows="1" placeholder="Ask about metadata, identifiers, APIs, citation…"></textarea>
+        <button type="submit" id="chat-send">Send</button>
+      </form>
+    </div>
+  </div>
+  <script src="/js/catalog.js"></script>
+  <script src="/js/webmcp.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/site-tools.js"></script>
+  <script src="/js/chatbp.js"></script>
+</body>
+</html>

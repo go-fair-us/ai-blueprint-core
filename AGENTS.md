@@ -6,20 +6,22 @@ Guidance for AI coding agents working in this repository.
 
 `ai-blueprint-core` builds AI agent tooling to help NIAID-funded data repositories implement the **NIAID Blueprint for Digital Objects** — a FAIR data initiative by NIAID/ODSET that specifies minimal metadata schemas, persistent identifiers, API standards, and citation practices.
 
-The repository is still **content-first**: primary deliverables are agent *skills*, *prompt personas*, and an *OKF knowledge bundle*. It also ships substantial Python tooling: an MCP knowledge server, extract/validate pipelines, OKF parse/export/quality tools, and DSPy prompt optimizers. There is no single app entrypoint; each subsystem has its own CLI or server.
+The repository is still **content-first**: primary deliverables are agent *skills*, *prompt personas*, and an *OKF knowledge bundle*. It also ships substantial Python tooling: an MCP knowledge server, extract/validate pipelines (schema.org via genMeta; CEDAR instances via `src/cedar/`), OKF parse/export/quality tools, and DSPy prompt optimizers. There is no single app entrypoint; each subsystem has its own CLI or server.
 
 ## How the pieces fit together
 
 Layers from most integrated with agent harnesses to standalone scripts:
 
 1. **Agent plugin + skills** (`niaid-blueprint/`) — installable skill bundle (`niaid-bp-*`) plus MCP client pointer. Main interactive deliverable.
-2. **MCP knowledge server** (`mcp_bp/`) — serves Blueprint docs, OKF concepts/atomics, and prompt personas over HTTP so any MCP client can look up, search, and start interviews.
+2. **MCP knowledge server** (`mcp_bp/`) — serves Blueprint docs, OKF concepts/atomics, prompt personas, and the skill catalog over HTTP so any MCP client can look up, search, validate a Dataset graph, and start interviews.
 3. **Prompt personas** (`prompts/`) — standalone system prompts for the “flipped interaction” pattern (paste into any LLM). Model-agnostic; used outside skill loaders too.
 4. **OKF knowledge layer** (`okf/`) — Blueprint requirements as an OKF v0.2 Markdown concept bundle (atomics with source line citations) plus filled prompt examples.
-5. **Python pipelines & libraries** (`src/`, `mcp_bp/`) — genMeta extract/repair, OKF tools, GEPA/prompt optimizers, static prompt library UI.
+5. **Python pipelines & libraries** (`src/`, `mcp_bp/`) — genMeta extract/repair, CEDAR extract, ImmPort search helper, OKF tools, GEPA/prompt optimizers, static prompt library UI.
 6. **DSPy RLM script** (`secret/rv2.py`) — analyzes a directory of Markdown docs and writes a report. `secret/` holds source work-plan PDFs and local outputs (often gitignored material).
+7. **WebMCP test sites** — two local fixtures, not the MCP knowledge server: paraphrased handbook pages (`webmcp/`, port 8088) and an OKF bundle browser (`okf/webmcp/`, port 8089) with a tree, search chat, and Chrome `document.modelContext` tools.
+8. **Harness packaging** (`harnesses/`) — platform-oriented skill copies (currently Hermes FAIR assessor). Not the core `niaid-bp-*` bundle.
 
-The same domain logic often appears in more than one layer (e.g. FAIR assessment as skill, prompt, and MCP prompt). When changing assessment/intake behavior, check parallel copies.
+The same domain logic often appears in more than one layer (e.g. FAIR assessment as skill, prompt, MCP prompt, and Hermes harness copy). When changing assessment/intake behavior, check parallel copies.
 
 ## Agent plugin (`niaid-blueprint/`)
 
@@ -52,13 +54,17 @@ When editing a skill, keep frontmatter (`name`, `description`, `when_to_use`) ac
 
 Catalog and cross-skill map: `niaid-blueprint/skills/README.md`.
 
-> **Path note:** Skills previously lived at repo-root `skills/` (and briefly under other plugin dir names). They now live only under `niaid-blueprint/skills/`. Pipelines such as `src/genMeta/` must use that root for extract/validate skill files.
+> **Path note:** Skills previously lived at repo-root `skills/` (and briefly under other plugin dir names). The canonical bundle is only under `niaid-blueprint/skills/`. Pipelines such as `src/genMeta/` must use that root for extract/validate skill files. Ignore leftover `skills/` cache artifacts if they appear.
+
+## Hermes harness (`harnesses/hermes/`)
+
+Optional **Hermes Agent** packaging, separate from the `niaid-bp-*` names. `harnesses/hermes/fair-assessor/` is a crawl-style FAIR assessment skill (`SKILL.md`, Firecrawl-based page fetch) plus an ImmPort SDY2968 example report. Invoke as `/fair-assessment` in Hermes; do not treat this tree as part of the plugin skill bundle. See `harnesses/hermes/fair-assessor/README.md`.
 
 ## MCP knowledge server (`mcp_bp/`)
 
 Read-only **Model Context Protocol** server over HTTP. Bridges files in this repo to tools an agent can call mid-conversation. It does **not** assess repositories or mint metadata by itself.
 
-**Surfaces:** resources (docs / OKF / prompts by URI), tools (list/read/search/navigate/OKF atomics, skill catalog / `validate_dataset`, and with `TAVILY_API_KEY` `inspect_url` / `web_search`), and user-invoked prompts (FAIR interview, web assessor, crawl assessor, work-plan intake). Localhost LibreChat compose: `deployment/README-librechat.md`.
+**Surfaces:** resources (docs / OKF / prompts by URI), tools (list/read/search/navigate/OKF atomics; `list_skills` / `read_skill` / `read_skill_file` / `validate_dataset`; and with `TAVILY_API_KEY` `inspect_url` / `web_search`), and user-invoked prompts (FAIR interview, web assessor, crawl assessor, work-plan intake). Localhost LibreChat compose: `deployment/README-librechat.md`.
 
 ```bash
 uv sync --extra mcp
@@ -67,6 +73,23 @@ uv run --extra mcp --with pytest pytest mcp_bp/tests
 ```
 
 Hybrid search: BM25 + optional semantic embeddings (`BLUEPRINT_SEMANTIC_ENABLED=1`). Content roots overrideable via env (`BLUEPRINT_DOCS_DIR`, `BLUEPRINT_PROMPTS_DIR`, `BLUEPRINT_OKF_*`). Full tool table: `mcp_bp/README.md`.
+
+## WebMCP test sites
+
+Two local Chrome WebMCP fixtures. Serve with the bundled `serve.py` so `Origin-Agent-Cluster: ?1` is set. Enable `chrome://flags/#enable-webmcp-testing`.
+
+| Path | Port | What it is |
+|------|------|------------|
+| `webmcp/` | 8088 | Paraphrased Blueprint handbook pages. Not the OKF files. |
+| `okf/webmcp/` | 8089 | Tree + reader + search chat over `okf/bundles/niaid_blueprint/`. Humans and agents share the open document. |
+
+```bash
+python webmcp/serve.py          # http://127.0.0.1:8088/
+python okf/webmcp/serve.py      # http://127.0.0.1:8089/
+# Chrome: chrome://flags/#enable-webmcp-testing
+```
+
+Details: `webmcp/README.md` and `okf/webmcp/README.md`.
 
 ## Prompt personas (`prompts/`)
 
@@ -103,6 +126,26 @@ uv run python src/genMeta/main.py --url …   # requires a running Herdr server
 ```
 
 Uses the metadata-extract and validation skills (paths under `niaid-blueprint/skills/`).
+
+### cedar (Obscura + DSPy CEDAR extract)
+
+`src/cedar/` — turn a landing-page URL (and optional local files) into a **CEDAR template instance** matching `src/cedar/example.json`. DSPy extractors fill a typed record; host Python fetches with a local [Obscura](https://github.com/h4ckf0r0day/obscura) binary, then **drops identifiers that never appeared in the fetched text**. Empty is success. Not genMeta (no Herdr, no schema.org SHACL repair) and not a CEDAR upload client. See `src/cedar/README.md`.
+
+```bash
+uv run python src/cedar/main.py extract --url … --out /tmp/cedar-run --backend nrp
+uv run --with pytest pytest src/cedar/tests
+```
+
+Needs Obscura on disk (`OBSCURA_BIN` or `--obscura-bin`; default is a local release binary). No jina.ai / third-party render fallback.
+
+### immport (study / ELISA search helper)
+
+`src/immport/` — stdlib script that searches ImmPort studies and subjects (default filter: rheumatoid arthritis, female, ELISA, *Homo sapiens*). Public search needs no extras; study summaries and ELISA rows need `IMMPORT_API_KEY`. See `src/immport/README.md`.
+
+```bash
+python3 src/immport/search_ra_elisa.py
+python3 src/immport/search_ra_elisa.py --elisa --json /tmp/ra-elisa.json
+```
 
 ### libraryOptimizer (GEPA on OKF prompt examples)
 
@@ -170,6 +213,7 @@ uv run --extra mcp python -m mcp_bp.server
 uv run --extra mcp --with pytest pytest mcp_bp/tests
 uv run --with pytest pytest niaid-blueprint/skills/niaid-bp-validation/tests
 uv run --with pytest pytest niaid-blueprint/skills/niaid-bp-model-influence/tests
+uv run --with pytest pytest src/cedar/tests
 
 # DSPy RLM document analyzer (needs NRP_API_KEY or OPENROUTER_API_KEY)
 uv run secret/rv2.py --prompt-file prompts/contextPrompt.md
@@ -177,21 +221,27 @@ uv run secret/rv2.py --prompt-file prompt.md --backend openrouter
 
 # PoC interactive lesson
 cd lesson && python -m http.server 8000   # http://localhost:8000
+
+# WebMCP fixtures (Chrome document.modelContext)
+python webmcp/serve.py                    # handbook, http://127.0.0.1:8088/
+python okf/webmcp/serve.py                # OKF browser, http://127.0.0.1:8089/
+uv run --with pytest pytest okf/webmcp/tests
 ```
 
 `rv2.py` does **not** read files from the sandbox filesystem — it injects host-side helpers (`list_markdown_files`, `read_markdown`, `grep_markdown`, `save_report`, `SUBMIT`) into the RLM’s REPL globals. See `secret/USE.md`.
 
-Optimizer / genMeta runs typically need `NRP_API_KEY` (default), or `OPENROUTER_API_KEY` / `XAI_API_KEY` / Ollama env vars depending on backend flags.
+Optimizer / genMeta / cedar runs typically need `NRP_API_KEY` (default), or `OPENROUTER_API_KEY` / `XAI_API_KEY` / Ollama env vars depending on backend flags. Cedar also needs a local Obscura binary. ImmPort summaries/ELISA need `IMMPORT_API_KEY`.
 
 ## Key dependencies
 
 | Package / extra | Used for |
 |-----------------|----------|
-| **`dspy`** | RLM (`secret/rv2.py`), GEPA optimizers (`libraryOptimizer`, `promptOptimizer`) |
+| **`dspy`** | RLM (`secret/rv2.py`), GEPA optimizers (`libraryOptimizer`, `promptOptimizer`), CEDAR extract (`src/cedar/`) |
 | **`docling`** / **`marker-pdf`** | PDF→Markdown for Blueprint/Work Plan docs |
 | **`pyshacl`** / **`rdflib`** | Dataset SHACL validation, OKF RDF, quality shapes |
 | **`fastmcp`**, **`rank-bm25`**, **`fastembed`** (extra `mcp`) | MCP server + hybrid search |
 | **`herdr-python-client`** (extra `genmeta`) | Herdr transport for genMeta Pi agents |
+| **Obscura** (external binary) | Page fetch for `src/cedar/` (`OBSCURA_BIN`) |
 
 Heavy ML libraries (docling, marker, optional fastembed) mean a large `.venv` and downloads on first run.
 

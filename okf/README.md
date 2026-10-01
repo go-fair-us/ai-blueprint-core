@@ -162,6 +162,7 @@ for library-optimizer and training workflows.
 | [`samples/`](samples/) | Recipes — how to run concept extraction (`extract.md`, `sources.txt`, `README.md`) |
 | [`bundles/`](bundles/) | Produced OKF knowledge bundles |
 | [`prompt_examples/`](prompt_examples/) | Filled copies of Prompt Library templates (`{{placeholders}}` grounded in NIAID domain resources) |
+| [`webmcp/`](webmcp/) | Local tree/reader/search SPA with Chrome WebMCP tools for the bundle |
 
 ## Specification pointers
 
@@ -191,3 +192,4 @@ See [`samples/niaid_blueprint/README.md`](samples/niaid_blueprint/README.md).
 | `src/okf2rdf/` | Export a bundle toward schema.org-centered RDF |
 | `src/visualize-okf/` | HTML / graph views of a bundle |
 | `src/libraryOptimizer/` | GEPA optimization over filled prompt examples |
+| `okf/webmcp/` | Collaborative OKF browser (tree + search chat + WebMCP), port 8089 |

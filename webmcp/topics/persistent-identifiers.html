@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Persistent identifiers — NIAID Blueprint Handbook</title>
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body data-page="persistent-identifiers">
+  <div id="site-header"></div>
+  <div class="layout">
+    <main>
+      <h1>Persistent identifiers</h1>
+      <p class="lede">
+        Globally unique, persistently resolvable identifiers keep objects, people,
+        and organizations findable when locations change.
+      </p>
+      <p>
+        FAIR asks for GUPRIs: globally unique, persistently resolvable identifiers.
+        A DOI in its bare form (<code>10.1000/182</code>) is not resolvable. Prefix
+        it: <code>https://doi.org/10.1000/182</code>. That resolvable form is the
+        default for the object <code>identifier</code> field.
+      </p>
+      <p>
+        Ordinary URLs are globally unique and resolvable, but they last only as
+        long as the host stays committed. That is why a resolvable DOI is the
+        default object identifier. If a repository cannot mint DOIs, depositors
+        can still register objects with Crossref or DataCite.
+      </p>
+      <h2>Schemes in this handbook</h2>
+      <p>
+        WebMCP tools on this page: <code>list_pid_schemes</code> and
+        <code>lookup_pid_scheme</code>.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Abbrev.</th>
+            <th>Scheme</th>
+            <th>Covers</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="pid-table-body"></tbody>
+      </table>
+      <p class="source">
+        Source themes: <code>okf/bundles/niaid_blueprint/persistent-identifiers/</code>.
+      </p>
+    </main>
+    <div id="page-extras"></div>
+  </div>
+  <div id="site-footer"></div>
+  <script src="/js/catalog.js"></script>
+  <script src="/js/webmcp.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/tables.js"></script>
+  <script src="/js/site-tools.js"></script>
+  <script src="/js/page-tools.js"></script>
+  <script src="/js/tester.js"></script>
+</body>
+</html>

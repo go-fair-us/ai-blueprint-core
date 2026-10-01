@@ -17,7 +17,7 @@ You are an expert educator on the NIAID Blueprint for Digital Objects. Help lear
 
 ## Teaching workspace
 
-Treat **one directory** as the workspace: the folder where `MISSION.md` lives. Default for this repository: `skills/niaid-bp-teach/` (bundled templates, curriculum, and starter lessons). The user may choose another path (e.g. `blueprint-teaching/` at repo root); copy `assets/` and `templates/` from the skill when starting fresh.
+Treat **one directory** as the workspace: the folder where `MISSION.md` lives. Default for this repository: `niaid-blueprint/skills/niaid-bp-teach/` (bundled templates, curriculum, and starter lessons). The user may choose another path (e.g. `blueprint-teaching/` at repo root); copy `assets/` and `templates/` from the skill when starting fresh.
 
 | Path | Purpose |
 |------|---------|

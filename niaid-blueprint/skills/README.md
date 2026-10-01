@@ -4,7 +4,7 @@
 
 This directory is a **skill bundle**: a set of portable **Agent Skills** that
 help people and automated agents apply the
-[NIAID Blueprint for Digital Objects](../docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md).
+[NIAID Blueprint for Digital Objects](../../docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md).
 
 The Blueprint is a FAIR-oriented program for NIAID-funded data repositories. It
 covers five practical areas—**metadata schema**, **persistent identifiers**,
@@ -106,9 +106,10 @@ niaid-bp-<activity>
 
 Directory name = skill `name` = common invocation identifier.
 
-The `hermes/` tree is a **separate packaging path** (platform-oriented
-layout for one agent ecosystem). It is **not** under the `niaid-bp-*` naming
-set; treat it as optional packaging, not part of the core bundle contract.
+Hermes packaging for the same FAIR assessment is optional and lives outside
+this bundle, at
+[`harnesses/hermes/fair-assessor/`](../../harnesses/hermes/fair-assessor/).
+Invoke that copy as `/fair-assessment` in Hermes.
 
 ## Skills in this bundle
 
@@ -166,7 +167,7 @@ JSON-LD record without answering intake questions by hand.
 inferred / missing fields, unresolved PIDs, confidence). Authoritative Blueprint
 and example records are fetched from published raw URLs at run time.
 
-See also: [`docs/metadataGeneration.md`](../docs/metadataGeneration.md).
+See also: [`docs/metadataGeneration.md`](../../docs/metadataGeneration.md).
 
 ---
 
@@ -222,7 +223,7 @@ metadata extract) and want machine-checkable required-field validation.
 toward fuller Blueprint Table 1 coverage later.
 
 The same host validation path is used by automated pipelines such as
-[`src/genMeta/`](../src/genMeta/).
+[`src/genMeta/`](../../src/genMeta/).
 
 ---
 
@@ -246,6 +247,30 @@ on `schema:Dataset`, use `niaid-bp-validation`.
 
 ---
 
+### `niaid-bp-api-assess` — API expression review
+
+Reads an OpenAPI/Swagger document or an API documentation page and scores it
+against Blueprint Section 3 (JSON-LD, resource IRIs, HTTP GET, OpenAPI) plus a
+short REST lint. The lint is a separate axis and is not reported as a Blueprint
+failure. A docs page with no spec is a lower-confidence review: undeclared
+facts stay “not stated.” A Swagger UI link is followed through its
+initializer and springdoc config to the spec document.
+
+**Use when:** You have a Swagger or OpenAPI file, a spec URL, or API
+documentation and want a machine-checked alignment report.
+
+**Args (required):** path or URL of the spec or the docs page.
+
+**Output:** `findings.json` from `scripts/analyze_api.py`, and a Markdown gap
+report (Blueprint section, practice section, optional unauthenticated GET
+samples). The script does not send credentials. The Blueprint text is fetched
+at run time from the same raw URL `niaid-bp-metadata-extract` uses; the
+scoring rubric is `references/api-checklist.md`.
+
+**Dependency:** PyYAML, already installed by `uv sync`. No extra.
+
+---
+
 ## How the skills fit together
 
 ```text
@@ -264,6 +289,9 @@ on `schema:Dataset`, use `niaid-bp-validation`.
                                 ▼
                       niaid-bp-validation
                       (SHACL shapes on Dataset)
+
+ niaid-bp-api-assess  — OpenAPI/Swagger or API docs → Section 3 gap report
+                        (optional unauthenticated GET samples)
 
  niaid-bp-shaclrules  — SHACL 1.2 Rules (SRL) materialization via eyeleng
                         (rules reasoning; not Dataset shape validation)
@@ -334,20 +362,28 @@ skills/
 │   ├── references/
 │   │   └── rules-workflow.md
 │   └── tests/
-└── hermes/                   # optional alternate packaging; not niaid-bp-*
-    └── fair-assessor/
+└── niaid-bp-api-assess/
+    ├── SKILL.md
+    ├── references/
+    │   └── api-checklist.md
+    ├── assets/
+    │   └── report-template.md
+    ├── scripts/
+    │   └── analyze_api.py
+    └── tests/
 ```
 
 ## Related material in this repository
 
 | Path | Relation to skills |
 |------|--------------------|
-| [`prompts/`](../prompts/) | Standalone personas for the same domain without a skill loader |
-| [`docs/metadataGeneration.md`](../docs/metadataGeneration.md) | URL extraction overview (pairs with metadata extract) |
-| [`docs/assessments/`](../docs/assessments/) | Example FAIR assessment outputs (crawl / interview family) |
-| [`mcp_bp/`](../mcp_bp/) | Serves docs and prompt personas over MCP; complementary to skills |
-| [`src/genMeta/`](../src/genMeta/) | Automated extract → SHACL validate → repair using extract + validation skills |
-| [`okf/`](../okf/) | OKF knowledge bundle of Blueprint concepts (structured knowledge layer) |
+| [`prompts/`](../../prompts/) | Standalone personas for the same domain without a skill loader |
+| [`docs/metadataGeneration.md`](../../docs/metadataGeneration.md) | URL extraction overview (pairs with metadata extract) |
+| [`docs/assessments/`](../../docs/assessments/) | Example FAIR assessment outputs (crawl / interview family) |
+| [`mcp_bp/`](../../mcp_bp/) | Serves docs and prompt personas over MCP; complementary to skills |
+| [`src/genMeta/`](../../src/genMeta/) | Automated extract → SHACL validate → repair using extract + validation skills |
+| [`okf/`](../../okf/) | OKF knowledge bundle of Blueprint concepts (structured knowledge layer) |
+| [`harnesses/hermes/fair-assessor/`](../../harnesses/hermes/fair-assessor/) | Optional Hermes packaging of a crawl-style FAIR assessor (`/fair-assessment`) |
 
 ## Authoring notes
 

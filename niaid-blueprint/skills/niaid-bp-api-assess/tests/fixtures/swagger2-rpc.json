@@ -1,0 +1,45 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "RPC API",
+    "version": "1.0.0"
+  },
+  "host": "example.org",
+  "basePath": "/api",
+  "schemes": ["https"],
+  "produces": ["application/json"],
+  "paths": {
+    "/getDataset": {
+      "get": {
+        "operationId": "getDataset",
+        "summary": "Get a dataset",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {"type": "object"}
+          }
+        }
+      }
+    },
+    "/search": {
+      "post": {
+        "operationId": "searchDatasets",
+        "summary": "Search datasets",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    }
+  }
+}

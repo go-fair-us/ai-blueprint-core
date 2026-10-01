@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Minimal metadata schema — NIAID Blueprint Handbook</title>
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body data-page="metadata">
+  <div id="site-header"></div>
+  <div class="layout">
+    <main>
+      <h1>Minimal metadata schema</h1>
+      <p class="lede">
+        A schema.org-based minimum for describing digital objects. Repositories
+        choose how they store the values.
+      </p>
+      <p>
+        Metadata is the context that makes an object findable. When the bits
+        themselves cannot be fully shared (personal health information, very large
+        files), the metadata can still be exposed. The Blueprint lists a minimum
+        set rather than a rigid, all-or-nothing schema. Adopting even a subset
+        still supports alignment.
+      </p>
+      <p>
+        Capture belongs at deposit time, with researchers documenting the same
+        fields while they create the object. Other schemas are acceptable when they
+        interoperate with schema.org, are openly maintained, and are in wide use.
+      </p>
+      <h2>Minimum elements</h2>
+      <p>
+        Fields marked <strong>**</strong> may hold more than one value.
+        WebMCP tools on this page: <code>list_metadata_elements</code> and
+        <code>get_metadata_element</code>.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Element</th>
+            <th>Meaning</th>
+            <th>Default format</th>
+            <th>PID / ontology</th>
+          </tr>
+        </thead>
+        <tbody id="element-table-body"></tbody>
+      </table>
+      <p class="source">
+        Source themes: <code>okf/bundles/niaid_blueprint/metadata-schema/</code>.
+        This table is a handbook view, not the OKF atomic list.
+      </p>
+    </main>
+    <div id="page-extras"></div>
+  </div>
+  <div id="site-footer"></div>
+  <script src="/js/catalog.js"></script>
+  <script src="/js/webmcp.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/tables.js"></script>
+  <script src="/js/site-tools.js"></script>
+  <script src="/js/page-tools.js"></script>
+  <script src="/js/tester.js"></script>
+</body>
+</html>

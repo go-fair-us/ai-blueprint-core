@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Citation guidance — NIAID Blueprint Handbook</title>
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body data-page="citation">
+  <div id="site-header"></div>
+  <div class="layout">
+    <main>
+      <h1>Citation guidance</h1>
+      <p class="lede">
+        Repository owners should publish clear, PID-based citation examples for
+        original data and for reused data.
+      </p>
+      <p>
+        Citation gives credit, records provenance, and lets a repository see how
+        its objects are reused. Practices still vary widely. Guidance should sit
+        where depositors and reusers will find it, and it should include PIDs
+        such as DOIs, ORCIDs, and repository RRIDs.
+      </p>
+      <h2>What to include</h2>
+      <ul>
+        <li><strong>Original data:</strong> repository name, repository PID (for example an RRID), and the object PID, in text suitable for a paper.</li>
+        <li><strong>Reused data:</strong> the object PID and, when useful, a repository accession.</li>
+        <li><strong>Styles:</strong> copy-ready examples in common formats (APA, MLA, Chicago, NLM, PubMed).</li>
+      </ul>
+      <p>
+        Granularity should match how people actually use the resource. If they
+        pull a few discrete objects, cite each object. If they query across the
+        whole collection, a repository-level citation may be the better default.
+      </p>
+      <h2>Format a citation</h2>
+      <p>
+        This form is a declarative WebMCP tool
+        (<code>toolname="format_citation_form"</code>). The same formatter is also
+        registered as the imperative tool <code>format_citation</code> so the
+        in-page tester can call it without submitting HTML.
+      </p>
+      <form
+        id="citation-form"
+        class="citation-form"
+        toolname="format_citation_form"
+        tooldescription="Fill and submit this citation form. Prefer format_citation when you already have the field values and only need formatted text."
+        toolautosubmit
+      >
+        <label>Author
+          <input name="author" type="text" required placeholder="Smith, Jane">
+        </label>
+        <label>Year
+          <input name="year" type="text" required placeholder="2023">
+        </label>
+        <label>Title
+          <input name="title" type="text" required placeholder="Global Health Dataset">
+        </label>
+        <label>Version
+          <input name="version" type="text" placeholder="1.0">
+        </label>
+        <label>Repository
+          <input name="repository" type="text" required placeholder="DataHub">
+        </label>
+        <label>DOI
+          <input name="doi" type="text" placeholder="10.1234/abcd1234" toolparamdescription="DOI string or https://doi.org/ URL">
+        </label>
+        <label>Style
+          <select name="style" toolparamdescription="Publication citation style">
+            <option value="APA">APA</option>
+            <option value="MLA">MLA</option>
+            <option value="Chicago">Chicago</option>
+          </select>
+        </label>
+        <button type="submit">Format citation</button>
+      </form>
+      <p id="citation-output">Formatted citation appears here.</p>
+      <p>
+        APA example shape: Author(s). (Year). Title of dataset (Version) [Data set]. Repository. https://doi.org/…
+      </p>
+      <p class="source">
+        Source themes: <code>okf/bundles/niaid_blueprint/citation/</code>.
+      </p>
+    </main>
+    <div id="page-extras"></div>
+  </div>
+  <div id="site-footer"></div>
+  <script src="/js/catalog.js"></script>
+  <script src="/js/webmcp.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/tables.js"></script>
+  <script src="/js/site-tools.js"></script>
+  <script src="/js/page-tools.js"></script>
+  <script src="/js/tester.js"></script>
+</body>
+</html>

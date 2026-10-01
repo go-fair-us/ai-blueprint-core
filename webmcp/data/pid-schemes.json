@@ -1,0 +1,101 @@
+[
+  {
+    "id": "doi",
+    "name": "Digital Object Identifier",
+    "abbreviation": "DOI",
+    "covers": ["identifier"],
+    "summary": "Persistent alphanumeric identifier for a digital object. Use the resolvable form https://doi.org/{doi}.",
+    "example": "https://doi.org/10.1234/abcd1234",
+    "notes": "Default object identifier in the Blueprint. If a repository cannot mint DOIs, researchers can register with Crossref or DataCite."
+  },
+  {
+    "id": "rrid",
+    "name": "Research Resource Identification",
+    "abbreviation": "RRID",
+    "covers": ["identifier"],
+    "summary": "Persistent identifier for key biological resources so they can be cited in papers.",
+    "example": "RRID:SCR_001606",
+    "notes": "Often used for repositories, antibodies, cell lines, and software resources."
+  },
+  {
+    "id": "url",
+    "name": "Uniform Resource Locator",
+    "abbreviation": "URL",
+    "covers": ["identifier"],
+    "summary": "Common web locator. Globally unique and resolvable, but persistence depends on the host remaining committed.",
+    "example": "https://example.org/datasets/sdy2968",
+    "notes": "Listed as an alternative identifier. Weaker persistence than a resolvable DOI unless the organization guarantees it."
+  },
+  {
+    "id": "iri",
+    "name": "Internationalized Resource Identifier",
+    "abbreviation": "IRI",
+    "covers": ["identifier", "citation", "distribution", "conditionsOfAccess"],
+    "summary": "URL-like identifier that can include a wider character set than ASCII URLs.",
+    "example": "https://example.org/资源/1",
+    "notes": "Table 2 lists IRI as a flexible identifier type. Many ontology terms are published as IRIs."
+  },
+  {
+    "id": "orcid",
+    "name": "Open Researcher and Contributor Identifier",
+    "abbreviation": "ORCID",
+    "covers": ["author"],
+    "summary": "Persistent identifier for researchers and other contributors.",
+    "example": "https://orcid.org/0000-0002-1825-0097",
+    "notes": "Default representation for the author field."
+  },
+  {
+    "id": "ror",
+    "name": "Research Organization Registry",
+    "abbreviation": "ROR",
+    "covers": ["funder", "author"],
+    "summary": "Identifier for research organizations such as universities, centers, and funders.",
+    "example": "https://ror.org/01cwqze88",
+    "notes": "Default for funder. Also listed as an author identifier when the creator is an organization."
+  },
+  {
+    "id": "isni",
+    "name": "International Standard Name Identifier",
+    "abbreviation": "ISNI",
+    "covers": ["author"],
+    "summary": "Identifier for public identities of people and organizations that contribute to creative works.",
+    "example": "https://isni.org/isni/0000000121032683",
+    "notes": "Alternative author identifier in Table 2."
+  },
+  {
+    "id": "ncbitaxon",
+    "name": "NCBI Organismal Classification",
+    "abbreviation": "NCBITaxon",
+    "covers": ["infectiousAgent", "host"],
+    "summary": "Ontology of organisms used for infectious agents and hosts.",
+    "example": "http://purl.obolibrary.org/obo/NCBITaxon_2697049",
+    "notes": "Default for infectiousAgent and host."
+  },
+  {
+    "id": "mondo",
+    "name": "MONDO Disease Ontology",
+    "abbreviation": "MONDO",
+    "covers": ["healthCondition"],
+    "summary": "Disease and condition ontology used for healthCondition.",
+    "example": "http://purl.obolibrary.org/obo/MONDO_0005015",
+    "notes": "Default for healthCondition. Other community ontologies may be acceptable when they interoperate."
+  },
+  {
+    "id": "ncit",
+    "name": "NCI Thesaurus",
+    "abbreviation": "NCIT",
+    "covers": ["measurementTechnique"],
+    "summary": "NCI Thesaurus terms for measurement techniques and related concepts.",
+    "example": "http://purl.obolibrary.org/obo/NCIT_C17938",
+    "notes": "Default for measurementTechnique."
+  },
+  {
+    "id": "spdx",
+    "name": "SPDX License Identifier",
+    "abbreviation": "SPDX",
+    "covers": ["license"],
+    "summary": "Short identifier for a standard software or data license.",
+    "example": "CC-BY-4.0",
+    "notes": "If the license is not in SPDX, use an IRI to the license document."
+  }
+]

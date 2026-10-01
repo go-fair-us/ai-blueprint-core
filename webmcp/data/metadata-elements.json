@@ -1,0 +1,128 @@
+[
+  {
+    "name": "type",
+    "meaning": "Kind of digital object being described.",
+    "defaultFormat": "IRI to a type such as dataset, software application, or image",
+    "pidOrOntology": null,
+    "repeatable": false
+  },
+  {
+    "name": "identifier",
+    "meaning": "Globally unique, persistent, machine-resolvable identifier for the object.",
+    "defaultFormat": "Resolvable DOI (https://doi.org/…)",
+    "pidOrOntology": "DOI",
+    "repeatable": false
+  },
+  {
+    "name": "name",
+    "meaning": "Descriptive title of the digital object.",
+    "defaultFormat": "Free text",
+    "pidOrOntology": null,
+    "repeatable": false
+  },
+  {
+    "name": "description",
+    "meaning": "Human-readable summary of what the object is and why it exists.",
+    "defaultFormat": "Free text",
+    "pidOrOntology": null,
+    "repeatable": false
+  },
+  {
+    "name": "dateCreated",
+    "meaning": "Date the object was created or added to a repository.",
+    "defaultFormat": "Date (ISO 8601)",
+    "pidOrOntology": null,
+    "repeatable": false
+  },
+  {
+    "name": "author",
+    "meaning": "Person or organization responsible for creating the object.",
+    "defaultFormat": "ORCID",
+    "pidOrOntology": "ORCID",
+    "repeatable": true
+  },
+  {
+    "name": "funder",
+    "meaning": "Organization that provided funding.",
+    "defaultFormat": "ROR",
+    "pidOrOntology": "ROR",
+    "repeatable": true
+  },
+  {
+    "name": "grant",
+    "meaning": "Grant or contract number.",
+    "defaultFormat": "Alphanumeric string",
+    "pidOrOntology": null,
+    "repeatable": true
+  },
+  {
+    "name": "measurementTechnique",
+    "meaning": "Technique or technology used in measurement, when applicable.",
+    "defaultFormat": "NCIT term",
+    "pidOrOntology": "NCIT",
+    "repeatable": true
+  },
+  {
+    "name": "distribution",
+    "meaning": "Link to a downloadable copy (bitstream or file).",
+    "defaultFormat": "IRI (URL)",
+    "pidOrOntology": null,
+    "repeatable": true
+  },
+  {
+    "name": "citation",
+    "meaning": "Reference to another creative work related to this object.",
+    "defaultFormat": "IRI (URL)",
+    "pidOrOntology": null,
+    "repeatable": true
+  },
+  {
+    "name": "infectiousAgent",
+    "meaning": "Infectious agent involved in the study or object.",
+    "defaultFormat": "NCBITaxon",
+    "pidOrOntology": "NCBITaxon",
+    "repeatable": true
+  },
+  {
+    "name": "host",
+    "meaning": "Host organism.",
+    "defaultFormat": "NCBITaxon",
+    "pidOrOntology": "NCBITaxon",
+    "repeatable": true
+  },
+  {
+    "name": "healthCondition",
+    "meaning": "Health condition under study.",
+    "defaultFormat": "MONDO",
+    "pidOrOntology": "MONDO",
+    "repeatable": true
+  },
+  {
+    "name": "conditionsOfAccess",
+    "meaning": "Conditions under which the object can be accessed (open, registered, controlled, and so on).",
+    "defaultFormat": "IRI to an access-level description",
+    "pidOrOntology": null,
+    "repeatable": false
+  },
+  {
+    "name": "license",
+    "meaning": "License under which the object is distributed.",
+    "defaultFormat": "SPDX License Identifier, or IRI to a license document",
+    "pidOrOntology": "SPDX",
+    "repeatable": true
+  },
+  {
+    "name": "spatialCoverage",
+    "meaning": "Geographic area covered by the object.",
+    "defaultFormat": "Country code (ISO 3166)",
+    "pidOrOntology": null,
+    "repeatable": false
+  },
+  {
+    "name": "temporalCoverage",
+    "meaning": "Time period covered by the object.",
+    "defaultFormat": "Date range (ISO 8601 start and end)",
+    "pidOrOntology": null,
+    "repeatable": false
+  }
+]

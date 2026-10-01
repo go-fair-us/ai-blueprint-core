@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NIAID Blueprint Handbook</title>
+  <meta name="description" content="Small static handbook of Blueprint topics with Chrome WebMCP tools for agents.">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body data-page="home">
+  <div id="site-header"></div>
+  <div class="layout">
+    <main>
+      <h1>NIAID Blueprint handbook</h1>
+      <p class="lede">
+        A short set of web pages about the NIAID Blueprint for Digital Objects.
+        Humans can read them. A WebMCP-capable browser can call tools that search,
+        look up, and navigate the same material.
+      </p>
+      <p>
+        The Blueprint is a FAIR program from NIAID/ODSET. It gives NIAID-funded
+        repositories a minimum shared path for metadata, persistent identifiers,
+        machine access, citation, and outreach, so digital objects can feed the
+        NIAID Data Ecosystem Discovery Portal.
+      </p>
+      <h2>Three goals</h2>
+      <ul>
+        <li>Align repositories under a shared framework without forcing identical software stacks.</li>
+        <li>Capture structured metadata when data are created and deposited, not after the fact.</li>
+        <li>Stay flexible enough to plug into the wider NIAID ecosystem, including the Discovery Portal.</li>
+      </ul>
+      <h2>Topic pages</h2>
+      <div id="topic-cards" class="cards"></div>
+      <p>
+        Prefer a conversation?
+        <a href="/chatbp.html">Ask the Blueprint</a> searches these pages and
+        writes a short answer with links to the full guidance. It does not show
+        the tool tester.
+      </p>
+      <h2>What this site is for</h2>
+      <p>
+        These pages are a <strong>test fixture</strong> for Chrome WebMCP
+        (<code>document.modelContext</code>). Every page registers
+        <code>list_topics</code>, <code>search_topics</code>,
+        <code>get_topic</code>, and <code>navigate_to_topic</code>.
+        Topic pages add extra tools for metadata elements, identifier schemes,
+        API objectives, and citation formatting.
+      </p>
+      <p>
+        Use the tester below, or the Model Context Tool Inspector extension, after
+        enabling <code>chrome://flags/#enable-webmcp-testing</code>.
+      </p>
+    </main>
+    <div id="page-extras"></div>
+  </div>
+  <div id="site-footer"></div>
+  <script src="/js/catalog.js"></script>
+  <script src="/js/webmcp.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/tables.js"></script>
+  <script src="/js/site-tools.js"></script>
+  <script src="/js/page-tools.js"></script>
+  <script src="/js/tester.js"></script>
+</body>
+</html>

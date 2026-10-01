@@ -35,7 +35,7 @@ When creating `RESOURCES.md`, seed at least these entries (update URLs if the re
 
 ### Knowledge
 
-- [NIAID Blueprint for Digital Objects v2 (Markdown)](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md)  
+- [NIAID Blueprint for Digital Objects v2 (Markdown)](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md)  
   Use for: authoritative requirements—five areas, Table 1, PIDs, APIs, citation, outreach.
 
 - [NIAID Blueprint resources (NIAID Data Science)](https://datascience.niaid.nih.gov/resources)  

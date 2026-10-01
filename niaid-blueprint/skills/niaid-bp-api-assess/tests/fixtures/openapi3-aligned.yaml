@@ -1,0 +1,72 @@
+openapi: 3.0.3
+info:
+  title: Example Repository API
+  version: "1.0.0"
+  description: Metadata API for a research data repository.
+  contact:
+    name: Data Team
+    email: data@example.org
+  license:
+    name: CC-BY-4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+servers:
+  - url: https://example.org
+paths:
+  /datasets:
+    get:
+      operationId: listDatasets
+      summary: List datasets
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Dataset list
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  "@context":
+                    type: string
+                  "@graph":
+                    type: array
+              example:
+                "@context": "https://schema.org/"
+                "@graph": []
+        "400":
+          description: Bad request
+  /datasets/{dataset_id}:
+    get:
+      operationId: getDataset
+      summary: Fetch one dataset
+      parameters:
+        - name: dataset_id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: SDY998
+      responses:
+        "200":
+          description: One dataset
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  "@context":
+                    type: string
+                  "@id":
+                    type: string
+                  name:
+                    type: string
+              example:
+                "@context": "https://schema.org/"
+                "@type": Dataset
+                "@id": "https://example.org/datasets/SDY998"
+                name: Example
+        "404":
+          description: Not found

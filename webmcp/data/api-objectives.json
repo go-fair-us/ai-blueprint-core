@@ -1,0 +1,46 @@
+{
+  "objectives": [
+    {
+      "id": "json-ld",
+      "name": "Metadata encoding",
+      "summary": "API responses should return metadata encoded in JSON-LD, at least as an option, using the minimal metadata types and properties."
+    },
+    {
+      "id": "iri-structure",
+      "name": "IRI (URL) structure",
+      "summary": "Endpoints should be resource-oriented IRIs such as /datasets/{dataset_id}. Avoid verbs and complex query strings in the path. These IRIs can also serve as JSON-LD @id values."
+    },
+    {
+      "id": "http-get",
+      "name": "HTTP method",
+      "summary": "Retrieve metadata with HTTP GET. POST is acceptable when parameters must travel in the body because of size, complexity, or security."
+    },
+    {
+      "id": "openapi",
+      "name": "Documentation",
+      "summary": "Publish API documentation that follows OpenAPI/Swagger so both people and machines can read it."
+    }
+  ],
+  "fallbacks": [
+    {
+      "id": "html-embedded",
+      "name": "HTML-embedded metadata",
+      "summary": "If a repository cannot ship an API, put structured metadata (JSON-LD) directly in the webpage that describes the resource."
+    },
+    {
+      "id": "object-server",
+      "name": "Object server",
+      "summary": "An endpoint that delivers the bytes of a digital object or its metadata, rather than the repository that stores them."
+    },
+    {
+      "id": "downloadable-index",
+      "name": "Downloadable index",
+      "summary": "A computer-readable index of metadata that can be fetched without a query API."
+    },
+    {
+      "id": "knowledge-graph",
+      "name": "Queryable knowledge graph",
+      "summary": "Repositories with stronger API infrastructure may add complementary services such as a queryable metadata graph."
+    }
+  ]
+}

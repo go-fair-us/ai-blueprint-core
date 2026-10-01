@@ -22,8 +22,8 @@ Blueprint's minimal citation requirements (Blueprint Section 4).
 
 Authoritative source:
 
-- Blueprint spec: `docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md` (Section 4)
-- Raw URL: `https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/NIAID_Blueprint_v2_26Sep2025_forExternal.md`
+- Blueprint spec: `docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md` (Section 4)
+- Raw URL: `https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md`
 
 Bundled with this skill:
 

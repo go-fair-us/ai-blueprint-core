@@ -1,0 +1,331 @@
+:root {
+  --ink: #1b2430;
+  --muted: #4a5564;
+  --line: #d5dde6;
+  --paper: #f6f4ef;
+  --card: #fffdf8;
+  --brand: #1f4e79;
+  --brand-dark: #163a5a;
+  --accent: #c45c26;
+  --ok: #1f7a4d;
+  --warn: #8a4b12;
+  --fail: #9b1c1c;
+  --code: #0f1720;
+  --focus: #2b6cb0;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.55;
+  min-height: 100vh;
+}
+
+code, kbd, pre, textarea, input, select, button, .mono {
+  font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+a {
+  color: var(--brand);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:hover { color: var(--accent); }
+
+.site-header {
+  background: var(--brand);
+  color: #f8f4ec;
+  padding: 0.9rem 1.25rem 0;
+}
+
+.site-header a { color: inherit; }
+
+.header-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+.site-tag {
+  margin: 0.15rem 0 0;
+  font-size: 0.85rem;
+  opacity: 0.86;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+.webmcp-badge {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  background: rgba(0,0,0,0.18);
+}
+
+.webmcp-badge[data-state="available"] { background: var(--ok); border-color: transparent; }
+.webmcp-badge[data-state="missing"] { background: var(--fail); border-color: transparent; }
+.webmcp-badge[data-state="error"] { background: var(--warn); border-color: transparent; }
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.1rem;
+  margin-top: 0.85rem;
+}
+
+.site-nav a {
+  display: inline-block;
+  padding: 0.45rem 0.7rem 0.55rem;
+  text-decoration: none;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.88rem;
+  border-bottom: 3px solid transparent;
+  color: #f3ece3;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  border-bottom-color: #f3c27a;
+  color: #fff;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1.25rem 1.1rem 2.5rem;
+}
+
+main {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.35rem 1.4rem 1.6rem;
+  box-shadow: 0 1px 0 rgba(27,36,48,0.04);
+}
+
+main h1 {
+  margin: 0 0 0.4rem;
+  font-size: 1.85rem;
+  line-height: 1.2;
+  color: var(--brand-dark);
+}
+
+.lede {
+  font-size: 1.08rem;
+  color: var(--muted);
+  margin: 0 0 1.1rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+  color: var(--brand-dark);
+  margin: 1.4rem 0 0.45rem;
+}
+
+h3 { font-size: 1.02rem; margin: 1rem 0 0.35rem; }
+
+p { margin: 0.55rem 0; }
+
+ul, ol { padding-left: 1.2rem; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.85rem 0.9rem;
+  background: #fff;
+}
+
+.card h2, .card h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.02rem;
+}
+
+.card p { margin: 0; font-size: 0.95rem; color: var(--muted); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  margin: 0.75rem 0 1rem;
+}
+
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.45rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+th {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.note, .source {
+  font-size: 0.88rem;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  margin-top: 1.4rem;
+  padding-top: 0.7rem;
+}
+
+.tool-result {
+  margin-top: 1.1rem;
+  padding: 0.7rem 0.8rem;
+  background: #f0f4f8;
+  border: 1px dashed var(--brand);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.tool-result pre {
+  margin: 0.4rem 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--code);
+}
+
+form.citation-form,
+.tester {
+  display: grid;
+  gap: 0.65rem;
+}
+
+label {
+  display: grid;
+  gap: 0.25rem;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.86rem;
+}
+
+input, select, textarea, button {
+  font-size: 0.95rem;
+}
+
+input, select, textarea {
+  padding: 0.45rem 0.5rem;
+  border: 1px solid #b7c2ce;
+  border-radius: 6px;
+  background: #fff;
+}
+
+textarea { min-height: 7rem; }
+
+button, .button {
+  appearance: none;
+  border: 0;
+  border-radius: 6px;
+  background: var(--brand);
+  color: #fff;
+  padding: 0.5rem 0.85rem;
+  cursor: pointer;
+}
+
+button:hover { background: var(--brand-dark); }
+
+button.secondary {
+  background: #fff;
+  color: var(--brand-dark);
+  border: 1px solid var(--line);
+}
+
+.tester-wrap {
+  margin-top: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.tester-wrap > summary {
+  cursor: pointer;
+  padding: 0.7rem 0.9rem;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-weight: 650;
+}
+
+.tester {
+  padding: 0 0.9rem 0.95rem;
+}
+
+.tester-status {
+  font-size: 0.9rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 6px;
+  background: #f3efe6;
+}
+
+.tester-status.fail { background: #f8e4e4; color: var(--fail); }
+.tester-status.ok { background: #e5f4ea; color: var(--ok); }
+
+.tool-list {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.88rem;
+}
+
+.tool-list button {
+  background: #eef3f8;
+  color: var(--ink);
+  text-align: left;
+  border: 1px solid var(--line);
+}
+
+.tool-list button[aria-pressed="true"] {
+  outline: 2px solid var(--focus);
+}
+
+#citation-output {
+  padding: 0.7rem 0.8rem;
+  background: #f3efe6;
+  border-radius: 6px;
+  min-height: 3rem;
+}
+
+form:tool-form-active {
+  outline: light-dark(#2b6cb0, #7eb6ff) dashed 1px;
+  outline-offset: 4px;
+}
+
+footer.site-footer {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.1rem 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (min-width: 900px) {
+  .layout { padding-top: 1.6rem; }
+}
