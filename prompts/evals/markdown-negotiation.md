@@ -19,7 +19,9 @@ When no record URL is given, discover one public record from the homepage, `llms
 
 Stay on the repository host and an obvious API or docs subdomain. Send no credentials. Invent no record ids. Do not load-test, and do not retry in a loop.
 
-Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. This prompt may GET the record twice: once with `Accept: text/markdown`, and once for the advertised alternate when that URL is present. Prefer the raw HTTP body. Leave JavaScript unexecuted.
+Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. This prompt may GET the record twice: once with `Accept: text/markdown`, and once for the advertised alternate when that URL is present. Prefer the raw HTTP body.
+
+Client check. Before the first fetch, name the client you use and say whether it returns the status code, the response headers, and the unmodified body. Many agent fetch tools convert HTML to Markdown or summarize it. That drops `script`, `meta`, and `link` elements and hides headers. When your client cannot show evidence a check needs, set that check to `not-observable` and write `client cannot see <what>` in `evidence`. Do not infer it.
 
 A challenge, HTTP 401, or HTTP 403 is verdict `blocked`.
 
@@ -64,6 +66,8 @@ evaluation: markdown-negotiation
 target: <origin>
 sampled_record: <url or null>
 verdict: present | partial | absent | blocked | not-observable
+evaluated_at: <ISO 8601 date and time>
+client: <tool or library, and the User-Agent sent>
 checks:
   - id: accept-markdown
     result: pass | fail | not-observable
@@ -74,6 +78,10 @@ checks:
   - id: alternate-body
     result: pass | fail | not-observable
     evidence: <url, status, header, or a short quote>
+fetches:
+  - url: <url>
+    method: GET | HEAD
+    status: <code, or the error>
 summary: <a few sentences>
 gaps: []
 ```

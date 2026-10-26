@@ -23,7 +23,9 @@ A record URL is not required.
 
 Stay on the repository host and an obvious API or docs subdomain. Send no credentials. Invent no record ids. Do not load-test, and do not retry in a loop.
 
-Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. Prefer the raw HTTP body. Leave JavaScript unexecuted, except that you may GET a `swagger-initializer.js` the docs page references.
+Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. Prefer the raw HTTP body. You may GET a `swagger-initializer.js` the docs page references. When the raw docs body and that file name no spec URL, render that same docs URL once. A spec URL from either view counts. Name the view in evidence: `raw` or `rendered`. Count the rendered request in `fetches`. Do not render a second URL, and do not download other script bundles. When the docs body is a shell and you cannot render, set `spec-url-found` to `not-observable` and write `client cannot render` in evidence.
+
+Client check. Before the first fetch, name the client you use and say whether it returns the status code, the response headers, and the unmodified body. Many agent fetch tools convert HTML to Markdown or summarize it. That drops `script`, `meta`, and `link` elements and hides headers. When your client cannot show evidence a check needs, set that check to `not-observable` and write `client cannot see <what>` in `evidence`. Do not infer it.
 
 Ignore `petstore.swagger.io` and any other stock example while another candidate remains. A UI page alone is not the document.
 
@@ -36,15 +38,16 @@ A challenge, HTTP 401, or HTTP 403 on the docs or the spec is verdict `blocked`.
 1. GET the homepage and one docs link (API, developer, or Swagger). Also check `{origin}/llms.txt` when you already need a hint.
 2. Prefer a linked spec (`.json`, `.yaml`, `.yml`, or a path such as `/openapi` or `/api-docs`). A link that only opens Swagger UI, ReDoc, or RapiDoc is not yet the spec.
 3. When the page is a UI, read its config or `swagger-initializer.js` and follow one `url` or `configUrl` on the same host.
-4. GET that one document. Read the top-level `openapi` or `swagger` field and `info.title`.
+4. When the raw docs body and `swagger-initializer.js` name no spec URL, render that docs URL once and read a spec URL from the rendered view.
+5. GET that one document. Read the top-level `openapi` or `swagger` field and `info.title`.
 
 ### Pass conditions
 
-- `spec-url-found`. Pass when a candidate document URL on the repository host was named from a page, a config, or the user.
+- `spec-url-found`. Pass when a candidate document URL on the repository host was named from a page, a config, one rendered view of the docs page, or the user.
 - `spec-parses`. Pass when the body is JSON or YAML with an `openapi` 3.x field or a `swagger` `2.0` field.
 - `spec-is-repository`. Pass when the document is the repository's own API. Fail when the only document is the stock petstore example.
 
-Verdict `present` when all three pass. Verdict `partial` when a UI or docs page was found and the spec URL fails or is only the petstore example. Verdict `absent` when the fetched pages name no spec and no UI. Verdict `blocked` when the docs or spec sit behind an access wall. Verdict `not-observable` when the docs body is an application shell, so no link could be read.
+Verdict `present` when all three pass. Verdict `partial` when a UI or docs page was found and the spec URL fails or is only the petstore example. Verdict `absent` when the fetched pages name no spec and no UI. Verdict `blocked` when the docs or spec sit behind an access wall. Verdict `not-observable` when the raw docs body and one rendered view of it are application shells, so no link could be read.
 
 In `summary`, give the spec URL and say that Section 3 scoring is `niaid-bp-api-assess`.
 
@@ -74,6 +77,8 @@ evaluation: openapi-discovery
 target: <origin>
 sampled_record: <url or null>
 verdict: present | partial | absent | blocked | not-observable
+evaluated_at: <ISO 8601 date and time>
+client: <tool or library, and the User-Agent sent>
 checks:
   - id: spec-url-found
     result: pass | fail | not-observable
@@ -84,6 +89,10 @@ checks:
   - id: spec-is-repository
     result: pass | fail | not-observable
     evidence: <url, status, header, or a short quote>
+fetches:
+  - url: <url>
+    method: GET | HEAD
+    status: <code, or the error>
 summary: <a few sentences, including the spec URL>
 gaps: []
 ```

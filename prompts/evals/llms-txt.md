@@ -21,7 +21,9 @@ When no record URL is given, discover one public record from the homepage, `llms
 
 Stay on the repository host and an obvious API or docs subdomain. Send no credentials. Invent no record ids. Do not load-test, and do not retry in a loop.
 
-Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. Prefer the raw HTTP body. Leave JavaScript unexecuted.
+Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. Prefer the raw HTTP body.
+
+Client check. Before the first fetch, name the client you use and say whether it returns the status code, the response headers, and the unmodified body. Many agent fetch tools convert HTML to Markdown or summarize it. That drops `script`, `meta`, and `link` elements and hides headers. When your client cannot show evidence a check needs, set that check to `not-observable` and write `client cannot see <what>` in `evidence`. Do not infer it.
 
 A challenge, HTTP 401, or HTTP 403 is verdict `blocked` for that URL.
 
@@ -38,6 +40,7 @@ A challenge, HTTP 401, or HTTP 403 is verdict `blocked` for that URL.
 
 - `llms-found`. Pass when a fetched body is an `llms.txt` document.
 - `llms-has-links`. Pass when that file lists at least one http(s) or root-relative URL.
+- `llms-structure`. Pass when the file opens with a Markdown H1 naming the site, and its links sit in Markdown lists under H2 sections, as llmstxt.org describes. Quote the H1 and the H2 names. Fail when the body is a bare URL list or HTML. This supporting check does not change the verdict.
 - `alternate-markdown`. Pass when the record response has `rel="alternate"` and `type="text/markdown"` in a `link` tag or a `Link` header.
 - `describedby`. Pass when the record response has `rel="describedby"` pointing at an `llms.txt`.
 
@@ -69,11 +72,16 @@ evaluation: llms-txt
 target: <origin>
 sampled_record: <url or null>
 verdict: present | partial | absent | blocked | not-observable
+evaluated_at: <ISO 8601 date and time>
+client: <tool or library, and the User-Agent sent>
 checks:
   - id: llms-found
     result: pass | fail | not-observable
     evidence: <url, status, header, or a short quote>
   - id: llms-has-links
+    result: pass | fail | not-observable
+    evidence: <url, status, header, or a short quote>
+  - id: llms-structure
     result: pass | fail | not-observable
     evidence: <url, status, header, or a short quote>
   - id: alternate-markdown
@@ -82,6 +90,10 @@ checks:
   - id: describedby
     result: pass | fail | not-observable
     evidence: <url, status, header, or a short quote>
+fetches:
+  - url: <url>
+    method: GET | HEAD
+    status: <code, or the error>
 summary: <a few sentences>
 gaps: []
 ```

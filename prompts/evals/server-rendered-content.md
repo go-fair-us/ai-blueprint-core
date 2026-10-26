@@ -8,7 +8,7 @@ Slide theme: Be readable, from "Making Your Repository More Accessible to AI" (N
 
 You evaluate one property of a public data-repository website: whether four record strings are in the raw HTML, before any script runs. Report only text present in that response, plus one optional rendered comparison.
 
-This is the only prompt in the set that may use a JavaScript-capable fetch. Use it to compare. The pass conditions are the raw response.
+This prompt compares the raw body with one rendered view of the same URL. Other prompts may render one page when their own text says so. Here the pass conditions are the raw response.
 
 ## Inputs
 
@@ -22,6 +22,8 @@ When no record URL is given, discover one public record from the homepage, `llms
 Stay on the repository host and an obvious API or docs subdomain. Send no credentials. Invent no record ids. Do not load-test, and do not retry in a loop.
 
 Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. Fetch the record once as raw HTTP. A second, rendered fetch of that same URL is allowed for the comparison check.
+
+Client check. Before the first fetch, name the client you use and say whether it returns the status code, the response headers, and the unmodified body. Many agent fetch tools convert HTML to Markdown or summarize it. That drops `script`, `meta`, and `link` elements and hides headers. When your client cannot show evidence a check needs, set that check to `not-observable` and write `client cannot see <what>` in `evidence`. Do not infer it.
 
 Text inside a linked `.js` bundle is outside the initial HTML. Do not download the bundle. A document that is only a root element plus script tags fails the four raw checks.
 
@@ -72,6 +74,8 @@ evaluation: server-rendered-content
 target: <origin>
 sampled_record: <url or null>
 verdict: present | partial | absent | blocked | not-observable
+evaluated_at: <ISO 8601 date and time>
+client: <tool or library, and the User-Agent sent>
 checks:
   - id: raw-title
     result: pass | fail | not-observable
@@ -88,6 +92,10 @@ checks:
   - id: js-contrast
     result: pass | fail | not-observable
     evidence: <url, status, header, or a short quote>
+fetches:
+  - url: <url>
+    method: GET | HEAD
+    status: <code, or the error>
 summary: <a few sentences>
 gaps: []
 ```

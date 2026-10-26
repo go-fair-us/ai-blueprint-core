@@ -25,7 +25,9 @@ Stay on the repository host and an obvious API or docs subdomain. Send no creden
 
 Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. This prompt uses the homepage and one record. Prefer the raw HTTP body. Leave JavaScript unexecuted.
 
-A challenge page, HTTP 401 or 403, or an empty access wall is verdict `blocked` for that URL.
+Client check. Before the first fetch, name the client you use and say whether it returns the status code, the response headers, and the unmodified body. Many agent fetch tools convert HTML to Markdown or summarize it. That drops `script`, `meta`, and `link` elements and hides headers. When your client cannot show evidence a check needs, set that check to `not-observable` and write `client cannot see <what>` in `evidence`. Do not infer it.
+
+A challenge page, HTTP 401 or 403, or an empty access wall is verdict `blocked` for that URL. CDN and firewall bot filters often answer automated clients this way. When a response is blocked, quote whatever names the filter: a header such as `cf-mitigated: challenge` or `server: AkamaiGHost`, or page text such as "Just a moment", "Verify you are human", or "Access denied". That tells the operator to look at the CDN setting, not the application.
 
 ## Checks
 
@@ -69,6 +71,8 @@ evaluation: reachable-fetch
 target: <origin>
 sampled_record: <url or null>
 verdict: present | partial | absent | blocked | not-observable
+evaluated_at: <ISO 8601 date and time>
+client: <tool or library, and the User-Agent sent>
 checks:
   - id: homepage-get
     result: pass | fail | not-observable
@@ -76,6 +80,10 @@ checks:
   - id: record-get
     result: pass | fail | not-observable
     evidence: <url, status, header, or a short quote>
+fetches:
+  - url: <url>
+    method: GET | HEAD
+    status: <code, or the error>
 summary: <a few sentences>
 gaps: []
 ```

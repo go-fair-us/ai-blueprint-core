@@ -19,7 +19,9 @@ A validator buried in a submission UI, with no shapes file linked, does not pass
 
 Stay on the repository host and an obvious API or docs subdomain. Send no credentials. Invent no shapes URL. Do not load-test. Do not run pySHACL or any other validator.
 
-Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. This prompt reads the homepage, one `llms.txt`, one docs page, and one shapes file. Prefer the raw HTTP body.
+Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. This prompt reads the homepage, one `llms.txt`, one docs page, and one shapes file. Prefer the raw HTTP body. When the docs page is an application shell, or its raw body has no link to a shapes file, render that same docs URL once and read links from the rendered view. The shapes file stays a raw GET. Name the view in evidence: `raw` or `rendered`. Count the rendered request in `fetches`. Do not render a second URL, and do not download script bundles. When the docs body is a shell and you cannot render, set `shapes-linked` to `not-observable` and write `client cannot render` in evidence.
+
+Client check. Before the first fetch, name the client you use and say whether it returns the status code, the response headers, and the unmodified body. Many agent fetch tools convert HTML to Markdown or summarize it. That drops `script`, `meta`, and `link` elements and hides headers. When your client cannot show evidence a check needs, set that check to `not-observable` and write `client cannot see <what>` in `evidence`. Do not infer it.
 
 A challenge, HTTP 401, or HTTP 403 on the shapes file is verdict `blocked`.
 
@@ -27,7 +29,7 @@ A challenge, HTTP 401, or HTTP 403 on the shapes file is verdict `blocked`.
 
 ### Procedure
 
-1. GET the homepage and `{origin}/llms.txt`. Follow one docs link that mentions validation, shapes, or submission rules.
+1. GET the homepage and `{origin}/llms.txt`. Follow one docs link that mentions validation, shapes, or submission rules. When that docs page is an application shell, or its raw body has no link to a shapes file, render it once before you decide it has no shapes link.
 2. Choose one linked `.ttl`, `.rdf`, or shapes URL, or a link the page labels as SHACL.
 3. GET that file. Quote one shape term. When an HTML page only describes a validator, record that and leave the shape term empty.
 
@@ -65,6 +67,8 @@ evaluation: shacl-shapes
 target: <origin>
 sampled_record: <url or null>
 verdict: present | partial | absent | blocked | not-observable
+evaluated_at: <ISO 8601 date and time>
+client: <tool or library, and the User-Agent sent>
 checks:
   - id: shapes-linked
     result: pass | fail | not-observable
@@ -75,6 +79,10 @@ checks:
   - id: shacl-af-noted
     result: pass | fail | not-observable
     evidence: <url, status, header, or a short quote>
+fetches:
+  - url: <url>
+    method: GET | HEAD
+    status: <code, or the error>
 summary: <a few sentences>
 gaps: []
 ```

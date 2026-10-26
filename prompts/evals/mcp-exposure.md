@@ -19,7 +19,9 @@ A CLI named in the docs is worth a sentence in `summary`. It does not make this 
 
 Stay on the repository host and an obvious API or docs subdomain. A registry host is allowed only for a URL the site itself links. Send no credentials. Invent no record ids. Do not call MCP tools. Do not load-test.
 
-Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. This prompt reads the homepage, one `llms.txt`, and one docs page. Prefer the raw HTTP body.
+Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. This prompt reads the homepage, one `llms.txt`, and one docs page. Prefer the raw HTTP body. When the docs page is an application shell, or its raw body does not mention MCP, render that same docs URL once. A pass from either view counts. Name the view in evidence: `raw` or `rendered`. Count the rendered request in `fetches`. Do not render a second URL, and do not download script bundles. When the docs body is a shell and you cannot render, set the MCP checks to `not-observable` and write `client cannot render` in evidence.
+
+Client check. Before the first fetch, name the client you use and say whether it returns the status code, the response headers, and the unmodified body. Many agent fetch tools convert HTML to Markdown or summarize it. That drops `script`, `meta`, and `link` elements and hides headers. When your client cannot show evidence a check needs, set that check to `not-observable` and write `client cannot see <what>` in `evidence`. Do not infer it.
 
 A challenge, HTTP 401, or HTTP 403 on the docs page is verdict `blocked`.
 
@@ -27,7 +29,7 @@ A challenge, HTTP 401, or HTTP 403 on the docs page is verdict `blocked`.
 
 ### Procedure
 
-1. GET the homepage and `{origin}/llms.txt`. Follow one docs link when those pages mention MCP, tools, or a model context server.
+1. GET the homepage and `{origin}/llms.txt`. Follow one docs link when those pages mention MCP, tools, or a model context server. When that docs page is an application shell, or its raw body does not mention MCP, render it once before you decide it says nothing about MCP.
 2. Quote any remote MCP URL (scheme, host, and path).
 3. When the site links a registry entry, GET that one entry and quote the name shown there.
 4. When the site says the server is local only, quote that sentence and leave the remote URL empty.
@@ -38,7 +40,7 @@ A challenge, HTTP 401, or HTTP 403 on the docs page is verdict `blocked`.
 - `remote-endpoint`. Pass when that material includes an http(s) URL for a remote server. Fail when the only instruction is to run a server on localhost. Use `not-observable` when MCP is not mentioned.
 - `registry-entry`. Pass when a site-linked registry URL was fetched and names this repository. Use `not-observable` when the site links no registry entry. Do not fail the evaluation for that absence.
 
-Verdict `present` when `mcp-documented` and `remote-endpoint` pass. `registry-entry` may be `not-observable`. Verdict `partial` when MCP is documented as local-only, or documented without a URL. Verdict `absent` when the homepage, `llms.txt`, and the one docs page were read and do not mention MCP. Verdict `not-observable` when those pages could not be read (application shell or failed fetch) and no MCP link was visible. Verdict `blocked` when the only docs URL is behind an access wall.
+Verdict `present` when `mcp-documented` and `remote-endpoint` pass. `registry-entry` may be `not-observable`. Verdict `partial` when MCP is documented as local-only, or documented without a URL. Verdict `absent` when the homepage, `llms.txt`, and the one docs page were read and do not mention MCP. Verdict `not-observable` when the raw docs page and one rendered view of it could not be read and no MCP link was visible. Verdict `blocked` when the only docs URL is behind an access wall.
 
 ## Out of scope
 
@@ -65,6 +67,8 @@ evaluation: mcp-exposure
 target: <origin>
 sampled_record: <url or null>
 verdict: present | partial | absent | blocked | not-observable
+evaluated_at: <ISO 8601 date and time>
+client: <tool or library, and the User-Agent sent>
 checks:
   - id: mcp-documented
     result: pass | fail | not-observable
@@ -75,6 +79,10 @@ checks:
   - id: registry-entry
     result: pass | fail | not-observable
     evidence: <url, status, header, or a short quote>
+fetches:
+  - url: <url>
+    method: GET | HEAD
+    status: <code, or the error>
 summary: <a few sentences>
 gaps: []
 ```

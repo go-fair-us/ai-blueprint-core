@@ -23,6 +23,8 @@ Stay on the repository host and an obvious API or docs subdomain. Send no creden
 
 Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. Prefer the raw HTTP body.
 
+Client check. Before the first fetch, name the client you use and say whether it returns the status code, the response headers, and the unmodified body. Many agent fetch tools convert HTML to Markdown or summarize it. That drops `script`, `meta`, and `link` elements and hides headers. When your client cannot show evidence a check needs, set that check to `not-observable` and write `client cannot see <what>` in `evidence`. Do not infer it.
+
 A challenge, HTTP 401, or HTTP 403 on the sitemap is verdict `blocked`.
 
 ## Checks
@@ -33,12 +35,14 @@ A challenge, HTTP 401, or HTTP 403 on the sitemap is verdict `blocked`.
 2. When no `Sitemap:` line exists, GET `{origin}/sitemap.xml`.
 3. Open at most 3 sitemap documents, counting the index. Scan at most 50 `loc` values in total.
 4. Classify a `loc` as a record URL when it is the supplied record URL, or when the path looks like a dataset, study, experiment, or accession page. Quote the matching `loc` values, up to five.
+5. Note whether the scanned entries carry `lastmod`. Crawlers and agents use it to decide what to fetch again.
 
 ### Pass conditions
 
 - `sitemap-discovered`. Pass when a sitemap URL came from `robots.txt` or from `{origin}/sitemap.xml` with HTTP 200.
 - `sitemap-parsed`. Pass when the body is a `urlset` or a `sitemapindex`. Fail when the body is HTML or empty.
 - `record-urls`. Pass when at least one scanned `loc` is a record URL. Use `not-observable` when the cap was reached before any record URL appeared. Fail when the scanned URLs are only the homepage, docs, or other non-record pages.
+- `lastmod`. Pass when most scanned `url` entries have a `lastmod` date. Fail when none do. Quote one value. This supporting check does not change the verdict.
 
 Verdict `present` when all three pass. Verdict `partial` when a sitemap parses and `record-urls` fails or is `not-observable`. Verdict `absent` when no sitemap URL returns a document. Verdict `blocked` when the discovered sitemap response is a challenge, 401, or 403.
 
@@ -68,6 +72,8 @@ evaluation: sitemap
 target: <origin>
 sampled_record: <url or null>
 verdict: present | partial | absent | blocked | not-observable
+evaluated_at: <ISO 8601 date and time>
+client: <tool or library, and the User-Agent sent>
 checks:
   - id: sitemap-discovered
     result: pass | fail | not-observable
@@ -78,6 +84,13 @@ checks:
   - id: record-urls
     result: pass | fail | not-observable
     evidence: <url, status, header, or a short quote>
+  - id: lastmod
+    result: pass | fail | not-observable
+    evidence: <url, status, header, or a short quote>
+fetches:
+  - url: <url>
+    method: GET | HEAD
+    status: <code, or the error>
 summary: <a few sentences>
 gaps: []
 ```

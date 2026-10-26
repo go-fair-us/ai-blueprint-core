@@ -2,7 +2,7 @@
 
 Single-question prompts for a public data-repository website. The questions come from the Phase III webinar "Making Your Repository More Accessible to AI" (NIAID Blueprint Webinar Series, 6 November 2026), in `docs/Phase III NIAID Slides 11_6.pdf`.
 
-The talk describes what a repository can expose to an agent. The four themes are reachable, readable, callable, and meaningful. Two further concerns are rights and citation, because a scrape can drop both. Each file in this folder answers one of those questions.
+The talk describes what a repository can expose to an agent. The four themes are reachable, readable, callable, and meaningful. Three further concerns are rights, attribution, and lineage, because a scrape can drop all three. The talk's evaluation slide adds one more step: run your own competency questions against an agent. Each file in this folder answers one of those questions.
 
 Paste one file and give the model a repository origin URL. Add a dataset, study, or record URL when you have one. The prompt stops at its own question.
 
@@ -16,7 +16,7 @@ These files are ordinary Markdown under `prompts/`. The MCP server can list and 
 
 ## Shared report
 
-Every prompt asks for the same YAML shape. `verdict` is one of:
+Every prompt asks for the same YAML shape. Besides `verdict` and `checks`, each report records `evaluated_at`, the `client` and User-Agent used, and a `fetches` list of every request with its status. Sites change, so a dated report with its request log is what makes two runs comparable. `verdict` is one of:
 
 | Verdict | When to use it |
 |---|---|
@@ -28,7 +28,17 @@ Every prompt asks for the same YAML shape. `verdict` is one of:
 
 `robots-policy.md` reports Allow and Disallow as observations. Permission for a trainer crawler is not a passing grade.
 
-Fetch budget, repeated in each file: stay on the repository host and an obvious API or docs subdomain. Send no credentials. Invent no record ids. Do not load-test or retry in a loop. Caps: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. Prefer the raw HTTP body. Only `server-rendered-content.md` uses a JavaScript-capable fetch, and only to compare it with that raw body.
+Fetch budget, repeated in each file: stay on the repository host and an obvious API or docs subdomain. Send no credentials. Invent no record ids. Do not load-test or retry in a loop. Caps: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. Prefer the raw HTTP body. `competency-answerability.md` has its own cap of 5 requests per question and 15 in total.
+
+JavaScript. These prompts do not require JavaScript. A rendered view is a second look at a URL already fetched, and only where that prompt says so. When a prompt allows a render and the client cannot render, that check is `not-observable`.
+
+The raw response is the score for `reachable-fetch.md`, `robots-policy.md`, `sitemap.md`, `metadata-api.md`, `api-http-behavior.md`, `dataset-jsonld.md`, `rights-and-license.md`, `provenance-lineage.md`, and `metadata-profile.md`. `server-rendered-content.md` also scores the initial HTML. Its rendered fetch is a comparison and does not change the verdict.
+
+`llms-txt.md` and `markdown-negotiation.md` read a file or response headers. They have no JavaScript rule.
+
+These prompts fetch the raw body first, then render that same URL once when the body is an application shell or lacks the artifact: `agent-documentation.md`, `openapi-discovery.md`, `citation.md`, `persistent-identifiers.md`, `vocabulary.md`, `competency-questions.md`, `competency-answerability.md`, `bulk-export.md`, `mcp-exposure.md`, `sssom-mappings.md`, and `shacl-shapes.md`. Evidence names the view, `raw` or `rendered`. The rendered request counts in `fetches`.
+
+Client check, also repeated in each file: many agent fetch tools convert HTML to Markdown or summarize it. That drops JSON-LD `script` blocks, `link` relations, and response headers, which many checks depend on. Each prompt asks the model to say what its client can see, and to mark a check `not-observable` rather than guess when the client cannot see the evidence. Use a client that returns raw bodies and headers (`curl -i`, or an HTTP library) for the most complete results.
 
 ## Suggested order
 
@@ -36,9 +46,10 @@ Run these by hand in this order when you want a full pass:
 
 1. `reachable-fetch.md`, `robots-policy.md`
 2. `llms-txt.md`, `sitemap.md`, `server-rendered-content.md`
-3. `dataset-jsonld.md`, `persistent-identifiers.md`, `rights-and-license.md`, `citation.md`
+3. `dataset-jsonld.md`, `persistent-identifiers.md`, `rights-and-license.md`, `citation.md`, `provenance-lineage.md`
 4. `openapi-discovery.md`, `metadata-api.md`, `api-http-behavior.md`, `mcp-exposure.md`
 5. `vocabulary.md`, `metadata-profile.md`, `shacl-shapes.md`, `sssom-mappings.md`, `competency-questions.md`
+6. `competency-answerability.md`, last, because it uses the questions step 5 found and shows which of the features above an agent actually used
 
 `bulk-export.md`, `markdown-negotiation.md`, and `agent-documentation.md` sit with the readable group whenever you need them.
 
@@ -63,14 +74,16 @@ Run these by hand in this order when you want a full pass:
 | `persistent-identifiers.md` | Which of DOI or accession, ORCID, ROR, and RRID appear as IRIs? | Yes |
 | `vocabulary.md` | Is there a stable glossary or data dictionary, and a link to an ontology the repository uses? | Optional |
 | `rights-and-license.md` | Are license and access conditions in machine-readable metadata? | Yes |
-| `citation.md` | Is there a public citation pattern, with creators, in the raw fetch? | Optional |
+| `citation.md` | Is there a public citation pattern, with creators, that an agent can read? | Optional |
+| `provenance-lineage.md` | Does the record state its version, its derivation, and file checksums? | Yes |
 | `shacl-shapes.md` | Are record or submission rules published as SHACL? | No |
 | `sssom-mappings.md` | Is a public SSSOM mapping set linked? | No |
 | `competency-questions.md` | Does the site publish competency questions about its own data? | No |
+| `competency-answerability.md` | Can an agent answer up to three of those questions from the site alone? | No |
 
 ## Deferred
 
-This pass does not score FAIR Signposting, WebMCP, generative UI, a Chrome Lighthouse agent audit, or CDN logs by user agent. The slides mark signposting, WebMCP, and generative UI as later topics. Lighthouse and log breakdowns need a browser audit or operator logs.
+This pass does not score FAIR Signposting, WebMCP, generative UI, a Chrome Lighthouse agent audit, or CDN logs by user agent. Of the slides' three evaluation methods, only competency questions are covered here (`competency-answerability.md`). The slides mark signposting, WebMCP, and generative UI as later topics. Lighthouse and log breakdowns need a browser audit or operator logs.
 
 Blueprint text, when a prompt needs it:
 

@@ -24,6 +24,8 @@ Stay on the repository host and an obvious API or docs subdomain. Send no creden
 
 Caps for this pass: the homepage, `robots.txt`, one `llms.txt`, at most 3 sitemap files and 50 URLs scanned, one record page, one metadata GET, and one OpenAPI document. One metadata GET means one request. Prefer the raw HTTP body.
 
+Client check. Before the first fetch, name the client you use and say whether it returns the status code, the response headers, and the unmodified body. Many agent fetch tools convert HTML to Markdown or summarize it. That drops `script`, `meta`, and `link` elements and hides headers. When your client cannot show evidence a check needs, set that check to `not-observable` and write `client cannot see <what>` in `evidence`. Do not infer it.
+
 A challenge, HTTP 401, or HTTP 403 on that GET is verdict `blocked`. A response that asks for a key is `blocked`.
 
 ## Checks
@@ -71,6 +73,8 @@ evaluation: metadata-api
 target: <origin>
 sampled_record: <url or null>
 verdict: present | partial | absent | blocked | not-observable
+evaluated_at: <ISO 8601 date and time>
+client: <tool or library, and the User-Agent sent>
 checks:
   - id: endpoint-found
     result: pass | fail | not-observable
@@ -84,6 +88,10 @@ checks:
   - id: jsonld-body
     result: pass | fail | not-observable
     evidence: <url, status, header, or a short quote>
+fetches:
+  - url: <url>
+    method: GET | HEAD
+    status: <code, or the error>
 summary: <a few sentences>
 gaps: []
 ```
