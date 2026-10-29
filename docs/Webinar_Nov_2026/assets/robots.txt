@@ -1,0 +1,164 @@
+# Demonstration robots.txt for the 6 November 2026 NIAID Blueprint webinar,
+# "Making Your Repository More Accessible to AI."
+#
+# This copy lives under docs/ and is not served at /robots.txt.
+# Copy it to the site root after you replace example.org and /admin/.
+#
+# The file can ask a client to stay out, or to limit how it uses a page.
+# It cannot make the client comply. Read the public /robots.txt URL after
+# you deploy. A CDN-managed robots.txt can replace the file you uploaded.
+#
+# Three kinds of visitor:
+#
+#   Index builder    Walks the site on its own to put citable pages in a
+#                    search index. Allow the product token.
+#   Fetcher          Retrieves a page because a person, or that person's
+#                    agent, asked for it. Allow the product token. Several
+#                    vendors still fetch when this file says otherwise.
+#   Trainer crawler  Walks the site on its own to collect text for model
+#                    training. Disallow the product token.
+#
+# A named User-agent group replaces the "*" group for that product token
+# (RFC 9309). Each allow group below repeats the /admin/ block and both
+# usage lines so those rules stay in force for that token.
+#
+# A CDN or firewall can block a fetcher that this file allows. Check the
+# bot rules there. Match the vendor's published user-agent token and its
+# current IP list. Leave the addresses out of this file; the lists change.
+#   OpenAI      https://openai.com/searchbot.json
+#               https://openai.com/gptbot.json
+#               https://openai.com/chatgpt-user.json
+#               https://openai.com/adsbot.json
+#   Perplexity  https://www.perplexity.com/perplexitybot.json
+#               https://www.perplexity.com/perplexity-user.json
+#   Anthropic   https://claude.com/crawling/bots.json
+# Anthropic's crawler page (7 April 2026) says an IP block can also stop
+# its crawler from reading robots.txt, so an address block is a weak
+# training opt-out. The robots.txt rule is the opt-out they ask for.
+#
+# Rate is an HTTP response, not a robots.txt rule. RFC 9309 does not
+# define Crawl-delay. Anthropic documents Crawl-delay; this example
+# leaves it out. When a client asks too fast, answer from the origin
+# or the CDN:
+#   HTTP/1.1 429 Too Many Requests
+#   Retry-After: 30
+#
+# Two usage vocabularies follow. Keep them on separate lines.
+# The words are different, and a parser for one will not read the other.
+#
+# Cloudflare Content Signals (policy text is CC0):
+#   https://blog.cloudflare.com/content-signals-policy/
+#   search     A search index of links and short excerpts.
+#              An AI-written summary is outside this signal.
+#   ai-input   Content sent into a model at answer time
+#              (retrieval, grounding, or a similar live use).
+#   ai-train   Training or fine-tuning a model.
+#   yes        That use is allowed.
+#   no         That use is refused.
+#   (omitted)  The signal neither grants nor restricts that use.
+# Cloudflare's text says a "no" is an express reservation of rights
+# under Article 4 of EU Directive 2019/790 (copyright and related
+# rights in the Digital Single Market).
+# This example sets all three signals on purpose:
+#   Content-Signal: search=yes, ai-input=yes, ai-train=no
+#
+# IETF AI Preferences. These are working drafts, not RFCs.
+# Published 19 August 2026. Labels are case-sensitive. Values are y or n.
+#   Vocabulary   draft-ietf-aipref-vocab-07
+#                https://datatracker.ietf.org/doc/html/draft-ietf-aipref-vocab-07
+#   Attachment   draft-ietf-aipref-attach-05
+#                https://www.ietf.org/archive/id/draft-ietf-aipref-attach-05.html
+#   search       Select the asset and send the person to it, with a
+#                direct link. A short excerpt may help them judge the hit.
+#                A generated summary is outside this category.
+#   train-ai     Use the asset to change a model's learned parameters.
+#   y / n        Allow that category, or refuse it.
+#   (omitted)    The preference for that category is unknown.
+# draft-ietf-aipref-vocab-07 has no label for answer-time model input
+# (Cloudflare's ai-input). This file leaves that IETF category unknown.
+#   Content-Usage: search=y, train-ai=n
+# The attachment draft also carries the same dictionary on the HTTP
+# response. That header stays with the bytes when a client skips this
+# file:
+#   Content-Usage: search=y, train-ai=n
+# A preference attaches only to a path the client is allowed to crawl.
+# The longest matching path prefix wins. A path form can grant training
+# on one collection while the rest of the site refuses it. Those two
+# lines are syntax only. They are not rules in this file:
+#   Content-Usage: train-ai=n
+#   Content-Usage: /collection/open/ train-ai=y
+#
+# Vendor product tokens, checked for this example:
+#   OpenAI      https://developers.openai.com/api/docs/bots
+#   Perplexity  https://docs.perplexity.ai/docs/resources/perplexity-crawlers
+#   Anthropic   https://privacy.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler
+
+# --- Index builders ----------------------------------------------------
+# OpenAI: OAI-SearchBot fills ChatGPT search. Allowing OAI-SearchBot
+# and GPTBot together can let one crawl feed both search and training.
+# This file allows the search bot and disallows GPTBot below.
+# PerplexityBot fills Perplexity search. It is not their training crawler.
+# Claude-SearchBot indexes pages for Claude search. Disallowing it
+# keeps the site out of that index.
+
+User-agent: OAI-SearchBot
+User-agent: PerplexityBot
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /admin/
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Content-Usage: search=y, train-ai=n
+
+# --- User-triggered fetchers -------------------------------------------
+# OpenAI: a person started the ChatGPT-User visit, so robots.txt rules
+# may not apply. ChatGPT-User does not decide search inclusion.
+# Perplexity: Perplexity-User generally ignores robots.txt.
+# Anthropic: Claude-User honors robots.txt. Disallowing Claude-User
+# stops retrieval for a person's question.
+# The Allow line is the welcome. Load control stays on the response:
+#   HTTP/1.1 429 Too Many Requests
+#   Retry-After: 30
+
+User-agent: ChatGPT-User
+User-agent: Perplexity-User
+User-agent: Claude-User
+Allow: /
+Disallow: /admin/
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Content-Usage: search=y, train-ai=n
+
+# --- Ad-page checks ----------------------------------------------------
+# OAI-AdsBot visits pages submitted as ChatGPT ads. OpenAI says the
+# data it collects is not used to train generative AI foundation models.
+
+User-agent: OAI-AdsBot
+Allow: /
+Disallow: /admin/
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Content-Usage: search=y, train-ai=n
+
+# --- Trainer crawlers --------------------------------------------------
+# Disallow the fetch. No Content-Usage line: a preference attaches
+# only to a path the bot may crawl. OpenAI treats a GPTBot disallow
+# as the opt-out from training foundation models. Anthropic treats a
+# ClaudeBot disallow as the signal to keep future material out of
+# training datasets. A client that fetches anyway still sees the
+# Content-Usage header on the HTTP response.
+
+User-agent: GPTBot
+User-agent: ClaudeBot
+Disallow: /
+
+# --- Everyone else -----------------------------------------------------
+# /admin/ is a placeholder path. Replace it with a real path, or
+# remove the Disallow line.
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Content-Usage: search=y, train-ai=n
+
+# The Sitemap line is global. It is not limited to the group above.
+# Replace the host before copying this file to a live site root.
+Sitemap: https://example.org/sitemap.xml

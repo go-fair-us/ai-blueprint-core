@@ -1,0 +1,51 @@
+# Example Data Repository
+
+> Public studies of human immune response. Each study has an HTML page, a Markdown alternate, a schema.org Dataset record in JSON-LD, and a citation. Study identifiers look like SDY1001.
+
+This file is the reading order for an agent. It is a demonstration for the 6 November 2026 NIAID Blueprint webinar and is not served at `/llms.txt`. Replace `example.org` before publishing it.
+
+The sitemap at <https://example.org/sitemap.xml> is the inventory. It lists public URLs and the `lastmod` of each page, and it can name a bulk file. This file names what to read, in what order, and why. It stays small enough to fit in context. The detail sits behind the links.
+
+Crawl permission is in <https://example.org/robots.txt>. Search and user-triggered fetch are allowed there. Training crawls are not. A page that is disallowed is not listed here.
+
+Read the Markdown alternate of a page. The HTML is for a person, and its text may appear only after JavaScript runs. Two URL shapes are both valid. A page at `/about/citation.html` can publish `/about/citation.html.md` (the suffix appended). A page at `/docs/access.html` can publish `/docs/access.md` (the extension replaced). A directory URL appends `index.md` or `index.html.md`.
+
+The page points at that Markdown and at the `llms.txt` that covers it. Use an HTML `link` element, or a `Link` header. The header also works on the Markdown file and on a file that is not HTML, and a CDN can add it without editing the page. Some servers also honor `Accept: text/markdown`. The link relation is the discovery path to rely on.
+
+```
+Link: </studies/SDY1001.md>; rel="alternate"; type="text/markdown", </studies/llms.txt>; rel="describedby"
+```
+
+```html
+<link rel="alternate" type="text/markdown" href="https://example.org/studies/SDY1001.md">
+<link rel="describedby" href="https://example.org/studies/llms.txt">
+```
+
+An `llms.txt` covers the pages under its own path. This file covers the site. A file at `/studies/llms.txt` covers `/studies/`, and the more specific file wins for those pages. The Optional section is secondary reading. Skip it when the context is short. The name carries no other parser rule.
+
+Links may leave this host. A sitemap cannot do that.
+
+## Start here
+
+- [Repository overview](https://example.org/index.md): What the repository holds, and what an agent can cite.
+- [Citation](https://example.org/about/citation.html.md): The citation string and the BibTeX for a study. Markdown suffix appended to the HTML name.
+- [Access and licenses](https://example.org/docs/access.md): Which studies are open, and which require an agreement. Extension replaced with `.md`.
+
+## Studies
+
+- [Study guide](https://example.org/studies/llms.txt): The `llms.txt` for `/studies/`. Use it instead of this file for a study page.
+- [Study index](https://example.org/studies/index.md): How study pages, identifiers, and files are laid out. Directory form of the Markdown URL.
+- [SDY1001](https://example.org/studies/SDY1001.md): One current study, in Markdown. The HTML page is <https://example.org/studies/SDY1001>.
+- [SDY1001 JSON-LD](https://example.org/studies/SDY1001?format=jsonld&profile=niaid): The same study as a schema.org Dataset record.
+
+## API and bulk
+
+- [OpenAPI description](https://example.org/api/openapi.yaml): Operations, parameters, and the JSON-LD media type.
+- [API skill](https://example.org/api/skills/niaid-records/SKILL.md): The steps an agent follows to call the records API.
+- [Study package, October 2026](https://example.org/download/studies-2026-10.zip): One transfer of the public studies. The sitemap lists each package and its `lastmod`.
+
+## Optional
+
+- [NIAID Blueprint](https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md): Metadata, identifier, API, and citation practices this repository follows. This URL is on another host.
+- [Glossary](https://example.org/docs/glossary.md): Terms used on the study pages.
+- [Archived study SDY0042](https://example.org/studies/SDY0042.md)

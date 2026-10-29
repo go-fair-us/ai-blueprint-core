@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Demonstration sitemap for the 6 November 2026 NIAID Blueprint webinar.
+  This copy lives under docs/ and is not served at /sitemap.xml.
+  The robots.txt example points here:
+    Sitemap: https://example.org/sitemap.xml
+  Replace example.org before copying this file to a live site root.
+
+  Protocol: https://www.sitemaps.org/protocol.html
+  A sitemap is an inventory of URLs on one host. It is not a crawl
+  permission (that is robots.txt) and it is not a reading guide (that
+  is llms.txt). Crawlers still walk the site when a sitemap goes stale,
+  so lastmod has to be the date the page changed, not the date this
+  file was generated.
+
+  Each url needs loc. The other three tags are optional and independent:
+    lastmod     W3C date or datetime. Date only, Zulu, or a numeric
+                offset are all valid. This is the field agents and
+                crawlers use to decide what to fetch again.
+    changefreq  A hint, not a command. Valid values: always, hourly,
+                daily, weekly, monthly, yearly, never. always means the
+                document changes on each access. never means an archived
+                URL. Crawlers may ignore the hint.
+    priority    0.0 to 1.0, relative to other URLs on this site only.
+                The default is 0.5. It does not rank this site against
+                any other site.
+
+  A loc may be an HTML page, a Markdown file, a data file, or a query
+  URL. Ampersands in a URL are written as &amp;. The file cannot say
+  that one loc is the Markdown alternate of another, and it cannot name
+  the llms.txt that covers a path. Those two relations live on the page,
+  as rel="alternate" type="text/markdown" and rel="describedby".
+  A loc cannot point at another host. External guides belong in llms.txt.
+
+  Leave out URLs that robots.txt disallows. /admin/ is absent here
+  because the example robots.txt disallows it.
+
+  Limits: 50,000 URLs and 50 MB (52,428,800 bytes) per file. Above that,
+  publish several sitemaps, optionally gzip-compressed, and list them
+  in an index. robots.txt names the index. lastmod on an index entry is
+  the date that child file changed, not the date of the pages inside it.
+
+    <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <sitemap>
+        <loc>https://example.org/sitemaps/studies.xml.gz</loc>
+        <lastmod>2026-10-20T18:30:00Z</lastmod>
+      </sitemap>
+    </sitemapindex>
+
+  Other protocol formats carry less. A text sitemap is one absolute URL
+  per line. An RSS or Atom feed can supply a URL and a modified date.
+  Neither carries priority. An XML sitemap may add a namespace of its
+  own. This example stays in the base 0.9 vocabulary.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Home page. Date-only lastmod. Highest relative priority. -->
+  <url>
+    <loc>https://example.org/</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Catalog. Full datetime in Zulu. A hint that the list changes daily. -->
+  <url>
+    <loc>https://example.org/studies/</loc>
+    <lastmod>2026-10-20T18:30:00Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- A current study record. This is the kind of loc a repository sitemap is for. -->
+  <url>
+    <loc>https://example.org/studies/SDY1001</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Same record as JSON-LD. The query ampersand is escaped.
+       The sitemap lists the URL. It does not say it is an alternate
+       of the HTML record. -->
+  <url>
+    <loc>https://example.org/studies/SDY1001?format=jsonld&amp;profile=niaid</loc>
+    <lastmod>2026-09-12T00:00:00+00:00</lastmod>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- Markdown copy of the same record. Listed as its own URL.
+       The alternate relation is on the HTML response, not in this file. -->
+  <url>
+    <loc>https://example.org/studies/SDY1001.md</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- loc and lastmod only. Omitted priority means 0.5. -->
+  <url>
+    <loc>https://example.org/studies/SDY1002</loc>
+    <lastmod>2026-07-03</lastmod>
+  </url>
+
+  <!-- Archived record. never asks crawlers to treat it as finished.
+       They may still refetch it. -->
+  <url>
+    <loc>https://example.org/studies/SDY0042</loc>
+    <lastmod>2019-04-18</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.1</priority>
+  </url>
+
+  <!-- A generated search page. always means the body changes per request. -->
+  <url>
+    <loc>https://example.org/search</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.2</priority>
+  </url>
+
+  <!-- A non-HTML bulk file. One transfer instead of a walk of every record. -->
+  <url>
+    <loc>https://example.org/download/studies-2026-10.zip</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- API description. Datetime with a Zulu clock time. -->
+  <url>
+    <loc>https://example.org/api/openapi.yaml</loc>
+    <lastmod>2026-10-15T09:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- A stable policy page. yearly is a hint that it rarely changes. -->
+  <url>
+    <loc>https://example.org/about/citation.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>

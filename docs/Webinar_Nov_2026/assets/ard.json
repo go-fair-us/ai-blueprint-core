@@ -1,0 +1,39 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:air:example.org:mcp:weather",
+      "displayName": "Example Weather MCP Server",
+      "type": "application/mcp-server-card+json",
+      "url": "https://api.example.org/mcp/weather.json",
+      "description": "MCP server providing current conditions and forecasts.",
+      "capabilities": ["WeatherTool", "ForecastTool"],
+      "representativeQueries": [
+        "what is the current weather in Chicago",
+        "get the 5-day forecast for Seattle"
+      ]
+    },
+    {
+      "identifier": "urn:air:example.org:api:bookings",
+      "displayName": "Example Bookings API",
+      "type": "application/openapi+json",
+      "url": "https://api.example.org/openapi.json",
+      "description": "REST API for checking availability and creating bookings.",
+      "capabilities": ["checkAvailability", "createBooking"],
+      "representativeQueries": [
+        "book a session for next Friday",
+        "what appointment slots are free tomorrow"
+      ]
+    },
+    {
+      "identifier": "urn:air:example.org:skill:pptx-creator",
+      "displayName": "PPTX Creator Skill",
+      "type": "application/agent-skills+md",
+      "url": "https://example.org/skills/pptx-creator/SKILL.md",
+      "description": "Skill that turns outlines or bullet points into branded PowerPoint decks.",
+      "representativeQueries": [
+        "turn these bullet points into a slide deck",
+        "make a PowerPoint from this outline"
+      ]
+    }
+  ]
+}
