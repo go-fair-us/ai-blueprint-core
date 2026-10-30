@@ -19,7 +19,7 @@ Layers from most integrated with agent harnesses to standalone scripts:
 5. **Python pipelines & libraries** (`src/`, `mcp_bp/`) — genMeta extract/repair, CEDAR extract, ImmPort search helper, OKF tools, GEPA/prompt optimizers, static prompt library UI.
 6. **DSPy RLM script** (`secret/rv2.py`) — analyzes a directory of Markdown docs and writes a report. `secret/` holds source work-plan PDFs and local outputs (often gitignored material).
 7. **WebMCP test sites** — two local fixtures, not the MCP knowledge server: paraphrased handbook pages (`webmcp/`, port 8088) and an OKF bundle browser (`okf/webmcp/`, port 8089) with a tree, search chat, and Chrome `document.modelContext` tools.
-8. **Harness packaging** (`harnesses/`) — platform-oriented skill copies (currently Hermes FAIR assessor). Not the core `niaid-bp-*` bundle.
+8. **Harness packaging** — `./bin/pi` loads the canonical `niaid-blueprint/skills/` bundle into [Pi](https://pi.dev). `harnesses/` holds other platform copies (currently Hermes FAIR assessor), not the core `niaid-bp-*` bundle.
 
 The same domain logic often appears in more than one layer (e.g. FAIR assessment as skill, prompt, MCP prompt, and Hermes harness copy). When changing assessment/intake behavior, check parallel copies.
 
@@ -55,6 +55,16 @@ When editing a skill, keep frontmatter (`name`, `description`, `when_to_use`) ac
 Catalog and cross-skill map: `niaid-blueprint/skills/README.md`.
 
 > **Path note:** Skills previously lived at repo-root `skills/` (and briefly under other plugin dir names). The canonical bundle is only under `niaid-blueprint/skills/`. Pipelines such as `src/genMeta/` must use that root for extract/validate skill files. Ignore leftover `skills/` cache artifacts if they appear.
+
+## Pi harness (`bin/pi`, `extensions/`)
+
+Optional [Pi](https://pi.dev) launcher. It does not copy skills and it does not install into `~/.pi` or a project `.pi/` config. `./bin/pi` cds to the repo root and runs `pi --no-skills -e extensions/load-skills.ts`. The extension contributes `niaid-blueprint/skills/` and registers the MCP servers in `niaid-blueprint/mcp.json` (the local knowledge server at `http://localhost:8000/mcp`). Start that server separately when you want its tools. Extra Pi args pass through.
+
+```bash
+./bin/pi
+```
+
+`extensions/prompts/` holds one Pi prompt template per file in `prompts/evals/`. The filename is the command: `./bin/pi`, then `/robots-policy https://example.org/` and an optional second argument. The procedure text stays in `prompts/evals/` and can still be pasted into another model. When an evaluation changes, update the matching template in the same change. `python extensions/eval_prompt_templates.py` checks that the two copies still match; `--write` refreshes the templates.
 
 ## Hermes harness (`harnesses/hermes/`)
 
