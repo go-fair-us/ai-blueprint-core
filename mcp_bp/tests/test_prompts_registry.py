@@ -35,6 +35,15 @@ def test_unknown_prompt_raises(content_tree) -> None:
         prompts_registry.render_prompt("nope")
 
 
+def test_prompt_file_path_maps_persona_and_keeps_relative_path() -> None:
+    assert (
+        prompts_registry.prompt_file_path("fair_assessment_interview")
+        == "fairAssessmentInterview.md"
+    )
+    assert prompts_registry.prompt_file_path("evals/sitemap.md") == "evals/sitemap.md"
+    assert prompts_registry.prompt_file_path("workPlanSpec.md") == "workPlanSpec.md"
+
+
 def test_list_prompt_specs_shape() -> None:
     specs = prompts_registry.list_prompt_specs()
     names = {s["name"] for s in specs}

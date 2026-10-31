@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 
 from mcp_bp import config, content
@@ -35,6 +37,29 @@ def test_safe_resolve_rejects_traversal(content_tree) -> None:
 def test_safe_resolve_rejects_non_markdown(content_tree) -> None:
     with pytest.raises(ContentError):
         content.safe_resolve(content_tree["docs"], "ignore.pdf")
+
+
+def test_nested_prompt_markdown_roundtrip(content_tree) -> None:
+    prompts = content_tree["prompts"]
+    (prompts / "evals").mkdir()
+    (prompts / "evals" / "sitemap.md").write_text(
+        "# Sitemap eval\n\nCheck the sitemap.\n", encoding="utf-8"
+    )
+    paths = {entry.path for entry in content.list_prompt_files()}
+    assert "evals/sitemap.md" in paths
+    assert "Sitemap eval" in content.read_prompt_file("evals/sitemap.md")
+
+
+def test_repo_eval_prompts_are_on_disk() -> None:
+    root = Path(__file__).resolve().parents[2] / "prompts"
+    paths = {entry.path for entry in content.list_markdown(root)}
+    for rel in (
+        "evals/sitemap.md",
+        "evals/robots-policy.md",
+        "evals/llms-txt.md",
+        "workPlanSpec.md",
+    ):
+        assert rel in paths
 
 
 def test_read_missing_file_raises(content_tree) -> None:

@@ -46,6 +46,7 @@ overridden with environment variables (see Configuration below).
 | Pillar requirements as a structured checklist | `get_okf_requirements` (atomics) vs `get_blueprint_requirements` (prose) |
 | Filled domain few-shot prompts (ImmPort, etc.) | `list_okf_prompt_examples` |
 | Interactive FAIR / work-plan interviews | MCP prompts (`fair_assessment_interview`, …) |
+| Single-question eval files under `prompts/evals/` | `list_prompt_files`, `read_prompt_file` (not MCP prompts) |
 
 ## What it exposes
 
@@ -57,7 +58,7 @@ overridden with environment variables (see Configuration below).
 | `docs://{path}` | Raw Markdown of a doc by relative path |
 | `blueprint://spec` | The canonical Blueprint specification |
 | `prompts://list` | JSON listing of registered prompt personas |
-| `prompts://{name}` | Raw text of a prompt persona (by name or filename) |
+| `prompts://{path*}` | Persona by name, or any prompt Markdown path (`workPlanSpec.md`, `evals/sitemap.md`) |
 | `okf://bundles` | JSON listing of OKF knowledge bundles |
 | `okf://bundles/{name}/list` | Concept catalog for a bundle |
 | `okf://bundles/{name}/index` | Root `index.md` (progressive disclosure) |
@@ -90,7 +91,7 @@ client-side caching and retry.
 
 | Tool | Parameters | Purpose |
 |------|-----------|---------|
-| `search_docs(query, collection, max_results)` | `query: str`, `collection: "docs"\|"prompts"\|"okf"\|None`, `max_results: int=10` | Hybrid BM25 + semantic search. Omit `collection` for docs+prompts; use `"okf"` for concept/atomic claims. |
+| `search_docs(query, collection, max_results)` | `query: str`, `collection: "docs"\|"prompts"\|"okf"\|None`, `max_results: int=10` | Hybrid BM25 + semantic search. Omit `collection` for docs and prompt files (including `evals/`); use `"okf"` for concept/atomic claims. |
 | `get_context_window(source, path, line, radius)` | `source: str`, `path: str`, `line: int`, `radius: int=10` | Expand line-level context around a fuzzy-search hit |
 
 #### Live web (Tavily)
@@ -146,6 +147,8 @@ OKF parsing reuses `src/okf_core` (`walk_bundle`, atomic tables). Default bundle
 | Tool | Purpose |
 |------|---------|
 | `list_prompts()` | List registered prompt personas and their arguments |
+| `list_prompt_files()` | List every Markdown file under `prompts/` (personas, work-plan spec, `evals/`) |
+| `read_prompt_file(path)` | Read one of those files, or a persona by registered name |
 
 ### Prompts (user-invoked)
 
@@ -160,6 +163,10 @@ OKF parsing reuses `src/okf_core` (`walk_bundle`, atomic tables). Default bundle
 
 Prompts with arguments prepend a short **instruction block** to the persona
 body so the supplied values override any example values in the file.
+
+`prompts/evals/` stays out of this table on purpose. Those files are
+single-question checks. `list_prompt_files` and `read_prompt_file` serve them;
+`search_docs` with `collection="prompts"` finds them. They are not MCP prompts.
 
 ## Search architecture
 

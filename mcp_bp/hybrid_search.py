@@ -166,8 +166,8 @@ def _build_chunks() -> list[Chunk]:
                     )
                 )
 
-    # OKF concept + atomic chunks (opt-in via collection="okf"; also included
-    # when collection is None so agents can discover them, with stable source).
+    # OKF concept + atomic chunks are indexed here and returned only when
+    # collection="okf". A search with collection omitted stays docs + prompts.
     try:
         from . import okf_content
 
@@ -231,9 +231,9 @@ def hybrid_search(
 ) -> list[HybridHit]:
     """Return ranked results using BM25 (+ optional semantic) RRF fusion.
 
-    ``collection`` limits results to ``"docs"``, ``"prompts"``, or ``"okf"``;
-    omit to search all three.  Prefer ``collection="okf"`` for claim-level
-    Blueprint requirements so ranking is not diluted by narrative docs.
+    ``collection`` limits results to ``"docs"``, ``"prompts"``, or ``"okf"``.
+    Omit it to search docs and prompts only, so OKF claims do not change
+    existing rankings. Pass ``collection="okf"`` for claim-level requirements.
     """
     query = (query or "").strip()
     if not query:

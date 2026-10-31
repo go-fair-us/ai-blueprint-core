@@ -119,6 +119,18 @@ PROMPT_SPECS: list[PromptSpec] = [
 PROMPT_SPECS_BY_NAME: dict[str, PromptSpec] = {s.name: s for s in PROMPT_SPECS}
 
 
+def prompt_file_path(name_or_path: str) -> str:
+    """Map a persona name or a relative path to a file under ``prompts/``.
+
+    Registered names (``fair_assessment_interview``) become their filenames.
+    Anything else is returned unchanged so callers can read
+    ``workPlanSpec.md`` or ``evals/sitemap.md``.
+    """
+
+    spec = PROMPT_SPECS_BY_NAME.get(name_or_path)
+    return spec.filename if spec else name_or_path
+
+
 def _instruction_block(spec: PromptSpec, values: dict[str, str | None]) -> str:
     """Build a short instruction block from supplied argument values."""
 

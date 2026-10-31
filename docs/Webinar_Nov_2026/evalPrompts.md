@@ -12,7 +12,7 @@ Paste one file and give the model a repository origin URL. Add a dataset, study,
 
 `niaid-bp-api-assess` scores an OpenAPI or Swagger document against Blueprint Section 3. `openapi-discovery.md` only finds that document. Hand the URL it returns to the skill for the Section 3 rubric.
 
-These files are ordinary Markdown under `prompts/`. The MCP server can list and search them. They are not entries in `mcp_bp/prompts_registry.py`.
+These files are ordinary Markdown under `prompts/`. The MCP server lists them with `list_prompt_files`, reads them with `read_prompt_file`, and searches them with `search_docs` (`collection="prompts"`). They are not entries in `mcp_bp/prompts_registry.py`.
 
 ## Shared report
 

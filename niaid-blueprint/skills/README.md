@@ -271,6 +271,52 @@ scoring rubric is `references/api-checklist.md`.
 
 ---
 
+### `niaid-bp-sitemap` — Sitemap check
+
+Checks that a public site publishes a sitemap, that the XML is well formed, and that a sample of its URLs answer. Discovery uses the URL you pass when it ends in `.xml` or `.xml.gz`. Otherwise it reads `Sitemap:` lines in `robots.txt`, then `/sitemap.xml` and `/sitemap_index.xml`. An index is counted, and one child is opened.
+
+**Use when:** You have a repository or site URL and want a short machine check of `sitemap.xml`.
+
+**Args (required):** site origin or sitemap URL.
+
+**Output:** JSON from `scripts/check_sitemap.py` (`found`, `source`, `sitemap_url`, `well_formed`, `kind`, `loc_count`, `warnings`, `samples`). Exit 0 when the file was found and well formed, even if a sampled URL fails. This check does not decide whether a `loc` is a dataset record. That question stays in [`prompts/evals/sitemap.md`](../../prompts/evals/sitemap.md).
+
+**Dependency:** [uv](https://docs.astral.sh/uv/). Run `uv run --no-project scripts/check_sitemap.py TARGET`. The script header installs `httpx` and does not sync the Blueprint project.
+
+---
+
+### `niaid-bp-robots` — robots.txt check
+
+Reads one `robots.txt` and one homepage response. Reports each user-agent group, whether `/` may be crawled, and IETF `Content-Usage` (`train-ai` and `search` as `y` or `n`). Also reports Cloudflare `Content-Signal` and a non-standard `Crawl-delay` when one is present. A named group replaces `*`, so a preference written only on `*` does not apply to that token.
+
+HTTP 429 and `Retry-After` are not robots.txt directives. The homepage request records them. `rate_limit_observed` is true only when that response is 429 and includes `Retry-After`. The script does not try to provoke a 429.
+
+**Use when:** You have a repository or site URL and want a short machine check of `robots.txt` for AI crawler preferences and rate-limit signals.
+
+**Args (required):** site origin or `robots.txt` URL.
+
+**Output:** JSON from `scripts/check_robots.py`. Exit 0 when the file was fetched and the body is robots text, even if `train-ai` is unknown and no 429 was seen. This check does not recommend allowing or denying training. The scored visitor-class question stays in [`prompts/evals/robots-policy.md`](../../prompts/evals/robots-policy.md).
+
+**Dependency:** [uv](https://docs.astral.sh/uv/). Run `uv run --no-project scripts/check_robots.py TARGET`. The script header installs `httpx` and does not sync the Blueprint project.
+
+---
+
+### `niaid-bp-llms` — llms.txt check
+
+Looks for an [llms.txt](https://llmstxt.org/) file and, when one is found, checks the v2 section order. A URL that already ends in `llms.txt` is fetched as given. Otherwise the script requests `/llms.txt`. If that misses, one homepage GET follows the first link whose path ends in `llms.txt`. The parser expects a leading H1, an optional blockquote, free prose, then H2 file lists of Markdown links. `Optional` is a conventional H2 name. Off-host links are counted and not requested. A linked `llms.txt` is listed and not opened. Up to ten same-host file links are sampled with HEAD, then GET only when HEAD returns 405 or 501.
+
+The same homepage response records `rel="alternate"` `type="text/markdown"` and `rel="describedby"` when those relations point at an `llms.txt`. A missing relation is a warning. The script does not fetch `llms-full.txt` and does not send `Accept: text/markdown`.
+
+**Use when:** You have a repository or site URL and want a short machine check that `llms.txt` is present and well formed.
+
+**Args (required):** site origin or `llms.txt` URL.
+
+**Output:** JSON from `scripts/check_llms.py` (`found`, `source`, `llms_url`, `well_formed`, `title`, `sections`, `link_count`, `samples`, `homepage`, `warnings`). Exit 0 when the file was found and the leading H1 and section order are valid, even if a sample fails or the homepage omits link relations. This check does not decide whether a link is a dataset record. The scored question stays in [`prompts/evals/llms-txt.md`](../../prompts/evals/llms-txt.md).
+
+**Dependency:** [uv](https://docs.astral.sh/uv/). Run `uv run --no-project scripts/check_llms.py TARGET`. The script header installs `httpx` and does not sync the Blueprint project.
+
+---
+
 ## How the skills fit together
 
 ```text
@@ -295,6 +341,12 @@ scoring rubric is `references/api-checklist.md`.
 
  niaid-bp-shaclrules  — SHACL 1.2 Rules (SRL) materialization via eyeleng
                         (rules reasoning; not Dataset shape validation)
+
+ niaid-bp-sitemap     — site or sitemap URL → exists, well formed, sample answers
+
+ niaid-bp-robots      — robots.txt groups, Content-Usage, one homepage check for 429
+
+ niaid-bp-llms        — llms.txt present, v2 section order, sample of same-host links
 ```
 
 `niaid-bp-model-influence` sits alongside the Blueprint core: research
@@ -362,14 +414,29 @@ skills/
 │   ├── references/
 │   │   └── rules-workflow.md
 │   └── tests/
-└── niaid-bp-api-assess/
+├── niaid-bp-api-assess/
+│   ├── SKILL.md
+│   ├── references/
+│   │   └── api-checklist.md
+│   ├── assets/
+│   │   └── report-template.md
+│   ├── scripts/
+│   │   └── analyze_api.py
+│   └── tests/
+├── niaid-bp-sitemap/
+│   ├── SKILL.md
+│   ├── scripts/
+│   │   └── check_sitemap.py   # uv run --no-project; httpx
+│   └── tests/
+├── niaid-bp-robots/
+│   ├── SKILL.md
+│   ├── scripts/
+│   │   └── check_robots.py    # uv run --no-project; httpx
+│   └── tests/
+└── niaid-bp-llms/
     ├── SKILL.md
-    ├── references/
-    │   └── api-checklist.md
-    ├── assets/
-    │   └── report-template.md
     ├── scripts/
-    │   └── analyze_api.py
+    │   └── check_llms.py      # uv run --no-project; httpx
     └── tests/
 ```
 

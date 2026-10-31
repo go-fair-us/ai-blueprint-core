@@ -5,7 +5,7 @@ FROM python:3.13-slim-bookworm
 WORKDIR /app
 
 RUN pip install --no-cache-dir \
-    "fastmcp>=2.0" \
+    "fastmcp>=3.4,<4" \
     "rank-bm25>=0.2" \
     "rapidfuzz>=3.0" \
     "pyyaml>=6.0" \

@@ -9,7 +9,9 @@ The server registers:
   * Resources: docs://…, blueprint://spec, prompts://…, okf://…
   * Tools: list/read docs, hybrid search, Blueprint navigation, OKF concept
     and atomic tools, prompt listing
-  * Prompts: the personas defined in prompts_registry.PROMPT_SPECS
+  * Prompts: the personas defined in prompts_registry.PROMPT_SPECS.
+    Other Markdown under prompts/ (including prompts/evals) is listed and
+    read as files, not registered as personas.
   * Transform: ResourcesAsTools (resources accessible as tools for clients
     that don't support the MCP resources protocol)
 """
@@ -49,12 +51,18 @@ mcp: FastMCP = FastMCP(
         "- OKF tools (list_okf_concepts, read_okf_concept, get_okf_atomic, "
         "search_docs with collection='okf', get_okf_requirements): structured "
         "concept graph and claim-level requirements with source line numbers.\n"
-        "- Prompts: interactive FAIR assessment / work-plan interviews.\n"
+        "- Prompts (list_prompts, MCP prompt protocol): interactive FAIR "
+        "assessment / work-plan interviews. list_prompt_files and "
+        "read_prompt_file serve the rest of prompts/, including the work-plan "
+        "spec and prompts/evals single-question checks. Those eval files are "
+        "not interview personas.\n"
         "- OKF prompt examples: filled domain few-shots (ImmPort, etc.), not "
         "interview personas.\n"
-        "- Skills tools (list_skills, read_skill, read_skill_file): Agent Skill "
-        "catalog and progressive file reads. Use validate_dataset to run the "
-        "bundled SHACL shape on schema:Dataset JSON-LD or Turtle.\n"
+        "- Skills tools (list_skills, read_skill, read_skill_file): the live "
+        "niaid-bp-* catalog, including API assessment and the sitemap, "
+        "robots.txt, and llms.txt checks. Follow SKILL.md. Those check "
+        "scripts are not MCP tools. Use validate_dataset to run the bundled "
+        "SHACL shape on schema:Dataset JSON-LD or Turtle.\n"
         "- Live web (needs TAVILY_API_KEY): if the user names a URL, call "
         "inspect_url once with that URL and their question, then Blueprint "
         "lookup. If there is no URL and they want the public web, call "
@@ -97,15 +105,15 @@ def prompts_list() -> str:
     return json.dumps(prompts_registry.list_prompt_specs(), indent=2)
 
 
-@mcp.resource("prompts://{name}", mime_type="text/markdown")
-def prompts_get(name: str) -> str:
-    """The raw text of a registered prompt persona (for reading, not invoking).
+@mcp.resource("prompts://{path*}", mime_type="text/markdown")
+def prompts_get(path: str) -> str:
+    """Prompt Markdown by persona name or relative path.
 
-    ``name`` may be a registered prompt name or a prompt filename.
+    A single segment may be a registered persona (``fair_assessment_interview``)
+    or a top-level filename (``workPlanSpec.md``). Nested paths read files such
+    as ``evals/sitemap.md``. ``prompts://list`` stays the persona catalog.
     """
-    spec = prompts_registry.PROMPT_SPECS_BY_NAME.get(name)
-    filename = spec.filename if spec else name
-    return content.read_prompt_file(filename)
+    return content.read_prompt_file(prompts_registry.prompt_file_path(path))
 
 
 @mcp.resource("okf://bundles", mime_type="application/json")
@@ -195,6 +203,7 @@ def kb_stats() -> dict[str, object]:
         "prompts": {
             "count": len(prompts),
             "total_bytes": sum(p.bytes for p in prompts),
+            "personas": len(prompts_registry.PROMPT_SPECS),
         },
         "blueprint_sections": section_count,
         "okf": okf_content.okf_stats(),
@@ -224,7 +233,8 @@ def search_docs(
 
     ``collection`` filters to:
     - ``"docs"`` — specification + supporting docs
-    - ``"prompts"`` — interview personas
+    - ``"prompts"`` — prompt Markdown, including interview personas,
+      ``workPlanSpec.md``, and ``evals/`` single-question checks
     - ``"okf"`` — OKF concept graph + atomic claims (preferred for
       claim-level requirements)
     Omit to search docs + prompts only (OKF is opt-in so existing clients keep
@@ -343,8 +353,37 @@ def list_prompts() -> list[dict[str, object]]:
 
     Returns name, title, description, and argument specs for each prompt.
     Invoke a prompt by name via the MCP prompts protocol (not this tool).
+    For every Markdown file under ``prompts/``, including ``evals/``, use
+    ``list_prompt_files``.
     """
     return prompts_registry.list_prompt_specs()
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def list_prompt_files() -> list[dict[str, object]]:
+    """List Markdown files under ``prompts/`` (path, title, bytes).
+
+    Includes interview files, ``workPlanSpec.md``, ``api_examples/``, and
+    ``evals/`` single-question checks. This is the file catalog, not the
+    persona list from ``list_prompts``. Read a file with ``read_prompt_file``.
+    """
+    return [entry.as_dict() for entry in content.list_prompt_files()]
+
+
+@mcp.tool(annotations=_READ_ONLY)
+def read_prompt_file(path: str) -> str:
+    """Read one prompt Markdown file by persona name or relative path.
+
+    ``path`` is a ``list_prompt_files`` path or a ``search_docs`` hit with
+    ``source="prompts"`` (for example ``evals/sitemap.md`` or
+    ``workPlanSpec.md``). A registered persona name is accepted too and
+    returns that persona's file. Eval files are procedures to follow; they
+    are not MCP prompts.
+    """
+    try:
+        return content.read_prompt_file(prompts_registry.prompt_file_path(path))
+    except content.ContentError as exc:
+        raise ValueError(str(exc)) from exc
 
 
 # --------------------------------------------------------------------------

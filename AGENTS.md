@@ -49,6 +49,10 @@ Each skill follows the standard layout: a `SKILL.md` (frontmatter + persona + fl
 | **`niaid-bp-teach`** | Multi-session teaching workspace (MISSION, HTML lessons, learning records, glossary). Hands-on steps hand off to sibling skills. |
 | **`niaid-bp-validation`** | SHACL validation of `schema:Dataset` graphs via pySHACL. Shape: `assets/blueprint-required.ttl`; runner: `scripts/validate.py`. Extra: `uv sync --extra validation`. |
 | **`niaid-bp-shaclrules`** | SHACL 1.2 Rules (SRL) materialization via eyeleng (Deno + `npm:eyeleng`). Script: `scripts/run_rules.ts`. Requires Deno 2+. |
+| **`niaid-bp-api-assess`** | OpenAPI/Swagger or API docs → Blueprint Section 3 gap report. Script: `scripts/analyze_api.py`. |
+| **`niaid-bp-sitemap`** | Check that a site publishes a sitemap (`robots.txt`, then `/sitemap.xml` and `/sitemap_index.xml`), that the XML is well formed, and that a sample of its URLs answer. Script: `scripts/check_sitemap.py` via `uv run --no-project` (`httpx` from the script header). |
+| **`niaid-bp-robots`** | Check `robots.txt` groups, IETF Content-Usage, Cloudflare Content-Signal, and Crawl-delay. One homepage GET records HTTP 429, Retry-After, and a Content-Usage header. Script: `scripts/check_robots.py` via `uv run --no-project`. |
+| **`niaid-bp-llms`** | Check that `llms.txt` is present and follows the v2 section order, then sample same-host file links. One homepage GET records Markdown alternate and `describedby` relations. Script: `scripts/check_llms.py` via `uv run --no-project`. |
 
 When editing a skill, keep frontmatter (`name`, `description`, `when_to_use`) accurate — that text drives discovery — and treat mid-interview reference structure as load-bearing.
 
@@ -74,7 +78,7 @@ Optional **Hermes Agent** packaging, separate from the `niaid-bp-*` names. `harn
 
 Read-only **Model Context Protocol** server over HTTP. Bridges files in this repo to tools an agent can call mid-conversation. It does **not** assess repositories or mint metadata by itself.
 
-**Surfaces:** resources (docs / OKF / prompts by URI), tools (list/read/search/navigate/OKF atomics; `list_skills` / `read_skill` / `read_skill_file` / `validate_dataset`; and with `TAVILY_API_KEY` `inspect_url` / `web_search`), and user-invoked prompts (FAIR interview, web assessor, crawl assessor, work-plan intake). Localhost LibreChat compose: `deployment/README-librechat.md`.
+**Surfaces:** resources (docs / OKF / prompts by URI), tools (list/read/search/navigate/OKF atomics; `list_prompt_files` / `read_prompt_file` for `prompts/` including `prompts/evals`; `list_skills` / `read_skill` / `read_skill_file` / `validate_dataset`; and with `TAVILY_API_KEY` `inspect_url` / `web_search`), and user-invoked prompts (FAIR interview, web assessor, crawl assessor, work-plan intake). Eval files are not registered prompts. Localhost LibreChat compose: `deployment/README-librechat.md`.
 
 ```bash
 uv sync --extra mcp
@@ -223,6 +227,9 @@ uv run --extra mcp python -m mcp_bp.server
 uv run --extra mcp --with pytest pytest mcp_bp/tests
 uv run --with pytest pytest niaid-blueprint/skills/niaid-bp-validation/tests
 uv run --with pytest pytest niaid-blueprint/skills/niaid-bp-model-influence/tests
+uv run --no-project --with pytest --with httpx python -m pytest niaid-blueprint/skills/niaid-bp-sitemap/tests
+uv run --no-project --with pytest --with httpx python -m pytest niaid-blueprint/skills/niaid-bp-robots/tests
+uv run --no-project --with pytest --with httpx python -m pytest niaid-blueprint/skills/niaid-bp-llms/tests
 uv run --with pytest pytest src/cedar/tests
 
 # DSPy RLM document analyzer (needs NRP_API_KEY or OPENROUTER_API_KEY)

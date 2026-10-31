@@ -9,7 +9,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-# Repository root: <repo>/mcp/config.py -> <repo>
+# Repository root: <repo>/mcp_bp/config.py -> <repo>
 REPO_ROOT: Path = Path(__file__).resolve().parent.parent
 
 
