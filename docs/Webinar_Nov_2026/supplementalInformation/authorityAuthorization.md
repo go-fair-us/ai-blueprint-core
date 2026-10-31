@@ -1,3 +1,5 @@
+# Details on representing authority and authorization
+
 I have reviewed the updated, full version of the slide deck. Your colleague brought up a great point: clinical data is the perfect anchor to ground the abstract concept of "controlled access" into a real-world scenario that researchers and data stewards care deeply about.
 
 Since your colleague mentioned this could just be a sentence verbally or on the slides, here are a few natural places in the presentation where you can weave this in to address the comment without derailing your flow.

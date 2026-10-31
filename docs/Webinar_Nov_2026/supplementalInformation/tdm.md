@@ -1,4 +1,4 @@
-
+# Text and Data Mining Observations
 
 ## **Notes for updating:**
 
@@ -54,4 +54,3 @@ Bridge2AI, Open Data Institute, and related 2025–2026 frameworks treat AI-read
 * Observability of agent traffic beyond basic rate-limiting (user-agent breakdowns are mentioned in evaluation, which is good)  
 * Systematic multi-representation strategy (HTML \+ JSON-LD \+ Markdown) rather than treating Markdown conversion as a secondary note  
 * Evaluation is correctly called out as too large for the session, but the community would benefit from pointers to existing FAIR assessment tools (e.g., F-UJI) alongside the AI-specific ones listed
-

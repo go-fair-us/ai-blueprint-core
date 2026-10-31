@@ -1,4 +1,4 @@
-# Repository agent-readiness evaluations
+# Evaluation Prompt Templates
 
 Single-question prompts for a public data-repository website. The questions come from the Phase III webinar "Making Your Repository More Accessible to AI" (NIAID Blueprint Webinar Series, 6 November 2026), in `docs/Phase III NIAID Slides 11_6.pdf`.
 

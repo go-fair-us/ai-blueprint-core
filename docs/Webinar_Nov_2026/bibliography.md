@@ -1,4 +1,4 @@
-# Bibliography
+# Bibliography and Further Details 
 
 Sources from **Making Your Repository More Accessible to AI** (*Phase III NIAID Slides 11/6*, NIAID Blueprint webinar, 6 November 2026).
 
