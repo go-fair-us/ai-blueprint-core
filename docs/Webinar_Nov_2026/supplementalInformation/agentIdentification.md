@@ -2,7 +2,7 @@
 
 *Approaches, standards work, and references for site owners*
 
-Prepared October 2026. Specifications and vendor documentation in this area change quickly; check the references for current versions.
+Caution: Specifications and vendor documentation in this area change quickly; check the references for current versions.
 
 > **Bottom line.** A website can often tell **which company or product** is behind an automated visit, but almost never **which AI model** is driving it. No HTTP request carries model identity, and no current standard adds it. The most reliable signal today is cryptographic: Web Bot Auth lets an operator sign its requests so you can verify who sent them. Everything else (names in headers, IP addresses, behavior) is either easy to fake or only a probability.
 
