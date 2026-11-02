@@ -14,7 +14,7 @@ can be found in [agentIdentification.md](agentIdentification.md).
 This slide introduces the "Rights & access" concern. 
 
 * **On the slide:** Thought: Update the "Rights & access" bullet to read: *Who can view or use your data and under what specific conditions (e.g., handling clinical or controlled access data).*
-* 
+
 * **Speaker Notes:** "When we talk about rights and access, we aren't just talking about copyright. For many of you, we are talking about clinical data or embargoed research. We need frameworks that ensure an AI agent acting on a researcher's behalf only touches the data that specific researcher is authorized to see."
 
 ### "Be Callable - MCP Authentication"

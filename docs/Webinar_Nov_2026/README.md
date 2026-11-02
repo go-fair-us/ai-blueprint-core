@@ -2,6 +2,8 @@
 
 Supplementary materials for the Phase III NIAID Blueprint webinar (6 November 2026).
 
+> NOTE:  Foundational drafts of many glossary entries, section outlines, and bibliography items were produced with generative AI assistance. These were then read, revised, corrected, and expanded by the author(s). Human judgment determined what was kept, rewritten, or discarded. Sources cited in the bibliography were verified against the original pages (with exceptions noted where access was blocked). The author(s) take full responsibility for the content of these materials.
+
 [Deck (Google Slides)](https://docs.google.com/presentation/d/1_LlLl9GZ2Vy_t4URCCFUWx8CVfqN6jcOj_J7pnD5qYg/edit) · local copy: [slideDeckSIReadyRepos.pdf](slideDeckSIReadyRepos.pdf)
 
 These files are handouts and working notes, not a second copy of the slides. Definitions stay in the glossary. Sources stay in the bibliography. A longer note is a separate file, linked from the matching section below.
