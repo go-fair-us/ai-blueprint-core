@@ -4,22 +4,36 @@ Sources from **Making Your Repository More Accessible to AI** (*Phase III NIAID 
 
 [Presentation Slides](slideDeckSIReadyRepos.pdf)
 
- 
 Grouped by the same sections as [glossary.md](glossary.md). **Why do this** and **Acknowledgements** are extra: the deck cites them, and the glossary does not define them. Each source is listed once. 
 
-The deck contains no DOI strings. It cites one arXiv identifier and, as an example rather than as a paper, one RRID.
+## Agenda & Scope
 
-Titles were checked against the pages, except the Forbes item, whose site returned a block. That title is the one written into the address printed in the deck.
+1. [GoFAIR US webinar supplemental materials](https://github.com/go-fair-us/ai-blueprint-core/tree/master/docs/Webinar_Nov_2026).
+
+As mentioned on this slide, there will be more focus on metadata elements than the
+data elements.  If we had addressed data it would have touched on some of the following
+
+* Dataset-level documentation standards (Datasheets for Datasets style or equivalent structured cards)
+* Explicit characterization of completeness
+* quality metrics
+* known biases
+* recommended uses 
+* ML-oriented packaging
+  * train/val/test splits
+  * columnar formats such as Parquet
+  * streaming/range-request patterns
+* Governance and responsible-use policies expressed in machine-actionable form such as: 
+  * ODRL
+  * DUO 
+  * Croissant RAI fields
+
 
 ## Why do this
-
-The deck says these citations are in the notes and will be provided. AIM-AHEAD is only in the notes.
 
 1. Russo, Marissa. “NIH joins Trump’s $5B AI mission with biomedical research push.” *Fierce Biotech*, 22 July 2026. Cited for the NIH Bio Genesis Mission.
    https://www.fiercebiotech.com/research/hhs-joins-trumps-artificial-intelligence-genesis-mission
 
-2. “NIH Launches Bio Genesis Mission to Accelerate AI-Driven Biomedical Discovery.” *ASCO AI in Oncology*, July 2026. Cited for the NIH Bio Genesis Mission.
-   https://ascoai.org/articles/2026/07/nih-launches-bio-genesis-mission-to-accelerate-ai-driven-biomedical-discovery/
+2. “NIH Launches Bio Genesis Mission to Accelerate AI-Driven Biomedical Discovery.” *ASCO AI in Oncology*, July 2026. Cited for the NIH Bio Genesis Mission. https://ascoai.org/articles/2026/07/nih-launches-bio-genesis-mission-to-accelerate-ai-driven-biomedical-discovery/
 
 3. “Bridge to Artificial Intelligence (Bridge2AI).” NIH Common Fund. Cited for Bridge2AI Stage 1.
    https://commonfund.nih.gov/bridge2ai
@@ -28,13 +42,11 @@ The deck says these citations are in the notes and will be provided. AIM-AHEAD i
    https://grantedai.com/blog/nih-bridge2ai-stage-2-130-million-health-ai-datasets-strategy-2026
 
 5. “NIH Injects $130M to Provide Quality Tools, Data for AI in Medicine.” *Nextgov/FCW*, September 2022. Cited for the original Bridge2AI investment.
-   https://www.nextgov.com/artificial-intelligence/2022/09/nih-injects-130m-provide-quality-tools-data-ai-medicine/377095/
+  https://www.nextgov.com/artificial-intelligence/2022/09/nih-injects-130m-provide-quality-tools-data-ai-medicine/377095/
 
-6. “AIM-AHEAD.” Data Science at NIH. Cited in the speaker notes for the NIH network on AI/ML research capacity.
-   https://datascience.nih.gov/super-intelligence/aim-ahead
+6. “AIM-AHEAD.” Data Science at NIH. Cited in the speaker notes for the NIH network on AI/ML research capacity.  https://datascience.nih.gov/super-intelligence/aim-ahead
 
-7. “AIM-AHEAD.” University of Houston Population Health. Second note source for AIM-AHEAD.
-   https://www.uh.edu/population-health/research/aim-ahead.php
+7. “AIM-AHEAD.” University of Houston Population Health. Second note source for AIM-AHEAD. https://www.uh.edu/population-health/research/aim-ahead.php
 
 8. “DOE, NIH, and Biohub Partner to Build Foundational Data for Predictive Biological Super Intelligence Models.” U.S. Department of Energy, Office of Science. Cited for the predictive-biology partnership. The deck dates the announcement 7 October.
    https://www.energy.gov/science/articles/doe-nih-and-biohub-partner-build-foundational-data-predictive-biological-super
@@ -59,21 +71,27 @@ The deck says these citations are in the notes and will be provided. AIM-AHEAD i
 
 ## Who visits
 
-15. Ostendorff, Malte. “Host-Aware Web Crawling for LLM Pretraining Data.” arXiv:2610.13321, submitted 9 October 2026. Computer Science > Computation and Language. Cited for the claim that trainer crawlers judge a repository by sampling a few pages, so landing-page and record-page quality decide how deep the crawl goes. No DOI is given in the deck or on the arXiv record used here.
+1. Ostendorff, Malte. “Host-Aware Web Crawling for LLM Pretraining Data.” arXiv:2610.13321, submitted 9 October 2026. Computer Science > Computation and Language. Cited for the claim that trainer crawlers judge a repository by sampling a few pages, so landing-page and record-page quality decide how deep the crawl goes. No DOI is given in the deck or on the arXiv record used here.
     https://arxiv.org/abs/2610.13321
 
 ## Being reachable
 
-16. Markman, Jon. “Cloudflare Says AI Agent Traffic Grew More Than 1,700% in the Past Year.” *Forbes*, 1 October 2026. Printed as the source for “+1,700%” growth in daily AI agent requests and “>50%” non-human traffic on major CDNs. The title is taken from the URL. The page itself blocked a direct fetch.
+1. Markman, Jon. “Cloudflare Says AI Agent Traffic Grew More Than 1,700% in the Past Year.” *Forbes*, 1 October 2026. Printed as the source for “+1,700%” growth in daily AI agent requests and “>50%” non-human traffic on major CDNs. The title is taken from the URL. The page itself blocked a direct fetch. 
     https://www.forbes.com/sites/jonmarkman/2026/10/01/cloudflare-says-ai-agent-traffic-grew-more-than-1700-in-the-past-year/
 
-17. “Giving users choice with Cloudflare’s new Content Signals Policy.” Cloudflare Blog. The reference for separating training crawlers from user-triggered fetchers. The rights notes also name Content Signals.
+
+2. [Kong developer documentation](https://developer.konghq.com/). Documentation for Kong’s API gateway and related tools.
+
+3. [Caddy web server](https://caddyserver.com/). Project site and documentation for the Caddy web server.
+
+
+4. “Giving users choice with Cloudflare’s new Content Signals Policy.” Cloudflare Blog. The reference for separating training crawlers from user-triggered fetchers. The rights notes also name Content Signals.
     https://blog.cloudflare.com/content-signals-policy/
 
-18. “Overview of OpenAI Crawlers.” OpenAI API docs. An example of a crawler’s published user-agent policy.
+5. “Overview of OpenAI Crawlers.” OpenAI API docs. An example of a crawler’s published user-agent policy.
     https://developers.openai.com/api/docs/bots
 
-19. “Perplexity Crawlers.” Perplexity docs. A second crawler policy example.
+6. “Perplexity Crawlers.” Perplexity docs. A second crawler policy example.
     https://docs.perplexity.ai/docs/resources/perplexity-crawlers
 
 Named in the notes, with a locator added. The deck gives the vocabulary draft’s number and date. It describes the attachment draft and does not give that draft’s number.
@@ -85,97 +103,97 @@ The notes also tell the author to review this part of the deck against a local f
 
 ## Being readable
 
-20. “sitemaps.org — Protocol.” The XML schema for `sitemap.xml`.
+1. “sitemaps.org — Protocol.” The XML schema for `sitemap.xml`.
     https://sitemaps.org/protocol.html
 
-21. “The /llms.txt file, v2.” llms.txt. The deck dates version 2 to August 2026.
+2. “The /llms.txt file, v2.” llms.txt. The deck dates version 2 to August 2026.
     https://llmstxt.org/
 
-22. “llms.txt.” Lighthouse, Chrome for Developers. The agentic-browsing audit of `llms.txt`, including `rel="alternate"` Markdown and `rel="describedby"`.
+3. “llms.txt.” Lighthouse, Chrome for Developers. The agentic-browsing audit of `llms.txt`, including `rel="alternate"` Markdown and `rel="describedby"`.
     https://developer.chrome.com/docs/lighthouse/agentic-browsing/llms-txt
 
-23. “Agent Skills Overview.” Agent Skills. Cited for exposing API usage as an agent skill (`SKILL.md`).
+4. “Agent Skills Overview.” Agent Skills. Cited for exposing API usage as an agent skill (`SKILL.md`).
     https://agentskills.io/
 
 ## Being callable
 
-24. *API NIAID Webinar Slides*, 31 March 2026. PDF in the go-fair-us/apireference repository. The earlier, longer API talk.
+1. *API NIAID Webinar Slides*, 31 March 2026. PDF in the go-fair-us/apireference repository. The earlier, longer API talk.
     https://github.com/go-fair-us/apireference/blob/master/docs/Presentation/API_NIAIDWebinarSlides033126.pdf
 
-25. Model Context Protocol registry. Where servers are listed. The deck also says the Linux Foundation’s Agentic AI Foundation governs MCP. That organization is not given its own URL.
+2. Model Context Protocol registry. Where servers are listed. The deck also says the Linux Foundation’s Agentic AI Foundation governs MCP. That organization is not given its own URL.
     https://registry.modelcontextprotocol.io/
 
-26. “MCP updates.” go-fair-us/apireference, `docs/mcp/updates.md`. Speaker note for the March 2025–October 2026 protocol table. The note says this will be linked from the page.
+3. “MCP updates.” go-fair-us/apireference, `docs/mcp/updates.md`. Speaker note for the March 2025–October 2026 protocol table. The note says this will be linked from the page.
     https://github.com/go-fair-us/apireference/blob/master/docs/mcp/updates.md
 
-27. “WebMCP.” W3C Web Machine Learning Community Group. Named on the ragged-edge portion of the deck. The glossary defines it with the callable terms.
+4. “WebMCP.” W3C Web Machine Learning Community Group. Named on the ragged-edge portion of the deck. The glossary defines it with the callable terms.
     https://webmachinelearning.github.io/webmcp/
 
-Named here, without a URL:
+Additional standards and services named in the notes:
 
-- JSON-LD, and the NIAID minimal metadata schema.
-- OpenAPI / Swagger.
-- Cool URIs.
-- HTTP status classes, `Cache-Control`, `ETag`, and `Last-Modified`.
-- NIAID Data Ecosystem Discovery Portal.
-- Repository examples: ImmPort, IEDB, and TB Portals.
-- MCP specification dated 2026-07-28, named as the version that lines up with OAuth for data access.
+- [JSON-LD](https://www.w3.org/TR/json-ld11/) and NIAID’s minimum metadata recommendations in the [Blueprint for Digital Objects](https://www.niaid.nih.gov/research/data-blueprint).
+- [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) (formerly called the Swagger Specification).
+- [Cool URIs for the Semantic Web](https://www.w3.org/TR/cooluris/).
+- HTTP status classes ([RFC 9110, section 15](https://www.rfc-editor.org/rfc/rfc9110.html#section-15)), [`Cache-Control`](https://www.rfc-editor.org/rfc/rfc9111.html#section-5.2), [`ETag`](https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8.3), and [`Last-Modified`](https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8.2).
+- [NIAID Data Ecosystem Discovery Portal](https://data.niaid.nih.gov/).
+- Repository examples: [ImmPort](https://www.immport.org/), [IEDB](https://www.iedb.org/), and [TB Portals](https://tbportals.niaid.nih.gov/).
+- [MCP specification dated 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28), named as the version that lines up with OAuth for data access.
 
 ## Being meaningful
 
-28. “NIAID Data Ecosystem Data Science and Sharing: Blueprint for Digital Objects.” NIAID. The pointer for the Blueprint recommendations.
+1. “NIAID Data Ecosystem Data Science and Sharing: Blueprint for Digital Objects.” NIAID. The pointer for the Blueprint recommendations.
     https://www.niaid.nih.gov/research/data-blueprint
 
-29. RRID:SCR_006604. The identifier in IEDB’s homepage JSON-LD, described as the only identifier found in page JSON-LD across the 11 sites reviewed. An example identifier, not a cited publication. The deck does not give a resolver URL.
+2. [RRID:SCR_006604](https://scicrunch.org/resolver/RRID:SCR_006604). The identifier in IEDB’s homepage JSON-LD, described as the only identifier found in page JSON-LD across the 11 sites reviewed. An example identifier, not a cited publication.
 
-30. “FAIR Signposting.” signposting.org. Called technically useful, especially if an agent is guided to it, and still somewhat bespoke. The rights notes also name the `Link` headers.
+3. “FAIR Signposting.” signposting.org. Called technically useful, especially if an agent is guided to it, and still somewhat bespoke. The rights notes also name the `Link` headers; see **Rights, credit, and lineage**.
     https://signposting.org/FAIR/
 
-Named here, without a URL:
+Additional terms and resources named in the notes:
 
-- A glossary, data dictionary, or field list at a stable URL.
-- IEDB ontologies ONTIE and MRO. Gene Ontology references in BV-BRC’s API docs.
-- Resolvable identifiers: DOIs, accessions, RRIDs, CURIEs. The only specific RRID is item 29.
-- schema.org/Dataset, Science-on-Schema.org, Bioschemas Dataset, and the NIAID Data Ecosystem schema (IID fields: infectious agent, health condition, species, funding).
-- Croissant 1.1 (+ RAI), including the usage policies named in the access-control notes.
-- RO-Crate 1.2. Galaxy and WorkflowHub are named as users of it. The lineage notes also name RO-Crate.
-- SHACL Core (a W3C Recommendation), with ImmPort’s Validate Data Package tool as the starting point. The lineage notes call these shapes contracts.
-- SHACL-AF (a W3C Working Group Note) for derivation rules.
-- SSSOM, and a possible ImmPort-to-CDISC mapping. The notes say no public mapping set was found on the 11 sites reviewed.
-- Competency questions, as the test suite for the items above.
+- A glossary, data dictionary, or field list at a stable URL (a general resource type, not a specific reference).
+- IEDB ontologies ONTIE and [MHC Restriction Ontology (MRO; BioPortal ID: MHCRO)](https://bioportal.bioontology.org/ontologies/MHCRO). [Gene Ontology](https://geneontology.org/) references appear in the [BV-BRC API documentation](https://www.bv-brc.org/api/doc/).
+- Resolvable identifiers: [DOIs](https://doi.org/), accessions, [RRIDs](https://www.rrids.org/current-project), and [CURIEs](https://www.w3.org/TR/2010/NOTE-curie-20101216/). The only specific RRID is **Being meaningful**, item 2.
+- [schema.org `Dataset`](https://schema.org/Dataset), [Science-on-Schema.org](https://github.com/ESIPFed/science-on-schema.org), [Bioschemas Dataset](https://bioschemas.org/profiles/Dataset/), and the [NIAID Data Ecosystem schemas](https://github.com/NIAID-Data-Ecosystem/nde-schemas) (IID fields: infectious agent, health condition, species, funding).
+- [Croissant 1.1](https://docs.mlcommons.org/croissant/docs/croissant-spec-1.1.html) and its [RAI specification](https://docs.mlcommons.org/croissant/docs/croissant-rai-spec.html), including the usage policies named in the access-control notes.
+- [RO-Crate 1.2](https://www.researchobject.org/ro-crate/specification/1.2/introduction.html). [Galaxy](https://galaxyproject.org/) and [WorkflowHub](https://workflowhub.eu/) are named as users of it. The lineage notes also name RO-Crate.
+- [SHACL Core](https://www.w3.org/TR/shacl/) (a W3C Recommendation). The notes also mention ImmPort’s [Data Package Validator](https://docs.immport.org/datasubmission/datapackagevalidator) as a separate validation example. The lineage notes call SHACL shapes contracts.
+- [SHACL-AF](https://www.w3.org/TR/shacl-af/) (a W3C Working Group Note) for derivation rules.
+- [SSSOM](https://mapping-commons.github.io/sssom/), and a possible ImmPort-to-CDISC mapping. The notes say no public mapping set was found on the 11 sites reviewed.
+- Competency questions, as the test suite for the items above (a general testing method, not a specific resource).
 
 ## Rights, credit, and lineage
 
-Named in the notes, without a URL:
+Additional rights, citation, and provenance resources named in the notes:
 
-- W3C Text and Data Mining Reservation Protocol (TDMRep).
-- ODRL (Open Digital Rights Language), paired with DUO codes.
-- DUO (Data Use Ontology).
-- schema.org `conditionsOfAccess`, for open metadata on gated data.
-- SPDX license identifiers.
-- `cr:citeAs`, described as the BibTeX cite-as link.
-- DOI, ORCID, ROR, and RRID, named as identifier types.
-- W3C PROV-O.
+- W3C [Text and Data Mining Reservation Protocol (TDMRep)](https://www.w3.org/community/reports/tdmrep/CG-FINAL-tdmrep-20240510), a Community Group report rather than a W3C Recommendation.
+- [ODRL](https://www.w3.org/TR/odrl-model/) (Open Digital Rights Language), paired with [DUO](https://github.com/EBISPOT/DUO) codes.
+- [DUO](https://github.com/EBISPOT/DUO) (Data Use Ontology).
+- schema.org [`conditionsOfAccess`](https://schema.org/conditionsOfAccess), for open metadata on gated data.
+- [SPDX license identifiers](https://spdx.org/licenses/).
+- Croissant’s [`cr:citeAs`](https://docs.mlcommons.org/croissant/docs/croissant-spec-1.1.html) property, a citation to the dataset or a publication about it that ideally uses BibTeX.
+- [DOI](https://doi.org/), [ORCID](https://orcid.org/), [ROR](https://ror.org/), and [RRID](https://www.rrids.org/current-project), named as identifier types.
+- W3C [PROV-O](https://www.w3.org/TR/prov-o/).
 
-The same notes also name Content Signals (item 17), FAIR Signposting (item 30), RO-Crate and SHACL (under Being meaningful), and read-only MCP or OpenAPI envelopes (under Being callable).
+The same notes also name Content Signals (**Being reachable**, item 4), FAIR Signposting (**Being meaningful**, item 3), RO-Crate and SHACL (under **Being meaningful**), and read-only MCP or OpenAPI envelopes (under **Being callable**).
 
 ## Checking the result
 
-31. Evaluation prompts in ai-blueprint-core, `prompts/evals`. Prompts a repository can use to test an agent.
+1. Evaluation prompts in ai-blueprint-core, `prompts/evals`. Prompts a repository can use to test an agent.
     https://github.com/go-fair-us/ai-blueprint-core/tree/master/prompts/evals
 
-32. CopilotKit, OpenIntelligentUI. Cited for generative and dynamic user interfaces. The deck prints the repository and its default branch. Both addresses are the same project.
+2. CopilotKit, OpenIntelligentUI. Cited for generative and dynamic user interfaces. The deck prints the repository and its default branch. Both addresses are the same project.
     https://github.com/CopilotKit/OpenIntelligentUI
     https://github.com/CopilotKit/OpenIntelligentUI/tree/main
 
-33. Pranavsai, Madala. `genui-package`. Cited as “Opencode genui.”
+3. Pranavsai, Madala. `genui-package`. Cited as “Opencode genui.”
     https://github.com/madalapranavsai/genui-package
 
-The Lighthouse agent audit in this part of the deck is the `llms.txt` audit, item 22.
+The Lighthouse agent audit in this part of the deck is the `llms.txt` audit; see **Being readable**, item 3.
 
 ## Acknowledgements
 
-34. NIAID home page. Printed as an image source.
+1. NIAID home page. Printed as an image source.
     https://www.niaid.nih.gov/
 
 Three photographs are credited to the NIH Image Gallery, with no URL. The captions are “Alzheimer's,” “Peekaboo human parotid glands,” and “Cancer nanomedicine.”
