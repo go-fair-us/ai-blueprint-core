@@ -5,7 +5,7 @@ Sources from **Making Your Repository More Accessible to AI** (*Phase III NIAID 
 [Presentation Slides](slideDeckSIReadyRepos.pdf)
 
  
-Grouped by the same sections as [glossary.md](glossary.md). **Why do this** and **Acknowledgements** are extra: the deck cites them, and the glossary does not define them. Each source is listed once. Speaker notes are included.
+Grouped by the same sections as [glossary.md](glossary.md). **Why do this** and **Acknowledgements** are extra: the deck cites them, and the glossary does not define them. Each source is listed once. 
 
 The deck contains no DOI strings. It cites one arXiv identifier and, as an example rather than as a paper, one RRID.
 
