@@ -37,6 +37,4 @@ The glossary and the bibliography use the same headings. **Why do this** and **A
 | Checking the result | [Checking the result](glossary.md#checking-the-result) | [Checking the result](bibliography.md#checking-the-result) | [Prompts to try](supplementalInformation/prompts2try.md); [evaluation prompts](../evalPrompts.md); [answerability runs](compQuestions/answerability_runs.md) |
 | Acknowledgements | — | [Acknowledgements](bibliography.md#acknowledgements) | — |
 
-## Adding more
-
-Add a new file under `supplementalInformation/` when a glossary entry is no longer enough, and add one row or one cell in the table above. Put any new canonical source in [bibliography.md](bibliography.md), once. Do not paste the essay into the glossary, and do not fold answer keys into a public handout.
+ 

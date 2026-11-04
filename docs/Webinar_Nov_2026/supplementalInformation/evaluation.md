@@ -1,9 +1,7 @@
 # Evaluation
 
-While there isn't a single 1:1 commercial drop-in replacement that covers every aspect of Mintlify's closed-source platform, **there are several open-source tools that directly address AI-readiness scoring, documentation linting, and automated evaluation.**
-
-Mintlify's Agent Score specifically evaluates how well **AI agents, RAG systems, and LLMs** can parse, crawl, extract, and understand a documentation site. Depending on whether you want to check **AI legibility (Agent Score)** or **technical accuracy and structural completeness**, several open-source tools offer these capabilities:
-
+ There are several open-source tools that can be used to address SI readiness scoring, documentation linting, and automated evaluation.
+ 
 ---
 
 ### 1. `afdocs` (Agent-Friendly Documentation Spec)
@@ -22,8 +20,6 @@ npx afdocs check https://docs.your-site.com --format scorecard
 
 ```
 
-
-
 ---
 
 ### 2. Open-Source AI/LLM Evaluation Frameworks (For RAG & Docs Quality)
@@ -40,13 +36,6 @@ If you want to measure whether an LLM/agent can successfully answer user queries
 
 To complement AI legibility checks, these open-source CLI tools ensure your docs don't contain stale code snippets or broken references (which trip up AI agents):
 
-* **[Doc Detective](https://www.google.com/search?q=https://github.com/scs-onsite/doc-detective):** An open-source documentation testing framework that executes code snippets, commands, and API calls directly from your Markdown files to guarantee that what the AI reads actually runs.
+* **[Doc Detective](https://github.com/doc-detective/doc-detective):** An open-source documentation testing framework that executes code snippets, commands, and API calls directly from your Markdown files to guarantee that what the AI reads actually runs.
 * **[Vale](https://github.com/errata-ai/vale):** A syntax-aware, open-source linter for technical documentation that enforces style guide consistency, structure, and readability across Markdown files before AI models index them.
 
----
-
-### Summary Recommendation
-
-* **For an exact CLI alternative to Mintlify Agent Score:** Use **`afdocs`**.
-* **To test if an AI agent can actually retrieve accurate answers from your docs:** Use **`Ragas`** or **`DeepEval`**.
-* **To ensure code examples inside your docs are valid for AI models:** Use **`Doc Detective`**.

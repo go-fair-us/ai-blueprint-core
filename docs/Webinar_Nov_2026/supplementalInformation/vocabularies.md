@@ -1,21 +1,23 @@
-Notes: 
-https://pmc.ncbi.nlm.nih.gov/articles/PMC7121563/
+# Vocabulary Tools and Resources  
 
-https://bioportal.bioontology.org/ontologies/MHCRO
-
-https://skos-play.sparna.fr/play/
-
-I thought of Jessica Talisman's SKOS tool at https://github.com/jesstalisman-ia/intentional-arrangement-skos   	Do you know of any other simple tools for build vocabularies. 	Wasn't there a CSV to SKOS tool someone in ESIP or OBO created?   I looked here https://obofoundry.org/resources but didn't see it.  
-
+The following is a collection of resources from the net related to authoring vocabularies.
 
 --- 
+## Quick recommendation
+
+| Need | Start with |
+|------|------------|
+| Absolute simplest / domain experts | SKOS Play Excel converter or voc4cat-style Excel + GitHub |
+| Easy web thesaurus editor | TemaTres |
+| Collaborative / production / multi-user | VocBench |
+| Pure browser, no install | Intentional Arrangement SKOS or similar |
+
+For non-SKOS vocabularies (plain lists, OWL ontologies, etc.), the same Excel approaches or Protégé cover most cases. Most of these tools support import/export so you can start simple and move to a fuller system later.
+
+If you describe the scale (small list vs. large hierarchical thesaurus), whether it needs collaboration/multilingual support, or your preferred interface (Excel, web form, desktop), I can narrow it further or point to specific templates/setup notes.
 
 
-**Yes.** Several free and open-source tools make it straightforward to create SKOS (Simple Knowledge Organization System) vocabularies, thesauri, taxonomies, or similar controlled vocabularies without needing commercial software.
-
-### Simplest options (especially good for non-RDF experts)
-
-These emphasize familiar interfaces like Excel or pure browser use:
+## Simplest options (especially good for non-RDF experts) 
 
 - **SKOS Play!** (https://skos-play.sparna.fr/ or the labs version)  
   Online free/open-source tool. Its strongest simple feature is converting Excel (or Google Sheets) spreadsheets into SKOS RDF using straightforward templates. You can also visualize, print to HTML/PDF, and do basic validation. Ideal for getting started quickly—download an example spreadsheet, fill in concepts/labels/relations, and convert. Code is on GitHub (Sparna).
@@ -28,7 +30,7 @@ These emphasize familiar interfaces like Excel or pure browser use:
 - **Browser-only editors**  
   Tools like **Intentional Arrangement SKOS** (static web app, no server needed) let you build, validate, and export SKOS taxonomies directly in the browser. Other lightweight web editors (e.g., Vocabseditor) exist for collaborative work.
 
-### Full-featured open-source management systems
+## Full-featured open-source management systems
 
 These provide proper editing UIs, hierarchy management, multilingual support, import/export, and often publishing features:
 
@@ -37,22 +39,22 @@ These provide proper editing UIs, hierarchy management, multilingual support, im
 - **iQvoc** — SKOS(-XL) vocabulary management system with a clean web interface for editing and publishing.  
 - **OpenTheso** — Another solid open-source option for thesauri with SKOS support.
 
-### Other useful tools
+## Other useful tools
 
 - **Protégé** (or WebProtégé) — Free desktop/web ontology editor. You can model SKOS vocabularies as RDF or use plugins; best if you already work with OWL or want more expressive modeling.  
 - **Publishing/browsing**: Once you have SKOS, tools like **Skosmos** make nice public interfaces (search, hierarchy, multilingual).  
 - **Validation**: qSKOS (or features in SKOS Play/voc4cat) for quality checks.  
 - Wiki-style alternatives: Semantic MediaWiki or Wikibase if you prefer that workflow.
 
-### Quick recommendation
+# Notes to incorporate
 
-| Need | Start with |
-|------|------------|
-| Absolute simplest / domain experts | SKOS Play Excel converter or voc4cat-style Excel + GitHub |
-| Easy web thesaurus editor | TemaTres |
-| Collaborative / production / multi-user | VocBench |
-| Pure browser, no install | Intentional Arrangement SKOS or similar |
+https://pmc.ncbi.nlm.nih.gov/articles/PMC7121563/
 
-For non-SKOS vocabularies (plain lists, OWL ontologies, etc.), the same Excel approaches or Protégé cover most cases. Most of these tools support import/export so you can start simple and move to a fuller system later.
+https://bioportal.bioontology.org/ontologies/MHCRO
 
-If you describe the scale (small list vs. large hierarchical thesaurus), whether it needs collaboration/multilingual support, or your preferred interface (Excel, web form, desktop), I can narrow it further or point to specific templates/setup notes.
+https://skos-play.sparna.fr/play/
+
+A recent addition Jessica Talisman's  SKOS tool at: https://github.com/jesstalisman-ia/intentional-arrangement-skos    
+
+https://obofoundry.org/resources   
+

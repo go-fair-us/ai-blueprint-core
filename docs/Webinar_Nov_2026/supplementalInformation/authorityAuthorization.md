@@ -2,18 +2,17 @@
 
 Authority and authorization are concepts which come up in multiple locations in the talk.   This also 
 goes along with the issue of delegation of these to agents acting on the behalf of people or organizations.  
-Which can further complicate the situation.   A key aspect of the presentation is to be explicate about both who 
+Which can further complicate the situation.   A key aspect of the presentation is to be explicit about both who 
 can access and even elements of what and how they can access.  
 
-Also, the issue of identifying these agents, human or machine, can be an issues.  Notes on this 
+Also, the issue of identifying these agents, human or machine, can be an issue.  Notes on this 
 can be found in [agentIdentification.md](agentIdentification.md).
 
 
-### Why do this? Let's raise some concerns up front"
+### Why do this? Let's raise some concerns up front
 
 This slide introduces the "Rights & access" concern. 
-
-* **On the slide:** Thought: Update the "Rights & access" bullet to read: *Who can view or use your data and under what specific conditions (e.g., handling clinical or controlled access data).*
+ 
 
 * **Speaker Notes:** "When we talk about rights and access, we aren't just talking about copyright. For many of you, we are talking about clinical data or embargoed research. We need frameworks that ensure an AI agent acting on a researcher's behalf only touches the data that specific researcher is authorized to see."
 
@@ -21,7 +20,7 @@ This slide introduces the "Rights & access" concern.
  
 Clinical data could be seen as a driving use case for *why* OAuth 2.1 and scope-based permissions are necessary.
 
-* **Speaker Notes:** "I want to briefly touch on authentication. If a researcher is using an agent to query clinical data or any controlled access repository, that agent must inherit their exact permissions. MCP handles this by utilizing OAuth protocols and token scopes.  The goal is to gaurd against the agent accidentally pulling or expose clinical records it shouldn't have access to."
+* **Speaker Notes:** "I want to briefly touch on authentication. If a researcher is using an agent to query clinical data or any controlled access repository, that agent must inherit their exact permissions. MCP handles this by utilizing OAuth protocols and token scopes.  The goal is to guard against the agent accidentally pulling or expose clinical records it shouldn't have access to."
 
 ### Be Meaningful - Rights & Access
 
