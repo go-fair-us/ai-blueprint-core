@@ -4,7 +4,7 @@ Supplementary materials for the Phase III NIAID Blueprint webinar (6 November 20
 
 > NOTE:  Foundational drafts of many glossary entries, section outlines, and bibliography items were produced with generative AI assistance. These were then read, revised, corrected, and expanded by the author(s). Human judgment determined what was kept, rewritten, or discarded. Sources cited in the bibliography were verified against the original pages (with exceptions noted where access was blocked). The author(s) take full responsibility for the content of these materials.
 
-[Deck (Google Slides)](https://docs.google.com/presentation/d/1_LlLl9GZ2Vy_t4URCCFUWx8CVfqN6jcOj_J7pnD5qYg/edit) · local copy: [slideDeckSIReadyRepos.pdf](slideDeckSIReadyRepos.pdf)
+[Presentation Slides](slideDeckSIReadyRepos.pdf)
 
 These files are handouts and working notes, not a second copy of the slides. Definitions stay in the glossary. Sources stay in the bibliography. A longer note is a separate file, linked from the matching section below.
 
@@ -32,7 +32,7 @@ The glossary and the bibliography use the same headings. **Why do this** and **A
 | Being readable | [Being readable](glossary.md#being-readable) | [Being readable](bibliography.md#being-readable) | [assets/](assets/) |
 | Being callable | [Being callable](glossary.md#being-callable) | [Being callable](bibliography.md#being-callable) | — |
 | Being meaningful | [Being meaningful](glossary.md#being-meaningful) | [Being meaningful](bibliography.md#being-meaningful) | [Competency questions](compQuestions/competency_questions.md) |
-| Rights, credit, and lineage | [Rights, credit, and lineage](glossary.md#rights-credit-and-lineage) | [Rights, credit, and lineage](bibliography.md#rights-credit-and-lineage) | [TDM reservations](supplementalInformation/tdm.md) (draft)  |
+| Rights, credit, and lineage | [Rights, credit, and lineage](glossary.md#rights-credit-and-lineage) | [Rights, credit, and lineage](bibliography.md#rights-credit-and-lineage) | [TDM reservations](supplementalInformation/tdm.md) (draft) |
 | Checking the result | [Checking the result](glossary.md#checking-the-result) | [Checking the result](bibliography.md#checking-the-result) | [Prompts to try](supplementalInformation/evaluationPrompts.md); [evaluation prompts](../evalPrompts.md); [answerability runs](compQuestions/answerability_runs.md) |
 | Acknowledgements | — | [Acknowledgements](bibliography.md#acknowledgements) | — |
 

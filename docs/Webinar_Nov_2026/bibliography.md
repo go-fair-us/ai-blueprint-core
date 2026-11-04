@@ -2,8 +2,9 @@
 
 Sources from **Making Your Repository More Accessible to AI** (*Phase III NIAID Slides 11/6*, NIAID Blueprint webinar, 6 November 2026).
 
-[Deck](https://docs.google.com/presentation/d/1_LlLl9GZ2Vy_t4URCCFUWx8CVfqN6jcOj_J7pnD5qYg/edit)
+[Presentation Slides](slideDeckSIReadyRepos.pdf)
 
+ 
 Grouped by the same sections as [glossary.md](glossary.md). **Why do this** and **Acknowledgements** are extra: the deck cites them, and the glossary does not define them. Each source is listed once. Speaker notes are included.
 
 The deck contains no DOI strings. It cites one arXiv identifier and, as an example rather than as a paper, one RRID.

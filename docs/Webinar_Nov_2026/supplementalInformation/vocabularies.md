@@ -1,6 +1,6 @@
-# Vocabulary Tools and Resources  
+# Vocabulary Tools and Resources
 
-The following is a collection of resources from the net related to authoring vocabularies.
+This document provides a collection of online resources for vocabulary development.
 
 --- 
 ## Quick recommendation
@@ -13,8 +13,6 @@ The following is a collection of resources from the net related to authoring voc
 | Pure browser, no install | [Intentional Arrangement SKOS](https://jesstalisman-ia.github.io/intentional-arrangement-skos/) |
 
 For non-SKOS vocabularies (plain lists, OWL ontologies, etc.), spreadsheet tools or [Protégé](https://protege.stanford.edu/) may be a better fit. Import and export options vary by tool and template, so check that the data you need is preserved before moving between systems; do not assume conversions are lossless.
-
-If you describe the scale (small list vs. large hierarchical thesaurus), whether it needs collaboration/multilingual support, or your preferred interface (Excel, web form, desktop), I can narrow it further or point to specific templates/setup notes.
 
 
 ## Simplest options (especially good for non-RDF experts) 
