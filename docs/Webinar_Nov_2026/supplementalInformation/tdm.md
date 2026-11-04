@@ -1,31 +1,27 @@
-# Text and Data Mining Observations
+# Text and Data Mining (TDM)
 
+Text and data mining means using automated techniques to analyze digital text or data. It can support research and other uses, including some AI development. The legal rules depend on the jurisdiction, the content, and the circumstances; a website signal is not a substitute for checking those rules. This overview is informational, not legal advice.
 
-## TDM
+## The EU rule and rights reservations
 
-Under Article 4 of the EU Directive on Copyright in the Digital Single Market (DSM Directive), commercial text and data mining (TDM) is permitted by default unless a rightsholder explicitly reserves their rights in a "machine-readable manner". To meet this legal requirement, specific metadata standards and protocols have been developed to signal these opt-outs to AI crawlers and automated systems.
+[Article 4 of the EU Copyright in the Digital Single Market Directive](https://eur-lex.europa.eu/eli/dir/2019/790/oj/eng#art_4) provides a TDM exception for works that are lawfully accessible, unless rightsholders expressly reserve their rights in an appropriate manner, such as machine-readable means for content made publicly available online. The Directive also has a distinct research exception in Article 3. Which provision applies depends on the circumstances.
 
-The primary technical standard for this is the **TDM Reservation Protocol (TDMRep)**, developed by a W3C community group. The protocol utilizes two core properties to express rights:
+The [EU AI Act, Article 53(1)(c)](https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng#art_53), requires providers of general-purpose AI models within its scope to put in place a copyright-compliance policy, including identifying and complying with relevant rights reservations. This is not a blanket rule for every AI system or company, and a web declaration alone does not determine whether a particular use is lawful.
 
-* tdm-reservation: A boolean value where 1 indicates that rights are reserved (TDM is not permitted without explicit permission) and 0 indicates no reservation is made.   
-* tdm-policy: An optional URL that points to a policy file outlining the specific terms, conditions, or licensing agreements under which mining may be conducted.  
+## TDM Reservation Protocol (TDMRep)
 
+The [TDM Reservation Protocol (TDMRep)](https://www.w3.org/community/reports/tdmrep/CG-FINAL-tdmrep-20240510/) is a [W3C Community Group Final Report](https://www.w3.org/community/tdmrep/), not a W3C Recommendation. It describes ways to publish machine-readable TDM rights signals, including a site-level `/.well-known/tdmrep.json` file, HTTP response headers, and HTML metadata. The report also specifies how an agent should interpret declarations when more than one applies; follow its rules rather than assuming that one signal always overrides another.
 
-To ensure crawlers discover these TDM rights, the TDMRep specification defines a hierarchy of implementation layers, from broad to specific:
+The protocol uses two properties:
 
-* **Site-wide Declarations (.well-known/tdmrep.json)**:A single JSON file hosted at a well-known URL on your domain that dictates TDM rights for the entire site or specific URL patterns.
-* **HTTP Response Headers**: You can set tdm-reservation and tdm-policy directly in the HTTP headers of individual responses, which overrides the site-wide .well-known file for that specific resource.
-* **HTML Meta Tags**: For standard web pages, adding TDM tags in the HTML document \<head\> provides a page-level declaration that overrides both the .well-known file and HTTP headers.   
-* **File-Level Embedded Metadata**: For downloadable assets, TDM declarations can be embedded directly into the file's metadata (such as XMP metadata in PDFs or package metadata in EPUBs). This is the most specific declaration level and ensures the TDM opt-out persists even if the file is downloaded, emailed, or uploaded to a third-party repository.  
+- `tdm-reservation`: `1` indicates that TDM rights are reserved; `0` indicates that they are not reserved by that declaration.
+- `tdm-policy`: an optional link to a policy or licensing information.
 
+These are signals about rights, not access controls. The policy link may provide more detail, but a reservation signal does not itself grant permission or settle questions about exceptions, licenses, or applicable law. Check the report for the supported mechanisms and format-specific details before embedding metadata in downloadable files.
 
-## TDM-AI
+## TDM·AI and robots.txt
 
-[https\://docs.tdmai.org/](https://docs.tdmai.org/) 
+[TDM·AI](https://docs.tdmai.org/) is related work that defines machine-readable AI-use preferences. It is not the same protocol as TDMRep; consult its current specification to understand what a declaration means and how it is expressed.
 
-Another related framework is the **TDM·AI specification**, which defines a technical vocabulary for public, machine-readable AI preferences. It serves as a standardized layer for opt-out declarations to set a default position of "no permission granted," allowing rightsholders to assert their rights under EU law while negotiating separate, explicit licensing deals off-protocol.
-
-It is crucial to distinguish these machine-readable reservations from a standard robots.txt file. While robots.txt dictates whether a bot is allowed to *access* a URL for general purposes like search engine indexing, TDM metadata specifically dictates whether lawfully accessed content may be *extracted and mined for AI training*. Ignorance of properly declared TDM reservations carries legal weight under the EU DSM Directive and the EU AI Act, meaning AI companies that bypass these tags are knowingly acting against expressed wishes.
-
-See Also:  [https\://www\.w3.org/community/reports/tdmrep/CG-FINAL-tdmrep-20240510/](https://www.w3.org/community/reports/tdmrep/CG-FINAL-tdmrep-20240510/)  
+Do not confuse either rights signal with [robots.txt](https://www.rfc-editor.org/rfc/rfc9309). The Robots Exclusion Protocol communicates crawler access preferences. It does not, by itself, grant or deny copyright permission. Conversely, a TDM reservation communicates a rights position but does not block a crawler from fetching a URL. Sites may need both, and their legal and operational effects are different.
 

@@ -1,4 +1,4 @@
-# Prompts to try during the talk
+# Evaluation Prompts
 
 A follow-along sheet for "Making Your Repository More Accessible to AI" (NIAID Blueprint Webinar Series, 6 November 2026).
 
