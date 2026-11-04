@@ -2,7 +2,7 @@
 
 A follow-along sheet for "Making Your Repository More Accessible to AI" (NIAID Blueprint Webinar Series, 6 November 2026).
 
-Each prompt asks one question about a public repository. The full text lives in [`prompts/evals`](../../prompts/evals). This page says when to try it, what it asks, and how to run it in ChatGPT, Claude, Grok, or a harness such as [Hermes](https://hermes-agent.nousresearch.com). Definitions of the slide words are in the [glossary](glossary.md). The catalog of every check is [evalPrompts.md](evalPrompts.md).
+Each prompt asks one question about a public repository. The full text lives in [`../../../prompts/evals`](../../../prompts/evals). This page says when to try it, what it asks, and how to run it in ChatGPT, Claude, Grok, or a harness such as [Hermes](https://hermes-agent.nousresearch.com). Definitions of the slide words are in the [glossary](../glossary.md). The catalog of every check is [evalPrompts.md](../../evalPrompts.md).
 
 Use your own repository, or a public one you already know. One fresh chat per prompt keeps the previous question from leaking into the next report.
 
@@ -21,9 +21,9 @@ Replace the origin with the site's home URL. When you have a dataset, study, or 
 
 A web chat often summarizes a page and drops status codes, headers, and JSON-LD blocks inside `script` tags. The prompt tells the model to mark a check `not-observable` and write `client cannot see …` when that happens. Read that as a property of the chat, and keep the checks it could support.
 
-**Hermes, Pi, or another harness that can run HTTP.** Paste the same file as the task and include the two lines above. A client that returns the status code, the headers, and the unmodified body can fill more of the report. `curl -i` is enough. In this repository's Pi launcher, the same files are slash commands: `./bin/pi`, then `/sitemap https://www.example.org/`. See [HARNESS_QUICKSTART.md](../../HARNESS_QUICKSTART.md).
+**Hermes, Pi, or another harness that can run HTTP.** Paste the same file as the task and include the two lines above. A client that returns the status code, the headers, and the unmodified body can fill more of the report. `curl -i` is enough. In this repository's Pi launcher, the same files are slash commands: `./bin/pi`, then `/sitemap https://www.example.org/`. See [HARNESS_QUICKSTART.md](../../../HARNESS_QUICKSTART.md).
 
-Hermes also has a separate `/fair-assessment` skill in [`harnesses/hermes/fair-assessor`](../../harnesses/hermes/fair-assessor). That skill scores the whole Blueprint. The prompts on this page each stop at one question.
+Hermes also has a separate `/fair-assessment` skill in [`../../../harnesses/hermes/fair-assessor`](../../../harnesses/hermes/fair-assessor). That skill scores the whole Blueprint. The prompts on this page each stop at one question.
 
 Stay on the repository's own host. Send no password or API key. The prompts cap how many pages they open.
 
@@ -45,7 +45,7 @@ The slide covers `robots.txt`, content-use preferences, and an ordinary GET that
 
 ### Reachable fetch
 
-[`reachable-fetch.md`](../../prompts/evals/reachable-fetch.md)
+[`reachable-fetch.md`](../../../prompts/evals/reachable-fetch.md)
 
 Asks whether a normal HTTP GET, without running JavaScript, gets a real response for the homepage and one record. A JavaScript application shell still counts as a successful fetch. Whether the record's text is in that HTML is the next section.
 
@@ -53,7 +53,7 @@ Paste the file with your origin. Add a record URL when you have one. With `Recor
 
 ### Robots policy
 
-[`robots-policy.md`](../../prompts/evals/robots-policy.md)
+[`robots-policy.md`](../../../prompts/evals/robots-policy.md)
 
 Reads `robots.txt` and reports what it allows for a search indexer, a user-driven fetcher, and a trainer crawler. It also notes whether the file names a sitemap. Allow and Disallow are observations. Permission for a trainer is not a passing grade.
 
@@ -65,7 +65,7 @@ The slide covers sitemaps, `llms.txt`, Markdown alternates, pages whose text arr
 
 ### llms.txt
 
-[`llms-txt.md`](../../prompts/evals/llms-txt.md)
+[`llms-txt.md`](../../../prompts/evals/llms-txt.md)
 
 Looks for an `llms.txt` file, then checks whether a page points at a Markdown alternate and at the `llms.txt` that describes it.
 
@@ -73,7 +73,7 @@ Paste the file with the origin. A record URL is the page used for the link check
 
 ### Sitemap
 
-[`sitemap.md`](../../prompts/evals/sitemap.md)
+[`sitemap.md`](../../../prompts/evals/sitemap.md)
 
 Looks for a sitemap or a sitemap index that an agent can discover, and checks whether the listed URLs include dataset, study, or record pages.
 
@@ -81,7 +81,7 @@ Paste the file with the origin. A record URL is optional. When you supply one, t
 
 ### Server-rendered content
 
-[`server-rendered-content.md`](../../prompts/evals/server-rendered-content.md)
+[`server-rendered-content.md`](../../../prompts/evals/server-rendered-content.md)
 
 Checks whether the record title, description, identifier, and license are in the first HTML response, before any browser script runs.
 
@@ -89,7 +89,7 @@ Paste the file with the origin and a record URL. This question needs a record pa
 
 ### Markdown negotiation
 
-[`markdown-negotiation.md`](../../prompts/evals/markdown-negotiation.md)
+[`markdown-negotiation.md`](../../../prompts/evals/markdown-negotiation.md)
 
 Checks whether the record returns Markdown when the request asks for `Accept: text/markdown`, or advertises a Markdown alternate with `rel="alternate"` and `type="text/markdown"`. Either path answers the question.
 
@@ -97,7 +97,7 @@ Paste the file with the origin and a record URL. A web chat that cannot set the 
 
 ### Bulk export
 
-[`bulk-export.md`](../../prompts/evals/bulk-export.md)
+[`bulk-export.md`](../../../prompts/evals/bulk-export.md)
 
 Looks for a bulk download or a bulk Markdown export linked from the site or from `llms.txt`.
 
@@ -105,7 +105,7 @@ Paste the file with the origin. A record URL is optional.
 
 ### Agent documentation
 
-[`agent-documentation.md`](../../prompts/evals/agent-documentation.md)
+[`agent-documentation.md`](../../../prompts/evals/agent-documentation.md)
 
 Looks for data-access or API docs linked where an agent can follow them, including a `SKILL.md` when the site publishes one.
 
@@ -117,7 +117,7 @@ The slide covers a metadata API, OpenAPI, ordinary HTTP behavior, and an optiona
 
 ### OpenAPI discovery
 
-[`openapi-discovery.md`](../../prompts/evals/openapi-discovery.md)
+[`openapi-discovery.md`](../../../prompts/evals/openapi-discovery.md)
 
 Starts from the public site and looks for one OpenAPI or Swagger document. It finds the document. It does not score the API against Blueprint Section 3.
 
@@ -125,7 +125,7 @@ Paste the file with the origin. A record URL is optional.
 
 ### Metadata API
 
-[`metadata-api.md`](../../prompts/evals/metadata-api.md)
+[`metadata-api.md`](../../../prompts/evals/metadata-api.md)
 
 Looks for one unauthenticated GET whose path is a resource address and whose body is JSON-LD for a dataset or study. It reports the status, the content type, and whether the body has `@context` and `@type`.
 
@@ -133,7 +133,7 @@ Paste the file with the origin. Add a record URL when it helps the model recogni
 
 ### API HTTP behavior
 
-[`api-http-behavior.md`](../../prompts/evals/api-http-behavior.md)
+[`api-http-behavior.md`](../../../prompts/evals/api-http-behavior.md)
 
 Takes that same metadata GET and records the status, content type, redirect, and cache headers.
 
@@ -141,7 +141,7 @@ Run the metadata prompt first, then paste this file with the origin and the GET 
 
 ### MCP exposure
 
-[`mcp-exposure.md`](../../prompts/evals/mcp-exposure.md)
+[`mcp-exposure.md`](../../../prompts/evals/mcp-exposure.md)
 
 Looks for a public advertisement of a remote MCP server, on the site or in a registry entry the site points to. A missing server is a finding, and the prompt treats a remote MCP server as optional.
 
@@ -153,7 +153,7 @@ The slide covers persistent identifiers, a published vocabulary, one schema.org 
 
 ### Dataset JSON-LD
 
-[`dataset-jsonld.md`](../../prompts/evals/dataset-jsonld.md)
+[`dataset-jsonld.md`](../../../prompts/evals/dataset-jsonld.md)
 
 Checks the record page for one server-rendered schema.org `Dataset` JSON-LD block, including the core fields.
 
@@ -161,7 +161,7 @@ Paste the file with the origin and a record URL. A chat that converts the page t
 
 ### Persistent identifiers
 
-[`persistent-identifiers.md`](../../prompts/evals/persistent-identifiers.md)
+[`persistent-identifiers.md`](../../../prompts/evals/persistent-identifiers.md)
 
 Reports which of a DOI or accession, an ORCID, a ROR, and an RRID appear as IRIs in the record's machine-readable metadata.
 
@@ -169,7 +169,7 @@ Paste the file with the origin and a record URL.
 
 ### Vocabulary
 
-[`vocabulary.md`](../../prompts/evals/vocabulary.md)
+[`vocabulary.md`](../../../prompts/evals/vocabulary.md)
 
 Looks for a stable glossary, data dictionary, or field list, and for a link to an ontology the repository uses. An informal field list counts. A link to an ontology the site already cites is the second part.
 
@@ -177,7 +177,7 @@ Paste the file with the origin. A record URL is optional. Use it when the record
 
 ### Metadata profile
 
-[`metadata-profile.md`](../../prompts/evals/metadata-profile.md)
+[`metadata-profile.md`](../../../prompts/evals/metadata-profile.md)
 
 Checks whether the record says which profile it follows, with `conformsTo` or an equivalent URL. The slides name schema.org Dataset, Science-on-Schema.org, Bioschemas, the NIAID Data Ecosystem fields, Croissant, and RO-Crate. The question is whether the record declares one.
 
@@ -185,7 +185,7 @@ Paste the file with the origin and a record URL.
 
 ### SHACL shapes
 
-[`shacl-shapes.md`](../../prompts/evals/shacl-shapes.md)
+[`shacl-shapes.md`](../../../prompts/evals/shacl-shapes.md)
 
 Looks for record or submission rules published as SHACL. It looks for the file. It does not run a validator.
 
@@ -193,7 +193,7 @@ Paste the file with the origin. A record URL is optional.
 
 ### SSSOM mappings
 
-[`sssom-mappings.md`](../../prompts/evals/sssom-mappings.md)
+[`sssom-mappings.md`](../../../prompts/evals/sssom-mappings.md)
 
 Looks for a public SSSOM file: a table of "our term matches their term," with a relation, a justification, and who asserted it.
 
@@ -201,7 +201,7 @@ Paste the file with the origin. A record URL is optional.
 
 ### Competency questions
 
-[`competency-questions.md`](../../prompts/evals/competency-questions.md)
+[`competency-questions.md`](../../../prompts/evals/competency-questions.md)
 
 Checks that the site publishes questions an agent could use as tests of this repository. It quotes questions the site wrote. It does not answer them.
 
@@ -213,7 +213,7 @@ These slides sit with the four "Be" sections. A scrape can drop the license, the
 
 ### Rights and license
 
-[`rights-and-license.md`](../../prompts/evals/rights-and-license.md)
+[`rights-and-license.md`](../../../prompts/evals/rights-and-license.md)
 
 Checks whether the license and the conditions of access are in machine-readable metadata on the record.
 
@@ -221,7 +221,7 @@ Paste the file with the origin and a record URL.
 
 ### Citation
 
-[`citation.md`](../../prompts/evals/citation.md)
+[`citation.md`](../../../prompts/evals/citation.md)
 
 Looks for a public citation pattern, with creators, that an agent can read.
 
@@ -229,7 +229,7 @@ Paste the file with the origin. Add a record URL when the citation lives on that
 
 ### Provenance and lineage
 
-[`provenance-lineage.md`](../../prompts/evals/provenance-lineage.md)
+[`provenance-lineage.md`](../../../prompts/evals/provenance-lineage.md)
 
 Checks whether the record's machine-readable metadata says which version it is, where it came from, and how to check that the files are intact.
 
@@ -243,7 +243,7 @@ Run [competency questions](#competency-questions) first when you want the agent 
 
 ### Competency answerability
 
-[`competency-answerability.md`](../../prompts/evals/competency-answerability.md)
+[`competency-answerability.md`](../../../prompts/evals/competency-answerability.md)
 
 Tries to answer up to three of those questions from the public site alone. An answer counts when the report quotes text or a field fetched in that run. The path it records shows which of the earlier features helped: `llms.txt`, a sitemap, JSON-LD, an API, or docs.
 

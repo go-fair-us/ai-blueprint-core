@@ -15,8 +15,8 @@ These files are handouts and working notes, not a second copy of the slides. Def
 | [glossary.md](glossary.md) | Anyone using the deck’s words | Short working definitions, in talk order. Not the full specification of each standard. |
 | [bibliography.md](bibliography.md) | Anyone following a citation | Each source once, grouped like the glossary. Titles checked against the pages, except where a site blocked the fetch. |
 | [supplementalInformation/](supplementalInformation/) | Someone who needs more than a glossary line | Briefings and drafts. Finished pieces can be handed out. Drafts are still speaker prep. |
-| [evalPrompts.md](evalPrompts.md) | Someone testing a repository | Catalog of the single-question prompts in `prompts/evals`. This file does not contain the prompts. |
-| [prompts2try.md](prompts2try.md) | Someone following the talk live | Which prompt to try in each "Be" section, and how to run it in ChatGPT, Claude, Grok, or a harness. |
+| [evalPrompts.md](../evalPrompts.md) | Someone testing a repository | Catalog of the single-question prompts in `prompts/evals`. This file does not contain the prompts. |
+| [prompts2try.md](supplementalInformation/prompts2try.md) | Someone following the talk live | Which prompt to try in each "Be" section, and how to run it in ChatGPT, Claude, Grok, or a harness. |
 | [compQuestions/](compQuestions/) | Someone running those tests on NIAID sites | Competency questions and separate answer keys. Do not paste a key into the prompt an agent sees. |
 | [assets/](assets/) | Someone looking for a concrete file | Example `robots.txt`, `sitemap.xml`, `llms.txt`, and `ard.json`. |
 
@@ -34,7 +34,7 @@ The glossary and the bibliography use the same headings. **Why do this** and **A
 | Being callable | [Being callable](glossary.md#being-callable) | [Being callable](bibliography.md#being-callable) | — |
 | Being meaningful | [Being meaningful](glossary.md#being-meaningful) | [Being meaningful](bibliography.md#being-meaningful) | [Competency questions](compQuestions/competency_questions.md) |
 | Rights, credit, and lineage | [Rights, credit, and lineage](glossary.md#rights-credit-and-lineage) | [Rights, credit, and lineage](bibliography.md#rights-credit-and-lineage) | [TDM reservations](supplementalInformation/tdm.md) (draft); [authority and authorization](supplementalInformation/authorityAuthorization.md) (speaker notes) |
-| Checking the result | [Checking the result](glossary.md#checking-the-result) | [Checking the result](bibliography.md#checking-the-result) | [Prompts to try](prompts2try.md); [evaluation prompts](evalPrompts.md); [answerability runs](compQuestions/answerability_runs.md) |
+| Checking the result | [Checking the result](glossary.md#checking-the-result) | [Checking the result](bibliography.md#checking-the-result) | [Prompts to try](supplementalInformation/prompts2try.md); [evaluation prompts](../evalPrompts.md); [answerability runs](compQuestions/answerability_runs.md) |
 | Acknowledgements | — | [Acknowledgements](bibliography.md#acknowledgements) | — |
 
 ## Adding more
