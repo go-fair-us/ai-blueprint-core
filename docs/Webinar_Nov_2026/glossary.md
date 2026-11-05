@@ -1,16 +1,18 @@
 # Glossary
 
-Terms from the NIAID Blueprint webinar deck **Making Your Repository More Accessible to AI** (*Phase III NIAID Slides 11/6*, 6 November 2026).
+Terms from the NIAID Blueprint webinar deck **Making Your Repository More Accessible to SI** (*Phase III NIAID Slides 11/6*, 6 November 2026). The live Google Slides deck and the PDF handout use **SI** in the talk title and pillar language; earlier handout drafts said **AI**. These definitions follow the live deck. **SI** is left as the slides write it (not expanded here).
 
 Definitions follow the way the slides and speaker notes use each word. They are short working definitions for this talk. Where a term is a published standard, the line says what the deck is pointing at, not the full specification.
 
-The talk’s scope is what a repository can hand to an AI workflow: data, services, context, and skills and tools. Building agents, building a harness, choosing a model, and running the compute are outside that scope.
+The talk’s scope is what a repository can hand to an SI workflow: data, services, context, and skills and tools. Building agents, building a harness, choosing a model, and running the compute are outside that scope.
 
 ## Systems and roles
 
-**Artificial intelligence (AI).** Software that uses a trained model to interpret, search, summarize, or act on repository content. In this deck that includes training crawlers, cataloging crawlers, and agents that visit because a person asked.
+**Artificial intelligence (AI).** Software that uses a trained model to interpret, search, summarize, or act on repository content. In this deck that includes training crawlers, cataloging crawlers, and agents that visit because a person asked. The live title and many slides prefer **SI** for the same space of workflows.
 
-**Model.** The trained system that produces the output. The deck treats the model as one of three parts of an AI flow, alongside the compute environment and the application.  
+**SI.** The live deck’s preferred label in the talk title and “Be …” pillars (Reachable, Readable, Callable, Meaningful). Used the way the slides use it for agent- and model-mediated workflows over repository content. Not expanded in these handouts.
+
+**Model.** The trained system that produces the output. The deck treats the model as one of three parts of an SI flow, alongside the compute environment and the application.
 
 **Weights.** The learned parameters inside a model. “Stale weights” means an older training run that still answers questions about a repository after the live site has changed, moved, or closed.
 
@@ -18,7 +20,7 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 **Application.** The workflow a person uses. The repository’s contribution is what that application can read and call.
 
-**AI[SI]workflow.** A task that uses a model together with repository content: find a study, read a record, call an API, draft a citation. The deck’s subject is how to make that workflow possible from the repository side.
+**SI workflow.** A task that uses a model together with repository content: find a study, read a record, call an API, draft a citation. The deck’s subject is how to make that workflow possible from the repository side. (Earlier handout text had a malformed “AI[SI]workflow” label for the same idea.)
 
 **Harness.** The software wrapped around a model that runs the loop: which tools it may call, what it is allowed to remember, and when it must stop. The talk does not ask repositories to build or operate one. It asks them to supply the files, APIs, and context a harness can use.
 
@@ -34,11 +36,11 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 **Crawler.** An automated client that walks a site on its own schedule. The deck splits crawlers by purpose, because a single block often stops the useful visits along with the unwanted ones.
 
-**Trainer crawler.** A crawler collecting text for model training. The slide names OpenAI and Anthropic as examples. The cited study says these crawlers often judge a host from a few sample pages, so the landing page and the record page decide how much of the site gets fetched.
+**Trainer crawler.** A crawler collecting text for model training. The slide names GPTBot, ClaudeBot, CCBot, and Google-Extended as examples. Google-Extended is a product token that covers Gemini training and grounding; blocking it does not by itself remove the site from Google Search. The cited study says these crawlers often judge a host from a few sample pages, so the landing page and the record page decide how much of the site gets fetched.
 
-**Index builder.** A crawler looking for citable resources to put in a catalog or a search index. The deck treats this as a visit that can add discovery value.
+**Index builder.** A crawler looking for citable resources to put in a catalog or a search index. The deck treats this as a visit that can add discovery value. Examples on the slide include OAI-SearchBot, PerplexityBot, and Googlebot for AI Overviews.
 
-**Fetcher.** A client that retrieves a specific page because a user, or that user’s agent, asked for it. The notes say to separate fetchers from training crawlers before writing a block rule. A content-delivery network or firewall may be blocking both.
+**Fetcher.** A client that retrieves a specific page because a user, or that user’s agent, asked for it. The notes say to separate fetchers from training crawlers before writing a block rule. A content-delivery network or firewall may be blocking both. User-triggered agents (for example ChatGPT-User, Perplexity-User) often do not honor `robots.txt` because the fetch is human-directed.
 
 **Organic fetch.** A visit that starts from a person’s query. The person may browse the site, or an agent may visit for them.
 
@@ -46,11 +48,13 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 ## Being reachable
 
-**robots.txt.** A file at the root of the site that states rules for automated clients: what they may fetch, and, with newer policies, how the content may be used.
+**robots.txt.** A file at the root of the site that states rules for automated clients: what they may fetch, and, with newer policies, how the content may be used. Path patterns in Allow/Disallow begin with `/` (for example `Disallow: /*.gif$`, not a bare `*.gif$`).
 
-**Content Signals.** Cloudflare’s policy labels for whether content may be used in search, as input to an AI answer, or for training. The notes treat this as a vendor policy and pair it with the IETF vocabulary below.
+**Content Signals.** Cloudflare’s policy labels for whether content may be used in search, as input to an AI answer, or for training. The notes treat this as a vendor policy and pair it with the IETF vocabulary below. It is not the same thing as Cloudflare’s default AI-bot blocking controls.
 
-**AI Preferences (AIPREF).** The IETF “AI Preferences” work. The vocabulary draft named in the notes (`draft-ietf-aipref-vocab-07`, August 2026) gives short labels for uses such as `train-ai`. The attachment draft adds a `Content-Usage` rule to `robots.txt` and a `Content-Usage` HTTP header, for example `Content-Usage: train-ai=n`.
+**AI Preferences (AIPREF).** The IETF “AI Preferences” work. The vocabulary draft verified for these handouts is `draft-ietf-aipref-vocab-08` (14 September 2026). It gives short labels for uses such as `train-ai`. The attachment draft (`draft-ietf-aipref-attach-05`, 19 August 2026) adds a `Content-Usage` rule to `robots.txt` and a `Content-Usage` HTTP header, for example `Content-Usage: train-ai=n`. Label `Content-Usage` as an IETF Internet-Draft mechanism, not a finished RFC. Live speaker notes still cite vocab **-07**; these handouts use **-08**.
+
+**Really Simple Licensing (RSL).** An XML licensing vocabulary discoverable from `robots.txt` (among other places). When a `License:` line appears in `robots.txt`, the value must be an **absolute URL** to a separate RSL XML document (for example `License: https://example.org/rsl.xml`), not a site-relative path alone. Early / emerging relative to TDMRep in many STM settings; watch the US–EU framing on the rights slides.
 
 **Rate limiting.** A server limit on how fast a client may call. The deck asks repositories to answer excess traffic with HTTP 429 and a `Retry-After` header that says when to try again, even though some agents will ignore it.
 
@@ -58,9 +62,9 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 ## Being readable
 
-**Sitemap (`sitemap.xml`).** An XML list of the site’s URLs, defined at sitemaps.org. `robots.txt` can point particular user agents at a particular sitemap. The deck says sitemaps are still in use, and that many crawlers walk the site anyway because sitemaps often go stale.
+**Sitemap (`sitemap.xml`).** An XML list of the site’s URLs, defined at sitemaps.org. A `Sitemap:` line in `robots.txt` advertises that list. Sitemap lines are **not** scoped to a particular `User-agent` group the way Allow/Disallow rules are; they apply file-wide. The deck says sitemaps are still in use, and that many crawlers walk the site anyway because sitemaps often go stale.
 
-**llms.txt.** A curated text file, usually at the site root, that lists the pages and documents an AI workflow should read. Version 2, dated August 2026 in the deck, also lets each page point at a Markdown alternate (`rel="alternate"`, type `text/markdown`) and at the `llms.txt` that covers it (`rel="describedby"`). A file in a subfolder can cover the pages under that folder. Chrome Lighthouse checks this arrangement.
+**llms.txt.** A curated text file, usually at the site root, that lists the pages and documents an SI workflow should read. Version 2, dated August 2026 in the deck, also lets each page point at a Markdown alternate (`rel="alternate"`, type `text/markdown`) and at the `llms.txt` that covers it (`rel="describedby"`). A file in a subfolder can cover the pages under that folder. Chrome Lighthouse checks this arrangement. Speaker notes attribute roughly 10% domain penetration to SE Ranking’s analysis of nearly 300,000 domains (about 10.13% in that study).
 
 **Markdown alternate.** A Markdown rendering of an HTML page, advertised from the page or from an HTTP `Link` header. The deck also notes that some hosts already return Markdown when the request asks for `Accept: text/markdown`.
 
@@ -68,13 +72,19 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 **Agent skill (`SKILL.md`).** A folder of instructions an agent can load for a specific job. The deck points at agentskills.io and suggests writing API usage up as a skill, on top of documentation that is already good for people.
 
+**Agentic Resource Discovery (ARD) / `ard.json`.** A bleeding-edge discovery envelope for agentic resources (MCP servers, skills, plugins, and related artifacts). The well-known file is hosted at `https://yourdomain/.well-known/ard.json`. On the ragged-edge readable slide.
+
+**Agent Plugins.** A bleeding-edge, vendor-neutral packaging format for reusable skills and MCP services (`plugin.json`, `skills/`, `mcp.json`). Distinct from, and easy to confuse with, a single `SKILL.md` or the MCP Skills extension.
+
 **Bulk download.** A package, or a direct list of files, so an agent can take a resource in one transfer instead of clicking through the interface. The deck says a sitemap can point at these, and so can a Markdown list.
 
 **AI-ready documentation.** Docs written so an agent can follow them: stable pages, explicit endpoints, examples, and a skill file that points at the same material. The slide calls this the highway from the repository to the agent.
 
+**FAIR Signposting.** Typed HTTP `Link` headers (and/or HTML `<link>` / linksets) that point from a landing page to cite-as, describedby, item, license, author, and related targets, so a client can navigate to PIDs, metadata, content, and licenses without brittle scraping. The live readable slide calls this **mature and low-cost**, and notes platform adoption (Dataverse since ~5.14, DSpace, InvenioRDM/Zenodo, and others). Earlier handout wording that called Signposting merely bespoke / ragged-edge is outdated relative to that slide.
+
 ## Being callable
 
-**API.** A programmatic interface for metadata and data. For this talk the minimum is the NIAID Blueprint pattern: JSON-LD for the minimal metadata, resource-shaped URLs, HTTP GET, an OpenAPI description, and the same resource available as HTML for a person. The March 2026 API webinar is the longer treatment.
+**API.** A programmatic interface for metadata and data. For this talk the minimum is the NIAID Blueprint pattern: JSON-LD for the minimal metadata, resource-shaped URLs, HTTP GET, an OpenAPI description, and the same resource available as HTML for a person. The March 2026 API webinar is the longer treatment. The callable slide also points at the Blueprint DOI.
 
 **OpenAPI.** A machine-readable description of an HTTP API. Coding agents and generated clients use it to discover operations and parameters.
 
@@ -86,7 +96,7 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 **CLI.** A command-line client for the same API. The deck lists it as a lighter option when a full MCP server is more than the repository wants to run.
 
-**Model Context Protocol (MCP).** A shared convention for how an agent talks to a server: tools it can call, resources it can read, and prompts it can use. The deck says agents struggle with undocumented or inconsistent APIs, and that MCP is that convention. The Linux Foundation’s Agentic AI Foundation governs it. A call still passes through the repository’s own API, login, and rate limits.
+**Model Context Protocol (MCP).** A shared convention for how an agent talks to a server: tools it can call, resources it can read, and prompts it can use. The deck says agents struggle with undocumented or inconsistent APIs, and that MCP is that convention. The Linux Foundation’s Agentic AI Foundation governs it. A call still passes through the repository’s own API, login, and rate limits. MCP is helpful but not required for “SI-ready”; Reachable + Readable + a well documented API already go a long way.
 
 **MCP registry.** The public list of MCP servers at `registry.modelcontextprotocol.io`.
 
@@ -102,9 +112,9 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 **Stateless MCP.** The July 2026 change described on the slide: the server does not have to remember earlier turns. Background work moves into optional extensions.
 
-**Skills extension.** The MCP extension the slide says was finalized and shipped in standard kits in September–October 2026, for packaging richer plugins. Distinct from, and easy to confuse with, an `SKILL.md` agent skill.
+**Skills extension.** The MCP extension the slide says was finalized and shipped in standard kits in September–October 2026, for packaging richer plugins. Distinct from, and easy to confuse with, an `SKILL.md` agent skill or an Agent Plugin package.
 
-**OAuth.** The login protocol the notes recommend for data that is not open. They tie it to the MCP specification dated 2026-07-28. Open metadata can still be published, with the access condition written on the record.
+**OAuth.** For protected HTTP MCP, the 2026-07-28 MCP authorization model treats the MCP server as an OAuth 2.1 resource server (Protected Resource Metadata, authorization-code + PKCE, audience-bound tokens, illustrative scopes such as `mcp:resources:read`). Prefer scoped, short-lived tokens over long-lived API keys. Open metadata can still be published, with the access condition written on the record.
 
 **WebMCP.** A browser-side companion to this idea: the page itself exposes tools to an agent. Listed on the ragged-edge slide, with the W3C Web Machine Learning draft.
 
@@ -116,7 +126,7 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 **Schema hallucination.** A model inventing fields, types, or relations that the repository does not use. The meaningful-section title slide says structured knowledge is the reliable way to reduce this.
 
-**Persistent identifier (PID).** One stable name for one thing, which an agent can cite and follow. The deck’s set is a DOI or an accession for data, ORCID for a person, ROR for an organization, and RRID for a resource such as a database or a reagent.
+**Persistent identifier (PID).** One stable name for one thing, which an agent can cite and follow. The deck’s set is a DOI or an accession for data, ORCID for a person, ROR for an organization, RRID for a resource such as a database or a reagent, and **RAiD** for a project.
 
 **DOI.** A persistent identifier for a digital object, used here for data or for a citation target.
 
@@ -126,6 +136,8 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 **RRID.** A persistent identifier for a research resource. The example on the slide is IEDB’s `SCR_006604`, carried in that site’s homepage JSON-LD.
 
+**RAiD.** Research Activity Identifier — a persistent identifier for a research project or activity, listed with the other PIDs on the meaningful slide.
+
 **Accession.** A repository-issued identifier for a study, sample, or record, used in the same role as a DOI when a DOI is not the local practice.
 
 **Vocabulary.** The controlled words a repository uses. The deck’s ladder runs from a term list, to a taxonomy with broader and narrower terms, to an ontology with definitions and relations. Publishing even an informal data dictionary is the step the notes say most sites skip.
@@ -134,35 +146,41 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 **Ontology.** A vocabulary with definitions and relations. The examples are IEDB’s ONTIE and MRO, and Gene Ontology references in BV-BRC’s API docs.
 
-**Profile.** An agreed subset of a shared vocabulary, so every repository describes a dataset with the same fields. The deck’s table is schema.org Dataset, Science-on-Schema.org, Bioschemas, the NIAID Data Ecosystem schema, Croissant, and RO-Crate.
+**Profile.** An agreed subset of a shared vocabulary, so every repository describes a dataset with the same fields. The live profile table highlights DataCite Metadata Schema 4.6, Bioschemas Dataset, CODATA CDIF, the NIAID Data Ecosystem schema, Croissant 1.1 (+ RAI and Geo), and RO-Crate 1.2, with Science-on-Schema.org called out among others of potential interest. Declare which profile a record follows with `conformsTo`.
 
-**schema.org Dataset.** The base type for a dataset: name, description, license, creator, identifier, distribution. The practical path on the slide is one Dataset block in the server-rendered HTML of every dataset page.
+**DataCite Metadata Schema 4.6.** Custom schema (with mappings) for DOI-backed citation: creators, funders, related identifiers, rights. Aimed at generalist repositories (Zenodo, Figshare, Dryad, Dataverse) following NIH GREI recommendations. Unlike most of the other profiles on the slide, it is not built primarily on schema.org Dataset.
 
-**Science-on-Schema.org.** Conventions for using schema.org the same way across science repositories, including identifiers, variables, funding, provenance, and SHACL checks.
+**CODATA CDIF.** Cross Domain Interoperability Framework — a set of profiles for core cross-domain FAIR metadata functions.
+
+**schema.org Dataset.** The base type for a dataset: name, description, license, creator, identifier, distribution. Still the practical HTML path when a repository publishes one Dataset block in server-rendered HTML.
+
+**Science-on-Schema.org.** Conventions for using schema.org the same way across science repositories, including identifiers, variables, funding, provenance, and SHACL checks. On the live slide it appears under “others of potential interest.”
 
 **Bioschemas.** A life-science profile over schema.org, with minimum, recommended, and optional fields and ontology-backed keywords.
 
-**NIAID Data Ecosystem schema.** The extra fields the Discovery Portal harvests: infectious agent, health condition, species, and funding. The slide calls these IID fields.
+**NIAID Data Ecosystem schema.** The extra fields the Discovery Portal harvests: infectious agent, health condition, species, and funding. The slide calls these IID fields and notes they are based on Bioschemas.
 
-**Croissant.** A schema.org-based description of dataset files, typed fields, machine-learning splits, provenance, and usage policy. Version 1.1 adds responsible-AI fields. The deck wants a Croissant file when the data are tabular or meant for machine learning, and notes that the core fields are shared with schema.org Dataset.
+**Croissant.** A schema.org-based description of dataset files, typed fields, machine-learning splits, provenance, and usage policy. Version 1.1 adds responsible-AI fields (and the deck also mentions Geo). The deck wants a Croissant file when the data are tabular or meant for machine learning, and notes that the core fields are shared with schema.org Dataset.
 
 **`conformsTo`.** A property that names which profile a record follows, so an agent or a validator knows which rules apply.
 
 **RO-Crate.** A package that binds data, code, and workflow runs to their provenance. The slide points it at reproducibility and at workflow hubs such as Galaxy and WorkflowHub.
 
-**SHACL.** Shapes Constraint Language, a W3C Recommendation. A shape is a machine-readable rule for a valid record, such as “every sample has a collection date and a host taxon.” The same shapes can validate a submission and tell an agent what to expect. ImmPort’s existing validator is the example to recast as public shapes.
+**SHACL.** Shapes Constraint Language, a W3C Recommendation (`https://www.w3.org/TR/shacl/`). A shape is a machine-readable rule for a valid record, such as “every sample has a collection date and a host taxon.” The same shapes can validate a submission and tell an agent what to expect. ImmPort’s existing validator is the example to recast as public shapes.
 
-**SHACL-AF.** SHACL Advanced Features, a W3C Working Group Note. Rules that derive a new fact, such as a parent category or a computed value, so curation knowledge is declared rather than buried in code.
+**SPARQL RL (SPARQL-RL).** A W3C Working Draft rules language for deriving new RDF facts from existing data (for example a parent category or a computed value), so curation knowledge is declared rather than buried in code. Verified publication date for these handouts: **31 October 2026** at `https://www.w3.org/TR/sparql-rl/`. The live slide still prints “Oct 21 2026” and a `sparql12-rl` path; prefer the verified date and TR URL. This is the deck’s primary “rules” example on the deeper-context slide.
 
-**SSSOM.** Simple Standard for Sharing Ontological Mappings. A table whose rows say “our term X matches term Y,” with the relation (exact, close, broader, related), the justification, and who asserted it. The notes say no public mapping set was found on the 11 sites reviewed, and they suggest an ImmPort-to-CDISC set as a first one.
+**SHACL-AF.** SHACL Advanced Features, a W3C Working Group Note. Supplemental advanced features for SHACL; not the primary rules example on the live S33 slide (that role is SPARQL RL).
+
+**SSSOM.** Simple Standard for Sharing Ontological Mappings. Common exchange is a **TSV** table whose rows say “our term X matches term Y,” with the relation (exact, close, broader, related) and justification. Author and confidence fields are **optional**, not mandatory. The notes say no public mapping set was found on the 11 sites reviewed, and they suggest an ImmPort-to-CDISC set as a first one.
 
 **Competency question.** A question the repository publishes as a test of its own context. If the identifiers, profiles, shapes, and mappings are sufficient, an agent should be able to answer it. The notes call these the test suite for the meaningful layer. The evaluation slide says to run the repository’s own questions against an agent.
 
-**FAIR Signposting.** HTTP `Link` headers that point from a page to its identifier, its type, and its metadata, so a client can follow them without scraping the HTML. The ragged-edge slide calls the pattern technically sound, especially if an agent is pointed at it, and still somewhat bespoke.
-
 ## Rights, credit, and lineage
 
-**Rights and access.** Who may view or use the data, and on what conditions, for people and for automated clients. The notes name `robots.txt` Content Signals, the W3C TDM Reservation Protocol, and ODRL combined with DUO codes.
+**Rights and access.** Who may view or use the data, and on what conditions, for people and for automated clients. The notes name `robots.txt` / Content Signals / AIPREF, the W3C TDM Reservation Protocol, RSL, DPV, SPDX in schema.org `license`, and ODRL combined with DUO codes. US and EU practice diverge; TDMRep is common in European / STM reservation settings, while RSL is earlier-stage.
+
+**Data Privacy Vocabulary (DPV).** A vocabulary for describing privacy and data-handling concepts in machine-readable form. Linked from the rights slide (`https://w3c-cg.github.io/dpv/2.0/`).
 
 **TDMRep.** The W3C Text and Data Mining Reservation Protocol, a way to state a reservation or a permission for mining.
 
@@ -172,13 +190,15 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 **`conditionsOfAccess`.** The schema.org property for how a dataset may be obtained. The notes say controlled-access human data should still publish open metadata, with this condition written on the record, and put the bytes behind OAuth.
 
-**Attribution and authority.** Who gets credit, and how a reader checks the source and cites it. The notes name FAIR Signposting, SPDX license identifiers, a cite-as link to BibTeX, and DOI, ORCID, ROR, and RRID.
+**Attribution and authority.** Who gets credit, and how a reader checks the source and cites it. The notes name FAIR Signposting, SPDX license identifiers, a cite-as link to BibTeX, CRediT roles, and DOI, ORCID, ROR, RRID, and RAiD.
+
+**CRediT.** NISO Contributor Role Taxonomy — controlled contributor roles (for example Conceptualization) that can be expressed with schema.org `Role` and ORCID. On the attribution slide.
 
 **SPDX.** A standard identifier for a license, so a machine can tell which license applies.
 
 **cite-as.** A link or property (the notes write `cr:citeAs`) that points at the citation text or the BibTeX for a resource.
 
-**Lineage.** The history of a dataset: where it came from and how it changed. The deck treats this as part of protecting the repository’s intellectual property, alongside provenance and read-only API or MCP envelopes.
+**Lineage.** The history of a dataset: where it came from and how it changed. The deck treats this as part of protecting the repository’s intellectual property, alongside provenance and read-only API or MCP envelopes. DataCite version / related-identifier relations (`IsVersionOf`, `IsNewVersionOf`, `IsDerivedFrom`, and similar) appear on the lineage slide.
 
 **PROV-O.** The W3C Provenance Ontology. Classes and relations for an entity, the activity that produced it, and the agent that carried the activity out.
 
@@ -186,7 +206,9 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 ## Checking the result
 
-**Evaluation.** The deck’s word for “how do you know it worked.” The methods on the slide are a Lighthouse agent audit, server logs split by user agent, a set of evaluation prompts, and the repository’s competency questions run against an agent.
+**Evaluation.** The deck’s word for “how do you know it worked.” Starting points on the slide include trying an agent against your docs, the prompts in `prompts/evals`, NDE AI-assisted search with the feature on and off, Chrome Lighthouse’s agent audits (including `llms.txt`), and an `ard.json` analyser.
+
+**NDE AI-assisted search.** The NIAID Data Ecosystem Discovery Portal’s AI-assisted search mode, cited as a practical comparison when evaluating repository discoverability (`https://data.niaid.nih.gov/knowledge-center/ai-assisted-search`).
 
 **Lighthouse agent audit.** The agentic-browsing audits in Chrome Lighthouse, including the `llms.txt` audit cited earlier in the deck.
 
@@ -194,6 +216,10 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 **User agent.** The name a client sends with a request. The evaluation slide says to break server logs down by this name so trainer crawlers, indexers, and user-driven fetchers can be told apart.
 
-**Generative UI.** An interface the model assembles for the task, instead of a fixed set of pages. The ragged-edge slide points at CopilotKit’s OpenIntelligentUI and at an OpenCode `genui` package.
+**NIH AI policy notices.** Closing notes point at NIH’s artificial-intelligence policy page and grant notices **NOT-OD-25-118** (an RFI on AI, not a binding data-use policy by itself) and **NOT-OD-25-081** (the DUC-related notice). Distinguish RFI from binding policy when citing them.
 
-**Ragged edge.** The deck’s name for the items that belong on a radar and not yet in the core advice: liability and the human in the loop, FAIR Signposting, exposing the repository’s own intellectual property, generative interfaces, and WebMCP.
+**Generative UI.** An interface the model assembles for the task, instead of a fixed set of pages. The ragged-edge / backup slide points at CopilotKit’s OpenIntelligentUI, an OpenCode `genui` package, and **Herdr UI**.
+
+**Herdr UI.** A generative / described-UI example listed on the backup “More From the Edge” slide (`https://herdr.dev/`).
+
+**Ragged edge.** The deck’s name for items that belong on a radar and not yet in the core advice: liability and the human in the loop, generative interfaces (including Herdr UI), WebMCP, ARD, Agent Plugins, exposing embeddings, and connecting with Genesis Mission. FAIR Signposting has moved, on the live readable slide, into mature / platform-adopted practice rather than this bucket.
