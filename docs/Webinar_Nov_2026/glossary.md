@@ -10,7 +10,7 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 **Artificial intelligence (AI).** Software that uses a trained model to interpret, search, summarize, or act on repository content. In this deck that includes training crawlers, cataloging crawlers, and agents that visit because a person asked.
 
-**Model.** The trained system that produces the output. The deck treats the model as one of three parts of an AI flow, alongside the compute environment and the application. Choosing or hosting the model is out of scope.
+**Model.** The trained system that produces the output. The deck treats the model as one of three parts of an AI flow, alongside the compute environment and the application.  
 
 **Weights.** The learned parameters inside a model. “Stale weights” means an older training run that still answers questions about a repository after the live site has changed, moved, or closed.
 
@@ -18,7 +18,7 @@ The talk’s scope is what a repository can hand to an AI workflow: data, servic
 
 **Application.** The workflow a person uses. The repository’s contribution is what that application can read and call.
 
-**AI workflow.** A task that uses a model together with repository content: find a study, read a record, call an API, draft a citation. The deck’s subject is how to make that workflow possible from the repository side.
+**AI[SI]workflow.** A task that uses a model together with repository content: find a study, read a record, call an API, draft a citation. The deck’s subject is how to make that workflow possible from the repository side.
 
 **Harness.** The software wrapped around a model that runs the loop: which tools it may call, what it is allowed to remember, and when it must stop. The talk does not ask repositories to build or operate one. It asks them to supply the files, APIs, and context a harness can use.
 

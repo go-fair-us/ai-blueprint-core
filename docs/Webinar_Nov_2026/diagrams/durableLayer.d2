@@ -1,0 +1,107 @@
+direction: right
+
+title: "Durable Investments" {
+  shape: text
+  style.font-size: 32
+  style.bold: true
+  style.font-color: "#1E3A8A"
+  near: top-center
+}
+
+html: |md
+  ## HTML
+  Meaningful components
+| {
+  shape: rectangle
+  style: {
+    fill: "#DBEAFE"
+    stroke: "#2563EB"
+    stroke-width: 3
+    border-radius: 12
+    font-color: "#1E3A8A"
+  }
+  width: 260
+  height: 160
+}
+
+approaches: "Representation approaches" {
+  style: {
+    fill: "#FFF7ED"
+    stroke: "#EA580C"
+    stroke-width: 3
+    border-radius: 16
+    font-size: 18
+    font-color: "#9A3412"
+  }
+
+  contentneg: |md
+    ## Content Negotiation
+    - HTML
+    - Markdown
+  | {
+    shape: rectangle
+    style: {
+      fill: "#FEF3C7"
+      stroke: "#D97706"
+      stroke-width: 2
+      border-radius: 12
+      font-color: "#92400E"
+    }
+    width: 240
+    height: 140
+  }
+
+  signposting: |md
+    ## Signposting
+  | {
+    shape: rectangle
+    style: {
+      fill: "#F5F3FF"
+      stroke: "#7C3AED"
+      stroke-width: 2
+      border-radius: 12
+      font-color: "#5B21B6"
+    }
+    width: 240
+    height: 140
+  }
+
+  expression: |md
+    ## Expression
+    - HTTP headers
+    - HTML headers
+  | {
+    shape: rectangle
+    style: {
+      fill: "#D1FAE5"
+      stroke: "#059669"
+      stroke-width: 2
+      border-radius: 12
+      font-color: "#065F46"
+    }
+    width: 240
+    height: 140
+  }
+
+  leverage: |md
+    ## Leverage
+    - PIDs
+    - Entity Classes
+  | {
+    shape: rectangle
+    style: {
+      fill: "#E0E7FF"
+      stroke: "#4F46E5"
+      stroke-width: 2
+      border-radius: 12
+      font-color: "#312E81"
+    }
+    width: 240
+    height: 140
+  }
+}
+
+html -> approaches.contentneg
+html -> approaches.signposting
+html -> approaches.expression
+html -> approaches.leverage
