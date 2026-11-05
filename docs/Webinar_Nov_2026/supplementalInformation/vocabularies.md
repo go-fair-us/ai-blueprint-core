@@ -1,8 +1,7 @@
 # Vocabulary Tools and Resources
 
-This document provides a collection of online resources for vocabulary development.
+Online tools for building, editing, publishing, and reusing vocabularies.
 
---- 
 ## Quick recommendation
 
 | Need | Start with |
@@ -15,7 +14,7 @@ This document provides a collection of online resources for vocabulary developme
 For non-SKOS vocabularies (plain lists, OWL ontologies, etc.), spreadsheet tools or [Protégé](https://protege.stanford.edu/) may be a better fit. Import and export options vary by tool and template, so check that the data you need is preserved before moving between systems; do not assume conversions are lossless.
 
 
-## Simplest options (especially good for non-RDF experts) 
+## Simplest options (especially for non-RDF experts)
 
 - **[SKOS Play!](https://skos-play.sparna.fr/play/)** ([source code](https://github.com/sparna-git/skos-play))  
   A web tool for converting spreadsheet templates into SKOS RDF, visualizing vocabularies, and publishing HTML or PDF views. Its converter is [xls2rdf](https://github.com/sparna-git/xls2rdf), which is also available as a separate project. Start with one of the examples, fill in concepts, labels, and relationships, then inspect the generated RDF and validation results.
@@ -34,7 +33,7 @@ For non-SKOS vocabularies (plain lists, OWL ontologies, etc.), spreadsheet tools
 
 These provide proper editing UIs, hierarchy management, multilingual support, import/export, and often publishing features:
 
-- **[TemaTres](https://vocabularyserver.com/tematres/)** — A web application for managing controlled vocabularies, thesauri, taxonomies, and glossaries; it can publish vocabularies in SKOS.  
+- **[TemaTres](https://vocabularyserver.com/tematres/)** ([source](https://github.com/tematres/TemaTres-Vocabulary-Server)) — A web application for managing controlled vocabularies, thesauri, taxonomies, and glossaries; it can publish vocabularies in SKOS.  
 - **[VocBench](https://vocbench.uniroma2.it/)** — A collaborative web platform for editing SKOS/SKOS-XL, OWL, OntoLex, and other RDF resources. It offers multilingual and workflow features, with more deployment and administration overhead than a spreadsheet workflow.  
 - **[iQvoc](https://github.com/innoq/iqvoc)** — A SKOS(-XL) vocabulary management system for editing and publishing vocabularies.  
 - **[OpenTheso](https://github.com/MOM-CNRS/Opentheso)** — An open-source thesaurus management application with SKOS support.
@@ -48,6 +47,6 @@ For a case study of why explicit vocabulary and ontology development can matter 
 ## Other useful tools
 
 - **[Protégé](https://protege.stanford.edu/)** and [WebProtégé](https://webprotege.stanford.edu/) — Free ontology editors for desktop and web. They support OWL and RDF-based modeling, including SKOS vocabularies; they are most useful when you need ontology editing rather than just a spreadsheet workflow.  
-- **Publishing/browsing**: Once you have SKOS, [Skosmos](https://skosmos.org/) can provide a public interface for search, hierarchy browsing, and multilingual labels.  
+- **Publishing/browsing**: Once you have SKOS, [Skosmos](https://skosmos.org/) ([source](https://github.com/NatLibFi/Skosmos)) can provide a public interface for search, hierarchy browsing, and multilingual labels.  
 - **Validation**: [qSKOS](https://github.com/cmader/qSKOS) checks SKOS vocabularies for common quality issues; SKOS Play and voc4cat-tool also provide quality checks within their workflows.  
 - **Wiki-style alternatives**: [Semantic MediaWiki](https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki) and [Wikibase](https://wikiba.se/) may suit teams that prefer collaborative, wiki-style editing.

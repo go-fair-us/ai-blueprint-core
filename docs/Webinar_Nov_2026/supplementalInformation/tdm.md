@@ -19,9 +19,13 @@ The protocol uses two properties:
 
 These are signals about rights, not access controls. The policy link may provide more detail, but a reservation signal does not itself grant permission or settle questions about exceptions, licenses, or applicable law. Check the report for the supported mechanisms and format-specific details before embedding metadata in downloadable files.
 
-## TDM·AI and robots.txt
+## Related signals and robots.txt
 
-[TDM·AI](https://docs.tdmai.org/) is related work that defines machine-readable AI-use preferences. It is not the same protocol as TDMRep; consult its current specification to understand what a declaration means and how it is expressed.
+Other machine-readable signals sit near TDMRep but mean different things:
 
-Do not confuse either rights signal with [robots.txt](https://www.rfc-editor.org/rfc/rfc9309). The Robots Exclusion Protocol communicates crawler access preferences. It does not, by itself, grant or deny copyright permission. Conversely, a TDM reservation communicates a rights position but does not block a crawler from fetching a URL. Sites may need both, and their legal and operational effects are different.
+- **[TDM·AI](https://docs.tdmai.org/)** defines AI-use preferences. It is not TDMRep; read its current specification before treating a declaration as a rights reservation.
+- **IETF AI Preferences (AIPREF)** is draft work on vocabulary and attachment (including a `Content-Usage` rule). Treat it as an Internet-Draft, not a finished RFC.
+- **Really Simple Licensing (RSL)** can be pointed to from `robots.txt` with a `License:` line. That value must be an **absolute URL** to an RSL XML document.
+
+Do not confuse any of these with [robots.txt](https://www.rfc-editor.org/rfc/rfc9309) itself. The Robots Exclusion Protocol communicates crawler access preferences. It does not, by itself, grant or deny copyright permission. A TDM reservation states a rights position but does not block a crawler from fetching a URL. Sites may need both access rules and rights signals; their operational and legal effects differ.
 

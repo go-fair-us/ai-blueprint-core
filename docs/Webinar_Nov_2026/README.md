@@ -6,7 +6,7 @@ Supplementary materials for the Phase III NIAID Blueprint webinar (6 November 20
 
 [Presentation Slides](slideDeckSIReadyRepos.pdf)
 
-These files are handouts and working notes, not a second copy of the slides. Definitions stay in the glossary. Sources stay in the bibliography. A longer note is a separate file, linked from the matching section below.
+These files are handouts, not a second copy of the slides. Definitions stay in the glossary. Sources stay in the bibliography. A longer note is a separate file, linked from the matching section below.
 
 ## Files
 
@@ -17,7 +17,7 @@ These files are handouts and working notes, not a second copy of the slides. Def
 | [Identifying agents](supplementalInformation/agentIdentification.md) | Site owners identifying automated visitors | Compares User-Agent strings, IP ranges, Web Bot Auth, CDN services, and behavioral signals, including their limitations. |
 | [Evaluation](supplementalInformation/evaluation.md) | Teams checking documentation for agent use | Distinguishes access and readability checks, answerability tests, and content-accuracy checks. |
 | [Evaluation prompts](supplementalInformation/evaluationPrompts.md) | Someone following the talk live | Which prompt to try in each "Be" section, and how to run it in ChatGPT, Claude, Grok, or a harness. |
-| [TDM reservations](supplementalInformation/tdm.md) | Site owners considering text and data mining policies | Explains TDM reservations and related signals; draft. |
+| [TDM reservations](supplementalInformation/tdm.md) | Site owners considering text and data mining policies | Explains TDM reservations and related signals (TDMRep, and how they differ from robots.txt, AIPREF, and RSL). |
 | [From terms to ontologies](supplementalInformation/termsToOntologies.md) | Technical teams choosing how to represent knowledge | Compares vocabulary structures and formal semantics, with guidance for choosing a proportionate approach. |
 | [Vocabulary tools and resources](supplementalInformation/vocabularies.md) | Teams creating or reusing vocabularies | Surveys vocabulary editors, spreadsheet workflows, publishing tools, and reuse resources. |
 | [Competency questions](compQuestions/) | Someone running those tests on NIAID sites | Competency questions and separate answer keys. Do not paste a key into the prompt an agent sees. |
@@ -36,7 +36,7 @@ The glossary and the bibliography use the same headings. **Why do this** and **A
 | Being readable | [Being readable](glossary.md#being-readable) | [Being readable](bibliography.md#being-readable) | [assets/](assets/) |
 | Being callable | [Being callable](glossary.md#being-callable) | [Being callable](bibliography.md#being-callable) | — |
 | Being meaningful | [Being meaningful](glossary.md#being-meaningful) | [Being meaningful](bibliography.md#being-meaningful) | [From terms to ontologies](supplementalInformation/termsToOntologies.md); [Vocabulary tools and resources](supplementalInformation/vocabularies.md); [Competency questions](compQuestions/competency_questions.md) |
-| Rights, credit, and lineage | [Rights, credit, and lineage](glossary.md#rights-credit-and-lineage) | [Rights, credit, and lineage](bibliography.md#rights-credit-and-lineage) | [TDM reservations](supplementalInformation/tdm.md) (draft) |
+| Rights, credit, and lineage | [Rights, credit, and lineage](glossary.md#rights-credit-and-lineage) | [Rights, credit, and lineage](bibliography.md#rights-credit-and-lineage) | [TDM reservations](supplementalInformation/tdm.md) |
 | Checking the result | [Checking the result](glossary.md#checking-the-result) | [Checking the result](bibliography.md#checking-the-result) | [Evaluation guide](supplementalInformation/evaluation.md); [Prompts to try](supplementalInformation/evaluationPrompts.md); [evaluation prompts](../evalPrompts.md); [answerability runs](compQuestions/answerability_runs.md) |
 | Acknowledgements | — | [Acknowledgements](bibliography.md#acknowledgements) | — |
 

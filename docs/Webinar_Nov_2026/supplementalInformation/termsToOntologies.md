@@ -24,7 +24,7 @@ Lassila and McGuinness discuss representations in terms of increasing semantic e
 
 Those purposes explain the apparent disagreement. One view emphasizes how much formal meaning a representation can carry; the other distinguishes practical vocabulary structures. Their ordering and category boundaries do not match exactly. For example, taxonomies may include preferred terms and synonyms, while thesauri add structured associative relationships as well as hierarchy. These are useful categories, but they are not mutually exclusive maturity stages.
 
-**Which is more accurate?** Neither is the single correct spectrum for every purpose. Use Lassila and McGuinness when discussing increasing formal semantics; use NISO/ISO when deciding what kind of vocabulary relationships a terminology service needs. A blended list is a helpful inventory, but it overstates the consensus if it puts metadata schemas, linked-data publication, and knowledge graphs in the same sequence as semantic categories. Those are different design choices.
+Neither view is the single correct spectrum for every purpose. Use Lassila and McGuinness when discussing increasing formal semantics; use NISO/ISO when deciding what vocabulary relationships a terminology service needs. A blended list is a helpful inventory, but it overstates consensus if it puts metadata schemas, linked-data publication, and knowledge graphs in the same sequence as semantic categories. Those are different design choices.
 
 ## Keep these design choices separate
 
@@ -34,7 +34,7 @@ Several capabilities often appear together, but none is simply a higher rung on 
 - **A format or language** is how information is encoded. CSV and JSON commonly encode records; RDF and JSON-LD can represent linked graph data when terms are tied to shared vocabularies. Using a machine-readable format alone does not establish that the terms have shared meanings.
 - **Identifiers and publication** make it possible to refer to concepts consistently across records and systems. A URI can identify a concept, but an identifier by itself does not define the concept or make a vocabulary FAIR.
 - **A knowledge graph** is a graph-shaped collection of entities and relationships. It may use RDF, a property-graph model, or another technology. A graph can be queried without a domain ontology; adding an ontology can supply more explicit meaning and support additional inference.
-- **Mappings** connect concepts or terms across vocabularies. A mapping can document a useful correspondence without making the two concepts logically identical. SSSOM is a standard way to represent such mappings and their provenance.
+- **Mappings** connect concepts or terms across vocabularies. A mapping can document a useful correspondence without making the two concepts logically identical. SSSOM is a standard way to represent such mappings and their provenance; common exchange is a TSV table, and author or confidence fields are optional.
 - **Validation** checks whether data meets stated requirements. SHACL shapes, for example, can validate RDF data graphs. SHACL validation is a different task from OWL reasoning: a project can use SHACL without an OWL ontology, and an OWL ontology does not automatically validate every application-specific record requirement.
 
 One important distinction: SKOS `broader` and `narrower` describe knowledge-organization relationships. They should not automatically be read as OWL `subClassOf` statements. A broader term can be useful for browsing and retrieval without asserting that every instance of the narrower concept is formally an instance of the broader class.
@@ -81,4 +81,4 @@ For NIAID Blueprint repositories, interoperability does not mean “use OWL ever
 - W3C, [SKOS Reference](https://www.w3.org/TR/skos-reference/), defines a model for sharing knowledge-organization systems on the Web.
 - Wilkinson et al. (2016), [The FAIR Guiding Principles](https://doi.org/10.1038/sdata.2016.18), states the FAIR principles, including I1–I3.
 - W3C, [SHACL](https://www.w3.org/TR/shacl/), specifies validation of RDF graphs; W3C, [OWL 2 Primer](https://www.w3.org/TR/owl2-primer/), introduces OWL ontologies and reasoning.
-- [SSSOM](https://mapping-commons.github.io/sssom/) documents mappings between semantic resources.
+- [SSSOM](https://mapping-commons.github.io/sssom/) documents mappings between semantic resources (common exchange: TSV).
