@@ -1,0 +1,1021 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix gl: <https://example.org/niaid-si-glossary/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<https://example.org/niaid-si-glossary/collection/BeingCallable> a skos:Collection ;
+    skos:member gl:API,
+        gl:CLI,
+        gl:ContentNegotiation,
+        gl:CoolURI,
+        gl:JSONLD,
+        gl:LocalMCPServer,
+        gl:MCPRegistry,
+        gl:ModelContextProtocol,
+        gl:OAuth,
+        gl:OpenAPI,
+        gl:Prompt,
+        gl:RemoteMCPServer,
+        gl:Resource,
+        gl:SkillsExtension,
+        gl:StatelessMCP,
+        gl:Tool,
+        gl:WebMCP ;
+    skos:prefLabel "Being callable"@en .
+
+<https://example.org/niaid-si-glossary/collection/BeingMeaningful> a skos:Collection ;
+    skos:member gl:Accession,
+        gl:Bioschemas,
+        gl:CODATACDIF,
+        gl:CompetencyQuestion,
+        gl:ConformsTo,
+        gl:Context,
+        gl:Croissant,
+        gl:DOI,
+        gl:DataCiteMetadataSchema46,
+        gl:DataDictionary,
+        gl:NIAIDDataEcosystemSchema,
+        gl:ORCID,
+        gl:Ontology,
+        gl:PersistentIdentifier,
+        gl:Profile,
+        gl:RAiD,
+        gl:ROCrate,
+        gl:ROR,
+        gl:RRID,
+        gl:SHACL,
+        gl:SHACLAF,
+        gl:SPARQLRL,
+        gl:SSSOM,
+        gl:SchemaHallucination,
+        gl:SchemaOrgDataset,
+        gl:ScienceOnSchemaOrg,
+        gl:SemanticLayer,
+        gl:Vocabulary ;
+    skos:prefLabel "Being meaningful"@en .
+
+<https://example.org/niaid-si-glossary/collection/BeingReachable> a skos:Collection ;
+    skos:member gl:AIPreferences,
+        gl:ContentSignals,
+        gl:LoadBalancingAndCaching,
+        gl:RateLimiting,
+        gl:ReallySimpleLicensing,
+        gl:RobotsTxt ;
+    skos:prefLabel "Being reachable"@en .
+
+<https://example.org/niaid-si-glossary/collection/BeingReadable> a skos:Collection ;
+    skos:member gl:AIReadyDocumentation,
+        gl:AgentPlugins,
+        gl:AgentSkill,
+        gl:AgenticResourceDiscovery,
+        gl:BulkDownload,
+        gl:FAIRSignposting,
+        gl:JavaScriptRendering,
+        gl:LlmsTxt,
+        gl:MarkdownAlternate,
+        gl:Sitemap ;
+    skos:prefLabel "Being readable"@en .
+
+<https://example.org/niaid-si-glossary/collection/CheckingTheResult> a skos:Collection ;
+    skos:member gl:Evaluation,
+        gl:EvaluationPrompt,
+        gl:GenerativeUI,
+        gl:HerdrUI,
+        gl:LighthouseAgentAudit,
+        gl:NDEAIAssistedSearch,
+        gl:NIHAIPolicyNotices,
+        gl:RaggedEdge,
+        gl:UserAgent ;
+    skos:prefLabel "Checking the result"@en .
+
+<https://example.org/niaid-si-glossary/collection/RightsCreditAndLineage> a skos:Collection ;
+    skos:member gl:AttributionAndAuthority,
+        gl:CRediT,
+        gl:CiteAs,
+        gl:ConditionsOfAccess,
+        gl:DUO,
+        gl:DataPrivacyVocabulary,
+        gl:IntellectualProperty,
+        gl:Lineage,
+        gl:ODRL,
+        gl:PROVO,
+        gl:RightsAndAccess,
+        gl:SPDX,
+        gl:TDMRep ;
+    skos:prefLabel "Rights, credit, and lineage"@en .
+
+<https://example.org/niaid-si-glossary/collection/SystemsAndRoles> a skos:Collection ;
+    skos:member gl:Agency,
+        gl:Agent,
+        gl:Application,
+        gl:ArtificialIntelligence,
+        gl:ComputeEnvironment,
+        gl:Harness,
+        gl:HumanInTheLoop,
+        gl:Model,
+        gl:SI,
+        gl:SIWorkflow,
+        gl:VirtualBrowser,
+        gl:Weights ;
+    skos:prefLabel "Systems and roles"@en .
+
+<https://example.org/niaid-si-glossary/collection/WhoVisits> a skos:Collection ;
+    skos:member gl:Bot,
+        gl:Crawler,
+        gl:Fetcher,
+        gl:IndexBuilder,
+        gl:OrganicFetch,
+        gl:TrainerCrawler ;
+    skos:prefLabel "Who visits"@en .
+
+gl:AIReadyDocumentation a skos:Concept ;
+    skos:definition "Docs written so an agent can follow them: stable pages, explicit endpoints, examples, and a skill file that points at the same material. The slide calls this the highway from the repository to the agent."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "AI-ready documentation"@en ;
+    skos:topConceptOf gl:scheme .
+
+gl:Accession a skos:Concept ;
+    skos:broader gl:PersistentIdentifier ;
+    skos:definition "A repository-issued identifier for a study, sample, or record, used in the same role as a DOI when a DOI is not the local practice."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Accession"@en .
+
+gl:Application a skos:Concept ;
+    skos:definition "The workflow a person uses. The repository’s contribution is what that application can read and call."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Application"@en ;
+    skos:topConceptOf gl:scheme .
+
+gl:BulkDownload a skos:Concept ;
+    skos:definition "A package, or a direct list of files, so an agent can take a resource in one transfer instead of clicking through the interface. The deck says a sitemap can point at these, and so can a Markdown list."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Bulk download"@en ;
+    skos:topConceptOf gl:scheme .
+
+gl:ComputeEnvironment a skos:Concept ;
+    skos:definition "The machines and services where a model runs. Out of scope for this talk."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Compute environment"@en ;
+    skos:topConceptOf gl:scheme .
+
+gl:DOI a skos:Concept ;
+    skos:broader gl:PersistentIdentifier ;
+    skos:definition "A persistent identifier for a digital object, used here for data or for a citation target."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "DOI"@en .
+
+gl:IndexBuilder a skos:Concept ;
+    skos:broader gl:Crawler ;
+    skos:definition "A crawler looking for citable resources to put in a catalog or a search index. The deck treats this as a visit that can add discovery value. Examples on the slide include OAI-SearchBot, PerplexityBot, and Googlebot for AI Overviews."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Index builder"@en .
+
+gl:JavaScriptRendering a skos:Concept ;
+    skos:definition "Pages that fill in their text only after a browser runs JavaScript. Many agent fetches never run that script, so the text is missing. The deck says an agent can be given a browser tool, and that this is slower and cannot be assumed."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "JavaScript rendering"@en ;
+    skos:topConceptOf gl:scheme .
+
+gl:LoadBalancingAndCaching a skos:Concept ;
+    skos:definition "Ordinary web operations the deck lists under “be reachable”: spread traffic, and reuse responses so agent traffic does not have to rebuild the same page on every visit."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Load balancing and caching"@en ;
+    skos:topConceptOf gl:scheme .
+
+gl:NIHAIPolicyNotices a skos:Concept ;
+    skos:definition "Closing notes point at NIH’s artificial-intelligence policy page and grant notices NOT-OD-25-118 (an RFI on AI, not a binding data-use policy by itself) and NOT-OD-25-081 (the DUC-related notice). Distinguish RFI from binding policy when citing them."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "NIH AI policy notices"@en ;
+    skos:topConceptOf gl:scheme .
+
+gl:ORCID a skos:Concept ;
+    skos:broader gl:PersistentIdentifier ;
+    skos:definition "A persistent identifier for a researcher."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "ORCID"@en .
+
+gl:Ontology a skos:Concept ;
+    skos:broader gl:Vocabulary ;
+    skos:definition "A vocabulary with definitions and relations. The examples are IEDB’s ONTIE and MRO, and Gene Ontology references in BV-BRC’s API docs."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Ontology"@en .
+
+gl:RAiD a skos:Concept ;
+    skos:altLabel "Research Activity Identifier"@en ;
+    skos:broader gl:PersistentIdentifier ;
+    skos:definition "Research Activity Identifier — a persistent identifier for a research project or activity, listed with the other PIDs on the meaningful slide."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "RAiD"@en .
+
+gl:ROR a skos:Concept ;
+    skos:broader gl:PersistentIdentifier ;
+    skos:definition "A persistent identifier for a research organization."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "ROR"@en .
+
+gl:RRID a skos:Concept ;
+    skos:broader gl:PersistentIdentifier ;
+    skos:definition "A persistent identifier for a research resource. The example on the slide is IEDB’s SCR_006604, carried in that site’s homepage JSON-LD."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "RRID"@en .
+
+gl:RateLimiting a skos:Concept ;
+    skos:definition "A server limit on how fast a client may call. The deck asks repositories to answer excess traffic with HTTP 429 and a Retry-After header that says when to try again, even though some agents will ignore it."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Rate limiting"@en ;
+    skos:topConceptOf gl:scheme .
+
+gl:SSSOM a skos:Concept ;
+    skos:altLabel "Simple Standard for Sharing Ontological Mappings"@en ;
+    skos:definition "Simple Standard for Sharing Ontological Mappings. Common exchange is a TSV table whose rows say “our term X matches term Y,” with the relation (exact, close, broader, related) and justification. Author and confidence fields are optional, not mandatory. The notes say no public mapping set was found on the 11 sites reviewed, and they suggest an ImmPort-to-CDISC set as a first one."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "SSSOM"@en ;
+    skos:topConceptOf gl:scheme .
+
+gl:TrainerCrawler a skos:Concept ;
+    skos:broader gl:Crawler ;
+    skos:definition "A crawler collecting text for model training. The slide names GPTBot, ClaudeBot, CCBot, and Google-Extended as examples. Google-Extended is a product token that covers Gemini training and grounding; blocking it does not by itself remove the site from Google Search. The cited study says these crawlers often judge a host from a few sample pages, so the landing page and the record page decide how much of the site gets fetched."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Trainer crawler"@en .
+
+gl:Agency a skos:Concept ;
+    skos:definition "The capacity to decide and to bear responsibility. The deck says agents do not have agency. They act on behalf of a person or organization, and the open question is how to frame that responsibility."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Agency"@en ;
+    skos:related gl:Agent ;
+    skos:topConceptOf gl:scheme .
+
+gl:AgenticResourceDiscovery a skos:Concept ;
+    skos:altLabel "ARD"@en,
+        "ard.json"@en ;
+    skos:definition "A bleeding-edge discovery envelope for agentic resources (MCP servers, skills, plugins, and related artifacts). The well-known file is hosted at https://yourdomain/.well-known/ard.json. On the ragged-edge readable slide."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Agentic Resource Discovery"@en ;
+    skos:related gl:RaggedEdge ;
+    skos:topConceptOf gl:scheme .
+
+gl:ArtificialIntelligence a skos:Concept ;
+    skos:altLabel "AI"@en ;
+    skos:definition "Software that uses a trained model to interpret, search, summarize, or act on repository content. In this deck that includes training crawlers, cataloging crawlers, and agents that visit because a person asked. The live title and many slides prefer SI for the same space of workflows."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Artificial intelligence"@en ;
+    skos:related gl:SI ;
+    skos:topConceptOf gl:scheme .
+
+gl:Bioschemas a skos:Concept ;
+    skos:broader gl:Profile ;
+    skos:definition "A life-science profile over schema.org, with minimum, recommended, and optional fields and ontology-backed keywords."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Bioschemas"@en ;
+    skos:related gl:SchemaOrgDataset .
+
+gl:Bot a skos:Concept ;
+    skos:definition "Any non-human client. The reachable-site slides use it as the broad class that site rules, CDNs, and robots.txt already try to classify."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Bot"@en ;
+    skos:related gl:Crawler ;
+    skos:topConceptOf gl:scheme .
+
+gl:CLI a skos:Concept ;
+    skos:definition "A command-line client for the same API. The deck lists it as a lighter option when a full MCP server is more than the repository wants to run."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "CLI"@en ;
+    skos:related gl:API ;
+    skos:topConceptOf gl:scheme .
+
+gl:CODATACDIF a skos:Concept ;
+    skos:altLabel "CDIF"@en,
+        "Cross Domain Interoperability Framework"@en ;
+    skos:definition "Cross Domain Interoperability Framework — a set of profiles for core cross-domain FAIR metadata functions."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "CODATA CDIF"@en ;
+    skos:related gl:Profile ;
+    skos:topConceptOf gl:scheme .
+
+gl:CRediT a skos:Concept ;
+    skos:altLabel "Contributor Role Taxonomy"@en ;
+    skos:definition "NISO Contributor Role Taxonomy — controlled contributor roles (for example Conceptualization) that can be expressed with schema.org Role and ORCID. On the attribution slide."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "CRediT"@en ;
+    skos:related gl:AttributionAndAuthority ;
+    skos:topConceptOf gl:scheme .
+
+gl:CiteAs a skos:Concept ;
+    skos:altLabel "cr:citeAs"@en ;
+    skos:definition "A link or property (the notes write cr:citeAs) that points at the citation text or the BibTeX for a resource."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "cite-as"@en ;
+    skos:related gl:AttributionAndAuthority ;
+    skos:topConceptOf gl:scheme .
+
+gl:CompetencyQuestion a skos:Concept ;
+    skos:definition "A question the repository publishes as a test of its own context. If the identifiers, profiles, shapes, and mappings are sufficient, an agent should be able to answer it. The notes call these the test suite for the meaningful layer. The evaluation slide says to run the repository’s own questions against an agent."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Competency question"@en ;
+    skos:related gl:Evaluation ;
+    skos:topConceptOf gl:scheme .
+
+gl:ConformsTo a skos:Concept ;
+    skos:definition "A property that names which profile a record follows, so an agent or a validator knows which rules apply."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "conformsTo"@en ;
+    skos:related gl:Profile ;
+    skos:topConceptOf gl:scheme .
+
+gl:ContentNegotiation a skos:Concept ;
+    skos:definition "Serving HTML, JSON-LD, JSON, CSV, or XML for the same resource, chosen from the request. The deck pairs this with ordinary status codes: 2xx success, 3xx redirect (including 303), 4xx client error, 5xx server error."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Content negotiation"@en ;
+    skos:related gl:API ;
+    skos:topConceptOf gl:scheme .
+
+gl:CoolURI a skos:Concept ;
+    skos:definition "A stable, readable, dereferenceable address. The API slides say to keep dates, software names, and long query strings out of the path."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Cool URI"@en ;
+    skos:related gl:API ;
+    skos:topConceptOf gl:scheme .
+
+gl:DataCiteMetadataSchema46 a skos:Concept ;
+    skos:definition "Custom schema (with mappings) for DOI-backed citation: creators, funders, related identifiers, rights. Aimed at generalist repositories (Zenodo, Figshare, Dryad, Dataverse) following NIH GREI recommendations. Unlike most of the other profiles on the slide, it is not built primarily on schema.org Dataset."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "DataCite Metadata Schema 4.6"@en ;
+    skos:related gl:Profile ;
+    skos:topConceptOf gl:scheme .
+
+gl:DataDictionary a skos:Concept ;
+    skos:definition "A list of fields with definitions, stable at a URL. First item on the notes’ easiest-first list of context a repository can expose."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Data dictionary"@en ;
+    skos:related gl:Vocabulary ;
+    skos:topConceptOf gl:scheme .
+
+gl:DataPrivacyVocabulary a skos:Concept ;
+    skos:altLabel "DPV"@en ;
+    skos:definition "A vocabulary for describing privacy and data-handling concepts in machine-readable form. Linked from the rights slide (https://w3c-cg.github.io/dpv/2.0/)."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Data Privacy Vocabulary"@en ;
+    skos:related gl:RightsAndAccess ;
+    skos:topConceptOf gl:scheme .
+
+gl:EvaluationPrompt a skos:Concept ;
+    skos:definition "A fixed prompt, kept in version control, used to test an agent against the repository. The slide points at prompts/evals in the ai-blueprint-core repository."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Evaluation prompt"@en ;
+    skos:related gl:Evaluation ;
+    skos:topConceptOf gl:scheme .
+
+gl:FAIRSignposting a skos:Concept ;
+    skos:definition "Typed HTTP Link headers (and/or HTML <link> / linksets) that point from a landing page to cite-as, describedby, item, license, author, and related targets, so a client can navigate to PIDs, metadata, content, and licenses without brittle scraping. The live readable slide calls this mature and low-cost, and notes platform adoption (Dataverse since ~5.14, DSpace, InvenioRDM/Zenodo, and others). Earlier handout wording that called Signposting merely bespoke / ragged-edge is outdated relative to that slide."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "FAIR Signposting"@en ;
+    skos:related gl:AttributionAndAuthority ;
+    skos:topConceptOf gl:scheme .
+
+gl:Fetcher a skos:Concept ;
+    skos:definition "A client that retrieves a specific page because a user, or that user’s agent, asked for it. The notes say to separate fetchers from training crawlers before writing a block rule. A content-delivery network or firewall may be blocking both. User-triggered agents (for example ChatGPT-User, Perplexity-User) often do not honor robots.txt because the fetch is human-directed."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Fetcher"@en ;
+    skos:related gl:OrganicFetch ;
+    skos:topConceptOf gl:scheme .
+
+gl:Harness a skos:Concept ;
+    skos:definition "The software wrapped around a model that runs the loop: which tools it may call, what it is allowed to remember, and when it must stop. The talk does not ask repositories to build or operate one. It asks them to supply the files, APIs, and context a harness can use."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Harness"@en ;
+    skos:related gl:Agent ;
+    skos:topConceptOf gl:scheme .
+
+gl:HerdrUI a skos:Concept ;
+    skos:definition "A generative / described-UI example listed on the backup “More From the Edge” slide (https://herdr.dev/)."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Herdr UI"@en ;
+    skos:related gl:GenerativeUI ;
+    skos:topConceptOf gl:scheme .
+
+gl:IntellectualProperty a skos:Concept ;
+    skos:altLabel "IP"@en ;
+    skos:definition "In the closing slide, the value the repository adds, and the open question of how to expose that value to agents without giving it away unmarked. Tied on the concerns slide to provenance, packaging, and integrity."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Intellectual property"@en ;
+    skos:related gl:Lineage ;
+    skos:topConceptOf gl:scheme .
+
+gl:JSONLD a skos:Concept ;
+    skos:definition "JSON annotated as linked data, so a response can name a dataset, its license, its identifier, and its distributions in a form search engines and agents already expect. The deck wants it both from the API and as one block in the server-rendered HTML of each dataset page."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "JSON-LD"@en ;
+    skos:related gl:API ;
+    skos:topConceptOf gl:scheme .
+
+gl:LocalMCPServer a skos:Concept ;
+    skos:definition "A server running on the user’s machine. It still calls the repository API under that user’s login and limits."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Local MCP server"@en ;
+    skos:related gl:ModelContextProtocol ;
+    skos:topConceptOf gl:scheme .
+
+gl:MCPRegistry a skos:Concept ;
+    skos:definition "The public list of MCP servers at registry.modelcontextprotocol.io."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "MCP registry"@en ;
+    skos:related gl:ModelContextProtocol ;
+    skos:topConceptOf gl:scheme .
+
+gl:MarkdownAlternate a skos:Concept ;
+    skos:definition "A Markdown rendering of an HTML page, advertised from the page or from an HTTP Link header. The deck also notes that some hosts already return Markdown when the request asks for Accept: text/markdown."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Markdown alternate"@en ;
+    skos:related gl:LlmsTxt ;
+    skos:topConceptOf gl:scheme .
+
+gl:Model a skos:Concept ;
+    skos:definition "The trained system that produces the output. The deck treats the model as one of three parts of an SI flow, alongside the compute environment and the application."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Model"@en ;
+    skos:related gl:Weights ;
+    skos:topConceptOf gl:scheme .
+
+gl:NDEAIAssistedSearch a skos:Concept ;
+    skos:definition "The NIAID Data Ecosystem Discovery Portal’s AI-assisted search mode, cited as a practical comparison when evaluating repository discoverability (https://data.niaid.nih.gov/knowledge-center/ai-assisted-search)."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "NDE AI-assisted search"@en ;
+    skos:related gl:Evaluation ;
+    skos:topConceptOf gl:scheme .
+
+gl:NIAIDDataEcosystemSchema a skos:Concept ;
+    skos:definition "The extra fields the Discovery Portal harvests: infectious agent, health condition, species, and funding. The slide calls these IID fields and notes they are based on Bioschemas."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "NIAID Data Ecosystem schema"@en ;
+    skos:related gl:Profile ;
+    skos:topConceptOf gl:scheme .
+
+gl:OpenAPI a skos:Concept ;
+    skos:definition "A machine-readable description of an HTTP API. Coding agents and generated clients use it to discover operations and parameters."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "OpenAPI"@en ;
+    skos:related gl:API ;
+    skos:topConceptOf gl:scheme .
+
+gl:OrganicFetch a skos:Concept ;
+    skos:definition "A visit that starts from a person’s query. The person may browse the site, or an agent may visit for them."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Organic fetch"@en ;
+    skos:related gl:Fetcher ;
+    skos:topConceptOf gl:scheme .
+
+gl:PROVO a skos:Concept ;
+    skos:altLabel "Provenance Ontology"@en ;
+    skos:definition "The W3C Provenance Ontology. Classes and relations for an entity, the activity that produced it, and the agent that carried the activity out."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "PROV-O"@en ;
+    skos:related gl:Lineage ;
+    skos:topConceptOf gl:scheme .
+
+gl:Prompt a skos:Concept ;
+    skos:altLabel "MCP prompt"@en ;
+    skos:definition "In MCP, a prepared prompt the server offers so the agent starts from the repository’s wording."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Prompt"@en ;
+    skos:related gl:ModelContextProtocol ;
+    skos:topConceptOf gl:scheme .
+
+gl:ROCrate a skos:Concept ;
+    skos:definition "A package that binds data, code, and workflow runs to their provenance. The slide points it at reproducibility and at workflow hubs such as Galaxy and WorkflowHub."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "RO-Crate"@en ;
+    skos:related gl:Profile ;
+    skos:topConceptOf gl:scheme .
+
+gl:RemoteMCPServer a skos:Concept ;
+    skos:definition "A server the repository hosts. The repository chooses which tools and descriptions are offered, and it can log use at the MCP layer as well as at the API."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Remote MCP server"@en ;
+    skos:related gl:ModelContextProtocol ;
+    skos:topConceptOf gl:scheme .
+
+gl:Resource a skos:Concept ;
+    skos:altLabel "MCP resource"@en ;
+    skos:definition "In MCP, something the server lets the agent read: a record, a file, a document."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Resource"@en ;
+    skos:related gl:ModelContextProtocol ;
+    skos:topConceptOf gl:scheme .
+
+gl:SHACLAF a skos:Concept ;
+    skos:altLabel "SHACL Advanced Features"@en ;
+    skos:definition "SHACL Advanced Features, a W3C Working Group Note. Supplemental advanced features for SHACL; not the primary rules example on the live S33 slide (that role is SPARQL RL)."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "SHACL-AF"@en ;
+    skos:related gl:SHACL ;
+    skos:topConceptOf gl:scheme .
+
+gl:SIWorkflow a skos:Concept ;
+    skos:definition "A task that uses a model together with repository content: find a study, read a record, call an API, draft a citation. The deck’s subject is how to make that workflow possible from the repository side. (Earlier handout text had a malformed “AI[SI]workflow” label for the same idea.)"@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "SI workflow"@en ;
+    skos:related gl:SI ;
+    skos:topConceptOf gl:scheme .
+
+gl:SPARQLRL a skos:Concept ;
+    skos:altLabel "SPARQL-RL"@en ;
+    skos:definition "A W3C Working Draft rules language for deriving new RDF facts from existing data (for example a parent category or a computed value), so curation knowledge is declared rather than buried in code. Verified publication date for these handouts: 31 October 2026 at https://www.w3.org/TR/sparql-rl/. The live slide still prints “Oct 21 2026” and a sparql12-rl path; prefer the verified date and TR URL. This is the deck’s primary “rules” example on the deeper-context slide."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "SPARQL RL"@en ;
+    skos:related gl:SHACL ;
+    skos:topConceptOf gl:scheme .
+
+gl:SPDX a skos:Concept ;
+    skos:definition "A standard identifier for a license, so a machine can tell which license applies."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "SPDX"@en ;
+    skos:related gl:AttributionAndAuthority ;
+    skos:topConceptOf gl:scheme .
+
+gl:SchemaHallucination a skos:Concept ;
+    skos:definition "A model inventing fields, types, or relations that the repository does not use. The meaningful-section title slide says structured knowledge is the reliable way to reduce this."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Schema hallucination"@en ;
+    skos:related gl:Context ;
+    skos:topConceptOf gl:scheme .
+
+gl:ScienceOnSchemaOrg a skos:Concept ;
+    skos:definition "Conventions for using schema.org the same way across science repositories, including identifiers, variables, funding, provenance, and SHACL checks. On the live slide it appears under “others of potential interest.”"@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Science-on-Schema.org"@en ;
+    skos:related gl:Profile ;
+    skos:topConceptOf gl:scheme .
+
+gl:SemanticLayer a skos:Concept ;
+    skos:definition "The machine-readable meaning around the bytes: identifiers, vocabularies, profiles, shapes, and mappings. The scope slide lists this next to repository configuration, link files, and APIs."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Semantic layer"@en ;
+    skos:related gl:Context ;
+    skos:topConceptOf gl:scheme .
+
+gl:Sitemap a skos:Concept ;
+    skos:altLabel "sitemap.xml"@en ;
+    skos:definition "An XML list of the site’s URLs, defined at sitemaps.org. A Sitemap: line in robots.txt advertises that list. Sitemap lines are not scoped to a particular User-agent group the way Allow/Disallow rules are; they apply file-wide. The deck says sitemaps are still in use, and that many crawlers walk the site anyway because sitemaps often go stale."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Sitemap"@en ;
+    skos:related gl:RobotsTxt ;
+    skos:topConceptOf gl:scheme .
+
+gl:StatelessMCP a skos:Concept ;
+    skos:definition "The July 2026 change described on the slide: the server does not have to remember earlier turns. Background work moves into optional extensions."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Stateless MCP"@en ;
+    skos:related gl:ModelContextProtocol ;
+    skos:topConceptOf gl:scheme .
+
+gl:TDMRep a skos:Concept ;
+    skos:altLabel "Text and Data Mining Reservation Protocol"@en ;
+    skos:definition "The W3C Text and Data Mining Reservation Protocol, a way to state a reservation or a permission for mining."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "TDMRep"@en ;
+    skos:related gl:RightsAndAccess ;
+    skos:topConceptOf gl:scheme .
+
+gl:Tool a skos:Concept ;
+    skos:altLabel "MCP tool"@en ;
+    skos:definition "In MCP, a named operation with a description and, in current versions, a structured result. The June 2025 and November 2025 notes in the deck are about making those descriptions and permission steps predictable."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Tool"@en ;
+    skos:related gl:ModelContextProtocol ;
+    skos:topConceptOf gl:scheme .
+
+gl:UserAgent a skos:Concept ;
+    skos:definition "The name a client sends with a request. The evaluation slide says to break server logs down by this name so trainer crawlers, indexers, and user-driven fetchers can be told apart."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "User agent"@en ;
+    skos:related gl:Evaluation ;
+    skos:topConceptOf gl:scheme .
+
+gl:VirtualBrowser a skos:Concept ;
+    skos:definition "An agent driving a normal web page the way a person would: clicking, scrolling, and waiting for the screen to update. The deck says this pattern is spreading quickly, and that it is a poor substitute for pages and APIs that can be read directly."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Virtual browser"@en ;
+    skos:related gl:Agent ;
+    skos:topConceptOf gl:scheme .
+
+gl:Weights a skos:Concept ;
+    skos:definition "The learned parameters inside a model. “Stale weights” means an older training run that still answers questions about a repository after the live site has changed, moved, or closed."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Weights"@en ;
+    skos:related gl:Model ;
+    skos:topConceptOf gl:scheme .
+
+gl:AIPreferences a skos:Concept ;
+    skos:altLabel "AIPREF"@en ;
+    skos:definition "The IETF “AI Preferences” work. The vocabulary draft verified for these handouts is draft-ietf-aipref-vocab-08 (14 September 2026). It gives short labels for uses such as train-ai. The attachment draft (draft-ietf-aipref-attach-05, 19 August 2026) adds a Content-Usage rule to robots.txt and a Content-Usage HTTP header, for example Content-Usage: train-ai=n. Label Content-Usage as an IETF Internet-Draft mechanism, not a finished RFC. Live speaker notes still cite vocab -07; these handouts use -08."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "AI Preferences"@en ;
+    skos:related gl:ContentSignals,
+        gl:RobotsTxt ;
+    skos:topConceptOf gl:scheme .
+
+gl:AgentSkill a skos:Concept ;
+    skos:altLabel "SKILL.md"@en ;
+    skos:definition "A folder of instructions an agent can load for a specific job. The deck points at agentskills.io and suggests writing API usage up as a skill, on top of documentation that is already good for people."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Agent skill"@en ;
+    skos:related gl:AgentPlugins,
+        gl:SkillsExtension ;
+    skos:topConceptOf gl:scheme .
+
+gl:ConditionsOfAccess a skos:Concept ;
+    skos:definition "The schema.org property for how a dataset may be obtained. The notes say controlled-access human data should still publish open metadata, with this condition written on the record, and put the bytes behind OAuth."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "conditionsOfAccess"@en ;
+    skos:related gl:OAuth,
+        gl:RightsAndAccess ;
+    skos:topConceptOf gl:scheme .
+
+gl:ContentSignals a skos:Concept ;
+    skos:definition "Cloudflare’s policy labels for whether content may be used in search, as input to an AI answer, or for training. The notes treat this as a vendor policy and pair it with the IETF vocabulary below. It is not the same thing as Cloudflare’s default AI-bot blocking controls."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Content Signals"@en ;
+    skos:related gl:AIPreferences,
+        gl:RobotsTxt ;
+    skos:topConceptOf gl:scheme .
+
+gl:Context a skos:Concept ;
+    skos:definition "The material that tells a model what a field, a record, and a dataset are. The deck’s claim is that published context prevents the model from inventing that structure at answer time."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Context"@en ;
+    skos:related gl:SchemaHallucination,
+        gl:SemanticLayer ;
+    skos:topConceptOf gl:scheme .
+
+gl:Croissant a skos:Concept ;
+    skos:definition "A schema.org-based description of dataset files, typed fields, machine-learning splits, provenance, and usage policy. Version 1.1 adds responsible-AI fields (and the deck also mentions Geo). The deck wants a Croissant file when the data are tabular or meant for machine learning, and notes that the core fields are shared with schema.org Dataset."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Croissant"@en ;
+    skos:related gl:Profile,
+        gl:SchemaOrgDataset ;
+    skos:topConceptOf gl:scheme .
+
+gl:DUO a skos:Concept ;
+    skos:altLabel "Data Use Ontology"@en ;
+    skos:definition "The Data Use Ontology. Short codes for secondary-use conditions, often on human data. The notes pair DUO with ODRL."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "DUO"@en ;
+    skos:related gl:ODRL,
+        gl:RightsAndAccess ;
+    skos:topConceptOf gl:scheme .
+
+gl:GenerativeUI a skos:Concept ;
+    skos:definition "An interface the model assembles for the task, instead of a fixed set of pages. The ragged-edge / backup slide points at CopilotKit’s OpenIntelligentUI, an OpenCode genui package, and Herdr UI."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Generative UI"@en ;
+    skos:related gl:HerdrUI,
+        gl:RaggedEdge ;
+    skos:topConceptOf gl:scheme .
+
+gl:HumanInTheLoop a skos:Concept ;
+    skos:definition "A person stays in the path before an agent’s action counts. The closing slides place this with liability questions that other sectors, including banks, are still working out."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Human in the loop"@en ;
+    skos:related gl:Agent,
+        gl:RaggedEdge ;
+    skos:topConceptOf gl:scheme .
+
+gl:LighthouseAgentAudit a skos:Concept ;
+    skos:altLabel "Chrome Lighthouse agent audit"@en ;
+    skos:definition "The agentic-browsing audits in Chrome Lighthouse, including the llms.txt audit cited earlier in the deck."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Lighthouse agent audit"@en ;
+    skos:related gl:Evaluation,
+        gl:LlmsTxt ;
+    skos:topConceptOf gl:scheme .
+
+gl:Lineage a skos:Concept ;
+    skos:definition "The history of a dataset: where it came from and how it changed. The deck treats this as part of protecting the repository’s intellectual property, alongside provenance and read-only API or MCP envelopes. DataCite version / related-identifier relations (IsVersionOf, IsNewVersionOf, IsDerivedFrom, and similar) appear on the lineage slide."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Lineage"@en ;
+    skos:related gl:IntellectualProperty,
+        gl:PROVO ;
+    skos:topConceptOf gl:scheme .
+
+gl:LlmsTxt a skos:Concept ;
+    skos:definition "A curated text file, usually at the site root, that lists the pages and documents an SI workflow should read. Version 2, dated August 2026 in the deck, also lets each page point at a Markdown alternate (rel=\"alternate\", type text/markdown) and at the llms.txt that covers it (rel=\"describedby\"). A file in a subfolder can cover the pages under that folder. Chrome Lighthouse checks this arrangement. Speaker notes attribute roughly 10% domain penetration to SE Ranking’s analysis of nearly 300,000 domains (about 10.13% in that study)."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "llms.txt"@en ;
+    skos:related gl:LighthouseAgentAudit,
+        gl:MarkdownAlternate ;
+    skos:topConceptOf gl:scheme .
+
+gl:OAuth a skos:Concept ;
+    skos:definition "For protected HTTP MCP, the 2026-07-28 MCP authorization model treats the MCP server as an OAuth 2.1 resource server (Protected Resource Metadata, authorization-code + PKCE, audience-bound tokens, illustrative scopes such as mcp:resources:read). Prefer scoped, short-lived tokens over long-lived API keys. Open metadata can still be published, with the access condition written on the record."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "OAuth"@en ;
+    skos:related gl:ConditionsOfAccess,
+        gl:ModelContextProtocol ;
+    skos:topConceptOf gl:scheme .
+
+gl:ODRL a skos:Concept ;
+    skos:altLabel "Open Digital Rights Language"@en ;
+    skos:definition "The W3C Open Digital Rights Language, for permissions, prohibitions, and duties."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "ODRL"@en ;
+    skos:related gl:DUO,
+        gl:RightsAndAccess ;
+    skos:topConceptOf gl:scheme .
+
+gl:ReallySimpleLicensing a skos:Concept ;
+    skos:altLabel "RSL"@en ;
+    skos:definition "An XML licensing vocabulary discoverable from robots.txt (among other places). When a License: line appears in robots.txt, the value must be an absolute URL to a separate RSL XML document (for example License: https://example.org/rsl.xml), not a site-relative path alone. Early / emerging relative to TDMRep in many STM settings; watch the US–EU framing on the rights slides."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Really Simple Licensing"@en ;
+    skos:related gl:RightsAndAccess,
+        gl:RobotsTxt ;
+    skos:topConceptOf gl:scheme .
+
+gl:SHACL a skos:Concept ;
+    skos:altLabel "Shapes Constraint Language"@en ;
+    skos:definition "Shapes Constraint Language, a W3C Recommendation (https://www.w3.org/TR/shacl/). A shape is a machine-readable rule for a valid record, such as “every sample has a collection date and a host taxon.” The same shapes can validate a submission and tell an agent what to expect. ImmPort’s existing validator is the example to recast as public shapes."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "SHACL"@en ;
+    skos:related gl:SHACLAF,
+        gl:SPARQLRL ;
+    skos:topConceptOf gl:scheme .
+
+gl:SI a skos:Concept ;
+    skos:definition "The live deck’s preferred label in the talk title and “Be …” pillars (Reachable, Readable, Callable, Meaningful). Used the way the slides use it for agent- and model-mediated workflows over repository content. Not expanded in these handouts."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "SI"@en ;
+    skos:related gl:ArtificialIntelligence,
+        gl:SIWorkflow ;
+    skos:topConceptOf gl:scheme .
+
+gl:Vocabulary a skos:Concept ;
+    skos:definition "The controlled words a repository uses. The deck’s ladder runs from a term list, to a taxonomy with broader and narrower terms, to an ontology with definitions and relations. Publishing even an informal data dictionary is the step the notes say most sites skip."@en ;
+    skos:inScheme gl:scheme ;
+    skos:narrower gl:Ontology ;
+    skos:prefLabel "Vocabulary"@en ;
+    skos:related gl:DataDictionary ;
+    skos:topConceptOf gl:scheme .
+
+gl:WebMCP a skos:Concept ;
+    skos:definition "A browser-side companion to this idea: the page itself exposes tools to an agent. Listed on the ragged-edge slide, with the W3C Web Machine Learning draft."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "WebMCP"@en ;
+    skos:related gl:ModelContextProtocol,
+        gl:RaggedEdge ;
+    skos:topConceptOf gl:scheme .
+
+gl:AgentPlugins a skos:Concept ;
+    skos:definition "A bleeding-edge, vendor-neutral packaging format for reusable skills and MCP services (plugin.json, skills/, mcp.json). Distinct from, and easy to confuse with, a single SKILL.md or the MCP Skills extension."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Agent Plugins"@en ;
+    skos:related gl:AgentSkill,
+        gl:RaggedEdge,
+        gl:SkillsExtension ;
+    skos:topConceptOf gl:scheme .
+
+gl:Crawler a skos:Concept ;
+    skos:definition "An automated client that walks a site on its own schedule. The deck splits crawlers by purpose, because a single block often stops the useful visits along with the unwanted ones."@en ;
+    skos:inScheme gl:scheme ;
+    skos:narrower gl:IndexBuilder,
+        gl:TrainerCrawler ;
+    skos:prefLabel "Crawler"@en ;
+    skos:related gl:Bot ;
+    skos:topConceptOf gl:scheme .
+
+gl:SchemaOrgDataset a skos:Concept ;
+    skos:definition "The base type for a dataset: name, description, license, creator, identifier, distribution. Still the practical HTML path when a repository publishes one Dataset block in server-rendered HTML."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "schema.org Dataset"@en ;
+    skos:related gl:Bioschemas,
+        gl:Croissant,
+        gl:Profile ;
+    skos:topConceptOf gl:scheme .
+
+gl:SkillsExtension a skos:Concept ;
+    skos:altLabel "MCP Skills extension"@en ;
+    skos:definition "The MCP extension the slide says was finalized and shipped in standard kits in September–October 2026, for packaging richer plugins. Distinct from, and easy to confuse with, an SKILL.md agent skill or an Agent Plugin package."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Skills extension"@en ;
+    skos:related gl:AgentPlugins,
+        gl:AgentSkill,
+        gl:ModelContextProtocol ;
+    skos:topConceptOf gl:scheme .
+
+gl:Agent a skos:Concept ;
+    skos:definition "Software that takes a goal and carries out steps for someone: open a page, follow a link, call an API, read a file. The notes warn that these systems are easy to treat as if they had intentions. They are a mix of fixed instructions and model output, acting for a user community or for whoever directed them."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Agent"@en ;
+    skos:related gl:Agency,
+        gl:Harness,
+        gl:HumanInTheLoop,
+        gl:VirtualBrowser ;
+    skos:topConceptOf gl:scheme .
+
+gl:AttributionAndAuthority a skos:Concept ;
+    skos:definition "Who gets credit, and how a reader checks the source and cites it. The notes name FAIR Signposting, SPDX license identifiers, a cite-as link to BibTeX, CRediT roles, and DOI, ORCID, ROR, RRID, and RAiD."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Attribution and authority"@en ;
+    skos:related gl:CRediT,
+        gl:CiteAs,
+        gl:FAIRSignposting,
+        gl:SPDX ;
+    skos:topConceptOf gl:scheme .
+
+gl:RobotsTxt a skos:Concept ;
+    skos:definition "A file at the root of the site that states rules for automated clients: what they may fetch, and, with newer policies, how the content may be used. Path patterns in Allow/Disallow begin with / (for example Disallow: /.gif$, not a bare .gif$)."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "robots.txt"@en ;
+    skos:related gl:AIPreferences,
+        gl:ContentSignals,
+        gl:ReallySimpleLicensing,
+        gl:Sitemap ;
+    skos:topConceptOf gl:scheme .
+
+gl:API a skos:Concept ;
+    skos:definition "A programmatic interface for metadata and data. For this talk the minimum is the NIAID Blueprint pattern: JSON-LD for the minimal metadata, resource-shaped URLs, HTTP GET, an OpenAPI description, and the same resource available as HTML for a person. The March 2026 API webinar is the longer treatment. The callable slide also points at the Blueprint DOI."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "API"@en ;
+    skos:related gl:CLI,
+        gl:ContentNegotiation,
+        gl:CoolURI,
+        gl:JSONLD,
+        gl:OpenAPI ;
+    skos:topConceptOf gl:scheme .
+
+gl:Evaluation a skos:Concept ;
+    skos:definition "The deck’s word for “how do you know it worked.” Starting points on the slide include trying an agent against your docs, the prompts in prompts/evals, NDE AI-assisted search with the feature on and off, Chrome Lighthouse’s agent audits (including llms.txt), and an ard.json analyser."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Evaluation"@en ;
+    skos:related gl:CompetencyQuestion,
+        gl:EvaluationPrompt,
+        gl:LighthouseAgentAudit,
+        gl:NDEAIAssistedSearch,
+        gl:UserAgent ;
+    skos:topConceptOf gl:scheme .
+
+gl:RaggedEdge a skos:Concept ;
+    skos:definition "The deck’s name for items that belong on a radar and not yet in the core advice: liability and the human in the loop, generative interfaces (including Herdr UI), WebMCP, ARD, Agent Plugins, exposing embeddings, and connecting with Genesis Mission. FAIR Signposting has moved, on the live readable slide, into mature / platform-adopted practice rather than this bucket."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Ragged edge"@en ;
+    skos:related gl:AgentPlugins,
+        gl:AgenticResourceDiscovery,
+        gl:GenerativeUI,
+        gl:HumanInTheLoop,
+        gl:WebMCP ;
+    skos:topConceptOf gl:scheme .
+
+gl:PersistentIdentifier a skos:Concept ;
+    skos:altLabel "PID"@en ;
+    skos:definition "One stable name for one thing, which an agent can cite and follow. The deck’s set is a DOI or an accession for data, ORCID for a person, ROR for an organization, RRID for a resource such as a database or a reagent, and RAiD for a project."@en ;
+    skos:inScheme gl:scheme ;
+    skos:narrower gl:Accession,
+        gl:DOI,
+        gl:ORCID,
+        gl:RAiD,
+        gl:ROR,
+        gl:RRID ;
+    skos:prefLabel "Persistent identifier"@en ;
+    skos:topConceptOf gl:scheme .
+
+gl:RightsAndAccess a skos:Concept ;
+    skos:definition "Who may view or use the data, and on what conditions, for people and for automated clients. The notes name robots.txt / Content Signals / AIPREF, the W3C TDM Reservation Protocol, RSL, DPV, SPDX in schema.org license, and ODRL combined with DUO codes. US and EU practice diverge; TDMRep is common in European / STM reservation settings, while RSL is earlier-stage."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Rights and access"@en ;
+    skos:related gl:ConditionsOfAccess,
+        gl:DUO,
+        gl:DataPrivacyVocabulary,
+        gl:ODRL,
+        gl:ReallySimpleLicensing,
+        gl:TDMRep ;
+    skos:topConceptOf gl:scheme .
+
+gl:Profile a skos:Concept ;
+    skos:definition "An agreed subset of a shared vocabulary, so every repository describes a dataset with the same fields. The live profile table highlights DataCite Metadata Schema 4.6, Bioschemas Dataset, CODATA CDIF, the NIAID Data Ecosystem schema, Croissant 1.1 (+ RAI and Geo), and RO-Crate 1.2, with Science-on-Schema.org called out among others of potential interest. Declare which profile a record follows with conformsTo."@en ;
+    skos:inScheme gl:scheme ;
+    skos:narrower gl:Bioschemas ;
+    skos:prefLabel "Profile"@en ;
+    skos:related gl:CODATACDIF,
+        gl:ConformsTo,
+        gl:Croissant,
+        gl:DataCiteMetadataSchema46,
+        gl:NIAIDDataEcosystemSchema,
+        gl:ROCrate,
+        gl:SchemaOrgDataset,
+        gl:ScienceOnSchemaOrg ;
+    skos:topConceptOf gl:scheme .
+
+gl:ModelContextProtocol a skos:Concept ;
+    skos:altLabel "MCP"@en ;
+    skos:definition "A shared convention for how an agent talks to a server: tools it can call, resources it can read, and prompts it can use. The deck says agents struggle with undocumented or inconsistent APIs, and that MCP is that convention. The Linux Foundation’s Agentic AI Foundation governs it. A call still passes through the repository’s own API, login, and rate limits. MCP is helpful but not required for “SI-ready”; Reachable + Readable + a well documented API already go a long way."@en ;
+    skos:inScheme gl:scheme ;
+    skos:prefLabel "Model Context Protocol"@en ;
+    skos:related gl:LocalMCPServer,
+        gl:MCPRegistry,
+        gl:OAuth,
+        gl:Prompt,
+        gl:RemoteMCPServer,
+        gl:Resource,
+        gl:SkillsExtension,
+        gl:StatelessMCP,
+        gl:Tool,
+        gl:WebMCP ;
+    skos:topConceptOf gl:scheme .
+
+gl:scheme a skos:ConceptScheme ;
+    dct:description "Terms from the NIAID Blueprint webinar deck Making Your Repository More Accessible to SI (Phase III NIAID Slides 11/6, 6 November 2026). The live Google Slides deck and the PDF handout use SI in the talk title and pillar language; earlier handout drafts said AI. These definitions follow the live deck. SI is left as the slides write it (not expanded here). Definitions follow the way the slides and speaker notes use each word. They are short working definitions for this talk. Where a term is a published standard, the line says what the deck is pointing at, not the full specification. The talk’s scope is what a repository can hand to an SI workflow: data, services, context, and skills and tools. Building agents, building a harness, choosing a model, and running the compute are outside that scope."@en ;
+    dct:publisher "GO FAIR US" ;
+    dct:source <https://github.com/go-fair-us/ai-blueprint-core/blob/master/docs/Webinar_Nov_2026/glossary.md> ;
+    dct:title "Glossary: Making Your Repository More Accessible to SI"@en ;
+    skos:editorialNote "Labels and definitions are taken verbatim (markdown formatting removed) from the source glossary. Sections are modelled as skos:Collection. skos:broader and skos:related links, and altLabels for expansions found inside definitions, were added during conversion based on wording in the definitions."@en ;
+    skos:hasTopConcept gl:AIPreferences,
+        gl:AIReadyDocumentation,
+        gl:API,
+        gl:Agency,
+        gl:Agent,
+        gl:AgentPlugins,
+        gl:AgentSkill,
+        gl:AgenticResourceDiscovery,
+        gl:Application,
+        gl:ArtificialIntelligence,
+        gl:AttributionAndAuthority,
+        gl:Bot,
+        gl:BulkDownload,
+        gl:CLI,
+        gl:CODATACDIF,
+        gl:CRediT,
+        gl:CiteAs,
+        gl:CompetencyQuestion,
+        gl:ComputeEnvironment,
+        gl:ConditionsOfAccess,
+        gl:ConformsTo,
+        gl:ContentNegotiation,
+        gl:ContentSignals,
+        gl:Context,
+        gl:CoolURI,
+        gl:Crawler,
+        gl:Croissant,
+        gl:DUO,
+        gl:DataCiteMetadataSchema46,
+        gl:DataDictionary,
+        gl:DataPrivacyVocabulary,
+        gl:Evaluation,
+        gl:EvaluationPrompt,
+        gl:FAIRSignposting,
+        gl:Fetcher,
+        gl:GenerativeUI,
+        gl:Harness,
+        gl:HerdrUI,
+        gl:HumanInTheLoop,
+        gl:IntellectualProperty,
+        gl:JSONLD,
+        gl:JavaScriptRendering,
+        gl:LighthouseAgentAudit,
+        gl:Lineage,
+        gl:LlmsTxt,
+        gl:LoadBalancingAndCaching,
+        gl:LocalMCPServer,
+        gl:MCPRegistry,
+        gl:MarkdownAlternate,
+        gl:Model,
+        gl:ModelContextProtocol,
+        gl:NDEAIAssistedSearch,
+        gl:NIAIDDataEcosystemSchema,
+        gl:NIHAIPolicyNotices,
+        gl:OAuth,
+        gl:ODRL,
+        gl:OpenAPI,
+        gl:OrganicFetch,
+        gl:PROVO,
+        gl:PersistentIdentifier,
+        gl:Profile,
+        gl:Prompt,
+        gl:ROCrate,
+        gl:RaggedEdge,
+        gl:RateLimiting,
+        gl:ReallySimpleLicensing,
+        gl:RemoteMCPServer,
+        gl:Resource,
+        gl:RightsAndAccess,
+        gl:RobotsTxt,
+        gl:SHACL,
+        gl:SHACLAF,
+        gl:SI,
+        gl:SIWorkflow,
+        gl:SPARQLRL,
+        gl:SPDX,
+        gl:SSSOM,
+        gl:SchemaHallucination,
+        gl:SchemaOrgDataset,
+        gl:ScienceOnSchemaOrg,
+        gl:SemanticLayer,
+        gl:Sitemap,
+        gl:SkillsExtension,
+        gl:StatelessMCP,
+        gl:TDMRep,
+        gl:Tool,
+        gl:UserAgent,
+        gl:VirtualBrowser,
+        gl:Vocabulary,
+        gl:WebMCP,
+        gl:Weights ;
+    skos:prefLabel "Glossary: Making Your Repository More Accessible to SI"@en .
+
