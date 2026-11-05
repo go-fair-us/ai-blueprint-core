@@ -195,7 +195,7 @@ Paste the file with the origin. A record URL is optional.
 
 [`sssom-mappings.md`](../../../prompts/evals/sssom-mappings.md)
 
-Looks for a public SSSOM file: a table of "our term matches their term," with a relation, a justification, and who asserted it.
+Looks for a public SSSOM file. Common exchange is a **TSV** table of "our term matches their term," with a relation and a justification. Author and confidence fields are optional.
 
 Paste the file with the origin. A record URL is optional.
 

@@ -12,7 +12,7 @@ The [AFDocs repository](https://github.com/agent-ecosystem/afdocs) has installat
 npx afdocs check https://docs.your-site.com --format scorecard
 ```
 
-AFDocs is in early development, so check the current documentation for supported flags and output formats before relying on them in automation. An [Agent Score](https://afdocs.dev/what-is-agent-score) or similar readiness score is a useful diagnostic, not a measure of answer accuracy.
+AFDocs is early-stage; check the current docs for flags and output formats before automating against it. An [Agent Score](https://afdocs.dev/what-is-agent-score) is a useful diagnostic, not a measure of answer accuracy.
 
 ## Test whether agents can answer your questions
 

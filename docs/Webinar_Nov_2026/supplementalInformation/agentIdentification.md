@@ -43,11 +43,11 @@ Limitations: lists change and must be refreshed automatically, cloud IP space ca
 
 ## 3. [Web Bot Auth](https://datatracker.ietf.org/doc/draft-ietf-webbotauth-httpsig-protocol/) (HTTP Message Signatures)
 
-Web Bot Auth replaces “trust the name tag” with “check the signature.” It builds on [RFC 9421, HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421), a finished IETF standard, and adds a profile for bots and agents. The work began as individual drafts from Cloudflare and is now in the IETF [webbotauth working group](https://datatracker.ietf.org/wg/webbotauth/about/). Its current [protocol draft](https://datatracker.ietf.org/doc/draft-ietf-webbotauth-httpsig-protocol/) and related [architecture](https://www.ietf.org/archive/id/draft-meunier-web-bot-auth-architecture-00.html) and [key-directory drafts](https://www.ietf.org/archive/id/draft-meunier-webbotauth-httpsig-directory-00.html) describe the design.
+Web Bot Auth replaces “trust the name tag” with “check the signature.” It builds on [RFC 9421, HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421), a finished IETF standard, and adds a profile for bots and agents. The work began as individual drafts from Cloudflare and is now in the IETF [webbotauth working group](https://datatracker.ietf.org/wg/webbotauth/about/). Its current [protocol draft](https://datatracker.ietf.org/doc/draft-ietf-webbotauth-httpsig-protocol/) and related [architecture](https://datatracker.ietf.org/doc/draft-meunier-web-bot-auth-architecture/) and [key-directory draft](https://datatracker.ietf.org/doc/draft-meunier-http-message-signatures-directory/) describe the design.
 
 ### How it works
 
-**Keys.** The operator generates a key pair (Cloudflare uses Ed25519) and publishes the public key as a JSON Web Key Set at `/.well-known/http-message-signatures-directory` on its own domain, as described in the [key-directory draft](https://www.ietf.org/archive/id/draft-meunier-webbotauth-httpsig-directory-00.html) and [Cloudflare documentation](https://developers.cloudflare.com/bots/concepts/bot/verified-bots/web-bot-auth/).
+**Keys.** The operator generates a key pair (Cloudflare uses Ed25519) and publishes the public key as a JSON Web Key Set at `/.well-known/http-message-signatures-directory` on its own domain. The [protocol draft](https://datatracker.ietf.org/doc/draft-ietf-webbotauth-httpsig-protocol/) and the related [key-directory draft](https://datatracker.ietf.org/doc/draft-meunier-http-message-signatures-directory/) describe the format; [Cloudflare documentation](https://developers.cloudflare.com/bots/concepts/bot/verified-bots/web-bot-auth/) shows a production deployment.
 
 **Signing.** Each request carries `Signature`, `Signature-Input` and `Signature-Agent` headers. The signature covers at least the target host (`@authority`), with `created` and `expires` timestamps, a `keyid` (the key’s thumbprint), and the tag `web-bot-auth`; see the [protocol draft](https://datatracker.ietf.org/doc/draft-ietf-webbotauth-httpsig-protocol/) for details. Short validity windows and nonces limit replay.
 
@@ -55,11 +55,11 @@ Web Bot Auth replaces “trust the name tag” with “check the signature.” I
 
 ![How Web Bot Auth works](web-bot-auth-diagram.png)
 
-*Figure 1. Web Bot Auth explained for a non-technical audience. (Keep `web-bot-auth-diagram.png` in the same folder as this file for the image to display.)*
+*Figure 1. Web Bot Auth in brief.*
 
 ### Status and adoption
 
-The protocol draft adopted by the working group (`draft-ietf-webbotauth-httpsig-protocol`) was last updated in September 2026. Specifications may still change. [Cloudflare's documentation](https://developers.cloudflare.com/bots/concepts/bot/verified-bots/web-bot-auth/) describes its production use of Web Bot Auth to verify bots and “signed agents”; see also its [announcement](https://blog.cloudflare.com/verified-bots-with-cryptography/). If your site is behind Cloudflare, you can write rules against verified-bot fields without implementing signature checks yourself.
+The working-group protocol draft (`draft-ietf-webbotauth-httpsig-protocol-01`) is dated 29 October 2026. Specifications may still change. [Cloudflare's documentation](https://developers.cloudflare.com/bots/concepts/bot/verified-bots/web-bot-auth/) describes its production use of Web Bot Auth to verify bots and “signed agents”; see also its [announcement](https://blog.cloudflare.com/verified-bots-with-cryptography/). If your site is behind Cloudflare, you can write rules against verified-bot fields without implementing signature checks yourself.
 
 > **What it does not do:** it proves the *operator* of the agent, not the model, and it only helps with agents whose operators choose to sign. Unsigned traffic remains unidentified.
 
@@ -90,9 +90,9 @@ There is no W3C Working Group (formal standards track) on this topic. Several W3
 | [AI Agent Protocol CG](https://www.w3.org/community/agentprotocol/) | 2025 | Open protocols for agents to discover, identify and collaborate across the Web, including an agent identity model and a web-based DID method (did:wba). |
 | [Agent Identity Registry Protocol CG](https://www.w3.org/community/agent-identity/) | April 2026 | A DID method for agent identity resolution, an agent credential format based on W3C Verifiable Credentials, and a trust negotiation protocol for cross-organizational agents. |
 | [Agent Declaration and Assurance CG](https://www.w3.org/community/adacg/) | June 2026 | Verifiable ways for AI systems to declare their identity, operational boundaries, and alignment constraints. Closest to declaring what an agent is. |
-| [Introduction Layer CG](https://www.w3.org/community/intro-layer/2026/08/13/call-for-participation-in-introduction-layer-community-group/) | August 2026 | The reverse direction: a way for a website to declare its identity, purpose, constraints and responsible party to AI agents in a machine-readable form. |
+| [Introduction Layer CG](https://www.w3.org/community/intro-layer/) | August 2026 | The reverse direction: a way for a website to declare its identity, purpose, constraints and responsible party to AI agents in a machine-readable form. |
 
-Related work includes NIST's [Software and SI Agent Identity and Authorization project](https://www.nccoe.nist.gov/projects/software-and-si-agent-identity-and-authorization), the OpenID Foundation's [Artificial Intelligence Identity Management Community Group](https://openid.net/cg/artificial-intelligence-identity-management-community-group), and the IETF [WIMSE working group](https://datatracker.ietf.org/wg/wimse/about/). The Agent Identity Registry Protocol CG describes coordination with these and other efforts on its [group page](https://www.w3.org/community/agent-identity/).
+Related work includes NIST's [Software and SI Agent Identity and Authorization project](https://www.nccoe.nist.gov/projects/software-and-si-agent-identity-and-authorization) (NIST uses SI for Super Intelligence), the OpenID Foundation's [Artificial Intelligence Identity Management Community Group](https://openid.net/cg/artificial-intelligence-identity-management-community-group), and the IETF [WIMSE working group](https://datatracker.ietf.org/wg/wimse/about/). The Agent Identity Registry Protocol CG describes coordination with these and other efforts on its [group page](https://www.w3.org/community/agent-identity/).
 
 ## Practical recommendations
 
@@ -111,12 +111,12 @@ For a site that publishes data, a sensible approach today is to:
 3. Perplexity. Perplexity Crawlers. <https://docs.perplexity.ai/docs/resources/perplexity-crawlers>
 4. IETF. RFC 9421, HTTP Message Signatures. <https://www.rfc-editor.org/rfc/rfc9421>
 5. Meunier, T. and Major, S. HTTP Message Signatures for automated traffic (draft-ietf-webbotauth-httpsig-protocol). <https://datatracker.ietf.org/doc/draft-ietf-webbotauth-httpsig-protocol/>
-6. Meunier, T. HTTP Message Signatures for automated traffic: Architecture (earlier individual draft). <https://www.ietf.org/archive/id/draft-meunier-web-bot-auth-architecture-00.html>
-7. Meunier, T. and Major, S. HTTP Message Signatures Directory. <https://www.ietf.org/archive/id/draft-meunier-webbotauth-httpsig-directory-00.html>
+6. Meunier, T. and Major, S. HTTP Message Signatures for automated traffic: Architecture (individual draft). <https://datatracker.ietf.org/doc/draft-meunier-web-bot-auth-architecture/>
+7. Meunier, T. and Major, S. HTTP Message Signatures Directory (individual draft). <https://datatracker.ietf.org/doc/draft-meunier-http-message-signatures-directory/>
 8. Cloudflare. Web Bot Auth (developer documentation). <https://developers.cloudflare.com/bots/concepts/bot/verified-bots/web-bot-auth/>
 9. Cloudflare Blog. Message Signatures are now part of our Verified Bots Program. <https://blog.cloudflare.com/verified-bots-with-cryptography/>
 10. IETF. Web Bot Auth working group draft repository. <https://github.com/webbotauth/draft-ietf-webbotauth-httpsig-protocol>
 11. W3C. AI Agent Protocol Community Group. <https://www.w3.org/community/agentprotocol/>
 12. W3C. Agent Identity Registry Protocol Community Group. <https://www.w3.org/community/agent-identity/>
 13. W3C. Agent Declaration and Assurance Community Group. <https://www.w3.org/community/adacg/>
-14. W3C. Introduction Layer Community Group (call for participation). <https://www.w3.org/community/intro-layer/2026/08/13/call-for-participation-in-introduction-layer-community-group/>
+14. W3C. Introduction Layer Community Group. <https://www.w3.org/community/intro-layer/>
