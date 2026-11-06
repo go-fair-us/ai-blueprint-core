@@ -307,58 +307,70 @@ def _visible_quickstart_text(text: str) -> str:
     return re.sub(r"\[([^\]]*)\]\([^)]+\)", r"\1", text)
 
 
-# Rejected technical approaches from the first draft. This is a denylist,
-# not a generic "any all-caps token" scan, so the allowed word "AI" passes.
-FORBIDDEN_QUICKSTART_PATTERNS = (
-    r"\bHTTP\b",
-    r"\bCDN\b",
-    r"\bAIPREF\b",
-    r"\bRSL\b",
-    r"\bJSON-?LD\b",
-    r"\bAPIs?\b",
-    r"\bOpenAPI\b",
-    r"\bMCP\b",
-    r"\bHTML\b",
-    r"\bIETF\b",
-    r"\bNIAID\b",
-    r"\bNIH\b",
-    r"\bSHACL\b",
-    r"\bSPARQL\b",
-    r"\bSRL\b",
-    r"\brobots(?:\.txt)?\b",
-    r"\b429\b",
-    r"server-rendered",
-    r"\bshapes?\b",
-    r"llms\.txt",
-    r"SKILL\.md",
+PILLAR_HEADINGS = (
+    "## Be Reachable",
+    "## Be Readable",
+    "## Be Callable",
+    "## Be Meaningful",
 )
 
 
-def test_quickstart_has_five_sections():
+def test_quickstart_has_four_pillar_sections():
     text = build.QUICKSTART.read_text(encoding="utf-8")
     headings = re.findall(r"^## .+", text, flags=re.MULTILINE)
-    assert len(headings) == 5
-    assert text.lstrip().startswith(
-        "# Five ways to make your repository easier for AI to use"
-    )
-    for label in ("Reachable", "Readable", "Callable", "Meaningful", "Evaluation"):
-        assert f"*{label}.*" in text
-    assert "Restricted data should stay protected" in text
-    assert "public descriptive records" in text
-    assert "restricted data download" in text
-    assert "If you already offer a way for software to retrieve data, document it too." in text
+    assert headings == list(PILLAR_HEADINGS)
+    first_line = text.lstrip().splitlines()[0]
+    assert first_line.startswith("# ")
+    assert "five" not in first_line.lower()
+    assert "Evaluation" not in headings
+    assert not re.search(r"^## .*Evaluation", text, flags=re.MULTILINE | re.IGNORECASE)
+    visible = _visible_quickstart_text(text)
+    assert "Restricted data should stay protected" in visible
+    assert "public descriptive records" in visible
+    assert "restricted data download" in visible
+    assert "If you already offer a way for software to retrieve data, document it too." in visible
+    # This handout no longer advises running evaluations.
+    for phrase in (
+        "try real questions",
+        "outside tools",
+        "prompts/evals",
+        "competency",
+        "AI tool answers",
+    ):
+        assert phrase.lower() not in visible.lower(), phrase
+    words = visible.split()
+    assert 400 <= len(words) <= 500, len(words)
 
 
-def test_quickstart_avoids_forbidden_terms():
+def test_quickstart_names_representative_options():
     visible = _visible_quickstart_text(
         build.QUICKSTART.read_text(encoding="utf-8")
     )
-    found = [
-        pattern
-        for pattern in FORBIDDEN_QUICKSTART_PATTERNS
-        if re.search(pattern, visible, flags=re.IGNORECASE)
-    ]
-    assert found == []
+    for name in (
+        "CDN",
+        "robots.txt",
+        "rate limits",
+        "HTML",
+        "sitemap",
+        "Signposting",
+        "Markdown",
+        "llms.txt",
+        "OpenAPI",
+        "JSON-LD",
+        "MCP",
+        "DataCite",
+        "ORCID",
+        "schema.org",
+        "SHACL",
+        "SSSOM",
+    ):
+        assert name in visible, name
+    assert "optional" in visible.lower()
+    assert "proposal" in visible.lower()
+    assert "ontology is not required" in visible.lower() or "formal ontology is not required" in visible.lower()
+    assert "do not need a new API" in visible or "do not have to launch new services" in visible
+    assert "preference" in visible.lower()
+    assert "not a guarantee" in visible
 
 
 def test_quickstart_review_date_fallback_does_not_change_checklist(monkeypatch):

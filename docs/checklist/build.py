@@ -610,7 +610,10 @@ def resolve_quickstart_revision(cli_date: str | None = None) -> Revision:
 
 
 def render_quickstart_html(text: str, revision: Revision) -> str:
-    title = "Five ways to make your repository easier for AI to use"
+    heading = re.search(r"^# (.+)$", text, flags=re.M)
+    title = heading.group(1).strip() if heading else (
+        "Ways to make your repository easier for AI to use"
+    )
     date_meta = ""
     if revision.date != "unknown":
         date_stamp = html.escape(f"{revision.date}T12:00:00Z")
