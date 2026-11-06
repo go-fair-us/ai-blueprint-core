@@ -1,0 +1,301 @@
+:root {
+  --ink: #1c2430;
+  --muted: #4b5563;
+  --rule: #d5dbe3;
+  --paper: #ffffff;
+  --shade: #f4f7fa;
+  --accent: #0f4c5c;
+  --accent-soft: #e6f2f4;
+  --level-1: #0f6b4c;
+  --level-2: #1d4f91;
+  --level-3: #6b3fa0;
+  --optional: #8a5a12;
+  --watch: #7a3e12;
+  --watch-bg: #fff6ec;
+}
+
+@page {
+  size: letter;
+  margin: 0.65in 0.7in 0.75in 0.7in;
+  @top-left {
+    content: "Repository checklist · NIAID Blueprint webinar companion";
+    font-size: 8.5pt;
+    color: #5b6573;
+    font-family: "Liberation Sans", "DejaVu Sans", sans-serif;
+  }
+  @top-right {
+    content: "Not a certification or score";
+    font-size: 8.5pt;
+    color: #5b6573;
+    font-family: "Liberation Sans", "DejaVu Sans", sans-serif;
+  }
+  @bottom-left {
+    content: "Generated from docs/checklist/checklist.md";
+    font-size: 8pt;
+    color: #5b6573;
+    font-family: "Liberation Sans", "DejaVu Sans", sans-serif;
+  }
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-size: 8pt;
+    color: #5b6573;
+    font-family: "Liberation Sans", "DejaVu Sans", sans-serif;
+  }
+}
+
+html {
+  font-size: 10.5pt;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "Liberation Serif", "DejaVu Serif", Georgia, serif;
+  line-height: 1.38;
+}
+
+h1, h2, h3, h4, .kicker, .badge, .view-banner, .item-head, .meta dt, .cover {
+  font-family: "Liberation Sans", "DejaVu Sans", sans-serif;
+}
+
+h1 {
+  font-size: 1.7rem;
+  line-height: 1.2;
+  color: var(--accent);
+  margin: 0.2rem 0 0.6rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+  color: var(--accent);
+  margin: 1.4rem 0 0.5rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 2px solid var(--accent);
+  page-break-after: avoid;
+}
+
+h3 {
+  font-size: 1.02rem;
+  margin: 0;
+  line-height: 1.3;
+}
+
+h4 {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.25rem;
+}
+
+a {
+  color: #114a72;
+  text-decoration-thickness: 1px;
+}
+
+p, li {
+  orphans: 3;
+  widows: 3;
+}
+
+.cover {
+  padding: 0 0 0.4rem;
+  border-bottom: 3px solid var(--accent);
+  margin-bottom: 0.8rem;
+}
+
+.kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.generated {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-family: "Liberation Sans", "DejaVu Sans", sans-serif;
+}
+
+.view-banner {
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  padding: 0.55rem 0.75rem;
+  margin: 0 0 1rem;
+  page-break-inside: avoid;
+}
+
+.view-banner p {
+  margin: 0;
+}
+
+.preamble table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  margin: 0.6rem 0 1rem;
+}
+
+.preamble th,
+.preamble td {
+  border: 1px solid var(--rule);
+  padding: 0.35rem 0.45rem;
+  vertical-align: top;
+  text-align: left;
+}
+
+.preamble th {
+  background: var(--shade);
+  font-family: "Liberation Sans", "DejaVu Sans", sans-serif;
+  font-size: 0.8rem;
+}
+
+.preamble ol {
+  margin: 0.4rem 0 0.8rem;
+}
+
+.item {
+  border: 1px solid var(--rule);
+  border-left: 5px solid var(--accent);
+  background: #fff;
+  padding: 0.65rem 0.75rem 0.7rem;
+  margin: 0.75rem 0;
+  page-break-inside: auto;
+}
+
+.item.level-1 { border-left-color: var(--level-1); }
+.item.level-2 { border-left-color: var(--level-2); }
+.item.level-3 { border-left-color: var(--level-3); }
+
+.item-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.4rem 0.55rem;
+  margin-bottom: 0.45rem;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+}
+
+.item-head h3 {
+  flex: 1 1 16rem;
+}
+
+.checkbox {
+  flex: 0 0 0.95rem;
+  width: 0.95rem;
+  height: 0.95rem;
+  margin-top: 0.15rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 2px;
+  background: #fff;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.08rem 0.4rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+}
+
+.badge.level-1 { background: #e5f6ee; color: var(--level-1); }
+.badge.level-2 { background: #e7eef8; color: var(--level-2); }
+.badge.level-3 { background: #f3e9fb; color: var(--level-3); }
+.badge.pillar { background: var(--accent-soft); color: var(--accent); }
+.badge.kind, .badge.maturity { background: var(--shade); color: var(--muted); }
+.badge.optional { background: #fff1d6; color: var(--optional); }
+
+.meta {
+  margin: 0 0 0.55rem;
+  padding: 0.35rem 0.5rem;
+  background: var(--shade);
+  page-break-inside: avoid;
+}
+
+.meta-row {
+  display: table;
+  width: 100%;
+  margin: 0.18rem 0;
+}
+
+.meta dt,
+.meta dd {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.meta dt {
+  width: 7.2rem;
+  padding-right: 0.6rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
+.meta dd {
+  margin: 0;
+}
+
+.do-this, .verify, .watch, .prose {
+  margin-top: 0.45rem;
+}
+
+.do-this p, .verify p, .watch p, .prose p {
+  margin: 0.25rem 0;
+}
+
+.item-head, .meta, .watch {
+  page-break-inside: avoid;
+}
+
+.watch {
+  background: var(--watch-bg);
+  padding: 0.4rem 0.55rem;
+  border-left: 3px solid var(--optional);
+}
+
+.watch h4 {
+  color: var(--watch);
+}
+
+.section-intro {
+  margin-bottom: 0.4rem;
+}
+
+.colophon {
+  margin-top: 1.4rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+code {
+  font-family: "Liberation Mono", "DejaVu Sans Mono", monospace;
+  font-size: 0.86em;
+  hyphens: none;
+  -webkit-hyphens: none;
+  overflow-wrap: anywhere;
+}
+
+@media screen {
+  body {
+    max-width: 52rem;
+    margin: 1.5rem auto 3rem;
+    padding: 0 1.2rem;
+  }
+}

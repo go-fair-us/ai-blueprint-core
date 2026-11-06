@@ -1,0 +1,4 @@
+# Isolated dependencies for rendering docs/checklist/checklist.md.
+# System libraries: cairo, pango, and GDK-PixBuf (WeasyPrint).
+markdown>=3.6
+weasyprint>=62
