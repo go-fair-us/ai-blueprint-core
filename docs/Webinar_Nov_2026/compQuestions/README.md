@@ -49,6 +49,10 @@ The prompt stays on the repository host and an obvious API or docs subdomain. It
 
 In Pi, `/competency-answerability` takes the origin as the first argument and the questions as the second. When the questions span more than one line, paste the YAML block.
 
+## Example run
+
+An example run is in the [questionRunExample.md](questionRunExample.md) file.  
+
 ## When the site publishes its own list
 
 Use [`competency-questions.md`](../../../prompts/evals/competency-questions.md) to see whether the site published a list, and save the questions the report quotes. Feed up to three of those quotes into the answerability prompt.
