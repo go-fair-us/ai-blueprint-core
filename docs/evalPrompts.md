@@ -1,6 +1,6 @@
 # Evaluation Prompt Templates
 
-Single-question prompts for a public data-repository website. The questions come from the Phase III webinar "Making Your Repository More Accessible to AI" (NIAID Blueprint Webinar Series, 6 November 2026), in `docs/Phase III NIAID Slides 11_6.pdf`.
+Single-question prompts for a public data-repository website. The questions come from the Phase III webinar "Making Your Repository More Accessible to AI" (NIAID Blueprint Webinar Series, 6 November 2026), in `docs/Webinar_Nov_2026/README.md`.
 
 The talk describes what a repository can expose to an agent. The four themes are reachable, readable, callable, and meaningful. Three further concerns are rights, attribution, and lineage, because a scrape can drop all three. The talk's evaluation slide adds one more step: run your own competency questions against an agent. Each file in this folder answers one of those questions.
 

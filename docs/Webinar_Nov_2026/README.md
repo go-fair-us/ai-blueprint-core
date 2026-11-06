@@ -1,14 +1,16 @@
 # Making Your Repository More Accessible to AI
 
-Supplementary materials for the Phase III NIAID Blueprint webinar (6 November 2026).
+**Supplementary materials for the Phase III NIAID Blueprint webinar (6 November 2026).**
 
 > NOTE:  Foundational drafts of many glossary entries, section outlines, and bibliography items were produced with generative AI assistance. These were then read, revised, corrected, and expanded by the author(s). Human judgment determined what was kept, rewritten, or discarded. Sources cited in the bibliography were verified against the original pages (with exceptions noted where access was blocked). The author(s) take full responsibility for the content of these materials.
 
-[Presentation Slides](slideDeckSIReadyRepos.pdf)
+
+## Files
+
+ [**Presentation Slides**](slideDeckSIReadyRepos.pdf)
 
 These files are handouts, not a second copy of the slides. Definitions stay in the glossary. Sources stay in the bibliography. A longer note is a separate file, linked from the matching section below.
 
-## Files
 
 | File | Who it is for | What it is |
 |---|---|---|
@@ -23,21 +25,28 @@ These files are handouts, not a second copy of the slides. Definitions stay in t
 | [Competency questions](compQuestions/) | Someone running those tests on NIAID sites | Competency questions and separate answer keys. Do not paste a key into the prompt an agent sees. |
 | [Assets examples](assets/) | Someone looking for a concrete file | Example `robots.txt`, `sitemap.xml`, `llms.txt`, and `ard.json`. |
 
-## Talk sections
 
-The glossary and the bibliography use the same headings. **Why do this** and **Acknowledgements** are citation groups only. The glossary does not define them.
 
-| Talk section | Definitions | Sources | Longer note |
-|---|---|---|---|
-| Why do this | — | [Why do this](bibliography.md#why-do-this) | — |
-| Systems and roles | [Systems and roles](glossary.md#systems-and-roles) | — | — |
-| Who visits | [Who visits](glossary.md#who-visits) | [Who visits](bibliography.md#who-visits) | [Identifying agents](supplementalInformation/agentIdentification.md) |
-| Being reachable | [Being reachable](glossary.md#being-reachable) | [Being reachable](bibliography.md#being-reachable) | [Identifying agents](supplementalInformation/agentIdentification.md) |
-| Being readable | [Being readable](glossary.md#being-readable) | [Being readable](bibliography.md#being-readable) | [assets/](assets/) |
-| Being callable | [Being callable](glossary.md#being-callable) | [Being callable](bibliography.md#being-callable) | — |
-| Being meaningful | [Being meaningful](glossary.md#being-meaningful) | [Being meaningful](bibliography.md#being-meaningful) | [From terms to ontologies](supplementalInformation/termsToOntologies.md); [Vocabulary tools and resources](supplementalInformation/vocabularies.md); [Competency questions](compQuestions/competency_questions.md) |
-| Rights, credit, and lineage | [Rights, credit, and lineage](glossary.md#rights-credit-and-lineage) | [Rights, credit, and lineage](bibliography.md#rights-credit-and-lineage) | [TDM reservations](supplementalInformation/tdm.md) |
-| Checking the result | [Checking the result](glossary.md#checking-the-result) | [Checking the result](bibliography.md#checking-the-result) | [Evaluation guide](supplementalInformation/evaluation.md); [Prompts to try](supplementalInformation/evaluationPrompts.md); [evaluation prompts](../evalPrompts.md); [answerability runs](compQuestions/answerability_runs.md) |
-| Acknowledgements | — | [Acknowledgements](bibliography.md#acknowledgements) | — |
+## Adventures
+
+These are some of the harnesses, skills, prompts and other artifacts and approaches I tried during the creation of this presentation.  They are rough, but shared in case anyone finds them interesting. 
+
+### Eval prompts
+
+A collection of evaluation prompts for exploring some of
+the concepts presented in the webinar has been made. 
+You can explore these more in the docs the 
+[evalPrompts.md document.](../evalPrompts.md)
 
  
+### Competency Questions
+
+A collection of competency questions.  They are all auto-generated, so buyer beware.   These are being used more
+to explore the concept of competency questions and how they could be used in evaluation of SI enhancements to a repo. .  They are far from production, but they are a start.  See [these notes.](compQuestions/README.md)
+
+
+### Harness
+A harness built around Pi (https://pi.dev) exposes a collection of skills and prompts.  There are [instructions for starting](https://github.com/go-fair-us/ai-blueprint-core/blob/master/HARNESS_QUICKSTART.md) but it is very developmental.  If you try it, I'd love to hear from you.  Tag me in the issues.  
+
+### Glossary to SKOS
+This is a test of a partial conversion of the glossary to SKOS via an LLM.  It is just a test to see how good a model can be at making a SKOS vocabulary.   In this end, making this a skill with validation and better context would be a big improvement.  However, this simple single shot test was impressive enough out of the gate, that is people wanted this, it should be doable. I is a start.  See [these notes.](assets/glossary2SKOS/README.md)

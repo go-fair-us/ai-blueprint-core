@@ -50,6 +50,10 @@ The talk’s scope is what a repository can hand to an SI workflow: data, servic
 
 **robots.txt.** A file at the root of the site that states rules for automated clients: what they may fetch, and, with newer policies, how the content may be used. Path patterns in Allow/Disallow begin with `/` (for example `Disallow: /*.gif$`, not a bare `*.gif$`).
 
+**User agent.** The name a client sends with a request. The evaluation slide says to break server logs down by this name so trainer crawlers, indexers, and user-driven fetchers can be told apart.
+
+**CDN**  A content delivery network (CDN) is a network of servers that delivers web content from locations closer to users, improving speed and reducing load on the original server.
+
 **Content Signals.** Cloudflare’s policy labels for whether content may be used in search, as input to an AI answer, or for training. The notes treat this as a vendor policy and pair it with the IETF vocabulary below. It is not the same thing as Cloudflare’s default AI-bot blocking controls.
 
 **AI Preferences (AIPREF).** The IETF “AI Preferences” work. The vocabulary draft verified for these handouts is `draft-ietf-aipref-vocab-08` (14 September 2026). It gives short labels for uses such as `train-ai`. The attachment draft (`draft-ietf-aipref-attach-05`, 19 August 2026) adds a `Content-Usage` rule to `robots.txt` and a `Content-Usage` HTTP header, for example `Content-Usage: train-ai=n`. Label `Content-Usage` as an IETF Internet-Draft mechanism, not a finished RFC. Live speaker notes still cite vocab **-07**; these handouts use **-08**.
@@ -214,12 +218,3 @@ The talk’s scope is what a repository can hand to an SI workflow: data, servic
 
 **Evaluation prompt.** A fixed prompt, kept in version control, used to test an agent against the repository. The slide points at `prompts/evals` in the ai-blueprint-core repository.
 
-**User agent.** The name a client sends with a request. The evaluation slide says to break server logs down by this name so trainer crawlers, indexers, and user-driven fetchers can be told apart.
-
-**NIH AI policy notices.** Closing notes point at NIH’s artificial-intelligence policy page and grant notices **NOT-OD-25-118** (an RFI on AI, not a binding data-use policy by itself) and **NOT-OD-25-081** (the DUC-related notice). Distinguish RFI from binding policy when citing them.
-
-**Generative UI.** An interface the model assembles for the task, instead of a fixed set of pages. The ragged-edge / backup slide points at CopilotKit’s OpenIntelligentUI, an OpenCode `genui` package, and **Herdr UI**.
-
-**Herdr UI.** A generative / described-UI example listed on the backup “More From the Edge” slide (`https://herdr.dev/`).
-
-**Ragged edge.** The deck’s name for items that belong on a radar and not yet in the core advice: liability and the human in the loop, generative interfaces (including Herdr UI), WebMCP, ARD, Agent Plugins, exposing embeddings, and connecting with Genesis Mission. FAIR Signposting has moved, on the live readable slide, into mature / platform-adopted practice rather than this bucket.
