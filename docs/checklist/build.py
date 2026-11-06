@@ -10,11 +10,14 @@ not invent checklist text.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html
+import os
 import re
+import subprocess
 import sys
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 import markdown
@@ -42,6 +45,112 @@ REQUIRED_FIELDS = (
 )
 
 MD_EXTENSIONS = ["extra", "sane_lists"]
+ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+@dataclass(frozen=True)
+class Revision:
+    """Stable identity of the checklist *source*, not the clock at build time.
+
+    ``date`` is a review/source date (git commit day of checklist.md, an
+    explicit --date, or SOURCE_DATE_EPOCH). It is not today's build date
+    and not an evidence date for cited standards or the webinar itself.
+    """
+
+    date: str
+    version: str
+    date_source: str
+
+
+def _git(args: list[str]) -> str | None:
+    try:
+        result = subprocess.run(
+            ["git", *args],
+            cwd=HERE,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError:
+        return None
+    if result.returncode != 0:
+        return None
+    value = result.stdout.strip()
+    return value or None
+
+
+def source_version() -> str:
+    sha = _git(["log", "-1", "--format=%h", "--", SOURCE.name])
+    if sha:
+        return sha
+    digest = hashlib.sha256(SOURCE.read_bytes() if SOURCE.exists() else b"").hexdigest()
+    return digest[:12]
+
+
+def parse_iso_date(value: str) -> str:
+    if not ISO_DATE_RE.match(value):
+        raise ValueError(f"dates must be YYYY-MM-DD, not {value!r}")
+    date.fromisoformat(value)  # raises for impossible calendar dates
+    return value
+
+
+def revision_date_from_front_matter(text: str) -> str | None:
+    if not text.startswith("---"):
+        return None
+    end = text.find("\n---", 3)
+    if end == -1:
+        return None
+    for line in text[3:end].splitlines():
+        if line.startswith("revision_date:"):
+            value = line.split(":", 1)[1].strip().strip("'\"")
+            return parse_iso_date(value) if ISO_DATE_RE.match(value) else None
+    return None
+
+
+def resolve_revision(cli_date: str | None = None, source_text: str | None = None) -> Revision:
+    version = source_version()
+    if cli_date:
+        return Revision(parse_iso_date(cli_date), version, "cli")
+    epoch = os.environ.get("SOURCE_DATE_EPOCH")
+    if epoch:
+        try:
+            derived = datetime.fromtimestamp(int(epoch), tz=timezone.utc).date().isoformat()
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"invalid SOURCE_DATE_EPOCH: {epoch!r}") from exc
+        return Revision(derived, version, "source-date-epoch")
+    text = source_text if source_text is not None else (
+        SOURCE.read_text(encoding="utf-8") if SOURCE.exists() else ""
+    )
+    from_source = revision_date_from_front_matter(text)
+    if from_source:
+        return Revision(from_source, version, "front-matter")
+    git_date = _git(["log", "-1", "--format=%cs", "--", SOURCE.name])
+    if git_date and ISO_DATE_RE.match(git_date):
+        return Revision(git_date, version, "git")
+    return Revision("unknown", version, "unknown")
+
+
+def relocate_html_urls(html_text: str, source_dir: Path, output_dir: Path) -> str:
+    """Rewrite relative href/src so HTML written into dist/ still resolves."""
+
+    def repl(match: re.Match[str]) -> str:
+        attr, url = match.group(1), match.group(2)
+        if url.startswith(("http://", "https://", "mailto:", "#", "data:")):
+            return match.group(0)
+        path_part, _, fragment = url.partition("#")
+        if not path_part:
+            return match.group(0)
+        # Generated HTML and a copied style.css both live in dist/. Leave the
+        # stylesheet href alone so standalone HTML keeps a sibling CSS file.
+        if path_part == "style.css":
+            return match.group(0)
+        target = (source_dir / path_part).resolve()
+        relocated = Path(os.path.relpath(target, output_dir)).as_posix()
+        if fragment:
+            relocated = f"{relocated}#{fragment}"
+        return f'{attr}="{relocated}"'
+
+    return re.sub(r'(href|src)="([^"]+)"', repl, html_text)
 
 
 @dataclass
@@ -131,7 +240,18 @@ def parse_item(heading_id: str, heading_title: str, raw: str) -> Item:
     )
 
 
+def strip_front_matter(text: str) -> str:
+    if not text.startswith("---"):
+        return text
+    end = text.find("\n---", 3)
+    if end == -1:
+        return text
+    rest = text[end + 4:]
+    return rest[1:] if rest.startswith("\n") else rest
+
+
 def parse_document(text: str) -> Document:
+    text = strip_front_matter(text)
     lines = text.splitlines()
     preamble: list[str] = []
     sections: list[Section] = []
@@ -292,7 +412,14 @@ def view_banner(view: str, levels: set[int] | None, item_count: int) -> str:
     )
 
 
-def render_html(doc: Document, view: str, levels: set[int] | None) -> str:
+def render_html(
+    doc: Document,
+    view: str,
+    levels: set[int] | None,
+    revision: Revision | None = None,
+) -> str:
+    if revision is None:
+        revision = resolve_revision()
     sections_html = []
     for section in doc.sections:
         items_html = "".join(render_item(item) for item in section.items)
@@ -305,20 +432,33 @@ def render_html(doc: Document, view: str, levels: set[int] | None) -> str:
             f"{intro}{items_html}</section>"
         )
     preamble_html = md_blocks(doc.preamble)
-    generated = date.today().isoformat()
     title = "Repository checklist: making your repository more accessible to SI"
+    date_meta = ""
+    if revision.date != "unknown":
+        # Noon UTC avoids date-only values being treated as midnight UTC,
+        # which would display as the previous local calendar day (for example
+        # 2026-11-06 -> 2026-11-05 18:00 CST).
+        date_stamp = html.escape(f"{revision.date}T12:00:00Z")
+        date_meta = (
+            f'  <meta name="dcterms.created" content="{date_stamp}">\n'
+            f'  <meta name="dcterms.modified" content="{date_stamp}">\n'
+        )
+    source_line = (
+        f"Checklist source {revision.version}, dated {revision.date} "
+        f"({revision.date_source}) · not a certification"
+    )
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{html.escape(title)}</title>
-  <link rel="stylesheet" href="style.css">
+{date_meta}  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="cover">
     <p class="kicker">NIAID Blueprint webinar companion · 6 November 2026</p>
-    <p class="generated">Rendered {html.escape(generated)} from checklist.md · not a certification</p>
+    <p class="generated">{html.escape(source_line)}</p>
   </header>
   {view_banner(view, levels, len(doc.items))}
   <div class="preamble">{preamble_html}</div>
@@ -386,25 +526,39 @@ def validate_document(doc: Document, source_dir: Path) -> list[str]:
     return errors
 
 
-def write_view(doc: Document, view: str, write_html: bool, write_pdf: bool) -> dict[str, Path]:
+def write_view(
+    doc: Document,
+    view: str,
+    write_html: bool,
+    write_pdf: bool,
+    revision: Revision | None = None,
+) -> dict[str, Path]:
+    if revision is None:
+        revision = resolve_revision()
     levels = VIEWS[view]
     filtered = filter_document(doc, levels)
-    html_text = render_html(filtered, view, levels)
+    html_text = render_html(filtered, view, levels, revision)
     stem = OUTPUT_STEMS[view]
-    DIST.mkdir(exist_ok=True)
+    DIST.mkdir(parents=True, exist_ok=True)
     written: dict[str, Path] = {}
     html_path = DIST / f"{stem}.html"
     if write_html:
-        html_path.write_text(html_text, encoding="utf-8")
+        html_path.write_text(
+            relocate_html_urls(html_text, HERE, DIST),
+            encoding="utf-8",
+        )
         # Copy CSS next to HTML so a browser can open the file directly.
         dest_css = DIST / "style.css"
         dest_css.write_text(STYLE.read_text(encoding="utf-8"), encoding="utf-8")
         written["html"] = html_path
     if write_pdf:
         pdf_path = DIST / f"{stem}.pdf"
+        # Keep PDF /ID stable across rebuilds of the same HTML.
+        identifier = hashlib.sha256(html_text.encode("utf-8")).digest()
         HTML(string=html_text, base_url=str(HERE)).write_pdf(
             pdf_path,
             stylesheets=[CSS(filename=str(STYLE))],
+            pdf_identifier=identifier,
         )
         written["pdf"] = pdf_path
     return written
@@ -425,25 +579,39 @@ def build_arg_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Parse and validate the source without writing output",
     )
+    parser.add_argument(
+        "--date",
+        metavar="YYYY-MM-DD",
+        help=(
+            "Source/review date printed in the output. Default is the last git "
+            "commit date of checklist.md (or SOURCE_DATE_EPOCH). This is not "
+            "today's build date and not an evidence date for cited standards."
+        ),
+    )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_arg_parser().parse_args(argv)
-    doc = parse_document(SOURCE.read_text(encoding="utf-8"))
+    source_text = SOURCE.read_text(encoding="utf-8")
+    doc = parse_document(source_text)
+    revision = resolve_revision(cli_date=args.date, source_text=source_text)
     errors = validate_document(doc, HERE)
     if errors:
         for error in errors:
             print(f"error: {error}", file=sys.stderr)
         return 1
     if args.check:
-        print(f"ok: {len(doc.items)} items in {len(doc.sections)} sections")
+        print(
+            f"ok: {len(doc.items)} items in {len(doc.sections)} sections; "
+            f"source {revision.version} dated {revision.date} ({revision.date_source})"
+        )
         return 0
     write_html = not args.pdf_only
     write_pdf = not args.html_only
     views = list(VIEWS) if args.view == "all-views" else [args.view]
     for view in views:
-        written = write_view(doc, view, write_html, write_pdf)
+        written = write_view(doc, view, write_html, write_pdf, revision)
         for kind, path in written.items():
             print(f"wrote {kind}: {path}")
     return 0

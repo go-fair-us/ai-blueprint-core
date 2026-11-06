@@ -7,6 +7,7 @@ regressions that would re-import known PDF-face errors.
 
 from __future__ import annotations
 
+import hashlib
 import re
 import sys
 from pathlib import Path
@@ -50,7 +51,7 @@ ALLOWED_URL_PREFIXES = (
     "https://spdx.org/licenses/",
     "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-25-081.html",
     "https://credit.niso.org/",
-    "https://www.gofair.us/citation-recommendations",
+    "https://www.gofair.us/resources/citation",
     "https://www.w3.org/TR/prov-o/",
     "https://www.w3.org/community/reports/tdmrep/CG-FINAL-tdmrep-20240510/",
     "https://www.w3.org/TR/shacl/",
@@ -139,6 +140,8 @@ def test_source_avoids_known_pdf_errors():
     assert "illustrative" in text
     assert "https://www.w3.org/TR/shacl/" in text
     assert "https://www.w3.org/TR/sparql-rl/" in text
+    assert "https://www.gofair.us/resources/citation" in text
+    assert "https://www.gofair.us/citation-recommendations" not in text
     assert "a certification" in text and "compliance score" in text
     assert "Oct 21" not in text
     assert "public-domain" not in text.lower()
@@ -171,3 +174,93 @@ def test_render_filtered_views(tmp_path, document, monkeypatch):
     written_all = build.write_view(document, "all", write_html=True, write_pdf=True)
     pdf = written_all["pdf"]
     assert pdf.exists() and pdf.stat().st_size > 1000
+
+
+def test_renderer_does_not_call_date_today():
+    assert "date.today" not in Path(build.__file__).read_text(encoding="utf-8")
+
+
+def test_cli_date_overrides_revision(monkeypatch):
+    monkeypatch.delenv("SOURCE_DATE_EPOCH", raising=False)
+    revision = build.resolve_revision(cli_date="2026-01-02", source_text=SOURCE.read_text(encoding="utf-8"))
+    assert revision.date == "2026-01-02"
+    assert revision.date_source == "cli"
+
+
+def test_source_date_epoch(monkeypatch):
+    monkeypatch.setenv("SOURCE_DATE_EPOCH", "1700000000")  # 2023-11-14 UTC
+    revision = build.resolve_revision(source_text=SOURCE.read_text(encoding="utf-8"))
+    assert revision.date == "2023-11-14"
+    assert revision.date_source == "source-date-epoch"
+
+
+def test_front_matter_date_and_strip():
+    raw = "---\nrevision_date: 2026-02-03\n---\n# Title\n\n## Reachable\nintro\n"
+    assert build.revision_date_from_front_matter(raw) == "2026-02-03"
+    assert not build.strip_front_matter(raw).startswith("---")
+    assert build.strip_front_matter(raw).startswith("# Title")
+
+
+def test_html_relative_links_resolve_from_dist(tmp_path, document, monkeypatch):
+    monkeypatch.delenv("SOURCE_DATE_EPOCH", raising=False)
+    monkeypatch.setattr(build, "DIST", tmp_path)
+    revision = build.Revision("2026-11-06", "testhash", "cli")
+    written = build.write_view(document, "all", write_html=True, write_pdf=False, revision=revision)
+    html = written["html"].read_text(encoding="utf-8")
+    assert "Rendered " not in html
+    assert "Checklist source testhash, dated 2026-11-06" in html
+    assert 'content="2026-11-06T12:00:00Z"' in html
+    assert 'href="style.css"' in html
+    assert 'href="../style.css"' not in html
+    assert (tmp_path / "style.css").exists()
+    urls = re.findall(r'href="([^"]+slideDeckSIReadyRepos\.pdf[^"]*)"', html)
+    assert urls
+    target = (tmp_path / urls[0].split("#", 1)[0]).resolve()
+    assert target.exists(), urls[0]
+
+
+def test_two_builds_are_reproducible(tmp_path, document, monkeypatch):
+    monkeypatch.delenv("SOURCE_DATE_EPOCH", raising=False)
+    revision = build.Revision("2026-11-06", "testhash", "cli")
+    hashes = []
+    texts = []
+    for name in ("a", "b"):
+        dest = tmp_path / name
+        monkeypatch.setattr(build, "DIST", dest)
+        written = build.write_view(
+            document, "level-1", write_html=True, write_pdf=True, revision=revision
+        )
+        hashes.append((
+            hashlib.sha256(written["html"].read_bytes()).hexdigest(),
+            hashlib.sha256(written["pdf"].read_bytes()).hexdigest(),
+        ))
+        texts.append(written["pdf"].read_bytes())
+    assert hashes[0][0] == hashes[1][0]
+    if hashes[0][1] != hashes[1][1]:
+        # Document metadata-only drift if a future WeasyPrint version introduces it.
+        import subprocess
+        def pdf_text(data: bytes) -> str:
+            path = tmp_path / "cmp.pdf"
+            path.write_bytes(data)
+            return subprocess.check_output(["pdftotext", "-layout", str(path), "-"], text=True)
+        assert pdf_text(texts[0]) == pdf_text(texts[1])
+    else:
+        assert hashes[0][1] == hashes[1][1]
+
+def test_factcheck_corrections(document):
+    by_id = {item.item_id: item for item in document.items}
+    assert by_id["MEA-08"].optional
+    assert by_id["MEA-08"].title.startswith("Optionally")
+    assert by_id["MEA-08"].fields["Kind"] == "advice"
+    assert by_id["MEA-08"].fields["Maturity"] == "established"
+    assert by_id["RCH-06"].fields["Kind"] == "preference-signal"
+    assert by_id["MEA-10"].fields["Kind"] == "advice"
+    assert by_id["MEA-07"].fields["Maturity"] == "established"
+    assert "If you expose a metadata API" in by_id["CAL-01"].title
+    assert "If you expose a metadata API" in by_id["CAL-02"].title
+    assert "N/A" in by_id["CAL-01"].body
+    assert "N/A" in by_id["CAL-02"].body
+    assert "even if you do not operate an API" in by_id["CAL-03"].body
+    assert "Do not mark this item N/A solely because you have no API" in by_id["CAL-03"].body
+    assert "#page=17" in by_id["RD-03"].fields["Sources"]
+    assert "no separate AI-Overviews robots token" in by_id["RCH-03"].body

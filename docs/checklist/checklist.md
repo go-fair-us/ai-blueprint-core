@@ -32,7 +32,7 @@ Do not collapse these into one “AI policy” switch.
 
 1. **Crawl preferences** — `robots.txt` (RFC 9309) tells cooperating clients what they may fetch. Compliance is voluntary. A preference is not a license.
 2. **Access enforcement** — HTTP 401/403, CDN or WAF rules, rate limits (`429` + `Retry-After`), and authentication actually allow or deny a request.
-3. **Rights and usage signals** — licenses, TDM reservation declarations, and draft usage vocabularies state permissions or preferences about *use*. They do not, by themselves, block a fetch.
+3. **Rights and usage signals** — licenses and TDM reservation declarations state permissions or reserved rights; draft usage vocabularies such as AIPREF state preferences about *use*. None of these, by themselves, block a fetch.
 
 US and EU practice around text-and-data-mining reservations is not the same. Read [TDM reservations](../Webinar_Nov_2026/supplementalInformation/tdm.md) before treating any signal as a legal conclusion.
 
@@ -112,7 +112,7 @@ RFC 9309 does not define `Crawl-delay`. Prefer HTTP `429` and `Retry-After` for 
 Do not rely on a single `User-agent: *` rule if you want different outcomes for different missions. The webinar groups visitors roughly as:
 
 1. **Trainer crawlers** (examples named on the slide include GPTBot, ClaudeBot, CCBot, and Google-Extended) collecting content for model training or related use.
-2. **Search or index crawlers** (examples include OAI-SearchBot, PerplexityBot, and Googlebot for AI Overviews) that can affect discovery and citation.
+2. **Search or index crawlers** (examples include OAI-SearchBot, PerplexityBot, and Googlebot; Search / AI Overviews surfaces use Googlebot, and there is no separate AI-Overviews robots token) that can affect discovery and citation.
 3. **User-triggered fetchers** (examples include ChatGPT-User and Perplexity-User) retrieving a page because a person asked. Several vendors document that these often do **not** honor `robots.txt`.
 4. **Unknown** clients, where a robots line is only a guess and enforcement may belong at the firewall.
 
@@ -179,7 +179,7 @@ Behavioral fingerprints suggest automation; they are probabilities, not proof, a
 - **Level:** 1
 - **Pillar:** Reachable
 - **Optional:** yes
-- **Kind:** rights-signal
+- **Kind:** preference-signal
 - **Maturity:** draft
 - **Access needed:** Same as editing `robots.txt` for a `Content-Usage` line; HTTP header attachment needs platform or CDN configuration (Level 2).
 - **Maintenance:** Revisit when the Internet-Drafts are revised or published as RFCs.
@@ -281,7 +281,7 @@ Request a landing page and a record page with a non-browser client (for example 
 - **Maturity:** established
 - **Access needed:** Developer or platform access to templates, static-site output, or content negotiation.
 - **Maintenance:** Keep HTML and Markdown views aligned when pages change.
-- **Sources:** [Webinar PDF pp. 15 and 17](../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=15); [Glossary — Markdown alternate](../Webinar_Nov_2026/glossary.md)
+- **Sources:** [Webinar PDF p. 17](../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=17); [Glossary — Markdown alternate](../Webinar_Nov_2026/glossary.md)
 
 **Do this.**
 
@@ -394,11 +394,11 @@ If you publish a plugin, confirm its package files match the current Agent Plugi
 
 ## Callable
 
-Dynamic, service-based reads. The webinar’s callable material is aimed at **metadata** services, not at every domain data payload (those have their own use cases and access-control needs). MCP is optional. See webinar PDF pp. 21–26 and [Being callable](../Webinar_Nov_2026/glossary.md).
+Dynamic, service-based reads. The webinar’s callable material is aimed at **metadata** services, not at every domain data payload (those have their own use cases and access-control needs). MCP is optional. CAL-01 and CAL-02 apply if you expose a metadata API; if you only publish static landing pages, mark those two items N/A and rely on Reachable, Readable, and Meaningful work (landing-page JSON-LD in CAL-03 is still useful without an API). See webinar PDF pp. 21–26 and [Being callable](../Webinar_Nov_2026/glossary.md).
 
 A previous NIAID webinar treated APIs in more depth: [API NIAID Webinar Slides (31 March 2026)](https://github.com/go-fair-us/apireference/blob/master/docs/Presentation/API_NIAIDWebinarSlides033126.pdf). The Blueprint DOI cited on the slide is [10.5281/zenodo.17161561](https://doi.org/10.5281/zenodo.17161561).
 
-### CAL-01. Document the metadata API with OpenAPI or Swagger
+### CAL-01. If you expose a metadata API, document it with OpenAPI or Swagger
 
 - **Level:** 3
 - **Pillar:** Callable
@@ -411,13 +411,13 @@ A previous NIAID webinar treated APIs in more depth: [API NIAID Webinar Slides (
 
 **Do this.**
 
-Expose metadata through a documented HTTP API. Publish a machine-readable OpenAPI (or Swagger) description at a stable URL, with operation summaries, parameters, and examples. Good documentation is the slide’s first “SI aware” API point. If you do not yet operate an API, treat this as a software project rather than a file drop.
+If you expose a metadata API, publish a machine-readable OpenAPI (or Swagger) description at a stable URL, with operation summaries, parameters, and examples. Good documentation is the slide’s first “SI aware” API point. Starting an API you do not yet operate is a software project (Level 3), not a file drop.
 
 **How to verify.**
 
-Fetch the OpenAPI or Swagger URL and confirm it parses as OpenAPI 3.x or Swagger 2.0. Confirm it describes the metadata operations you actually offer, not only a UI wrapper.
+If you only publish static landing pages and do not expose a metadata API, mark this item N/A and rely on Reachable, Readable, and Meaningful items, including landing-page JSON-LD in CAL-03. If you do expose an API, fetch the OpenAPI or Swagger URL and confirm it parses as OpenAPI 3.x or Swagger 2.0. Confirm it describes the metadata operations you actually offer, not only a UI wrapper.
 
-### CAL-02. Use ordinary web architecture for metadata resources
+### CAL-02. If you expose a metadata API, use ordinary web architecture for metadata resources
 
 - **Level:** 3
 - **Pillar:** Callable
@@ -430,13 +430,13 @@ Fetch the OpenAPI or Swagger URL and confirm it parses as OpenAPI 3.x or Swagger
 
 **Do this.**
 
-Give metadata records stable, dereferenceable URLs; use HTTP status codes honestly; and prefer GET for retrieval of metadata. Connect each response to a documented schema or data model. The webinar notes that JSON-LD and “prefer GET” guidance here target **metadata**, not necessarily every data-file download, which may have different security and domain constraints.
+If you expose a metadata API, give metadata records stable, dereferenceable URLs; use HTTP status codes honestly; and prefer GET for retrieval of metadata. Connect each response to a documented schema or data model. The webinar notes that JSON-LD and “prefer GET” guidance here target **metadata**, not necessarily every data-file download, which may have different security and domain constraints.
 
 **How to verify.**
 
-Pick a public metadata record URL. Confirm GET returns the record, the status code matches the outcome (including 404 for unknown IDs), and the URL remains useful as an identifier (avoid embedding versions or software names that will break).
+If you only publish static landing pages and do not expose a metadata API, mark this item N/A and rely on Reachable, Readable, Meaningful items, and landing-page JSON-LD (CAL-03). If you do expose an API, pick a public metadata record URL. Confirm GET returns the record, the status code matches the outcome (including 404 for unknown IDs), and the URL remains useful as an identifier (avoid embedding versions or software names that will break).
 
-### CAL-03. Publish profile-shaped JSON-LD for records
+### CAL-03. Publish profile-shaped JSON-LD on landing pages, and from the API if you have one
 
 - **Level:** 2
 - **Pillar:** Callable
@@ -449,11 +449,11 @@ Pick a public metadata record URL. Confirm GET returns the record, the status co
 
 **Do this.**
 
-For metadata the webinar cares about, publish a JSON-LD representation—typically a `schema.org` `Dataset` or a profile built from one—on the landing page and, where you have an API, as a content type the API can return. This is also the bridge into the Meaningful items on profiles and `conformsTo`.
+Publish a JSON-LD representation of the metadata the webinar cares about—typically a `schema.org` `Dataset` or a profile built from one—in the server-rendered landing page. That markup is useful even if you do not operate an API. If you also expose a metadata API, offer the same profile as `application/ld+json` (or an equivalent negotiated type). This is also the bridge into the Meaningful items on profiles and `conformsTo`.
 
 **How to verify.**
 
-View page source or request `Accept: application/ld+json`. Confirm a JSON-LD block parses and includes identifier, name, and license (or a clear access condition) when those apply.
+View landing-page source and confirm a JSON-LD block parses and includes identifier, name, and license (or a clear access condition) when those apply. If you expose a metadata API, also request `Accept: application/ld+json` and confirm the API returns matching JSON-LD. Do not mark this item N/A solely because you have no API.
 
 **Watch for.**
 
@@ -606,7 +606,7 @@ License terms vary across NIAID-funded repositories and across datasets. This ch
 - **Maturity:** established
 - **Access needed:** Metadata editors; some platforms already expose cite-as links or CRediT fields.
 - **Maintenance:** Update citations when versions change.
-- **Sources:** [Webinar PDF p. 32](../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=32); [Glossary — attribution and authority, CRediT](../Webinar_Nov_2026/glossary.md); [CRediT](https://credit.niso.org/); [Minimum citation guidelines](https://www.gofair.us/citation-recommendations)
+- **Sources:** [Webinar PDF p. 32](../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=32); [Glossary — attribution and authority, CRediT](../Webinar_Nov_2026/glossary.md); [CRediT](https://credit.niso.org/); [Blueprint Citation Recommendations](https://www.gofair.us/resources/citation)
 
 **Do this.**
 
@@ -641,7 +641,7 @@ On a versioned or derived record, confirm the relation types are present and tha
 - **Pillar:** Meaningful
 - **Optional:** yes
 - **Kind:** rights-signal
-- **Maturity:** emerging
+- **Maturity:** established
 - **Access needed:** Permission to publish `/.well-known/tdmrep.json` and/or to set HTTP headers or HTML metadata (headers are Level 2).
 - **Maintenance:** Keep the site-level file and per-resource declarations consistent.
 - **Sources:** [Webinar PDF p. 31](../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=31); [TDM reservations](../Webinar_Nov_2026/supplementalInformation/tdm.md); [TDMRep CG Final Report](https://www.w3.org/community/reports/tdmrep/CG-FINAL-tdmrep-20240510/); [Bibliography — Rights, credit, and lineage](../Webinar_Nov_2026/bibliography.md)
@@ -656,12 +656,12 @@ This is a **rights signal**, not a crawler block, and not a substitute for readi
 
 If you publish the well-known file, fetch it and confirm `tdm-reservation` (and `tdm-policy`, if used) match your intended statement. Do not expect the file alone to change whether a client can GET a URL.
 
-### MEA-08. Publish SHACL shapes and validate records against them
+### MEA-08. Optionally publish SHACL shapes and validate records against them
 
 - **Level:** 3
 - **Pillar:** Meaningful
-- **Optional:** no
-- **Kind:** standard-practice
+- **Optional:** yes
+- **Kind:** advice
 - **Maturity:** established
 - **Access needed:** Someone comfortable with RDF and SHACL. Running the validator locally or in CI does **not** require operating a public service. Hosting a live validator is an extra choice.
 - **Maintenance:** Update shapes when the profile changes; keep example records passing.
@@ -669,7 +669,7 @@ If you publish the well-known file, fetch it and confirm `tdm-reservation` (and 
 
 **Do this.**
 
-Write SHACL shapes that say what a valid record looks like (the slide’s example: every sample has a collection date and a host taxon). Publish the shapes at a stable URL so agents can see your expectations. Validate submissions or published JSON-LD locally, in a batch job, or in CI. The webinar marks deeper context work as caution / bleeding edge in places; SHACL itself is a W3C Recommendation.
+If you choose to add machine-checkable record rules, write SHACL shapes that say what a valid record looks like (the slide’s example: every sample has a collection date and a host taxon). Publish the shapes at a stable URL so agents can see your expectations. Validate submissions or published JSON-LD locally, in a batch job, or in CI. SHACL is a W3C Recommendation; it is optional on this checklist because the webinar groups deeper-context work under a caution banner, not because the language is experimental. Hosting a live validator is an extra choice.
 
 **How to verify.**
 
@@ -703,7 +703,7 @@ The PDF face still prints an older date and a `sparql12-rl` path. Prefer the cur
 - **Level:** 1
 - **Pillar:** Meaningful
 - **Optional:** yes
-- **Kind:** standard-practice
+- **Kind:** advice
 - **Maturity:** established
 - **Access needed:** Permission to publish a file, plus people who understand both vocabularies well enough to map them. Creating high-quality mappings is skilled work; hosting a mapping *service* would be Level 3.
 - **Maintenance:** Update mappings when either vocabulary versions.
