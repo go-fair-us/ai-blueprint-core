@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repository checklist: making your repository more accessible to SI</title>
+  <meta name="dcterms.created" content="2026-11-06T12:00:00Z">
+  <meta name="dcterms.modified" content="2026-11-06T12:00:00Z">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="cover">
+    <p class="kicker">NIAID Blueprint webinar companion · 6 November 2026</p>
+    <p class="generated">Checklist source 7741196, dated 2026-11-06 (git) · not a certification</p>
+  </header>
+  <aside class="view-banner"><p><strong>Complete checklist (all capability levels).</strong> This view includes every item. Level badges mark the access each action typically needs; they are not scores.</p></aside>
+  <div class="preamble"><h1>Repository checklist: making your repository more accessible to SI</h1>
+<p>Companion to the 6 November 2026 NIAID Blueprint webinar
+<a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf"><em>Making Your Repository More Accessible to SI</em></a>
+and its <a href="../../Webinar_Nov_2026/README.md">supplementary materials</a>.</p>
+<p>This file is the <strong>only content authority</strong> for the checklist. Generated HTML and PDF views are renderings of this document. Edit here, then rebuild.</p>
+<p>This companion is a practical list of actions. It is <strong>not</strong> a certification, audit rubric, maturity model, or compliance score. Finishing more items, or items at a higher level number, does not make a repository more trustworthy, more FAIR, or more “SI-ready.” Levels describe the kind of access and maintenance an action typically needs, not quality.</p>
+<p>The webinar focuses on assets a repository exposes to agents and workflows—configuration, files and metadata, APIs and MCP services, and semantic-layer components. It does not assess whether particular datasets are suitable for model training or inference.</p>
+<p>Informational only; not legal advice.</p></div>
+  <section class="pillar-section"><h2>How the levels work</h2><div class="section-intro"><p>Levels record <strong>capability and access</strong>, not a ranking of repositories.</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>What it usually takes</th>
+<th>Typical access</th>
+<th>Typical maintenance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Publish or update served files</strong></td>
+<td>Add or edit files the site already knows how to serve (<code>robots.txt</code>, <code>sitemap.xml</code>, a data dictionary, a mapping table).</td>
+<td>Permission to write at a well-known path, or an administrator who can place the file. A CDN or hosted platform can override what you upload.</td>
+<td>Keep the file current when paths, policy, or inventory change.</td>
+</tr>
+<tr>
+<td><strong>2 — Configure the publishing platform</strong></td>
+<td>Change HTTP headers, HTML templates, landing-page markup, content negotiation, CDN or firewall rules, or repository-platform settings.</td>
+<td>Platform, web, or network administrator access; sometimes a developer.</td>
+<td>Recheck after platform, theme, or CDN changes.</td>
+</tr>
+<tr>
+<td><strong>3 — Write or run software</strong></td>
+<td>Implement or operate an API or MCP server, or run specialized tooling such as a validator.</td>
+<td>Developer time and, if you host a service, operational support.</td>
+<td>Code, dependencies, and (only if you host it) the running service.</td>
+</tr>
+</tbody>
+</table>
+<p>A Level 1 file can still require administrator access to publish. A Level 3 check such as SHACL validation can run <strong>locally</strong> or in a batch pipeline; it does not require a public validation service unless you choose to offer one.</p>
+<p>Optional and emerging items are labeled. Skipping them is not a failure.</p></div></section><section class="pillar-section"><h2>Three different kinds of statement</h2><div class="section-intro"><p>Do not collapse these into one “AI policy” switch.</p>
+<ol>
+<li><strong>Crawl preferences</strong> — <code>robots.txt</code> (RFC 9309) tells cooperating clients what they may fetch. Compliance is voluntary. A preference is not a license.</li>
+<li><strong>Access enforcement</strong> — HTTP 401/403, CDN or WAF rules, rate limits (<code>429</code> + <code>Retry-After</code>), and authentication actually allow or deny a request.</li>
+<li><strong>Rights and usage signals</strong> — licenses and TDM reservation declarations state permissions or reserved rights; draft usage vocabularies such as AIPREF state preferences about <em>use</em>. None of these, by themselves, block a fetch.</li>
+</ol>
+<p>US and EU practice around text-and-data-mining reservations is not the same. Read <a href="../../Webinar_Nov_2026/supplementalInformation/tdm.md">TDM reservations</a> before treating any signal as a legal conclusion.</p></div></section><section class="pillar-section"><h2>How to use this checklist</h2><div class="section-intro"><ul>
+<li>Work through the four webinar facets: <strong>Reachable</strong>, <strong>Readable</strong>, <strong>Callable</strong>, and <strong>Meaningful</strong>. Evaluation sits beside them; it is not a fifth grade.</li>
+<li>Each item names the action, who can typically do it, how to verify it, and where the webinar or a handout discusses it.</li>
+<li>Print the PDF and mark the empty boxes, or copy this Markdown file and track status in your own notes. The generated PDF is printable; it is not an interactive fill-in form.</li>
+<li>Generate a Level 1 view or a Levels 1–2 view from this same file if you want a shorter handout (see <a href="../README.md">README</a>).</li>
+<li>MCP is <strong>not</strong> required in order to act on the webinar. Reachable and Readable work plus a well documented API already go a long way.</li>
+</ul></div></section><section class="pillar-section"><h2>Reachable</h2><div class="section-intro"><p>Network-accessible on terms you have thought through: signal what you expect, enforce the constraints that matter, and look at logs. See webinar PDF pp. 10–13 and the glossary section <a href="../../Webinar_Nov_2026/glossary.md">Being reachable</a>.</p></div>
+<article class="item level-2 pillar-reachable" id="rch-01">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RCH-01. Review how your host treats automated traffic</h3>
+    <div class="badges">
+      <span class="badge level level-2">Level 2</span>
+      <span class="badge pillar">Reachable</span>
+      <span class="badge kind">access enforcement</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Network, CDN, or platform administrator who can see bot-management, WAF, and reverse-proxy rules.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Recheck after provider or rule changes; vendor bot IP lists change.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=10">Webinar PDF p. 10</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — CDN, rate limiting</a>; <a href="../../Webinar_Nov_2026/supplementalInformation/agentIdentification.md">Identifying agents</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Ask whether your CDN, reverse proxy, or hosting provider already detects and filters automated clients. Decide, with that administrator, which classes of visitor you intend to allow (for example index builders and user-triggered fetchers) and which you intend to throttle or block. Ordinary load balancing and caching remain useful under agent traffic. Match vendor documentation for product tokens and, where they publish them, IP ranges (for example <a href="https://openai.com/gptbot.json">OpenAI GPTBot addresses</a>); do not hard-code addresses in <code>robots.txt</code>.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>From outside the internal network, request a public page as an ordinary client and compare the status code with what your written policy predicts. Confirm in the provider console (or exported rules) that AI-bot or WAF settings match that policy. User-Agent strings can be spoofed; published IP ranges and cryptographic bot authentication are stronger than a name tag alone (see the agent-identification handout).</p></div>
+  <div class='watch'><h4>Watch for</h4><p>A firewall or CDN rule can block a fetcher that <code>robots.txt</code> allows. Identification usually tells you the operator or product, not which model a person selected.</p></div>
+</article>
+
+<article class="item level-1 pillar-reachable" id="rch-02">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RCH-02. Publish a robots.txt at the site root</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Reachable</span>
+      <span class="badge kind">preference signal</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Permission to place a file at the origin site root, or an administrator who can. A CDN-managed <code>robots.txt</code> can replace the file you uploaded.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Review when paths, collections, or vendor product tokens change.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=11">Webinar PDF p. 11</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — robots.txt</a>; <a href="../../Webinar_Nov_2026/assets/robots.txt">Example robots.txt</a>; <a href="https://www.rfc-editor.org/rfc/rfc9309.html">RFC 9309</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Publish <code>https://YOUR-HOST/robots.txt</code>. Use <code>User-agent</code> groups with <code>Allow</code> and <code>Disallow</code> path prefixes that begin with <code>/</code> (for example <code>Disallow: /*.gif$</code>, not a bare <code>*.gif$</code>). Remember that this file states preferences for cooperating clients; it cannot make a client comply, and it does not grant or deny copyright permission.</p>
+<p>An annotated example lives with the webinar assets. Treat it as a demonstration (replace hosts and placeholder paths) rather than a drop-in policy.</p></div>
+  <div class="verify"><h4>How to verify</h4><p><code>GET https://YOUR-HOST/robots.txt</code> and confirm the bytes you expect are served (not a generic platform default). Check that every <code>Allow</code>/<code>Disallow</code> path starts with <code>/</code>.</p></div>
+  <div class='watch'><h4>Watch for</h4><p>RFC 9309 does not define <code>Crawl-delay</code>. Prefer HTTP <code>429</code> and <code>Retry-After</code> for rate control (see RCH-04). Some clients ignore the file entirely.</p></div>
+</article>
+
+<article class="item level-1 pillar-reachable" id="rch-03">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RCH-03. Separate trainer, index, and user-triggered visitors</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Reachable</span>
+      <span class="badge kind">preference signal</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Same as publishing <code>robots.txt</code>, plus someone who can reconcile that file with CDN rules.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Recheck vendor bot names and documented behavior; they change.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=12">Webinar PDF p. 12</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — trainer crawler, index builder, fetcher</a>; <a href="../../Webinar_Nov_2026/supplementalInformation/agentIdentification.md">Identifying agents</a>; <a href="https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers#google-extended">Google-Extended</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Do not rely on a single <code>User-agent: *</code> rule if you want different outcomes for different missions. The webinar groups visitors roughly as:</p>
+<ol>
+<li><strong>Trainer crawlers</strong> (examples named on the slide include GPTBot, ClaudeBot, CCBot, and Google-Extended) collecting content for model training or related use.</li>
+<li><strong>Search or index crawlers</strong> (examples include OAI-SearchBot, PerplexityBot, and Googlebot; Search / AI Overviews surfaces use Googlebot, and there is no separate AI-Overviews robots token) that can affect discovery and citation.</li>
+<li><strong>User-triggered fetchers</strong> (examples include ChatGPT-User and Perplexity-User) retrieving a page because a person asked. Several vendors document that these often do <strong>not</strong> honor <code>robots.txt</code>.</li>
+<li><strong>Unknown</strong> clients, where a robots line is only a guess and enforcement may belong at the firewall.</li>
+</ol>
+<p>Write named groups for the products you actually care about, and keep CDN rules consistent with that intent.</p>
+<p>If you mention <strong>Google-Extended</strong>, treat it as a <em>product token</em> with no separate HTTP User-Agent. It covers Gemini <strong>training and grounding</strong>. It does <strong>not</strong> affect inclusion or ranking in Google Search. Do not say that blocking it leaves all “AI search visibility” unchanged.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Read <code>robots.txt</code> and confirm that trainer tokens and search tokens are not forced into one outcome unless that is a deliberate choice. Compare each named token with the vendor’s current crawler documentation. For Google-Extended, use Google’s crawler documentation rather than assuming it behaves like Googlebot.</p></div>
+  <div class='watch'><h4>Watch for</h4><p>The PDF face still contains the broader sentence “Blocking does not affect AI search visibility.” Prefer the glossary and Google’s documentation, as above.</p></div>
+</article>
+
+<article class="item level-2 pillar-reachable" id="rch-04">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RCH-04. Answer overload with HTTP 429 and Retry-After</h3>
+    <div class="badges">
+      <span class="badge level level-2">Level 2</span>
+      <span class="badge pillar">Reachable</span>
+      <span class="badge kind">access enforcement</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Someone who can configure the origin, reverse proxy, or CDN rate-limit responses.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Tune thresholds as traffic changes; watch for accidental blocking of ordinary users.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=10">Webinar PDF p. 10</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — rate limiting</a>; <a href="../../Webinar_Nov_2026/assets/robots.txt">Example robots.txt comments</a>; <a href="https://www.rfc-editor.org/rfc/rfc9309.html">RFC 9309</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>When a client asks too fast, respond with <code>429 Too Many Requests</code> and a <code>Retry-After</code> header. That is an HTTP access control, not a <code>robots.txt</code> directive. The same pattern is useful for browser-like agent load on JavaScript-heavy pages (see RD-02).</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Document where the rule is configured. If you can safely exercise it in a staging environment, confirm the response status is 429 and that <code>Retry-After</code> is present. Do not run an aggressive test against a production repository you do not operate.</p></div>
+  <div class='watch'><h4>Watch for</h4><p>Some agents ignore <code>Retry-After</code>. RFC 9309 does not define <code>Crawl-delay</code>; a few vendors document it, but it is not a substitute for HTTP rate control.</p></div>
+</article>
+
+<article class="item level-2 pillar-reachable" id="rch-05">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RCH-05. Log automated traffic and review the patterns</h3>
+    <div class="badges">
+      <span class="badge level level-2">Level 2</span>
+      <span class="badge pillar">Reachable</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Access to request logs or a bot-management dashboard (often a network or platform administrator).</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Ongoing review; logs are only useful if someone looks at them.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=12">Webinar PDF pp. 12–13</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — user agent</a>; <a href="../../Webinar_Nov_2026/supplementalInformation/agentIdentification.md">Identifying agents</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Keep request logs that include timestamp, path, status, User-Agent, and (where you have it) the provider’s bot classification. Periodically review trainer crawlers, indexers, user-triggered fetchers, and unknowns. Use logs to improve signal and enforcement; they are not a courtroom-grade identification of a model.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Produce one recent sample (even a redacted screenshot or query) that breaks traffic down by User-Agent or vendor class, including status codes such as 200, 403, 404, and 429.</p></div>
+  <div class='watch'><h4>Watch for</h4><p>Behavioral fingerprints suggest automation; they are probabilities, not proof, and they do not identify a model. Do not instruct visiting agents to “report their model” via hidden page text (the agent-identification handout advises against that).</p></div>
+</article>
+
+<article class="item level-1 pillar-reachable" id="rch-06">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RCH-06. Optionally declare IETF AI usage preferences</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Reachable</span>
+      <span class="badge kind">preference signal</span>
+      <span class="badge maturity">draft</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Same as editing <code>robots.txt</code> for a <code>Content-Usage</code> line; HTTP header attachment needs platform or CDN configuration (Level 2).</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Revisit when the Internet-Drafts are revised or published as RFCs.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=11">Webinar PDF p. 11</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — AI Preferences (AIPREF)</a>; <a href="../../Webinar_Nov_2026/bibliography.md">Bibliography — Being reachable</a>; <a href="https://datatracker.ietf.org/doc/html/draft-ietf-aipref-vocab-08">AIPREF vocabulary draft-08</a>; <a href="https://datatracker.ietf.org/doc/html/draft-ietf-aipref-attach-05">AIPREF attachment draft-05</a>; <a href="../../Webinar_Nov_2026/supplementalInformation/tdm.md">TDM reservations</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>If you want a machine-readable <em>usage preference</em> in addition to crawl rules, you may add IETF AI Preferences syntax—for example <code>Content-Usage: search=y, train-ai=n</code>—in <code>robots.txt</code> and/or as an HTTP <code>Content-Usage</code> header. Label this as an <strong>IETF Internet-Draft</strong> mechanism (<code>draft-ietf-aipref-vocab-08</code> and <code>draft-ietf-aipref-attach-05</code>), not a finished RFC.</p>
+<p>Cloudflare Content Signals (<code>Content-Signal</code>, with labels such as <code>search</code>, <code>ai-input</code>, and <code>ai-train</code>) are a <strong>different</strong> vocabulary from AIPREF and are also distinct from Cloudflare’s default AI-bot blocking controls. If you use both lines, keep them separate; a parser for one will not read the other.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>If you adopted the robots-file form, open <code>/robots.txt</code> and confirm the <code>Content-Usage</code> line matches the drafts you intended. If you adopted the header form, request a sample page and inspect the <code>Content-Usage</code> response header. Confirm you did not accidentally treat the line as a fetch block.</p></div>
+  <div class='watch'><h4>Watch for</h4><p>The webinar PDF shows <code>Content-Usage</code> without calling it a draft. The handouts use vocabulary <strong>-08</strong>; the example <code>assets/robots.txt</code> comments still mention <strong>-07</strong> in places—follow the glossary and bibliography.</p></div>
+</article>
+
+<article class="item level-1 pillar-reachable" id="rch-07">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RCH-07. Optionally point at an RSL license document with an absolute URL</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Reachable</span>
+      <span class="badge kind">rights signal</span>
+      <span class="badge maturity">emerging</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Permission to publish an RSL XML document and to edit <code>robots.txt</code>.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Keep the XML and the <code>License:</code> URL in agreement if licensing changes.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=11">Webinar PDF p. 11</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — Really Simple Licensing</a>; <a href="../../Webinar_Nov_2026/supplementalInformation/tdm.md">TDM reservations</a>; <a href="https://rslstandard.org/rsl">RSL specification</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Really Simple Licensing is an emerging XML licensing vocabulary. If you use a <code>License:</code> line in <code>robots.txt</code>, the value must be an <strong>absolute URL</strong> to that XML document, such as <code>https://example.org/rsl.xml</code>, not a host-relative path such as <code>/rsl.xml</code>.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Confirm the <code>License:</code> value starts with <code>https://</code> (or another absolute scheme), fetch it, and confirm it returns the RSL document you intended.</p></div>
+  <div class='watch'><h4>Watch for</h4><p>The PDF face still shows <code>License: /rsl.xml</code>. Prefer the glossary, bibliography, and RSL specification. RSL is earlier-stage than several other rights tools discussed in the webinar; skip it unless you have a reason to experiment.</p></div>
+</article>
+</section><section class="pillar-section"><h2>Readable</h2><div class="section-intro"><p>Expressive resources: inventories, landing pages, and typed links that an agent can follow without brittle scraping. See webinar PDF pp. 14–20 and <a href="../../Webinar_Nov_2026/glossary.md">Being readable</a>.</p></div>
+<article class="item level-1 pillar-readable" id="rd-01">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RD-01. Publish a sitemap and advertise it with absolute, file-wide Sitemap lines</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Readable</span>
+      <span class="badge kind">standard practice</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Permission to publish XML at a stable URL and to edit <code>robots.txt</code>.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Update <code>lastmod</code> when pages actually change; stale sitemaps are common, and crawlers may walk the site anyway.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=14">Webinar PDF p. 14</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — Sitemap</a>; <a href="../../Webinar_Nov_2026/assets/sitemap.xml">Example sitemap.xml</a>; <a href="https://sitemaps.org/protocol.html">sitemaps.org protocol</a>; <a href="https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt#sitemap">Google robots.txt sitemap field</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Publish a sitemap (or several thematic sitemaps, optionally listed from a sitemap index) using the <a href="https://sitemaps.org/protocol.html">sitemaps.org</a> vocabulary. List each sitemap with an absolute <code>Sitemap:</code> URL in <code>robots.txt</code>. Those declarations are <strong>not</strong> scoped to <code>User-agent</code> groups; they apply file-wide. You can publish separate sitemaps for different parts of the site, but placing a <code>Sitemap:</code> line under a particular User-agent block does not make it bot-specific.</p>
+<p>Omit URLs that <code>robots.txt</code> disallows. If you include <code>lastmod</code>, use the date the page changed, not the date the sitemap file was regenerated. A sitemap is an inventory, not crawl permission and not a reading guide (that role is closer to an optional <code>llms.txt</code>).</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Fetch <code>/robots.txt</code> and each advertised sitemap URL. Confirm the XML is well formed, each <code>loc</code> is on your host, a sample of those URLs respond, and disallowed paths are absent. Confirm <code>Sitemap:</code> lines use absolute URLs.</p></div>
+  <div class='watch'><h4>Watch for</h4><p>The PDF face says you can “express them for specific user agents.” Prefer the glossary, bibliography, and Google’s robots.txt documentation: the sitemap field “isn’t tied to any specific user agent.”</p></div>
+</article>
+
+<article class="item level-2 pillar-readable" id="rd-02">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RD-02. Make the meaningful text available without running JavaScript</h3>
+    <div class="badges">
+      <span class="badge level level-2">Level 2</span>
+      <span class="badge pillar">Readable</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Someone who can change templates or the front-end rendering path so important text is in the server-rendered HTML.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Recheck after theme or single-page-app changes.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=17">Webinar PDF p. 17</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — JavaScript rendering</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Many agent fetches never execute JavaScript. Put titles, descriptions, licenses, identifiers, and other citeable text in clean, semantic, server-rendered HTML (headings, lists, and links that exist in the initial response). In-browser rendering can still be offered to people; do not make it the only copy of the meaning.</p>
+<p>If agent traffic on expensive rendered pages becomes a problem, combine this item with HTTP <code>429</code> and <code>Retry-After</code> (RCH-04).</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Request a landing page and a record page with a non-browser client (for example <code>curl</code>) and confirm that the main descriptive text, license, and identifiers are present without executing script.</p></div>
+  
+</article>
+
+<article class="item level-2 pillar-readable" id="rd-03">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RD-03. Offer Markdown where it helps; keep structured HTML too</h3>
+    <div class="badges">
+      <span class="badge level level-2">Level 2</span>
+      <span class="badge pillar">Readable</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">established</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Developer or platform access to templates, static-site output, or content negotiation.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Keep HTML and Markdown views aligned when pages change.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=17">Webinar PDF p. 17</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — Markdown alternate</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Markdown can be convenient for text-oriented agents. You may advertise a Markdown alternate (<code>rel="alternate"</code> with <code>type="text/markdown"</code>) or honor <code>Accept: text/markdown</code>. That is a convenience, not a universal requirement, and it is not a reason to drop clean HTML or structured metadata. Be cautious about asking agents to transcode large PDFs or office documents when a simpler representation exists.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>If you advertise an alternate, fetch the HTML (or its <code>Link</code> header) and then fetch the Markdown URL. If you negotiate, request the page with <code>Accept: text/markdown</code> and confirm a Markdown response or a clear fallback.</p></div>
+  
+</article>
+
+<article class="item level-2 pillar-readable" id="rd-04">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RD-04. Add FAIR Signposting links from landing pages</h3>
+    <div class="badges">
+      <span class="badge level level-2">Level 2</span>
+      <span class="badge pillar">Readable</span>
+      <span class="badge kind">standard practice</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Ability to set HTTP <code>Link</code> headers (often via the repository platform or reverse proxy) and/or to edit HTML <code>&lt;link&gt;</code> elements. Headers are lightweight for clients and often harder to implement than HTML tags.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Recheck after platform upgrades; several repository platforms now support Signposting.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=16">Webinar PDF p. 16</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — FAIR Signposting</a>; <a href="https://signposting.org/FAIR/">FAIR Signposting</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Use typed links so a client can walk from a landing page to a PID, metadata, content, and license without scraping. The webinar names <code>cite-as</code>, <code>describedby</code>, <code>item</code>, <code>license</code>, and <code>author</code> (among others). Implement them as HTTP <code>Link</code> headers, HTML <code>&lt;link&gt;</code> elements, and/or a linkset. The live deck describes Signposting as mature and low-cost, with platform-level support in systems such as Dataverse, DSpace, and InvenioRDM/Zenodo.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Request a landing page and inspect <code>Link</code> headers and/or the HTML head for those relations. Follow <code>cite-as</code>, <code>describedby</code>, <code>item</code>, and <code>license</code> targets and confirm they resolve.</p></div>
+  
+</article>
+
+<article class="item level-1 pillar-readable" id="rd-05">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RD-05. Optionally publish llms.txt</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Readable</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">emerging</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Permission to place <code>llms.txt</code> at the site root or in a covering subfolder.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Curate the reading list; an outdated guide can be worse than none.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=15">Webinar PDF p. 15</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — llms.txt</a>; <a href="../../Webinar_Nov_2026/assets/llms.txt">Example llms.txt</a>; <a href="https://llmstxt.org/">llms.txt</a>; <a href="https://developer.chrome.com/docs/lighthouse/agentic-browsing/llms-txt">Chrome Lighthouse llms.txt audit</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p><code>llms.txt</code> is an optional, curated reading order for agents, not a baseline requirement for following the webinar. Version 2 (dated August 2026 in the deck) also describes pointing from each page to a Markdown alternate (<code>rel="alternate"</code> type <code>text/markdown</code>) and to the covering <code>llms.txt</code> (<code>rel="describedby"</code>), as HTML tags or HTTP <code>Link</code> headers. A file in a subfolder can cover the pages under it.</p>
+<p>Clean semantic HTML, Signposting, and Markdown negotiation can address similar goals without this file.</p></div>
+  <div class="verify"><h4>How to verify</h4><p><code>GET https://YOUR-HOST/llms.txt</code> (or the subfolder URL) and confirm the links you listed are the ones you intended. If you implemented v2 page pointers, inspect <code>rel="alternate"</code> and <code>rel="describedby"</code> on a sample page. An optional Chrome Lighthouse agentic-browsing audit exists for this arrangement.</p></div>
+  <div class='watch'><h4>Watch for</h4><p>Adoption is still limited. Bibliography notes attribute roughly 10% penetration to an SE Ranking analysis of nearly 300,000 domains (about 10.13% in that study)—not “10% of the web.” Do not treat the file as required for SI-oriented access.</p></div>
+</article>
+
+<article class="item level-1 pillar-readable" id="rd-06">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RD-06. Optionally document a workflow as SKILL.md</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Readable</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">emerging</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Permission to publish a Markdown file or folder; adding executable scripts or service calls raises this to Level 3.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Update the skill when the API or workflow changes.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=18">Webinar PDF p. 18</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — Agent skill</a>; <a href="https://agentskills.io/">Agent Skills</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>If you want to tell an agent how to perform a specific job (for example, how to call your records API), you may publish a <code>SKILL.md</code> with YAML front matter and imperative instructions. The webinar treats this as documenting a workflow. A Markdown-only skill is a static file. Packaging scripts, tool calls, or live service invocations is optional and needs software maintenance.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Fetch the <code>SKILL.md</code> URL. Confirm it states when to use the skill, points at the real documentation or OpenAPI file, and does not contradict those sources.</p></div>
+  
+</article>
+
+<article class="item level-1 pillar-readable" id="rd-07">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RD-07. Optionally experiment with ard.json</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Readable</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">bleeding-edge</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Permission to publish <code>/.well-known/ard.json</code>.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>High churn; specifications in this area change quickly.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=19">Webinar PDF p. 19</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — ARD / ard.json</a>; <a href="../../Webinar_Nov_2026/assets/ard.json">Example ard.json</a>; <a href="https://agenticresourcediscovery.org/spec/">ARD specification</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Only if you are experimenting: publish an Agentic Resource Discovery file at <code>/.well-known/ard.json</code>. The webinar marks this as bleeding edge. It is not a substitute for <code>robots.txt</code>, a sitemap, Signposting, or a documented API.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Fetch <code>https://YOUR-HOST/.well-known/ard.json</code> and confirm it parses as JSON and matches the current specification you intended to follow.</p></div>
+  
+</article>
+
+<article class="item level-3 pillar-readable" id="rd-08">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>RD-08. Optionally package skills or MCP servers as Agent Plugins</h3>
+    <div class="badges">
+      <span class="badge level level-3">Level 3</span>
+      <span class="badge pillar">Readable</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">bleeding-edge</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Developer time to build and publish a plugin package.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Keep the package aligned with evolving plugin and MCP conventions.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=20">Webinar PDF p. 20</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — Agent Plugins</a>; <a href="https://agent-plugins.org/">Agent Plugins</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Agent Plugins is a bleeding-edge packaging format for reusable skills and MCP services. It is easy to confuse with a single <code>SKILL.md</code> or with the MCP Skills extension; they are not the same thing. Skip this unless you have a concrete distribution need.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>If you publish a plugin, confirm its package files match the current Agent Plugins documentation and that any MCP endpoint it advertises actually exists.</p></div>
+  
+</article>
+</section><section class="pillar-section"><h2>Callable</h2><div class="section-intro"><p>Dynamic, service-based reads. The webinar’s callable material is aimed at <strong>metadata</strong> services, not at every domain data payload (those have their own use cases and access-control needs). MCP is optional. CAL-01 and CAL-02 apply if you expose a metadata API; if you only publish static landing pages, mark those two items N/A and rely on Reachable, Readable, and Meaningful work (landing-page JSON-LD in CAL-03 is still useful without an API). See webinar PDF pp. 21–26 and <a href="../../Webinar_Nov_2026/glossary.md">Being callable</a>.</p>
+<p>A previous NIAID webinar treated APIs in more depth: <a href="https://github.com/go-fair-us/apireference/blob/master/docs/Presentation/API_NIAIDWebinarSlides033126.pdf">API NIAID Webinar Slides (31 March 2026)</a>. The Blueprint DOI cited on the slide is <a href="https://doi.org/10.5281/zenodo.17161561">10.5281/zenodo.17161561</a>.</p></div>
+<article class="item level-3 pillar-callable" id="cal-01">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>CAL-01. If you expose a metadata API, document it with OpenAPI or Swagger</h3>
+    <div class="badges">
+      <span class="badge level level-3">Level 3</span>
+      <span class="badge pillar">Callable</span>
+      <span class="badge kind">blueprint aligned</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>If you already run an API, publishing an OpenAPI file can be a static or generated document (closer to Level 1). Designing and operating the API itself is Level 3.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Regenerate or edit the description when operations change.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=21">Webinar PDF p. 21</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — API, OpenAPI</a>; <a href="https://spec.openapis.org/oas/latest.html">OpenAPI Specification</a>; <a href="https://www.niaid.nih.gov/research/data-blueprint">NIAID Blueprint</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>If you expose a metadata API, publish a machine-readable OpenAPI (or Swagger) description at a stable URL, with operation summaries, parameters, and examples. Good documentation is the slide’s first “SI aware” API point. Starting an API you do not yet operate is a software project (Level 3), not a file drop.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>If you only publish static landing pages and do not expose a metadata API, mark this item N/A and rely on Reachable, Readable, and Meaningful items, including landing-page JSON-LD in CAL-03. If you do expose an API, fetch the OpenAPI or Swagger URL and confirm it parses as OpenAPI 3.x or Swagger 2.0. Confirm it describes the metadata operations you actually offer, not only a UI wrapper.</p></div>
+  
+</article>
+
+<article class="item level-3 pillar-callable" id="cal-02">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>CAL-02. If you expose a metadata API, use ordinary web architecture for metadata resources</h3>
+    <div class="badges">
+      <span class="badge level level-3">Level 3</span>
+      <span class="badge pillar">Callable</span>
+      <span class="badge kind">blueprint aligned</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>API developers and operators.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Preserve stable URLs when systems are upgraded.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=21">Webinar PDF p. 21</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — Cool URI, content negotiation</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>If you expose a metadata API, give metadata records stable, dereferenceable URLs; use HTTP status codes honestly; and prefer GET for retrieval of metadata. Connect each response to a documented schema or data model. The webinar notes that JSON-LD and “prefer GET” guidance here target <strong>metadata</strong>, not necessarily every data-file download, which may have different security and domain constraints.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>If you only publish static landing pages and do not expose a metadata API, mark this item N/A and rely on Reachable, Readable, Meaningful items, and landing-page JSON-LD (CAL-03). If you do expose an API, pick a public metadata record URL. Confirm GET returns the record, the status code matches the outcome (including 404 for unknown IDs), and the URL remains useful as an identifier (avoid embedding versions or software names that will break).</p></div>
+  
+</article>
+
+<article class="item level-2 pillar-callable" id="cal-03">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>CAL-03. Publish profile-shaped JSON-LD on landing pages, and from the API if you have one</h3>
+    <div class="badges">
+      <span class="badge level level-2">Level 2</span>
+      <span class="badge pillar">Callable</span>
+      <span class="badge kind">blueprint aligned</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Ability to embed JSON-LD in server-rendered landing pages (Level 2) and/or to offer <code>application/ld+json</code> from the API (Level 3).</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Keep the JSON-LD aligned with the HTML a person sees.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=21">Webinar PDF p. 21</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — JSON-LD, schema.org Dataset</a>; <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Publish a JSON-LD representation of the metadata the webinar cares about—typically a <code>schema.org</code> <code>Dataset</code> or a profile built from one—in the server-rendered landing page. That markup is useful even if you do not operate an API. If you also expose a metadata API, offer the same profile as <code>application/ld+json</code> (or an equivalent negotiated type). This is also the bridge into the Meaningful items on profiles and <code>conformsTo</code>.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>View landing-page source and confirm a JSON-LD block parses and includes identifier, name, and license (or a clear access condition) when those apply. If you expose a metadata API, also request <code>Accept: application/ld+json</code> and confirm the API returns matching JSON-LD. Do not mark this item N/A solely because you have no API.</p></div>
+  <div class='watch'><h4>Watch for</h4><p>Do not put controlled payloads in an open JSON-LD block. Open metadata can still describe a restricted dataset (see MEA-04).</p></div>
+</article>
+
+<article class="item level-3 pillar-callable" id="cal-04">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>CAL-04. Treat MCP as an optional enhancement, not a plan by itself</h3>
+    <div class="badges">
+      <span class="badge level level-3">Level 3</span>
+      <span class="badge pillar">Callable</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">established</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Developers and operators, plus your security team if you expose tools that can change state or retrieve non-public data.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Ongoing service operation, protocol updates, and access control.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=22">Webinar PDF pp. 22–25</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — Model Context Protocol</a>; <a href="https://modelcontextprotocol.io/specification/2026-07-28">MCP specification 2026-07-28</a>; <a href="https://registry.modelcontextprotocol.io/">MCP registry</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>MCP is a shared convention for tools, resources, and prompts. The webinar’s own view is that MCP is <strong>not required</strong> in order to address SI-oriented access, and that MCP alone is not an “SI-readiness plan.” If you do run a server, think beyond wrapping each API call as a tool: offer resources an agent can read and prompts that start from your wording. Involve security reviewers; exposing tools increases the attack surface.</p>
+<p>A well documented API, or even a CLI over that API, may be enough.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>If you do not run MCP, record that agents should use the OpenAPI description (CAL-01) and stop here. If you do, confirm <code>tools/list</code>, <code>resources/list</code>, and <code>prompts/list</code> (as applicable) match what you intended to expose, and that your security review covered those primitives.</p></div>
+  
+</article>
+
+<article class="item level-3 pillar-callable" id="cal-05">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>CAL-05. If you protect an HTTP MCP server, use scoped, short-lived tokens</h3>
+    <div class="badges">
+      <span class="badge level level-3">Level 3</span>
+      <span class="badge pillar">Callable</span>
+      <span class="badge kind">access enforcement</span>
+      <span class="badge maturity">established</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Developers familiar with OAuth and operators who can register clients.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Token lifetimes, redirect configuration, and scope reviews.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=26">Webinar PDF p. 26</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — OAuth</a>; <a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization">MCP authorization (2026-07-28)</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Authorization is <strong>optional</strong> in MCP. The 2026-07-28 authorization model applies to <strong>protected HTTP</strong> MCP servers (not the stdio transport, which typically uses local environment credentials). When you do protect an HTTP server, follow that specification’s OAuth 2.1 pattern: unauthenticated requests are pointed at how to obtain access; the client obtains a token audience-bound to that server; later requests carry the token.</p>
+<p>Prefer scoped, short-lived tokens over long-lived shared API keys. Example scope names such as <code>mcp:resources:read</code> are <strong>illustrative server-defined scopes</strong>, not a universal MCP permission registry. Initial browser sign-in or consent may still be required; the goal is to avoid sharing long-lived secrets and repeating manual key entry, not to claim that no person ever signs in.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>If the server is open, confirm that fact is intentional and documented. If it is protected, attempt a call without a token and confirm you receive an unauthorized response that points to the authorization server, then complete the documented flow once and confirm a scoped token is issued for that MCP server only.</p></div>
+  <div class='watch'><h4>Watch for</h4><p>The PDF closing line about acting “without … someone logging in by hand each time” should not be read as “no consent ever.”</p></div>
+</article>
+</section><section class="pillar-section"><h2>Meaningful</h2><div class="section-intro"><p>Structured context—identifiers, vocabularies, profiles, rights, provenance, and optional shapes or mappings—so a model is less likely to invent your schema. See webinar PDF pp. 27–34 and <a href="../../Webinar_Nov_2026/glossary.md">Being meaningful</a>. A data dictionary is already useful; a formal ontology is not automatically better.</p></div>
+<article class="item level-2 pillar-meaningful" id="mea-01">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>MEA-01. Give people, organizations, projects, and outputs persistent identifiers</h3>
+    <div class="badges">
+      <span class="badge level level-2">Level 2</span>
+      <span class="badge pillar">Meaningful</span>
+      <span class="badge kind">blueprint aligned</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Repository-platform settings and metadata-entry permissions; minting DOIs may involve your DOI service.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Keep identifiers resolvable; do not reuse them for a different object.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=28">Webinar PDF p. 28</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — persistent identifier</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Assign and display persistent identifiers an agent can cite and follow. The webinar’s set is a DOI or accession for data, ORCID for people, ROR for organizations, RRID for research resources, and RAiD for projects—use the ones that apply to what you actually describe.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>On a sample record, follow the data identifier, at least one creator ORCID, and an organization ROR (when present) and confirm each resolves to the intended landing page or registry record.</p></div>
+  
+</article>
+
+<article class="item level-1 pillar-meaningful" id="mea-02">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>MEA-02. Publish a data dictionary or vocabulary at a stable URL</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Meaningful</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Permission to publish a page or file at a stable URL. Building a formal ontology is a larger modeling effort, not a higher “grade.”</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Version the vocabulary when terms change.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=29">Webinar PDF p. 29</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — vocabulary, data dictionary</a>; <a href="../../Webinar_Nov_2026/supplementalInformation/termsToOntologies.md">From terms to ontologies</a>; <a href="../../Webinar_Nov_2026/supplementalInformation/vocabularies.md">Vocabulary tools</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Publish the words and fields you use: at minimum an informal data dictionary with definitions, units, and allowed values. A term list, a taxonomy, or an ontology adds structure for some use cases; choose a proportionate approach rather than climbing a ladder for its own sake. Reuse an existing vocabulary when one already covers the subject.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Fetch the stable URL. Confirm a new staff member (or an agent) can look up a core field such as an assay or study type and find a definition.</p></div>
+  
+</article>
+
+<article class="item level-2 pillar-meaningful" id="mea-03">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>MEA-03. Reuse an existing metadata profile and declare conformsTo</h3>
+    <div class="badges">
+      <span class="badge level level-2">Level 2</span>
+      <span class="badge pillar">Meaningful</span>
+      <span class="badge kind">blueprint aligned</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Ability to edit landing-page JSON-LD or the metadata template the repository emits.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Recheck after schema or harvester changes.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=30">Webinar PDF p. 30</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — Profile, conformsTo</a>; <a href="https://schema.datacite.org/meta/kernel-4.6/">DataCite Metadata Schema 4.6</a>; <a href="https://bioschemas.org/profiles/Dataset/">Bioschemas Dataset</a>; <a href="https://github.com/NIAID-Data-Ecosystem/nde-schemas">NIAID Data Ecosystem schemas</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Reuse a profile that already fits your objects instead of inventing a parallel schema. The webinar table highlights DataCite Metadata Schema 4.6 (DOI-backed citation metadata; not built primarily on schema.org), Bioschemas Dataset, CODATA CDIF (a set of profiles for cross-domain FAIR functions), the NIAID Data Ecosystem schema (IID fields based on Bioschemas), Croissant 1.1 (including RAI and Geo extensions named on the slide), and RO-Crate 1.2, with Science-on-Schema.org among others of interest.</p>
+<p>Declare which profile a record follows with <code>conformsTo</code>, so agents and validators know which rules to apply.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>On a sample JSON-LD or DataCite record, confirm <code>conformsTo</code> (or the platform’s equivalent profile declaration) points at the profile you claim, and that required fields of that profile are populated.</p></div>
+  <div class='watch'><h4>Watch for</h4><p>Do not describe every listed framework as a schema.org profile. DataCite is the clear exception on the slide; CDIF is a framework of profiles rather than a single schema.org shape.</p></div>
+</article>
+
+<article class="item level-2 pillar-meaningful" id="mea-04">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>MEA-04. State rights and licenses in the metadata, not only in prose</h3>
+    <div class="badges">
+      <span class="badge level level-2">Level 2</span>
+      <span class="badge pillar">Meaningful</span>
+      <span class="badge kind">rights signal</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Metadata editors and, for controlled data, access-policy owners.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Update the record if the license or access condition changes.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=31">Webinar PDF p. 31</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — rights and access, SPDX, conditionsOfAccess</a>; <a href="https://spdx.org/licenses/">SPDX license list</a>; <a href="../../Webinar_Nov_2026/supplementalInformation/tdm.md">TDM reservations</a>; <a href="https://grants.nih.gov/grants/guide/notice-files/NOT-OD-25-081.html">NOT-OD-25-081</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Record the license that actually applies to each object, preferably with an SPDX identifier and a resolvable license URL in schema.org <code>license</code> (or the equivalent DataCite rights field). Use HTTPS license URLs in new records (for example <code>https://spdx.org/licenses/CC0-1.0.html</code> when CC0 is the real license). If access is restricted, say so in metadata (for example schema.org <code>conditionsOfAccess</code>) and keep the bytes behind the appropriate control.</p>
+<p>Rights metadata is not a crawl rule. A public landing page does not make the underlying data free for every use.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>On open and, if you have one, controlled-access examples, confirm the machine-readable license or access condition matches the human-readable policy. Resolve the license URL.</p></div>
+  <div class='watch'><h4>Watch for</h4><p>License terms vary across NIAID-funded repositories and across datasets. This checklist does <strong>not</strong> assume NIAID or NIH data are public domain or CC0. NIH notice <a href="https://grants.nih.gov/grants/guide/notice-files/NOT-OD-25-081.html">NOT-OD-25-081</a> addresses sharing, retaining, or training generative models on controlled-access human genomic data; read that notice rather than inferring permission from open metadata. The JSON fragment on the slide is illustrative, not a complete record.</p></div>
+</article>
+
+<article class="item level-2 pillar-meaningful" id="mea-05">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>MEA-05. Make citation, contributors, and roles machine-readable</h3>
+    <div class="badges">
+      <span class="badge level level-2">Level 2</span>
+      <span class="badge pillar">Meaningful</span>
+      <span class="badge kind">blueprint aligned</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Metadata editors; some platforms already expose cite-as links or CRediT fields.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Update citations when versions change.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=32">Webinar PDF p. 32</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — attribution and authority, CRediT</a>; <a href="https://credit.niso.org/">CRediT</a>; <a href="https://www.gofair.us/resources/citation">Blueprint Citation Recommendations</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Provide a citation an agent can find (a <code>cite-as</code> link, BibTeX, or the platform’s equivalent) and identify contributors with persistent identifiers. Where roles matter, use a controlled taxonomy such as NISO CRediT with schema.org <code>Role</code>. The JSON on the slide is a fragment illustrating a role, not a complete Dataset record.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>From a landing page, follow Signposting <code>cite-as</code> or the visible citation download and confirm it matches the record. Confirm at least one contributor PID resolves.</p></div>
+  
+</article>
+
+<article class="item level-2 pillar-meaningful" id="mea-06">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>MEA-06. Record lineage, versions, and integrity information</h3>
+    <div class="badges">
+      <span class="badge level level-2">Level 2</span>
+      <span class="badge pillar">Meaningful</span>
+      <span class="badge kind">standard practice</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Metadata editors and, for package checksums, release engineering or repository administrators.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Add relations when you derive or version a dataset.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=33">Webinar PDF p. 33</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — lineage, PROV-O</a>; <a href="https://www.w3.org/TR/prov-o/">PROV-O</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Show where a dataset came from and how it changed. The webinar points at W3C PROV-O relations (<code>wasGeneratedBy</code>, <code>wasDerivedFrom</code>, <code>wasAssociatedWith</code>, and others), DataCite version and related-identifier relations such as <code>IsVersionOf</code>, <code>IsNewVersionOf</code>, and <code>IsDerivedFrom</code>, links to upstream sources and downstream products, and checksums or digital signatures on packages.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>On a versioned or derived record, confirm the relation types are present and that related identifiers resolve. If you publish packages, confirm a checksum is advertised and matches the file.</p></div>
+  
+</article>
+
+<article class="item level-1 pillar-meaningful" id="mea-07">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>MEA-07. Optionally publish a TDM reservation signal</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Meaningful</span>
+      <span class="badge kind">rights signal</span>
+      <span class="badge maturity">established</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Permission to publish <code>/.well-known/tdmrep.json</code> and/or to set HTTP headers or HTML metadata (headers are Level 2).</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Keep the site-level file and per-resource declarations consistent.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=31">Webinar PDF p. 31</a>; <a href="../../Webinar_Nov_2026/supplementalInformation/tdm.md">TDM reservations</a>; <a href="https://www.w3.org/community/reports/tdmrep/CG-FINAL-tdmrep-20240510/">TDMRep CG Final Report</a>; <a href="../../Webinar_Nov_2026/bibliography.md">Bibliography — Rights, credit, and lineage</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>TDMRep is a W3C Community Group Final Report (not a W3C Recommendation) for machine-readable text-and-data-mining rights signals, including <code>/.well-known/tdmrep.json</code>, HTTP headers, and HTML metadata. A <code>tdm-reservation</code> value of <code>1</code> reserves TDM rights in that declaration; <code>0</code> means they are not reserved by that declaration. An optional <code>tdm-policy</code> URL can point to more detail.</p>
+<p>This is a <strong>rights signal</strong>, not a crawler block, and not a substitute for reading applicable law or licenses. It is commonly discussed in EU and STM reservation settings; US practice differs. This item is not legal advice.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>If you publish the well-known file, fetch it and confirm <code>tdm-reservation</code> (and <code>tdm-policy</code>, if used) match your intended statement. Do not expect the file alone to change whether a client can GET a URL.</p></div>
+  
+</article>
+
+<article class="item level-3 pillar-meaningful" id="mea-08">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>MEA-08. Optionally publish SHACL shapes and validate records against them</h3>
+    <div class="badges">
+      <span class="badge level level-3">Level 3</span>
+      <span class="badge pillar">Meaningful</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">established</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Someone comfortable with RDF and SHACL. Running the validator locally or in CI does <strong>not</strong> require operating a public service. Hosting a live validator is an extra choice.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Update shapes when the profile changes; keep example records passing.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=34">Webinar PDF p. 34</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — SHACL</a>; <a href="https://www.w3.org/TR/shacl/">SHACL Recommendation</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>If you choose to add machine-checkable record rules, write SHACL shapes that say what a valid record looks like (the slide’s example: every sample has a collection date and a host taxon). Publish the shapes at a stable URL so agents can see your expectations. Validate submissions or published JSON-LD locally, in a batch job, or in CI. SHACL is a W3C Recommendation; it is optional on this checklist because the webinar groups deeper-context work under a caution banner, not because the language is experimental. Hosting a live validator is an extra choice.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Run a SHACL validator (for example pySHACL) on one record you believe is valid and on one deliberate invalid record. Confirm the valid record passes and the invalid record fails for the expected constraint. If you publish the shapes, fetch their URL.</p></div>
+  
+</article>
+
+<article class="item level-3 pillar-meaningful" id="mea-09">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>MEA-09. Optionally declare derivation rules with SPARQL RL</h3>
+    <div class="badges">
+      <span class="badge level level-3">Level 3</span>
+      <span class="badge pillar">Meaningful</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">draft</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Developers or ontologists who can maintain RDF rules.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Rules need review when vocabularies change. The language is a W3C Working Draft.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=34">Webinar PDF p. 34</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — SPARQL RL</a>; <a href="https://www.w3.org/TR/sparql-rl/">SPARQL RL</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>If curation knowledge is currently hidden in code (for example inferring a parent category), you may declare it with SPARQL RL so the rule is explicit. Treat SPARQL RL as a <strong>W3C Working Draft</strong> and cite the current TR: <a href="https://www.w3.org/TR/sparql-rl/">https://www.w3.org/TR/sparql-rl/</a>. This is optional deeper-context work, not a baseline.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>If you adopt it, keep a small test graph that shows a rule firing as you intend, and link the draft you implemented.</p></div>
+  <div class='watch'><h4>Watch for</h4><p>The PDF face still prints an older date and a <code>sparql12-rl</code> path. Prefer the current shortname URL above rather than copying a date from the slide.</p></div>
+</article>
+
+<article class="item level-1 pillar-meaningful" id="mea-10">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>MEA-10. Optionally publish mappings as SSSOM/TSV</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Meaningful</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">established</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Permission to publish a file, plus people who understand both vocabularies well enough to map them. Creating high-quality mappings is skilled work; hosting a mapping <em>service</em> would be Level 3.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Update mappings when either vocabulary versions.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=34">Webinar PDF p. 34</a>; <a href="../../Webinar_Nov_2026/glossary.md">Glossary — SSSOM</a>; <a href="https://mapping-commons.github.io/sssom/">SSSOM</a>; <a href="https://mapping-commons.github.io/sssom/dev/">SSSOM specification (dev)</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>If you need to say “our term X matches term Y,” publish a mapping set using SSSOM. The common exchange format is <strong>SSSOM/TSV</strong> (not CSV) with mapping-set metadata. Each row records the two terms and a relation such as exact, close, broader, or related, and it can record a justification. Fields such as <code>author_id</code> and <code>confidence</code> are <strong>optional</strong>; do not imply that every row names an author or carries an independently established confidence value.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Fetch the TSV (or the URL you advertised). Confirm it is tab-separated, includes the mapping columns you intended, and that optional provenance columns are present only when you actually have the information.</p></div>
+  
+</article>
+</section><section class="pillar-section"><h2>Evaluation</h2><div class="section-intro"><p>Evaluation is a large topic; the webinar treats it as a place to start, not a scoring system. Different checks answer different questions. See webinar PDF p. 36, <a href="../../Webinar_Nov_2026/glossary.md">Checking the result</a>, and <a href="../../Webinar_Nov_2026/supplementalInformation/evaluation.md">Evaluation</a>.</p></div>
+<article class="item level-1 pillar-evaluation" id="evl-01">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>EVL-01. Try an agent against your public documentation and record what happens</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Evaluation</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>Anyone who can use a public chat or agent interface and read your public pages.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Repeat after you change robots rules, sitemaps, or landing pages.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=36">Webinar PDF p. 36</a>; <a href="../../Webinar_Nov_2026/supplementalInformation/evaluationPrompts.md">Evaluation prompts (handout)</a>; <a href="../../../prompts/evals">prompts/evals</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Give an agent or a simple chat UI links to your site or API documentation and see what it can find. Write down the question, whether the answer was supported by fetched evidence, and what was missing (license, DOI, data dictionary, and so on). Starting prompts live in this repository under <code>prompts/evals</code>.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Keep a short written record (even a few rows) of questions, dates, tools used, and whether the supporting URL was correct.</p></div>
+  
+</article>
+
+<article class="item level-1 pillar-evaluation" id="evl-02">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>EVL-02. Keep access checks, answerability tests, and accuracy reviews separate</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Evaluation</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">established</span>
+      
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>The people who run documentation and metadata review.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Do not replace human review of content with a single vendor “agent score.”</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/supplementalInformation/evaluation.md">Evaluation</a>; <a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=36">Webinar PDF p. 36</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>Ask three different questions and do not merge the answers into one grade:</p>
+<ol>
+<li>Can an agent <em>discover and read</em> the documentation (access and readability)?</li>
+<li>Can it <em>answer the questions your users care about</em>, with evidence?</li>
+<li>Are the docs and examples <em>accurate</em>?</li>
+</ol>
+<p>Tools mentioned in the evaluation handout (including early-stage documentation checkers) may help with (1). Competency questions help with (2). Human review, and tools that execute documented examples, help with (3). No single score covers all three, and a passing readability check is not a measure of trustworthiness.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>In your notes, label each test as access/readability, answerability, or accuracy. If you record a numeric score from a tool, record what that tool actually measured.</p></div>
+  
+</article>
+
+<article class="item level-1 pillar-evaluation" id="evl-03">
+  <header class="item-head">
+    <span class="checkbox" aria-hidden="true"></span>
+    <h3>EVL-03. Optionally reuse published audits and portal comparisons</h3>
+    <div class="badges">
+      <span class="badge level level-1">Level 1</span>
+      <span class="badge pillar">Evaluation</span>
+      <span class="badge kind">advice</span>
+      <span class="badge maturity">emerging</span>
+      <span class="badge optional">Optional</span>
+    </div>
+  </header>
+  <dl class="meta"><div class='meta-row'><dt>Access needed</dt><dd>A browser, and (for NDE) a public portal account if the feature requires one.</dd></div><div class='meta-row'><dt>Maintenance</dt><dd>Repeat when you change <code>llms.txt</code> or portal metadata.</dd></div><div class='meta-row'><dt>Sources</dt><dd><a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=36">Webinar PDF p. 36</a>; <a href="https://data.niaid.nih.gov/knowledge-center/ai-assisted-search">NDE AI-assisted search</a>; <a href="https://developer.chrome.com/docs/lighthouse/agentic-browsing/llms-txt">Chrome Lighthouse llms.txt audit</a></dd></div></dl>
+  
+  <div class="do-this"><h4>Do this</h4><p>If they apply to you: compare NIAID Data Ecosystem search with AI-assisted search on and off; run Chrome Lighthouse’s <code>llms.txt</code> audit if you publish that file; try the webinar evaluation prompts. These are diagnostics, not badges.</p></div>
+  <div class="verify"><h4>How to verify</h4><p>Save the date and the tool output (or a screenshot) next to the checklist item you thought you had completed.</p></div>
+  
+</article>
+</section><section class="pillar-section"><h2>Closing reminder</h2><div class="section-intro"><p>Other than APIs and MCP services, almost everything in the webinar is a static text file your server can expose. That does not make the work easy: the files need governance and curation. Prefer durable investments that help human users as well as agents. See webinar PDF p. 37 and the <a href="../../Webinar_Nov_2026/slideDeckSIReadyRepos.pdf#page=38">resource list on p. 38</a>.</p></div></section>
+  <footer class="colophon">
+    <p>Generated from <code>docs/checklist/checklist.md</code>. Edit the Markdown, then rebuild.
+    Empty boxes are for print or local copies; this PDF is not a fillable form.</p>
+  </footer>
+</body>
+</html>
