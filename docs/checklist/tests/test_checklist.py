@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import re
 import sys
+import tomllib
 from pathlib import Path
 
 import pytest
@@ -264,3 +265,38 @@ def test_factcheck_corrections(document):
     assert "Do not mark this item N/A solely because you have no API" in by_id["CAL-03"].body
     assert "#page=17" in by_id["RD-03"].fields["Sources"]
     assert "no separate AI-Overviews robots token" in by_id["RCH-03"].body
+
+
+# Official PEP 723 extractor (https://peps.python.org/pep-0723/).
+PEP723_BLOCK_RE = re.compile(
+    r"(?m)^# /// (?P<type>[a-zA-Z0-9-]+)$\s(?P<content>(^#(| .*)$\s)+)^# ///$"
+)
+
+
+def read_pep723_script_metadata(source: str) -> dict:
+    matches = [m for m in PEP723_BLOCK_RE.finditer(source) if m.group("type") == "script"]
+    assert len(matches) == 1, f"expected exactly one PEP 723 script block, found {len(matches)}"
+    content = "".join(
+        line[2:] if line.startswith("# ") else line[1:]
+        for line in matches[0].group("content").splitlines(keepends=True)
+    )
+    return tomllib.loads(content)
+
+
+def pins_from_requirements(text: str) -> list[str]:
+    pins = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        pins.append(stripped)
+    return pins
+
+
+def test_pep723_pins_match_requirements_txt():
+    meta = read_pep723_script_metadata(Path(build.__file__).read_text(encoding="utf-8"))
+    reqs = pins_from_requirements((ROOT / "requirements.txt").read_text(encoding="utf-8"))
+    assert meta["dependencies"] == reqs
+    assert reqs == ["markdown==3.11", "weasyprint==70.0"]
+    # Markdown 3.11 requires >=3.11; WeasyPrint 70.0 requires only >=3.10.
+    assert meta["requires-python"] == ">=3.11"

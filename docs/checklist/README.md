@@ -19,9 +19,9 @@ training or inference. Informational only; not legal advice.
 | Path | Role |
 | --- | --- |
 | [`checklist.md`](checklist.md) | **Only content authority.** Edit this file. |
-| [`build.py`](build.py) | Parses the Markdown and writes filtered HTML and PDF views. |
+| [`build.py`](build.py) | Parses the Markdown and writes filtered HTML and PDF views. Includes PEP 723 pins for `uv run`. |
 | [`style.css`](style.css) | Shared print and screen stylesheet. |
-| [`requirements.txt`](requirements.txt) | Pinned Python packages for the renderer (`markdown==3.11`, `weasyprint==70.0`). |
+| [`requirements.txt`](requirements.txt) | Same renderer pins as the PEP 723 block (`markdown==3.11`, `weasyprint==70.0`), for a pip/venv install. |
 | [`tests/test_checklist.py`](tests/test_checklist.py) | Structure, wording, link, and renderer checks. |
 | [`dist/checklist.pdf`](dist/checklist.pdf) / [`.html`](dist/checklist.html) | Complete printable and browser views. |
 | [`dist/checklist-level-1.pdf`](dist/checklist-level-1.pdf) / [`.html`](dist/checklist-level-1.html) | Level 1 items only. |
@@ -117,8 +117,47 @@ PDF.
 
 ## Rebuild
 
-From the repository root, using a virtual environment and the pinned
-renderer packages:
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) if
+you do not already have it. From the repository root:
+
+```bash
+uv run docs/checklist/build.py --check
+uv run docs/checklist/build.py
+```
+
+`build.py` declares its own pinned dependencies as
+[PEP 723](https://peps.python.org/pep-0723/) inline script metadata
+(`markdown==3.11` and `weasyprint==70.0`). `uv run` creates an isolated
+environment from that block and does **not** install this repository’s
+root `pyproject.toml` dependencies. Python 3.11 or newer is required:
+Markdown 3.11 declares `Requires-Python: >=3.11`. WeasyPrint 70.0
+allows `>=3.10`; the tighter pin is the one that matters.
+
+WeasyPrint still needs platform libraries (typically Pango, cairo, and
+related graphics libraries), whether you use uv or pip. Install those
+by following WeasyPrint’s current first-steps page for your operating
+system:
+
+<https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation>
+
+Do not guess package names from this README; the upstream page is the
+authority and differs by platform.
+
+The renderer does not require LaTeX or Typst. The same two pins are
+listed in [`requirements.txt`](requirements.txt) so a pip/venv install
+stays aligned with `uv run`. A test checks that those lists are
+identical; if you change a pin, update both files.
+
+To run the tests with uv (pytest is a test extra, not a renderer pin):
+
+```bash
+uv run --no-project --with pytest --with markdown==3.11 --with weasyprint==70.0 \
+  python -m pytest docs/checklist/tests/test_checklist.py
+```
+
+### pip and venv alternative
+
+If you prefer not to use uv:
 
 ```bash
 python3 -m venv docs/checklist/.venv
@@ -128,20 +167,7 @@ python3 docs/checklist/build.py --check
 python3 docs/checklist/build.py
 ```
 
-WeasyPrint also needs platform libraries (typically Pango, cairo, and
-related graphics libraries). Install those by following WeasyPrint’s
-current first-steps page for your operating system:
-
-<https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation>
-
-Do not guess package names from this README; the upstream page is the
-authority and differs by platform.
-
-`requirements.txt` pins `markdown==3.11` and `weasyprint==70.0`, the
-versions used to generate the committed `dist/` files. The renderer
-does not require LaTeX or Typst.
-
-To run the tests in the same environment:
+To run the tests in that environment:
 
 ```bash
 pip install pytest

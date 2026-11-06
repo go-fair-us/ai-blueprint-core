@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "markdown==3.11",
+#   "weasyprint==70.0",
+# ]
+# ///
 """Render checklist.md to filtered HTML and PDF views.
 
 The Markdown file is the only content authority. This script parses
