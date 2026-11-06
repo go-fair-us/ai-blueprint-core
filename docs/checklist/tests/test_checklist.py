@@ -300,3 +300,84 @@ def test_pep723_pins_match_requirements_txt():
     assert reqs == ["markdown==3.11", "weasyprint==70.0"]
     # Markdown 3.11 requires >=3.11; WeasyPrint 70.0 requires only >=3.10.
     assert meta["requires-python"] == ">=3.11"
+
+
+def _visible_quickstart_text(text: str) -> str:
+    """Link labels only; file paths inside Markdown destinations are ignored."""
+    return re.sub(r"\[([^\]]*)\]\([^)]+\)", r"\1", text)
+
+
+# Rejected technical approaches from the first draft. This is a denylist,
+# not a generic "any all-caps token" scan, so the allowed word "AI" passes.
+FORBIDDEN_QUICKSTART_PATTERNS = (
+    r"\bHTTP\b",
+    r"\bCDN\b",
+    r"\bAIPREF\b",
+    r"\bRSL\b",
+    r"\bJSON-?LD\b",
+    r"\bAPIs?\b",
+    r"\bOpenAPI\b",
+    r"\bMCP\b",
+    r"\bHTML\b",
+    r"\bIETF\b",
+    r"\bNIAID\b",
+    r"\bNIH\b",
+    r"\bSHACL\b",
+    r"\bSPARQL\b",
+    r"\bSRL\b",
+    r"\brobots(?:\.txt)?\b",
+    r"\b429\b",
+    r"server-rendered",
+    r"\bshapes?\b",
+    r"llms\.txt",
+    r"SKILL\.md",
+)
+
+
+def test_quickstart_has_five_sections():
+    text = build.QUICKSTART.read_text(encoding="utf-8")
+    headings = re.findall(r"^## .+", text, flags=re.MULTILINE)
+    assert len(headings) == 5
+    assert text.lstrip().startswith(
+        "# Five ways to make your repository easier for AI to use"
+    )
+    for label in ("Reachable", "Readable", "Callable", "Meaningful", "Evaluation"):
+        assert f"*{label}.*" in text
+    assert "Restricted data should stay protected" in text
+    assert "public descriptive records" in text
+    assert "restricted data download" in text
+    assert "If you already offer a way for software to retrieve data, document it too." in text
+
+
+def test_quickstart_avoids_forbidden_terms():
+    visible = _visible_quickstart_text(
+        build.QUICKSTART.read_text(encoding="utf-8")
+    )
+    found = [
+        pattern
+        for pattern in FORBIDDEN_QUICKSTART_PATTERNS
+        if re.search(pattern, visible, flags=re.IGNORECASE)
+    ]
+    assert found == []
+
+
+def test_quickstart_review_date_fallback_does_not_change_checklist(monkeypatch):
+    monkeypatch.delenv("SOURCE_DATE_EPOCH", raising=False)
+    monkeypatch.setattr(build, "_git", lambda args: None)
+    quick = build.resolve_quickstart_revision()
+    assert quick.date == "2026-11-06"
+    assert quick.date_source == "review-date"
+    checklist = build.resolve_revision(source_text="# Title\n")
+    assert checklist.date == "unknown"
+    assert checklist.date_source == "unknown"
+
+
+def test_quickstart_pdf_is_one_page(tmp_path, monkeypatch):
+    import subprocess
+
+    monkeypatch.setattr(build, "DIST", tmp_path)
+    written = build.write_quickstart(write_html=True, write_pdf=True)
+    info = subprocess.check_output(["pdfinfo", str(written["pdf"])], text=True)
+    match = re.search(r"^Pages:\s+(\d+)\s*$", info, flags=re.MULTILINE)
+    assert match is not None
+    assert match.group(1) == "1"

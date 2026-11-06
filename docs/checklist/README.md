@@ -18,16 +18,35 @@ training or inference. Informational only; not legal advice.
 
 | Path | Role |
 | --- | --- |
-| [`checklist.md`](checklist.md) | **Only content authority.** Edit this file. |
+| [`checklist.md`](checklist.md) | **Only content authority** for the full action list. Edit this file. |
+| [`quick-start.md`](quick-start.md) | One-page starting point; not a second checklist. |
+| [`ai-review.md`](ai-review.md) | Paste-ready AI companion: selected IDs, capability declaration, pinned eval mapping, and evidence notes. Not rendered as PDF. |
 | [`build.py`](build.py) | Parses the Markdown and writes filtered HTML and PDF views. Includes PEP 723 pins for `uv run`. |
 | [`style.css`](style.css) | Shared print and screen stylesheet. |
 | [`requirements.txt`](requirements.txt) | Same renderer pins as the PEP 723 block (`markdown==3.11`, `weasyprint==70.0`), for a pip/venv install. |
-| [`tests/test_checklist.py`](tests/test_checklist.py) | Structure, wording, link, and renderer checks. |
+| [`tests/`](tests/) | Structure, wording, link, renderer, and AI-companion mapping checks. |
 | [`dist/checklist.pdf`](dist/checklist.pdf) / [`.html`](dist/checklist.html) | Complete printable and browser views. |
 | [`dist/checklist-level-1.pdf`](dist/checklist-level-1.pdf) / [`.html`](dist/checklist-level-1.html) | Level 1 items only. |
 | [`dist/checklist-through-level-2.pdf`](dist/checklist-through-level-2.pdf) / [`.html`](dist/checklist-through-level-2.html) | Levels 1 and 2. |
+| [`dist/quick-start.pdf`](dist/quick-start.pdf) / [`.html`](dist/quick-start.html) | One-page quick start. |
 
-Do not hand-edit files under `dist/`. Three generated views share the same source.
+Do not hand-edit files under `dist/`. The filtered checklist views share `checklist.md`. The quick start is rendered from `quick-start.md` with the same toolchain. `ai-review.md` is source-only; the renderer does not build a PDF or HTML view of it.
+
+## AI review companion
+
+[`ai-review.md`](ai-review.md) maps each checklist ID to an existing eval prompt when one fits, using raw GitHub URLs pinned to commit `f0a7198e0fea7b4d16a5d5fc7bfa3e115c052973`. Items without a fitting prompt are marked manual rather than forced onto an unrelated file. This companion is not a score, certification, or legal opinion. The one-page [`quick-start.md`](quick-start.md) stays general and does not depend on it.
+
+Typical first run:
+
+1. Copy the start block in `ai-review.md`.
+2. Set `DOMAIN` to your public repository origin (read-only, no login).
+3. Leave the default `SELECTED_IDS=RD-01` (sitemap) for one ordinary chat. Extra IDs are a plan only; run the first item, then start a new chat. A harness that isolates each prompt may run a longer list.
+4. Declare whether your client can see raw status codes, headers, an unmodified body (including script elements), and any operator evidence.
+5. Let the client fetch the companion and the pinned prompt listed for that ID, or paste this entire companion plus the selected prompt file if it cannot fetch. Confirm the prompt text matches the pinned revision.
+6. Record the prompt's own verdict and checks, then a separate checklist assessment, using the evidence schema in `ai-review.md`. Do not copy a prompt-level result onto the whole checklist item, and do not invent a score.
+
+A link is a reference, not a fetch tool or permission to crawl. Stay on public pages, honor each prompt's caps, and do not upload controlled information.
+
 
 The complete PDF is a letter-size printout of the full source (about 18
 pages in the current render). The Level 1 view is shorter if you only
@@ -152,7 +171,7 @@ To run the tests with uv (pytest is a test extra, not a renderer pin):
 
 ```bash
 uv run --no-project --with pytest --with markdown==3.11 --with weasyprint==70.0 \
-  python -m pytest docs/checklist/tests/test_checklist.py
+  python -m pytest docs/checklist/tests
 ```
 
 ### pip and venv alternative
@@ -171,7 +190,7 @@ To run the tests in that environment:
 
 ```bash
 pip install pytest
-python3 -m pytest docs/checklist/tests/test_checklist.py
+python3 -m pytest docs/checklist/tests
 ```
 
 `build.py --check` parses and validates the source without writing
@@ -179,7 +198,7 @@ files. By default the script writes every view as HTML and PDF into
 `dist/`. Useful flags:
 
 ```text
---view all|level-1|through-2|all-views
+--view all|level-1|through-2|quick-start|all-views
 --html-only
 --pdf-only
 --date YYYY-MM-DD

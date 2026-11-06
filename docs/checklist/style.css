@@ -299,3 +299,66 @@ code {
     padding: 0 1.2rem;
   }
 }
+
+@page quickstart {
+  size: letter;
+  margin: 0.5in 0.6in 0.55in 0.6in;
+  @top-left {
+    content: "Repository checklist · Quick start";
+    font-size: 8.5pt;
+    color: #5b6573;
+    font-family: "Liberation Sans", "DejaVu Sans", sans-serif;
+  }
+  @top-right {
+    content: "Not a certification or score";
+    font-size: 8.5pt;
+    color: #5b6573;
+    font-family: "Liberation Sans", "DejaVu Sans", sans-serif;
+  }
+  @bottom-left {
+    content: "Generated from docs/checklist/quick-start.md";
+    font-size: 8pt;
+    color: #5b6573;
+    font-family: "Liberation Sans", "DejaVu Sans", sans-serif;
+  }
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-size: 8pt;
+    color: #5b6573;
+    font-family: "Liberation Sans", "DejaVu Sans", sans-serif;
+  }
+}
+
+body.one-pager {
+  page: quickstart;
+  font-size: 12pt;
+  line-height: 1.38;
+}
+
+body.one-pager .cover {
+  margin-bottom: 0.45rem;
+  padding-bottom: 0.3rem;
+}
+
+body.one-pager h1 {
+  font-size: 1.28rem;
+  margin: 0 0 0.4rem;
+}
+
+body.one-pager h2 {
+  font-size: 0.92rem;
+  margin: 0.62rem 0 0.2rem;
+  padding-bottom: 0.08rem;
+  border-bottom-width: 1px;
+}
+
+body.one-pager p {
+  margin: 0 0 0.38rem;
+}
+
+body.one-pager .quick-start > p:last-child {
+  margin-top: 0.55rem;
+  margin-bottom: 0;
+  font-family: "Liberation Sans", "DejaVu Sans", sans-serif;
+  font-size: 0.88rem;
+}

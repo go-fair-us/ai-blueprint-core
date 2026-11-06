@@ -32,6 +32,7 @@ from weasyprint import CSS, HTML
 
 HERE = Path(__file__).resolve().parent
 SOURCE = HERE / "checklist.md"
+QUICKSTART = HERE / "quick-start.md"
 STYLE = HERE / "style.css"
 DIST = HERE / "dist"
 
@@ -571,11 +572,112 @@ def write_view(
     return written
 
 
+def validate_quickstart(source_dir: Path) -> list[str]:
+    """Check that relative links in the one-page quick start resolve."""
+    if not QUICKSTART.exists():
+        return ["quick-start.md is missing"]
+    errors: list[str] = []
+    text = QUICKSTART.read_text(encoding="utf-8")
+    for label, url in LINK_RE.findall(text):
+        if url.startswith(("http://", "https://", "mailto:")):
+            continue
+        path_part = url.split("#", 1)[0]
+        if not path_part:
+            continue
+        target = (source_dir / path_part).resolve()
+        if not target.exists():
+            errors.append(f"quick-start.md links to missing file {url} ({label})")
+    return errors
+
+
+def resolve_quickstart_revision(cli_date: str | None = None) -> Revision:
+    sha = _git(["log", "-1", "--format=%h", "--", QUICKSTART.name])
+    if sha:
+        version = sha
+    else:
+        digest = hashlib.sha256(
+            QUICKSTART.read_bytes() if QUICKSTART.exists() else b""
+        ).hexdigest()
+        version = digest[:12]
+    if cli_date:
+        return Revision(parse_iso_date(cli_date), version, "cli")
+    git_date = _git(["log", "-1", "--format=%cs", "--", QUICKSTART.name])
+    if git_date and ISO_DATE_RE.match(git_date):
+        return Revision(git_date, version, "git")
+    # Stable review date until this file has its own git history.
+    # Do not change the checklist.md fallback in resolve_revision().
+    return Revision("2026-11-06", version, "review-date")
+
+
+def render_quickstart_html(text: str, revision: Revision) -> str:
+    title = "Five ways to make your repository easier for AI to use"
+    date_meta = ""
+    if revision.date != "unknown":
+        date_stamp = html.escape(f"{revision.date}T12:00:00Z")
+        date_meta = (
+            f'  <meta name="dcterms.created" content="{date_stamp}">\n'
+            f'  <meta name="dcterms.modified" content="{date_stamp}">\n'
+        )
+    source_line = (
+        f"Quick start {revision.version}, dated {revision.date} "
+        f"({revision.date_source}) · not a certification"
+    )
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{html.escape(title)}</title>
+{date_meta}  <link rel="stylesheet" href="style.css">
+</head>
+<body class="one-pager">
+  <header class="cover">
+    <p class="kicker">Webinar companion · 6 November 2026</p>
+    <p class="generated">{html.escape(source_line)}</p>
+  </header>
+  <div class="quick-start">{md_blocks(text)}</div>
+</body>
+</html>
+"""
+
+
+def write_quickstart(
+    write_html: bool,
+    write_pdf: bool,
+    revision: Revision | None = None,
+) -> dict[str, Path]:
+    if revision is None:
+        revision = resolve_quickstart_revision()
+    text = QUICKSTART.read_text(encoding="utf-8")
+    html_text = render_quickstart_html(text, revision)
+    DIST.mkdir(parents=True, exist_ok=True)
+    written: dict[str, Path] = {}
+    if write_html:
+        html_path = DIST / "quick-start.html"
+        html_path.write_text(
+            relocate_html_urls(html_text, HERE, DIST),
+            encoding="utf-8",
+        )
+        dest_css = DIST / "style.css"
+        dest_css.write_text(STYLE.read_text(encoding="utf-8"), encoding="utf-8")
+        written["html"] = html_path
+    if write_pdf:
+        pdf_path = DIST / "quick-start.pdf"
+        identifier = hashlib.sha256(html_text.encode("utf-8")).digest()
+        HTML(string=html_text, base_url=str(HERE)).write_pdf(
+            pdf_path,
+            stylesheets=[CSS(filename=str(STYLE))],
+            pdf_identifier=identifier,
+        )
+        written["pdf"] = pdf_path
+    return written
+
+
 def build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--view",
-        choices=[*VIEWS, "all-views"],
+        choices=[*VIEWS, "quick-start", "all-views"],
         default="all-views",
         help="Which level filter to render (default: every view)",
     )
@@ -604,6 +706,7 @@ def main(argv: list[str] | None = None) -> int:
     doc = parse_document(source_text)
     revision = resolve_revision(cli_date=args.date, source_text=source_text)
     errors = validate_document(doc, HERE)
+    errors.extend(validate_quickstart(HERE))
     if errors:
         for error in errors:
             print(f"error: {error}", file=sys.stderr)
@@ -611,14 +714,28 @@ def main(argv: list[str] | None = None) -> int:
     if args.check:
         print(
             f"ok: {len(doc.items)} items in {len(doc.sections)} sections; "
-            f"source {revision.version} dated {revision.date} ({revision.date_source})"
+            f"source {revision.version} dated {revision.date} ({revision.date_source}); "
+            f"quick-start present"
         )
         return 0
     write_html = not args.pdf_only
     write_pdf = not args.html_only
+    if args.view == "quick-start":
+        written = write_quickstart(
+            write_html, write_pdf, resolve_quickstart_revision(cli_date=args.date)
+        )
+        for kind, path in written.items():
+            print(f"wrote {kind}: {path}")
+        return 0
     views = list(VIEWS) if args.view == "all-views" else [args.view]
     for view in views:
         written = write_view(doc, view, write_html, write_pdf, revision)
+        for kind, path in written.items():
+            print(f"wrote {kind}: {path}")
+    if args.view == "all-views":
+        written = write_quickstart(
+            write_html, write_pdf, resolve_quickstart_revision(cli_date=args.date)
+        )
         for kind, path in written.items():
             print(f"wrote {kind}: {path}")
     return 0
