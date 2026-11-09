@@ -1,12 +1,3 @@
-<style>
-table:nth-of-type(2) tbody tr:is(:nth-child(1), :nth-child(2), :nth-child(3), :nth-child(4), :nth-child(6), :nth-child(7), :nth-child(11), :nth-child(12), :nth-child(13), :nth-child(16), :nth-child(19)) { background-color: #e6e6e6; color: #222; }
-table:nth-of-type(2) tbody tr:is(:nth-child(5), :nth-child(8), :nth-child(9), :nth-child(10), :nth-child(14), :nth-child(15)) { background-color: #fff3cd; color: #222; }
-table:nth-of-type(2) tbody tr:is(:nth-child(17), :nth-child(18)) { background-color: #f8d7da; color: #222; }
-table:nth-of-type(1) tbody tr:is(:nth-child(1), :nth-child(8)) { background-color: #d4edda; color: #222; }
-table:nth-of-type(1) tbody tr:is(:nth-child(2), :nth-child(5), :nth-child(10), :nth-child(11), :nth-child(14), :nth-child(15)) { background-color: #fff3cd; color: #222; }
-table:nth-of-type(1) tbody tr:is(:nth-child(3), :nth-child(4), :nth-child(6), :nth-child(7), :nth-child(9), :nth-child(12), :nth-child(13), :nth-child(16), :nth-child(17), :nth-child(18), :nth-child(19)) { background-color: #f8d7da; color: #222; }
-</style>
-
 # Evaluation of Comparison Workflows
 
 ## Overview
@@ -23,7 +14,7 @@ Comparing verdicts by evaluation, 6 of 8 observable evaluations agree. The two d
 
 The remaining 11 evaluations were excluded because at least one verdict is `not-observable`.
 
-Verdict colors: green = present, yellow = partial, red = absent, gray = not observable.
+Verdict markers: 🟢 present, 🟡 partial, 🔴 absent, ⚪ not-observable.
 
 ### Table 1.  Pi Harness + MCP + Prompt templates + Skills
 
@@ -39,25 +30,25 @@ A test of Librechat, once configured to access the skills, would be an interesti
 
 | # | property | evaluation | verdict | evidence_url |
 | --- | --- | --- | --- | --- |
-| 1 | Be reachable | reachable-fetch | present | https://www.metabolomicsworkbench.org/ |
-| 2 | Be reachable | robots-policy | partial | https://www.metabolomicsworkbench.org/robots.txt |
-| 3 | Be readable | llms-txt | absent | https://www.metabolomicsworkbench.org/llms.txt |
-| 4 | Be readable | sitemap | absent | https://www.metabolomicsworkbench.org/sitemap.xml |
-| 5 | readable | server-rendered-content | partial | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
-| 6 | readable | markdown-negotiation | absent | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
-| 7 | Be readable | bulk-export | absent | https://www.metabolomicsworkbench.org/ |
-| 8 | Be readable | agent-documentation | present | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
-| 9 | Be callable | openapi-discovery | absent | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
-| 10 | Be callable | metadata-api | partial | https://www.metabolomicsworkbench.org/rest/study/study_id/ST000001/summary |
-| 11 | Be callable | api-http-behavior | partial | https://www.metabolomicsworkbench.org/rest/study/study_id/ST000001/summary |
-| 12 | Be callable | mcp-exposure | absent | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
-| 13 | meaningful | dataset-jsonld | absent | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
-| 14 | Be meaningful | persistent-identifiers | partial | https://dx.doi.org/10.21228/M8159B |
-| 15 | Be meaningful | vocabulary | partial | https://www.metabolomicsworkbench.org/databases/refmet/index.php |
-| 16 | meaningful | metadata-profile | absent | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
-| 17 | Be meaningful | shacl-shapes | absent | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
-| 18 | Be meaningful | sssom-mappings | absent | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
-| 19 | Be meaningful | competency-questions | absent | https://www.metabolomicsworkbench.org/ |
+| 1 | Be reachable | reachable-fetch | 🟢 present | https://www.metabolomicsworkbench.org/ |
+| 2 | Be reachable | robots-policy | 🟡 partial | https://www.metabolomicsworkbench.org/robots.txt |
+| 3 | Be readable | llms-txt | 🔴 absent | https://www.metabolomicsworkbench.org/llms.txt |
+| 4 | Be readable | sitemap | 🔴 absent | https://www.metabolomicsworkbench.org/sitemap.xml |
+| 5 | readable | server-rendered-content | 🟡 partial | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
+| 6 | readable | markdown-negotiation | 🔴 absent | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
+| 7 | Be readable | bulk-export | 🔴 absent | https://www.metabolomicsworkbench.org/ |
+| 8 | Be readable | agent-documentation | 🟢 present | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
+| 9 | Be callable | openapi-discovery | 🔴 absent | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
+| 10 | Be callable | metadata-api | 🟡 partial | https://www.metabolomicsworkbench.org/rest/study/study_id/ST000001/summary |
+| 11 | Be callable | api-http-behavior | 🟡 partial | https://www.metabolomicsworkbench.org/rest/study/study_id/ST000001/summary |
+| 12 | Be callable | mcp-exposure | 🔴 absent | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
+| 13 | meaningful | dataset-jsonld | 🔴 absent | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
+| 14 | Be meaningful | persistent-identifiers | 🟡 partial | https://dx.doi.org/10.21228/M8159B |
+| 15 | Be meaningful | vocabulary | 🟡 partial | https://www.metabolomicsworkbench.org/databases/refmet/index.php |
+| 16 | meaningful | metadata-profile | 🔴 absent | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
+| 17 | Be meaningful | shacl-shapes | 🔴 absent | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
+| 18 | Be meaningful | sssom-mappings | 🔴 absent | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
+| 19 | Be meaningful | competency-questions | 🔴 absent | https://www.metabolomicsworkbench.org/ |
 
 
 ### Table 2.  LibreChat UI plus MCP
@@ -75,25 +66,25 @@ That comes from `librechat.yaml` `modelSpecs`. `Blueprint (NRP)` is marked `soft
 
 | # | Property | Evaluation | Verdict | Evidence URL |
 | --- | --- | --- | --- | --- |
-| 1 | Be reachable | reachable-fetch | not-observable | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
-| 2 | Be reachable | robots-policy | not-observable | https://www.metabolomicsworkbench.org/robots.txt (not fetched) |
-| 3 | Be readable | llms-txt | not-observable | https://www.metabolomicsworkbench.org/llms.txt (not fetched) |
-| 4 | Be readable | sitemap | not-observable | https://www.metabolomicsworkbench.org/sitemap.xml (not fetched) |
-| 5 | Be readable | server-rendered-content | partial | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
-| 6 | Be readable | markdown-negotiation | not-observable | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
-| 7 | Be readable | bulk-export | not-observable | https://www.metabolomicsworkbench.org/ (not fetched) |
-| 8 | Be readable | agent-documentation | partial | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
-| 9 | Be callable | openapi-discovery | partial | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
-| 10 | Be callable | metadata-api | partial | https://www.metabolomicsworkbench.org/rest/study/study_id/ST000001/summary |
-| 11 | Be callable | api-http-behavior | not-observable | https://www.metabolomicsworkbench.org/rest/study/study_id/ST000001/summary |
-| 12 | Be callable | mcp-exposure | not-observable | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
-| 13 | Be meaningful | dataset-jsonld | not-observable | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
-| 14 | Be meaningful | persistent-identifiers | partial | https://www.metabolomicsworkbench.org/rest/study/study_id/ST000001/summary |
-| 15 | Be meaningful | vocabulary | partial | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
-| 16 | Be meaningful | metadata-profile | not-observable | https://www.metabolomicsworkbench.org/rest/study/study_id/ST000001/summary |
-| 17 | Be meaningful | shacl-shapes | absent | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
-| 18 | Be meaningful | sssom-mappings | absent | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
-| 19 | Be meaningful | competency-questions | not-observable | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
+| 1 | Be reachable | reachable-fetch | ⚪ not-observable | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
+| 2 | Be reachable | robots-policy | ⚪ not-observable | https://www.metabolomicsworkbench.org/robots.txt (not fetched) |
+| 3 | Be readable | llms-txt | ⚪ not-observable | https://www.metabolomicsworkbench.org/llms.txt (not fetched) |
+| 4 | Be readable | sitemap | ⚪ not-observable | https://www.metabolomicsworkbench.org/sitemap.xml (not fetched) |
+| 5 | Be readable | server-rendered-content | 🟡 partial | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
+| 6 | Be readable | markdown-negotiation | ⚪ not-observable | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
+| 7 | Be readable | bulk-export | ⚪ not-observable | https://www.metabolomicsworkbench.org/ (not fetched) |
+| 8 | Be readable | agent-documentation | 🟡 partial | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
+| 9 | Be callable | openapi-discovery | 🟡 partial | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
+| 10 | Be callable | metadata-api | 🟡 partial | https://www.metabolomicsworkbench.org/rest/study/study_id/ST000001/summary |
+| 11 | Be callable | api-http-behavior | ⚪ not-observable | https://www.metabolomicsworkbench.org/rest/study/study_id/ST000001/summary |
+| 12 | Be callable | mcp-exposure | ⚪ not-observable | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
+| 13 | Be meaningful | dataset-jsonld | ⚪ not-observable | https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000001&StudyType=MS&ResultType=1 |
+| 14 | Be meaningful | persistent-identifiers | 🟡 partial | https://www.metabolomicsworkbench.org/rest/study/study_id/ST000001/summary |
+| 15 | Be meaningful | vocabulary | 🟡 partial | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
+| 16 | Be meaningful | metadata-profile | ⚪ not-observable | https://www.metabolomicsworkbench.org/rest/study/study_id/ST000001/summary |
+| 17 | Be meaningful | shacl-shapes | 🔴 absent | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
+| 18 | Be meaningful | sssom-mappings | 🔴 absent | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
+| 19 | Be meaningful | competency-questions | ⚪ not-observable | https://www.metabolomicsworkbench.org/tools/mw_rest.php |
 
 
 
