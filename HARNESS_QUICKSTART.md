@@ -70,10 +70,11 @@ The launcher checks that `pi` is on `PATH`, changes to the repository root, and 
 
 The first start asks you to trust this project, because the clone contains `.pi/settings.json` and `.pi/mcp.json`. Skills and prompt commands load either way. Trust the project when you want Pi to read that MCP file.
 
-Two messages can appear after you trust it. The session still starts.
+One message can appear after you trust it. The session still starts.
 
-- The `immport` entry in `.pi/mcp.json` is skipped. Pi 1.4 reports `auth.provider must be a provider name` for that entry.
 - Pi tries `http://localhost:8000/mcp`. That address answers after you start the knowledge server below.
+
+The `immport` entry in `.pi/mcp.json` is `https://mcp.immport.org`. That server asks for OAuth (`scope` `browse download`). After Pi starts, run `/mcp login immport` once. `IMMPORT_API_KEY` is for `src/immport/search_ra_elisa.py`. It is not the token for this server. The Blueprint server is separate.
 
 ## 6. Run a skill or an evaluation
 
