@@ -1,0 +1,160 @@
+direction: down
+
+classes: {
+  box: {
+    width: 140
+    style: {
+      fill: "#DBEAFE"
+      stroke: "#2563EB"
+      border-radius: 10
+      font-size: 14
+    }
+  }
+}
+
+resource:  |md
+  ## Resource
+  Public-facing data-repository
+  <br/>information facilitating
+   <br/>resources being used in
+  <br/>agentic workflows.
+| {
+  shape: rectangle
+  style: {
+    #fill: "#E0F2FE"
+    #stroke: "#7C3AED"
+    stroke-width: 0
+    border-radius: 16
+    font-color: "#1E3A8A"
+    font-size: 24
+  }
+  width: 350
+  height: 300
+}
+
+group1: {
+  label: "What can be used?"
+  style: {
+    fill: "#F5F3FF"
+    stroke: "#7C3AED"
+    stroke-width: 2
+    border-radius: 16
+  }
+  grid-columns: 5
+  grid-gap: 20
+
+  skill: Skill {
+    style.fill: "#DBEAFE"
+    style.stroke: "#2563EB"
+    style.border-radius: 10
+    style.font-size: 14
+  }
+  prompts: Prompts {
+    style.fill: "#DBEAFE"
+    style.stroke: "#2563EB"
+    style.border-radius: 10
+    style.font-size: 14
+  }
+  agents: Agents {
+    style.fill: "#DBEAFE"
+    style.stroke: "#2563EB"
+    style.border-radius: 10
+    style.font-size: 14
+  }
+  compquestions: CompQuestions {
+    style.fill: "#DBEAFE"
+    style.stroke: "#2563EB"
+    style.border-radius: 10
+    style.font-size: 14
+  }
+  models: Model {
+    style.fill: "#DBEAFE"
+    style.stroke: "#2563EB"
+    style.border-radius: 10
+    style.font-size: 14
+  }
+
+  skill: Skill { class: box }
+  prompts: Prompts { class: box }
+  agents: Agents { class: box }
+  compquestions: CompQuestions { class: box }
+  models: Model { class: box }
+}
+
+group2: {
+  label: "Methods to expose"
+  style: {
+    fill: "#FEF3C7"
+    stroke: "#D97706"
+    stroke-width: 2
+    border-radius: 16
+  }
+  grid-columns: 2
+  grid-gap: 30
+
+  mcp: MCP {
+    style.fill: "#FEF3C7"
+    style.stroke: "#D97706"
+    style.border-radius: 10
+    style.font-size: 14
+    class: box
+  }
+  agentplugin: Agent-Plugin {
+    style.fill: "#FEF3C7"
+    style.stroke: "#D97706"
+    style.border-radius: 10
+    style.font-size: 14
+    class: box
+  }
+
+
+
+}
+
+group3: {
+  label: "Methods to Use"
+  style: {
+    fill: "#D1FAE5"
+    stroke: "#059669"
+    stroke-width: 2
+    border-radius: 16
+  }
+  grid-columns: 2
+  grid-gap: 30
+
+  webui: Web UI {
+    style.fill: "#D1FAE5"
+    style.stroke: "#059669"
+    style.border-radius: 10
+    style.font-size: 14
+        class: box
+
+  }
+  harness: Command Line {
+    style.fill: "#D1FAE5"
+    style.stroke: "#059669"
+    style.border-radius: 10
+    style.font-size: 14
+        class: box
+
+  }
+}
+
+actions: Product \n Evaluation Report {
+  style: {
+    fill: "#E0E7FF"
+    stroke: "#4F46E5"
+    stroke-width: 3
+    border-radius: 12
+    font-size: 16
+    font-color: "#312E81"
+    bold: true
+  }
+  width: 200
+  height: 70
+}
+
+resource -> group1
+group1 -> group2
+group2 -> group3
+group3 -> actions

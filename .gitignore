@@ -2,6 +2,7 @@ secret/
 .idea/
 src/genMeta/runs/*
 !src/genMeta/runs/.gitkeep
+compQuestions/runs/
 src/libraryOptimizer/artifacts/*
 !src/libraryOptimizer/artifacts/.gitkeep
 !src/libraryOptimizer/runs/.gitkeep
