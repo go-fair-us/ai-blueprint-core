@@ -1,0 +1,69 @@
+direction: right
+
+case1: "Case 1 \n No API or MCP" {
+  shape: rectangle
+  style: {
+    fill: "#F5F3FF"
+    stroke: "#7C3AED"
+    stroke-width: 4
+    border-radius: 16
+    font-size: 20
+    font-color: "#5B21B6"
+    bold: true
+  }
+  width: 160
+  height: 100
+}
+
+reachable: |md
+  ## BE REACHABLE
+  - robots.txt
+| {
+  shape: rectangle
+  style: {
+    stroke-width: 0
+    border-radius: 16
+    font-color: "#1E3A8A"
+  }
+  width: 250
+  height: 350
+}
+
+readable: |md
+  ## BE READABLE
+  - sitemap.xml
+  - llms.txt
+
+  Implement Structured <br/> data & metadata
+  <br/> and content negotiaion.
+| {
+  shape: rectangle
+  style: {
+    stroke-width: 0
+    border-radius: 16
+    font-color: "#1E3A8A"
+  }
+  width: 250
+  height: 350
+}
+
+meaningful: |md
+  ## BE MEANINGFUL
+  - PIDs
+  - Vocabularies
+  - Leverage profiles
+    - Base blueprint in<br/> Schema.org
+| {
+  shape: rectangle
+  style: {
+    stroke-width: 0
+    border-radius: 16
+    font-color: "#1E3A8A"
+  }
+  width: 250
+  height: 350
+}
+
+case1 -> reachable
+case1 -> readable
+case1 -> meaningful
