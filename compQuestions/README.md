@@ -22,10 +22,10 @@ Six repositories, 25 questions. Each question has one checkable answer (a count,
 
 The procedure lives in the eval prompts:
 
-- [`competency-questions.md`](../../../prompts/evals/competency-questions.md) checks that a site publishes its own question list. It quotes questions the site wrote.
-- [`competency-answerability.md`](../../../prompts/evals/competency-answerability.md) answers up to three questions from the public site and returns one YAML report. An answer counts when the report quotes text or a field fetched in that run.
+- [`competency-questions.md`](../prompts/evals/competency-questions.md) checks that a site publishes its own question list. It quotes questions the site wrote.
+- [`competency-answerability.md`](../prompts/evals/competency-answerability.md) answers up to three questions from the public site and returns one YAML report. An answer counts when the report quotes text or a field fetched in that run.
 
-The webinar handout for both prompts is [Evaluation prompts](../supplementalInformation/evaluationPrompts.md#evaluation). In the Pi harness the same files are `/competency-questions` and `/competency-answerability`. Run these examples with those prompts. There is no separate skill.
+The webinar handout for both prompts is [Evaluation prompts](../docs/Webinar_Nov_2026/supplementalInformation/evaluationPrompts.md#evaluation). In the Pi harness the same files are `/competency-questions` and `/competency-answerability`. Run these examples with those prompts. There is no separate skill.
 
 ## The two files
 
@@ -36,12 +36,12 @@ The webinar handout for both prompts is [Evaluation prompts](../supplementalInfo
 
 Keep the answer key with the grader. Paste only the fenced YAML into the chat the agent sees.
 
-Every question is tagged `competency-answerability`. Later tags name the readiness feature that path used (`metadata-api`, `openapi-discovery`, `persistent-identifiers`, `vocabulary`, `api-http-behavior`, `provenance-lineage`, `server-rendered-content`, `sssom-mappings`, `rights-and-license`). To score that feature on its own, run the matching file in [`prompts/evals/`](../../../prompts/evals/).
+Every question is tagged `competency-answerability`. Later tags name the readiness feature that path used (`metadata-api`, `openapi-discovery`, `persistent-identifiers`, `vocabulary`, `api-http-behavior`, `provenance-lineage`, `server-rendered-content`, `sssom-mappings`, `rights-and-license`). To score that feature on its own, run the matching file in [`../prompts/evals`](../../../prompts/evals/).
 
 ## How to run one test
 
 1. Open a fresh chat, or start Pi from the repo root with `./bin/pi`.
-2. Paste [`competency-answerability.md`](../../../prompts/evals/competency-answerability.md).
+2. Paste [`competency-answerability.md`](../prompts/evals/competency-answerability.md).
 3. Under it, paste one fenced YAML block from [`answerability_runs.md`](answerability_runs.md). Leave the answer-key table out.
 4. When the report comes back, compare `checks[].answer` with the key. Use the Check column (exact, contains, or a numeric tolerance).
 
@@ -55,7 +55,7 @@ An example run is in the [questionRunExample.md](questionRunExample.md) file.
 
 ## When the site publishes its own list
 
-Use [`competency-questions.md`](../../../prompts/evals/competency-questions.md) to see whether the site published a list, and save the questions the report quotes. Feed up to three of those quotes into the answerability prompt.
+Use [`competency-questions.md`](../prompts/evals/competency-questions.md) to see whether the site published a list, and save the questions the report quotes. Feed up to three of those quotes into the answerability prompt.
 
 The files in this directory are an external test set for these NIAID sites. They stand in when you want a known test, including on a site that has not published a list.
 

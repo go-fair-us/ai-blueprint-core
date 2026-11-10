@@ -1,6 +1,6 @@
 # Question run example: AccessClinicalData@NIAID
 
-Worked output of [`competency-answerability.md`](../../../prompts/evals/competency-answerability.md) on AccessClinicalData Run A from [`answerability_runs.md`](answerability_runs.md).
+Worked output of [`competency-answerability.md`](../prompts/evals/competency-answerability.md) on AccessClinicalData Run A from [`answerability_runs.md`](answerability_runs.md).
 
 Run date: 2026-11-06. No credentials. The agent stayed on `accessclinicaldata.niaid.nih.gov`. It did not use the answer key while answering.
 

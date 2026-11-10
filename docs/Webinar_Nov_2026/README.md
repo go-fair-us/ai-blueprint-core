@@ -22,7 +22,7 @@ These files are handouts, not a second copy of the slides. Definitions stay in t
 | [TDM reservations](supplementalInformation/tdm.md) | Site owners considering text and data mining policies | Explains TDM reservations and related signals (TDMRep, and how they differ from robots.txt, AIPREF, and RSL). |
 | [From terms to ontologies](supplementalInformation/termsToOntologies.md) | Technical teams choosing how to represent knowledge | Compares vocabulary structures and formal semantics, with guidance for choosing a proportionate approach. |
 | [Vocabulary tools and resources](supplementalInformation/vocabularies.md) | Teams creating or reusing vocabularies | Surveys vocabulary editors, spreadsheet workflows, publishing tools, and reuse resources. |
-| [Competency questions](compQuestions/) | Someone running those tests on NIAID sites | Competency questions and separate answer keys. Do not paste a key into the prompt an agent sees. |
+| [Competency questions](../../compQuestions/) | Someone running those tests on NIAID sites | Competency questions and separate answer keys. Do not paste a key into the prompt an agent sees. |
 | [Assets examples](assets/) | Someone looking for a concrete file | Example `robots.txt`, `sitemap.xml`, `llms.txt`, and `ard.json`. |
 
 
@@ -42,7 +42,7 @@ You can explore these more in the docs the
 ### Competency Questions
 
 A collection of competency questions.  They are all auto-generated, so buyer beware.   These are being used more
-to explore the concept of competency questions and how they could be used in evaluation of SI enhancements to a repo. .  They are far from production, but they are a start.  See [these notes.](compQuestions/README.md)
+to explore the concept of competency questions and how they could be used in evaluation of SI enhancements to a repo. .  They are far from production, but they are a start.  See [these notes.](../../compQuestions/README.md)
 
 
 ### Harness

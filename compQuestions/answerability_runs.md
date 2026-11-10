@@ -1,6 +1,6 @@
 # Competency-answerability runs: NIAID repositories
 
-Built from `competency_questions.json` (answers verified 2026-10-30) for `extensions/prompts/competency-answerability.md` (`$1` = origin URL, `$2` = up to 3 questions). Each run block contains only the inputs. Paste it as the prompt's inputs. Answer keys are kept separate so graders can use them without the agent seeing them.
+Built from `competency_questions.json` (answers verified 2026-10-30) for `../extensions/prompts/competency-answerability.md` (`$1` = origin URL, `$2` = up to 3 questions). Each run block contains only the inputs. Paste it as the prompt's inputs. Answer keys are kept separate so graders can use them without the agent seeing them.
 
 Origins were checked 2026-10-30 with `curl -L`. All returned HTTP 200.
 

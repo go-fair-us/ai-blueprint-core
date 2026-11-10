@@ -115,7 +115,7 @@ An October 2026 note already exists at `prompts/api_examples/MW_REST_API_NIAID_B
 
 A chat that only has a page summarizer should still return the report. Most header and JSON-LD checks will be `not-observable`, and that is a property of the client. A client that can return status, headers, and the raw body can fill the same checks.
 
-This run stops before competency answerability. That check is `evals/competency-answerability.md`, and it needs questions the site published. The answer keys under `docs/Webinar_Nov_2026/compQuestions/` stay out of the prompt.
+This run stops before competency answerability. That check is `evals/competency-answerability.md`, and it needs questions the site published. The answer keys under `../compQuestions` stay out of the prompt.
 
 ## Prompt
 

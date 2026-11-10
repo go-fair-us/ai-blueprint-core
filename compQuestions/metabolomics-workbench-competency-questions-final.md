@@ -1,6 +1,6 @@
 # Metabolomics Workbench competency questions (final example set)
 
-Verified with public HTTP GET calls (`curl -L`, no credentials) on 9 November 2026 (America/Chicago). These questions follow the shape of [`docs/Webinar_Nov_2026/compQuestions`](https://github.com/go-fair-us/ai-blueprint-core/tree/116743c1caaaa92d6574643251240598f04d771e/docs/Webinar_Nov_2026/compQuestions). They were derived from the public services on [Advanced Searches](https://www.metabolomicsworkbench.org/search/advancedsearches.php) and the [REST Help](https://www.metabolomicsworkbench.org/tools/mw_rest.php) examples that page links to.
+Verified with public HTTP GET calls (`curl -L`, no credentials) on 9 November 2026 (America/Chicago). These questions follow the shape of [``](https://github.com/go-fair-us/ai-blueprint-core/tree/116743c1caaaa92d6574643251240598f04d771e/docs/Webinar_Nov_2026/compQuestions). They were derived from the public services on [Advanced Searches](https://www.metabolomicsworkbench.org/search/advancedsearches.php) and the [REST Help](https://www.metabolomicsworkbench.org/tools/mw_rest.php) examples that page links to.
 
 This is an **external test set**. Metabolomics Workbench has not published these questions, and they have not been vetted by a repository operator or a domain expert. They are not a certification. Answerability is not scientific accuracy. The `competency-questions` prompt would still look for a site-authored list.
 
