@@ -1,0 +1,5 @@
+# Pinned renderer dependencies (verified 6 November 2026).
+# Keep this list in exact sync with the PEP 723 dependencies in build.py.
+# markdown 3.11 requires Python >=3.11; weasyprint 70.0 requires >=3.10.
+markdown==3.11
+weasyprint==70.0
