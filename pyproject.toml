@@ -10,6 +10,7 @@ dependencies = [
     "dspy[optuna]>=3.2.1",
     "html5rdf>=1.2.1",
     "marker-pdf>=1.10.2",
+    "matplotlib>=3.11.2",
     "owlrl>=7.6.2",
     "pyshacl>=0.40.0",
     "pyyaml>=6.0",
