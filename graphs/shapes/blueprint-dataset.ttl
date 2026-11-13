@@ -12,7 +12,7 @@
 # Target data: schema.org Dataset JSON-LD as illustrated in:
 #   - graphs/example.json  (Supplemental Table 7 small example)
 #   - docs/BluePrint/... Supplemental Table 7 expanded example
-#   - docs/GEPA_comparisons/*.md citation JSON-LD blocks
+#   - docs/GEPA_comparison.md citation JSON-LD block
 #
 # Scope: a few key Table 1 elements only — not the full schema.
 #   REQUIRED (sh:Violation): name, description, url, identifier

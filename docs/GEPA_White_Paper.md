@@ -127,3 +127,119 @@ More practical examples and case studies are available in the DSPy tutorials and
 
 Example results:
 The starting prompt at [impact.md](../okf/bundles/niaid_blueprint/citation/impact.md) became [citation-outreach-citation-guidance-optimized-prompt.md](../src/libraryOptimizer/runs/okf-batch/citation-outreach-citation-guidance/citation-outreach-citation-guidance-optimized-prompt.md)
+
+---
+
+# SDY998 citation example
+
+ImmPort study SDY998, grounded in the NIAID Blueprint for Digital Objects (v2, 26 September 2025). The input for this example was the study landing-page URL. Title, description source, ORCIDs, funders, license, and DOI come from the Blueprint’s own SDY998 tables. Those entries give no version number, so this citation omits a version element.
+
+## Where the values come from
+
+- **Section 1.2, “Blueprint Requirements”** (Table 1) — minimal metadata schema: name, description, identifier, author, funder, grant, license, conditionsOfAccess, and the other Table 1 elements.
+- **Section 2.2, “Blueprint Requirements”** (Table 2) — PID usage: DOI for identifier, ORCID for author, ROR for funder.
+- **Section 3.2, “Blueprint Requirements”** — minimal API specification: JSON-LD encoding, resource-oriented IRIs, GET, OpenAPI documentation.
+- **Section 4.2, “Blueprint Requirements”** — citation guidance. Reused-data citations include the object PID (for example a DOI) and, when one exists, a repository-specific ID such as an accession. That is why SDY998 appears alongside the DOI.
+- **Table 3** — APA-style dataset citation template.
+- **Supplementary Table 4** and **Supplementary Table 7** — ImmPort study SDY998 itself: dateCreated, author ORCIDs, funder RORs, grant number, license URL, measurementTechnique, and healthCondition.
+
+Table 1’s sample description for this study is the study-file text about PERIOD and STUDY_GLOSSARY. The JSON-LD below follows the Supplemental Table 7 shape and does not copy that study-file sentence into `description`.
+
+## Human-readable citation
+
+Table 3’s APA-style dataset pattern is `Author(s). (Year). Title of dataset (Version) [Data set]. Repository. DOI`. ImmPort’s own policy is to cite the ImmPort Shared Data website, the study accession, and the study title, using the DOI when one is available.
+
+> **Investigators registered to ImmPort Study SDY998** [ORCID: 0000-0002-1450-1549; 0000-0002-1219-3845; 0000-0003-4483-0359; 0000-0002-5634-7746]. (2017). *SDY998: AMP Rheumatoid Arthritis Phase 1* [Data set]. ImmPort Shared Data. Study Accession: SDY998. https://doi.org/10.21430/M3KXJHSP4T
+
+Notes on construction:
+
+- **Year (2017)** comes from `dateCreated` in Supplementary Table 4 (2017-11-07), the Blueprint’s default date field for datasets.
+- **Author identifiers** are only ORCIDs in the source metadata. No names were supplied, so the citation uses resolvable ORCID PIDs. Resolving those ORCIDs to display names, through the ORCID API and ImmPort’s contributor records, can replace the bracketed list with `Lastname, F. et al.`
+- **DOI** is last, per Table 3. Section 2 asks for the resolvable form (`https://doi.org/...`), not the bare `10.21430/...` string.
+- **Study accession (SDY998)** is included because reused-data citations carry the repository-specific ID alongside the object PID.
+
+Funder and grant (NIAID, ROR: https://ror.org/043z4tv69; NIAMS, ROR: https://ror.org/006zn3t30; grant 1UH2AR067676-01) are discovery and attribution metadata. Table 1 treats `funder` and `grant` as separate elements from `citation`. An acknowledgment line, when a venue wants one, can read: *Data were generated with support from NIAID and NIAMS (grant 1UH2AR067676-01) as part of the Accelerating Medicines Partnership RA/SLE program.*
+
+When the publication also draws on the associated methods paper, Supplemental Table 7 records that paper on the `citation` element, separate from the dataset DOI:
+
+> Methods for high-dimensional analysis of cell populations in rheumatoid arthritis (2018). https://doi.org/10.1186/s13075-018-1631-y (PMID: 29996944)
+
+## Machine-actionable citation (JSON-LD)
+
+This follows the structure Supplemental Table 7 uses for this study.
+
+```json
+{
+  "@context": "https://schema.org/",
+  "@id": "https://doi.org/10.21430/M3KXJHSP4T",
+  "@type": "Dataset",
+  "identifier": {
+    "@id": "https://doi.org/10.21430/M3KXJHSP4T",
+    "@type": "PropertyValue",
+    "propertyID": "https://registry.identifiers.org/registry/doi",
+    "value": "doi:10.21430/M3KXJHSP4T",
+    "url": "https://doi.org/10.21430/M3KXJHSP4T"
+  },
+  "name": "SDY998: AMP Rheumatoid Arthritis Phase 1",
+  "url": "https://www.immport.org/shared/study/SDY998",
+  "dateCreated": "2017-11-07",
+  "author": [
+    { "@type": "Person", "identifier": "https://orcid.org/0000-0002-1450-1549" },
+    { "@type": "Person", "identifier": "https://orcid.org/0000-0002-1219-3845" },
+    { "@type": "Person", "identifier": "https://orcid.org/0000-0003-4483-0359" },
+    { "@type": "Person", "identifier": "https://orcid.org/0000-0002-5634-7746" }
+  ],
+  "funder": [
+    { "@type": "Organization", "identifier": "https://ror.org/043z4tv69", "name": "NIAID" },
+    { "@type": "Organization", "identifier": "https://ror.org/006zn3t30", "name": "NIAMS" }
+  ],
+  "grant": "1UH2AR067676-01",
+  "citation": [
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Methods for high-dimensional analysis of cell populations in rheumatoid arthritis",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29996944",
+      "identifier": {
+        "@id": "https://doi.org/10.1186/s13075-018-1631-y",
+        "@type": "PropertyValue",
+        "propertyID": "https://registry.identifiers.org/registry/doi",
+        "value": "doi:10.1186/s13075-018-1631-y",
+        "url": "https://doi.org/10.1186/s13075-018-1631-y"
+      }
+    }
+  ],
+  "conditionsOfAccess": "https://www.immport.org/agreement",
+  "license": "https://www.immport.org/agreement"
+}
+```
+
+## Why this shape
+
+1. **Resolvable DOI as the primary identifier.** Section 2 asks for `https://doi.org/10.21430/M3KXJHSP4T` rather than the bare DOI string, because an unresolved DOI is a weaker persistent identifier.
+2. **Accession and DOI together.** Section 4.2 distinguishes original-data citation from reused-data citation. For reused data it asks for the object PID and, when one applies, a repository-specific ID. SDY998 is that ID. The DOI still resolves the object on its own.
+3. **ORCID PIDs for authorship.** Table 2 designates ORCID as the default PID for `author`. That holds when display names are not yet in the source metadata.
+4. **The repository’s own citation policy.** Section 4.2 tells repository owners to give clear, consistent instructions for citing data. ImmPort’s guidance (repository, accession, title, DOI) is what this string follows. The Blueprint standardizes how that guidance is rendered: PID first, and ready for a machine-readable record.
+5. **JSON-LD for harvest.** The block mirrors Supplemental Table 7 for this study. Section 3 asks that metadata, including `identifier`, `author`, `funder`, and `citation`, be exposable as schema.org JSON-LD so catalogs and the NIAID Data Ecosystem Discovery Portal can harvest it.
+
+A second draft of this same study used a looser record: `version` set to `null`, authors named “Study Investigator”, `funding` in place of `funder` and `grant`, `license` as a `CreativeWork`, and `citation` set to the dataset’s own DOI. Those fields are left out of the block above. The accession can also be a second `identifier` `PropertyValue` (`propertyID` `Accession`, value `SDY998`) beside the DOI. This example keeps the accession in the human citation and keeps a single DOI `identifier`, matching Supplemental Table 7.
+
+## What the repository would publish
+
+Supplemental Table 7 names ImmPort’s existing call for this study: `https://immport.org/data/query/api/study/SDY998?format=json`. Section 3.2 asks that pattern to be a resource-oriented IRI returning JSON-LD, documented in OpenAPI or Swagger. The Blueprint’s own illustration of that IRI shape is `https://data.<domain.org>/<entity>/<instanceID>?format=json-ld`.
+
+- Populate the Table 1 fields for each study record: type, identifier, name, description, dateCreated, author, funder, grant, license, and conditionsOfAccess.
+- Validate the JSON-LD against the Blueprint’s schema.org structure before publishing.
+- Put the human-readable citation string on the SDY998 landing page.
+- Register that study endpoint in the repository’s OpenAPI or Swagger document.
+
+Training that matches Section 4.2:
+
+- A one-page citation guide showing the Table 3 pattern.
+- A short tutorial on copying the human-readable citation and retrieving the JSON-LD from the study endpoint.
+- A session for investigators on citing ImmPort datasets, accession and DOI together, including the difference between original-data citation and reused-data citation.
+
+Together the human citation and the JSON-LD cover scholarly credit (ORCID-linked authorship), funder tracking (ROR-linked grant), and machine-readable discovery (resolvable DOI, schema.org JSON-LD).
+
+## Controlled-access aside
+
+The same Table 3 pattern applies to a controlled-access object. For the ACTT-4 package under AccessClinicalData@NIAID, `conditionsOfAccess` and `license` would point at a data-access request or DUA rather than an open user agreement. Supplementary Table 3 gives that repository a Controlled-Data designation. A citation of that object should say that a DAR is required before the data, as distinct from its metadata, can be obtained.

@@ -111,11 +111,11 @@ Two MCP roles stay separate. The server in `mcp_bp` (tools such as `read_prompt_
 
 The deterministic checkers `niaid-bp-robots`, `niaid-bp-sitemap`, and `niaid-bp-llms` are skill procedures. `validate_dataset` is the one skill script the MCP server runs itself. `niaid-bp-api-assess` scores Blueprint Section 3 after an OpenAPI document is found. `openapi-discovery` only finds that document. The registered prompts `fair_crawl_assessor` and `fair_assessment_interview` are a different instrument. They score the five Blueprint areas. They are not this webinar pass.
 
-An October 2026 note already exists at `prompts/api_examples/MW_REST_API_NIAID_Blueprint_Compatibility.md`. The prompt tells the model to re-check every claim against a live response.
+An October 2026 note already exists at `../../prompts/api_examples/MW_REST_API_NIAID_Blueprint_Compatibility.md`. The prompt tells the model to re-check every claim against a live response.
 
 A chat that only has a page summarizer should still return the report. Most header and JSON-LD checks will be `not-observable`, and that is a property of the client. A client that can return status, headers, and the raw body can fill the same checks.
 
-This run stops before competency answerability. That check is `evals/competency-answerability.md`, and it needs questions the site published. The answer keys under `../compQuestions` stay out of the prompt.
+This run stops before competency answerability. That check is `evals/competency-answerability.md`, and it needs questions the site published. The answer keys under `../../compQuestions` stay out of the prompt.
 
 ## Prompt
 
