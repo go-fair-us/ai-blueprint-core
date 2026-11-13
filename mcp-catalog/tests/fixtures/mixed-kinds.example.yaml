@@ -1,0 +1,56 @@
+# SYNTHETIC TEST FIXTURE -- not real resources. Every name and URL below is made up
+# (example.org / example-dev) so the tests can exercise MCP, skill and plugin entries
+# side by side. Do not copy these entries into the real catalog.
+catalog:
+  id: urn:air:example.org:test-catalog:catalog
+  name: Test catalog
+  version: 0.0.0
+  "@context":
+    - https://agenticresourcediscovery.org/context/v1
+    - cat: https://example.org/mcp-catalog/ns#
+
+entries:
+- identifier: urn:air:example.org:test-catalog:demo-mcp
+  displayName: Demo MCP server
+  type: application/mcp-server-card+json
+  url: https://example.org/demo-mcp/mcp
+  description: A made-up MCP server used only by the tests.
+  representativeQueries: [look up a demo gene, list demo datasets]
+  cat:role: default
+  cat:status: alive
+  cat:urlKind: mcp-endpoint
+  cat:transport: [streamable-http]
+  cat:auth: none
+  cat:license: CC0-1.0
+  cat:lastChecked: "2026-11-13"
+
+- identifier: urn:air:example.org:test-catalog:demo-skill
+  displayName: demo-skill
+  type: application/agent-skills+md
+  url: https://example.org/demo-skill/SKILL.md
+  description: A made-up skill that uses the demo MCP server.
+  representativeQueries: [summarise a demo gene report, compare two demo datasets]
+  cat:role: optional
+  cat:status: alive
+  cat:urlKind: skill-file
+  cat:agents: [Claude Code, Codex, Cursor]
+  cat:skillFormat: agent-skills SKILL.md
+  cat:requires: [urn:air:example.org:test-catalog:demo-mcp]
+  cat:license: CC0-1.0
+  cat:lastChecked: "2026-11-13"
+
+- identifier: urn:air:example.org:test-catalog:demo-plugin
+  displayName: Demo plugin bundle
+  type: application/agent-plugins+zip
+  url: https://example.org/demo-plugin.zip
+  description: A made-up plugin archive bundling the demo skill and MCP server.
+  representativeQueries: [install the demo toolkit, set up demo analysis tools]
+  cat:role: watch
+  cat:status: unverified
+  cat:urlKind: archive
+  cat:agents: [Claude Code]
+  cat:contains:
+    - urn:air:example.org:test-catalog:demo-skill
+    - urn:air:example.org:test-catalog:demo-mcp
+  cat:license: CC0-1.0
+  cat:lastChecked: "2026-11-13"
