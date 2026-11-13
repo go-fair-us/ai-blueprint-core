@@ -1,0 +1,687 @@
+{
+  "catalog": {
+    "id": "urn:air:github.com:fils:bio-nih-mcp:catalog",
+    "name": "Bio / NIH MCP server catalog",
+    "description": "Curated, reviewed list of Model Context Protocol servers of interest to the biomedical and NIH/NIAID research community. Entries are third-party resources described by the curator, not publisher-attested ARD entries.",
+    "version": "0.1.0",
+    "license": "CC0-1.0",
+    "created": "2026-11-13",
+    "modified": "2026-11-13",
+    "maintainer": {
+      "name": "Douglas Fils",
+      "github": "fils"
+    },
+    "ardSpec": "https://agenticresourcediscovery.org/spec/",
+    "generatedBy": "yaml2ard.py",
+    "generatedAt": "2026-11-13T19:52:25Z",
+    "entryCount": 21,
+    "curationStripped": true
+  },
+  "entries": [
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:biomcp",
+      "displayName": "BioMCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/genomoncology/biomcp",
+      "description": "One CLI binary and MCP server over a single command grammar reaching ~72 biomedical sources (PubMed/PubTator3/Europe PMC, ClinVar, MyVariant, gnomAD, ClinicalTrials.gov and NCI CTS, OpenFDA, ChEMBL, Open Targets, Reactome, UniProt, NIH RePORTER, CIViC, OncoKB and more), with cross-entity pivots and shipped skills.",
+      "tags": [
+        "literature",
+        "variants",
+        "genes",
+        "clinical-trials",
+        "drugs",
+        "pathways",
+        "oncology",
+        "pharmacogenomics"
+      ],
+      "version": "0.9.3",
+      "updatedAt": "2026-11-10T19:39:03Z",
+      "representativeQueries": [
+        "find recruiting clinical trials for BRAF V600E melanoma",
+        "what does ClinVar and gnomAD say about this variant",
+        "list recent PubMed articles linking a gene to a disease",
+        "which drugs target EGFR and what adverse events are reported for them",
+        "which NIH-funded projects study Lynch syndrome"
+      ],
+      "capabilities": [
+        "biomcp",
+        "search",
+        "get",
+        "variant_normalize_car",
+        "variant_erepo",
+        "gene_cspec",
+        "variant_articles"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:biothings-mcp",
+      "displayName": "BioThings MCP (longevity-genie)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/longevity-genie/biothings-mcp",
+      "description": "MCP wrapper over the BioThings APIs (MyGene.info, MyVariant.info, MyChem.info, taxonomy) plus Entrez download helpers.",
+      "tags": [
+        "genes",
+        "variants",
+        "chemicals",
+        "taxonomy",
+        "biothings"
+      ],
+      "version": "0.1.6",
+      "updatedAt": "2025-11-03T20:05:06Z",
+      "representativeQueries": [
+        "get MyGene.info annotation for TP53",
+        "look up the variant rs7412 in MyVariant.info",
+        "find MyChem.info records for remdesivir",
+        "resolve the NCBI taxonomy entry for Plasmodium falciparum"
+      ],
+      "capabilities": [
+        "biothings_query_genes",
+        "biothings_get_gene",
+        "biothings_query_variants",
+        "biothings_get_variant",
+        "biothings_query_chems",
+        "biothings_get_chem",
+        "biothings_get_taxon",
+        "biothings_query_taxons",
+        "biothings_download_entrez_data"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:bioportal-mcp",
+      "displayName": "BioPortal MCP (NCBO)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://bioportal.fastmcp.app/mcp",
+      "description": "NCBO BioPortal ontology search: find ontology terms/classes and properties across BioPortal's ontologies, plus ontology usage analytics.",
+      "tags": [
+        "ontologies",
+        "semantics",
+        "terminology",
+        "annotation"
+      ],
+      "version": "0.1.1",
+      "updatedAt": "2025-12-01T21:49:57Z",
+      "representativeQueries": [
+        "find the NCIT term for lung adenocarcinoma",
+        "which ontologies define a property called part_of",
+        "search Cell Ontology for T helper 17 cell",
+        "how often was the MONDO ontology viewed in BioPortal last year"
+      ],
+      "capabilities": [
+        "search_ontology_terms",
+        "search_ontology_properties",
+        "get_ontology_analytics"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:gget-mcp",
+      "displayName": "gget MCP (longevity-genie)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/longevity-genie/gget-mcp",
+      "description": "MCP wrapper for the gget bioinformatics library (Pachter lab), which gives one-line access to Ensembl search/info/sequence, BLAST/BLAT, MUSCLE/DIAMOND alignment, ARCHS4 expression, Enrichr, Bgee, PDB, AlphaFold, ELM, COSMIC, Open Targets and CELLxGENE.",
+      "tags": [
+        "genomics",
+        "sequences",
+        "alignment",
+        "expression",
+        "enrichment",
+        "structure"
+      ],
+      "version": "0.3.1",
+      "updatedAt": "2025-10-27T14:48:14Z",
+      "representativeQueries": [
+        "BLAST this protein sequence and show the top hits",
+        "get the Ensembl IDs and canonical transcript for ACE2",
+        "run Enrichr on this list of differentially expressed genes",
+        "which tissues express IFITM3 most highly according to ARCHS4"
+      ],
+      "capabilities": [
+        "gget_search",
+        "gget_info",
+        "gget_seq",
+        "gget_ref",
+        "gget_blast",
+        "gget_blat",
+        "gget_muscle",
+        "gget_diamond",
+        "gget_archs4",
+        "gget_enrichr",
+        "gget_bgee",
+        "gget_pdb",
+        "gget_alphafold",
+        "gget_elm",
+        "gget_cosmic",
+        "gget_mutate",
+        "gget_opentargets",
+        "gget_cellxgene"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:opengenes-mcp",
+      "displayName": "OpenGenes MCP (longevity-genie)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/longevity-genie/opengenes-mcp",
+      "description": "Read-only SQL access to the OpenGenes database of aging/longevity-associated genes (lifespan experiments, gene-hallmark links, longevity associations).",
+      "tags": [
+        "aging",
+        "longevity",
+        "genes",
+        "sql"
+      ],
+      "version": "0.2.0",
+      "updatedAt": "2025-10-14T21:36:07Z",
+      "representativeQueries": [
+        "which genes extend lifespan in mice when overexpressed",
+        "list longevity-associated variants reported for FOXO3",
+        "what aging hallmarks are linked to SIRT6"
+      ],
+      "capabilities": [
+        "opengenes_db_query",
+        "opengenes_get_schema_info",
+        "opengenes_example_queries"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:synergy-age-mcp",
+      "displayName": "SynergyAge MCP (longevity-genie)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/longevity-genie/synergy-age-mcp",
+      "description": "Read-only SQL access to SynergyAge, a curated database of synergistic, antagonistic and additive genetic interventions affecting lifespan in model organisms.",
+      "tags": [
+        "aging",
+        "longevity",
+        "epistasis",
+        "model-organisms",
+        "sql"
+      ],
+      "version": "0.1.0",
+      "updatedAt": "2025-08-25T22:34:34Z",
+      "representativeQueries": [
+        "which double mutants in C. elegans show synergistic lifespan extension",
+        "list epistatic interactions involving daf-2"
+      ],
+      "capabilities": [
+        "synergyage_db_query",
+        "synergyage_get_schema_info",
+        "synergyage_example_queries"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:biomni",
+      "displayName": "Biomni (Stanford SNAP) -- self-exported MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/snap-stanford/Biomni",
+      "description": "General-purpose biomedical AI agent (A1) with a large tool library, a data lake and a know-how library. It is an agent, not a hosted MCP server: it can import external MCP servers, and can export chosen Biomni tool modules as a local stdio MCP server via agent.create_mcp_server(tool_modules=[...]).",
+      "tags": [
+        "agent",
+        "genomics",
+        "gene-editing",
+        "single-cell",
+        "database-queries"
+      ],
+      "updatedAt": "2026-11-09T19:06:15Z",
+      "representativeQueries": [
+        "prioritize candidate genes for a CRISPR screen on T cell exhaustion",
+        "query biomedical databases for genes linked to a GWAS trait"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:brc-analytics",
+      "displayName": "BRC Analytics MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://brc-analytics.org/api/v1/mcp/",
+      "description": "Public read-only MCP for the NIAID-funded BRC Analytics platform: organisms, assemblies, Galaxy workflow catalog and compatibility, ENA and SRA search, and Logan k-mer search jobs.",
+      "tags": [
+        "pathogens",
+        "niaid",
+        "brc",
+        "genome-assemblies",
+        "workflows",
+        "ena",
+        "sra"
+      ],
+      "version": "3.4.10",
+      "updatedAt": "2026-11-13T19:44:24Z",
+      "representativeQueries": [
+        "which genome assemblies are available for Mycobacterium tuberculosis",
+        "what Galaxy workflows can run variant calling on this assembly",
+        "find SRA runs for dengue virus from Brazil",
+        "search ENA for sequencing studies on Candida auris"
+      ],
+      "capabilities": [
+        "search_organisms",
+        "get_organism",
+        "get_assemblies",
+        "get_assembly_details",
+        "list_workflow_categories",
+        "get_workflows_in_category",
+        "get_compatible_workflows",
+        "get_workflow_details",
+        "check_compatibility",
+        "resolve_workflow_inputs",
+        "search_ena",
+        "search_ena_keywords",
+        "search_sra",
+        "sra_data_summary",
+        "get_sra_study_runs",
+        "logan_submit",
+        "logan_job_status",
+        "logan_hits",
+        "logan_cohort",
+        "logan_list_indexes",
+        "logan_queue"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:bv-brc-mcp",
+      "displayName": "BV-BRC MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/BV-BRC/BV-BRC-MCP",
+      "description": "MCP server for the NIAID Bacterial and Viral Bioinformatics Resource Center: Solr data queries, analysis job submission (assembly, annotation, BLAST, etc.) and workspace tools.",
+      "tags": [
+        "pathogens",
+        "niaid",
+        "bacteria",
+        "viruses",
+        "bv-brc",
+        "annotation"
+      ],
+      "updatedAt": "2026-02-25T15:52:03Z",
+      "representativeQueries": [
+        "find all Klebsiella pneumoniae genomes with carbapenem resistance genes in BV-BRC",
+        "submit a genome annotation job for this assembly",
+        "list the files in my BV-BRC workspace"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:togomcp",
+      "displayName": "TogoMCP (DBCLS RDF Portal)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://togomcp.rdfportal.org/mcp",
+      "description": "Life-science MCP over the RDF Portal: SPARQL across 50+ databases, entity search for UniProt, PubChem, PDB, MeSH, Reactome, Rhea, ChEMBL, TogoVar, NCBI E-utilities, and TogoID identifier conversion across 65+ ID systems.",
+      "tags": [
+        "rdf",
+        "sparql",
+        "identifiers",
+        "proteins",
+        "compounds",
+        "pathways",
+        "variants",
+        "fair"
+      ],
+      "version": "2.32.1",
+      "updatedAt": "2026-11-11T08:51:15Z",
+      "representativeQueries": [
+        "convert these UniProt accessions to NCBI Gene IDs",
+        "write and run a SPARQL query for human proteins annotated with a GO term",
+        "search PubChem and ChEMBL for compounds similar to oseltamivir",
+        "find NCBI records for SARS-CoV-2 spike protein structures"
+      ],
+      "capabilities": [
+        "run_sparql",
+        "get_sparql_endpoints",
+        "get_graph_list",
+        "get_MIE_file",
+        "get_workflow",
+        "search_uniprot_entity",
+        "search_pdb_entity",
+        "search_mesh_descriptor",
+        "search_reactome_entity",
+        "search_rhea_entity",
+        "search_chembl_molecule",
+        "search_chembl_target",
+        "get_pubchem_compound_id",
+        "togoid_convertId",
+        "togoid_identifyId",
+        "ncbi_esearch",
+        "ncbi_esummary",
+        "ncbi_efetch",
+        "togovar_search_variant",
+        "pubcasefinder_rank_by_phenotypes"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:ebi-ols4",
+      "displayName": "EMBL-EBI Ontology Lookup Service (OLS4) MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://www.ebi.ac.uk/ols4/api/mcp",
+      "description": "EMBL-EBI hosted MCP for OLS4: search the biomedical ontologies indexed by OLS, walk ancestors/descendants, and embedding-based similar-class search.",
+      "tags": [
+        "ontologies",
+        "terminology",
+        "embl-ebi",
+        "semantics"
+      ],
+      "version": "1.0.0",
+      "representativeQueries": [
+        "find the MONDO term for tuberculosis and its parent classes",
+        "list descendants of 'viral infectious disease' in the Disease Ontology",
+        "which ontology terms are semantically similar to 'cytokine storm'"
+      ],
+      "capabilities": [
+        "search",
+        "searchClasses",
+        "fetch",
+        "getAncestors",
+        "getDescendants",
+        "getChildren",
+        "getSimilarClasses",
+        "getClassSimilarity",
+        "listOntologies",
+        "listEmbeddingModels",
+        "searchWithEmbeddingModel",
+        "searchClassesWithEmbeddingModel"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:ebi-interpro",
+      "displayName": "EMBL-EBI InterPro MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://www.ebi.ac.uk/interpro/mcp",
+      "description": "EMBL-EBI hosted MCP for InterPro: protein families, domains, domain architectures, GO-term search, taxonomic distribution and sequence analysis.",
+      "tags": [
+        "proteins",
+        "domains",
+        "families",
+        "embl-ebi"
+      ],
+      "version": "0.1.0",
+      "representativeQueries": [
+        "what domains does this protein sequence contain",
+        "which proteins share the domain architecture of human ACE2",
+        "show the taxonomic distribution of the Pfam family PF00069"
+      ],
+      "capabilities": [
+        "searchInterPro",
+        "getEntry",
+        "browseEntries",
+        "getEntryProteins",
+        "getEntryStructures",
+        "getProteinEntries",
+        "getDomainArchitectures",
+        "searchDomainArchitectures",
+        "searchByGoTerm",
+        "getTaxonomicDistribution",
+        "analyzeSequence",
+        "getSequenceAnalysis",
+        "matchSequences"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:pdbe-mcp",
+      "displayName": "PDBe MCP Servers (EMBL-EBI)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://wwwdev.ebi.ac.uk/pdbe/mcp/all/",
+      "description": "Official Protein Data Bank in Europe MCP servers: PDBe API, search, apps and the PDBe graph database (Cypher) for structures, ligands, interactions and annotations.",
+      "tags": [
+        "structures",
+        "proteins",
+        "ligands",
+        "pdb",
+        "embl-ebi"
+      ],
+      "version": "1.30.0",
+      "updatedAt": "2026-11-13T09:45:48Z",
+      "representativeQueries": [
+        "find X-ray structures for UniProt P0DTC2 below 2.5 angstrom resolution",
+        "which ligands bind the SARS-CoV-2 main protease in PDB entries",
+        "write a graph query for structures sharing a binding site with this ligand"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:open-targets-platform",
+      "displayName": "Open Targets Platform MCP (official)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://mcp.platform.opentargets.org/mcp",
+      "description": "Official Open Targets MCP: entity search plus schema-guided GraphQL queries over target-disease associations, genetics, drugs and safety evidence.",
+      "tags": [
+        "drug-discovery",
+        "targets",
+        "diseases",
+        "genetics",
+        "graphql"
+      ],
+      "version": "2026.7.1",
+      "updatedAt": "2026-06-15T11:29:45Z",
+      "representativeQueries": [
+        "what are the top targets associated with systemic lupus erythematosus",
+        "what genetic evidence links IL23R to Crohn's disease",
+        "which approved drugs target JAK1 and for what indications"
+      ],
+      "capabilities": [
+        "search_entities",
+        "get_open_targets_graphql_schema",
+        "get_type_dependencies",
+        "query_open_targets_graphql",
+        "batch_query_open_targets_graphql"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:galaxy-mcp",
+      "displayName": "Galaxy MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.galaxyproject%2Fgalaxy-mcp/versions/latest",
+      "description": "Official Galaxy project MCP: connect to any Galaxy instance, manage histories and datasets, search and run Galaxy tools and workflows.",
+      "tags": [
+        "workflows",
+        "galaxy",
+        "analysis",
+        "execution"
+      ],
+      "version": "1.12.0",
+      "updatedAt": "2026-11-13T09:20:56Z",
+      "representativeQueries": [
+        "upload these FASTQ files to a new Galaxy history and run FastQC",
+        "find a Galaxy tool for viral genome assembly and show its inputs",
+        "check the status and logs of my last Galaxy job"
+      ],
+      "capabilities": [
+        "connect",
+        "get_histories",
+        "create_history",
+        "get_history_contents",
+        "upload_file",
+        "upload_file_from_url",
+        "search_tools_by_name",
+        "search_tools_by_keywords",
+        "get_tool_details",
+        "get_job_details",
+        "get_job_logs",
+        "list_jobs"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:tooluniverse",
+      "displayName": "ToolUniverse (Harvard Zitnik lab)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.mims-harvard%2Ftooluniverse/versions/latest",
+      "description": "Mega-server of 2,700+ scientific tools (databases, ML models, literature search) for AI-scientist systems, with a compact mode that exposes only a few discovery tools.",
+      "tags": [
+        "mega-server",
+        "literature",
+        "databases",
+        "ml-models",
+        "drug-discovery"
+      ],
+      "version": "1.5.9",
+      "updatedAt": "2026-11-13T12:58:54Z",
+      "representativeQueries": [
+        "find a tool that predicts drug-target binding and run it on this compound",
+        "search Europe PMC and Semantic Scholar for recent papers on H5N1 transmission",
+        "what does FDA labeling say about drug interactions for nirmatrelvir"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:pubmed-cyanheads",
+      "displayName": "PubMed MCP Server (cyanheads)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://pubmed.caseyjhand.com/mcp",
+      "description": "Search PubMed and Europe PMC, fetch metadata and full text (PMC/EPMC/Unpaywall), citations and citation metrics, MeSH lookup and ID conversion.",
+      "tags": [
+        "literature",
+        "pubmed",
+        "europe-pmc",
+        "mesh",
+        "citations"
+      ],
+      "version": "2.12.2",
+      "updatedAt": "2026-11-13T14:58:31Z",
+      "representativeQueries": [
+        "find 2026 PubMed reviews on long COVID immunology",
+        "fetch the full text of PMC article PMC1234567 and summarize the methods",
+        "format these PMIDs as APA citations",
+        "what MeSH terms describe antimicrobial resistance"
+      ],
+      "capabilities": [
+        "pubmed_search_articles",
+        "pubmed_fetch_articles",
+        "pubmed_fetch_fulltext",
+        "pubmed_format_citations",
+        "pubmed_find_related",
+        "pubmed_spell_check",
+        "pubmed_lookup_mesh",
+        "pubmed_lookup_citation",
+        "pubmed_convert_ids",
+        "pubmed_fetch_citation_metrics",
+        "pubmed_europepmc_search",
+        "pubmed_europepmc_fetch"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:clinicaltrialsgov-cyanheads",
+      "displayName": "ClinicalTrials.gov MCP Server (cyanheads)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://clinicaltrials.caseyjhand.com/mcp",
+      "description": "Search ClinicalTrials.gov (API v2), fetch study records and posted results, field definitions and counts, and match patient profiles to candidate trials.",
+      "tags": [
+        "clinical-trials",
+        "nih",
+        "nlm"
+      ],
+      "version": "2.11.3",
+      "updatedAt": "2026-11-13T15:05:54Z",
+      "representativeQueries": [
+        "how many NIAID-sponsored HIV vaccine trials are recruiting",
+        "get posted results for NCT04368728",
+        "find trials an adult with treatment-resistant tuberculosis might qualify for"
+      ],
+      "capabilities": [
+        "clinicaltrials_search_studies",
+        "clinicaltrials_get_study_record",
+        "clinicaltrials_get_study_count",
+        "clinicaltrials_get_field_values",
+        "clinicaltrials_get_field_definitions",
+        "clinicaltrials_get_study_results",
+        "clinicaltrials_find_eligible"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:uniprot-cyanheads",
+      "displayName": "UniProt MCP Server (cyanheads)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://uniprot.caseyjhand.com/mcp",
+      "description": "Search UniProtKB, fetch entries and sequences, map IDs, and look up proteomes and taxonomy.",
+      "tags": [
+        "proteins",
+        "uniprot",
+        "sequences",
+        "id-mapping"
+      ],
+      "version": "0.4.0",
+      "updatedAt": "2026-11-13T11:13:47Z",
+      "representativeQueries": [
+        "get the reviewed UniProt entry for influenza A hemagglutinin H5",
+        "map these UniProt accessions to Ensembl gene IDs",
+        "fetch the reference proteome for Mycobacterium tuberculosis H37Rv"
+      ],
+      "capabilities": [
+        "uniprot_search_proteins",
+        "uniprot_get_entry",
+        "uniprot_map_ids",
+        "uniprot_get_proteome",
+        "uniprot_get_taxonomy",
+        "uniprot_get_sequence"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:ensembl-cyanheads",
+      "displayName": "Ensembl MCP Server (cyanheads)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://ensembl.caseyjhand.com/mcp",
+      "description": "Look up genes, fetch sequences, predict variant consequences (VEP), find orthologs and cross-references from Ensembl REST.",
+      "tags": [
+        "genomics",
+        "ensembl",
+        "variants",
+        "orthologs"
+      ],
+      "version": "0.7.1",
+      "updatedAt": "2026-11-13T11:11:51Z",
+      "representativeQueries": [
+        "predict the consequence of this variant with VEP",
+        "find mouse orthologs of human IFNAR1",
+        "get the genomic sequence of chr17:43044295-43125483 in GRCh38"
+      ],
+      "capabilities": [
+        "ensembl_list_species",
+        "ensembl_lookup_gene",
+        "ensembl_get_sequence",
+        "ensembl_query_region",
+        "ensembl_predict_variant",
+        "ensembl_get_homology",
+        "ensembl_get_xrefs"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:nih-reporter-pipeworx",
+      "displayName": "NIH RePORTER (Pipeworx gateway pack)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://gateway.pipeworx.io/nih-reporter/mcp",
+      "description": "Unofficial MCP pack for NIH RePORTER: search projects and publications, award histories, new awards, funding concentration and expirations, SBIR portfolios.",
+      "tags": [
+        "nih",
+        "grants",
+        "funding",
+        "reporter"
+      ],
+      "version": "0.1.0",
+      "updatedAt": "2026-11-09T14:23:54Z",
+      "representativeQueries": [
+        "which NIAID R01 grants on antimicrobial resistance started in 2026",
+        "list publications linked to this NIH project number",
+        "which NIH grants on tuberculosis expire next year"
+      ],
+      "capabilities": [
+        "search_grants",
+        "nih_reporter_get_project",
+        "nih_reporter_search_publications",
+        "nih_grant_award_history",
+        "nih_new_grant_awards",
+        "nih_funding_concentration",
+        "nih_sbir_company_portfolio",
+        "nih_funding_expirations",
+        "nih_grant_publication_summary"
+      ]
+    }
+  ]
+}

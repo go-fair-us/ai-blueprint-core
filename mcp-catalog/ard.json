@@ -1,0 +1,1364 @@
+{
+  "catalog": {
+    "id": "urn:air:github.com:fils:bio-nih-mcp:catalog",
+    "name": "Bio / NIH MCP server catalog",
+    "description": "Curated, reviewed list of Model Context Protocol servers of interest to the biomedical and NIH/NIAID research community. Entries are third-party resources described by the curator, not publisher-attested ARD entries.",
+    "version": "0.1.0",
+    "license": "CC0-1.0",
+    "created": "2026-11-13",
+    "modified": "2026-11-13",
+    "maintainer": {
+      "name": "Douglas Fils",
+      "github": "fils"
+    },
+    "ardSpec": "https://agenticresourcediscovery.org/spec/",
+    "generatedBy": "yaml2ard.py",
+    "generatedAt": "2026-11-13T19:52:25Z",
+    "entryCount": 21,
+    "curationStripped": false
+  },
+  "entries": [
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:biomcp",
+      "displayName": "BioMCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/genomoncology/biomcp",
+      "description": "One CLI binary and MCP server over a single command grammar reaching ~72 biomedical sources (PubMed/PubTator3/Europe PMC, ClinVar, MyVariant, gnomAD, ClinicalTrials.gov and NCI CTS, OpenFDA, ChEMBL, Open Targets, Reactome, UniProt, NIH RePORTER, CIViC, OncoKB and more), with cross-entity pivots and shipped skills.",
+      "tags": [
+        "literature",
+        "variants",
+        "genes",
+        "clinical-trials",
+        "drugs",
+        "pathways",
+        "oncology",
+        "pharmacogenomics"
+      ],
+      "version": "0.9.3",
+      "updatedAt": "2026-11-10T19:39:03Z",
+      "representativeQueries": [
+        "find recruiting clinical trials for BRAF V600E melanoma",
+        "what does ClinVar and gnomAD say about this variant",
+        "list recent PubMed articles linking a gene to a disease",
+        "which drugs target EGFR and what adverse events are reported for them",
+        "which NIH-funded projects study Lynch syndrome"
+      ],
+      "capabilities": [
+        "biomcp",
+        "search",
+        "get",
+        "variant_normalize_car",
+        "variant_erepo",
+        "gene_cspec",
+        "variant_articles"
+      ],
+      "cat:profile": [
+        "general-bio",
+        "nih-niaid-research"
+      ],
+      "cat:role": "default",
+      "cat:status": "alive",
+      "cat:urlKind": "repository",
+      "cat:homepage": "https://biomcp.org/",
+      "cat:source": "https://github.com/genomoncology/biomcp",
+      "cat:transport": [
+        "stdio",
+        "streamable-http (self-hosted, `biomcp serve-http`)"
+      ],
+      "cat:auth": "none for most sources; optional keys (e.g. S2_API_KEY, NCBI, OncoKB) unlock some features",
+      "cat:install": "uv tool install biomcp-cli && biomcp serve   # or: docker run --rm -i ghcr.io/genomoncology/biomcp serve",
+      "cat:license": "MIT",
+      "cat:dataSources": [
+        "PubMed",
+        "PubTator3",
+        "Europe PMC",
+        "ClinVar",
+        "MyVariant.info",
+        "MyGene.info",
+        "gnomAD",
+        "ClinicalTrials.gov",
+        "NCI CTS",
+        "OpenFDA",
+        "ChEMBL",
+        "Open Targets",
+        "Reactome",
+        "UniProt",
+        "NIH RePORTER",
+        "CIViC",
+        "OncoKB",
+        "KEGG",
+        "GWAS Catalog"
+      ],
+      "cat:dataTerms": "Upstream terms govern results; repo has a per-source licensing page (docs/reference/source-licensing.md). KEGG distinguishes academic vs non-academic use; COSMIC is indirect-only; OncoKB needs registration.",
+      "cat:lastCommit": "2026-11-10T19:39:03Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "local stdio handshake + tools/list (biomcp-cli 0.9.3)",
+      "cat:reviewNotes": "Strongest single entry. Very active (release 0.9.3 on PyPI 2026-10-18, 679 stars), clear data-terms documentation, Claude Code plugin + skills, BioASQ benchmark page. The MCP surface is small on purpose (7 tools in 0.9.3; earlier docs describe a single execution tool), which keeps context cost low. Install `biomcp-cli`, NOT the unrelated PyPI package `biomcp`. The README declares MCP Registry name io.github.genomoncology/biomcp but the official registry returned no such server on 2026-11-13. No public hosted endpoint; self-host for HTTP. Overlaps heavily with the cyanheads PubMed/ClinicalTrials servers below.",
+      "cat:foundVia": "user list"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:biothings-mcp",
+      "displayName": "BioThings MCP (longevity-genie)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/longevity-genie/biothings-mcp",
+      "description": "MCP wrapper over the BioThings APIs (MyGene.info, MyVariant.info, MyChem.info, taxonomy) plus Entrez download helpers.",
+      "tags": [
+        "genes",
+        "variants",
+        "chemicals",
+        "taxonomy",
+        "biothings"
+      ],
+      "version": "0.1.6",
+      "updatedAt": "2025-11-03T20:05:06Z",
+      "representativeQueries": [
+        "get MyGene.info annotation for TP53",
+        "look up the variant rs7412 in MyVariant.info",
+        "find MyChem.info records for remdesivir",
+        "resolve the NCBI taxonomy entry for Plasmodium falciparum"
+      ],
+      "capabilities": [
+        "biothings_query_genes",
+        "biothings_get_gene",
+        "biothings_query_variants",
+        "biothings_get_variant",
+        "biothings_query_chems",
+        "biothings_get_chem",
+        "biothings_get_taxon",
+        "biothings_query_taxons",
+        "biothings_download_entrez_data"
+      ],
+      "cat:profile": [
+        "general-bio"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "repository",
+      "cat:homepage": "https://github.com/longevity-genie/biothings-mcp",
+      "cat:source": "https://github.com/longevity-genie/biothings-mcp",
+      "cat:transport": [
+        "stdio",
+        "streamable-http (self-hosted)",
+        "sse"
+      ],
+      "cat:auth": "none",
+      "cat:install": "uvx biothings-mcp",
+      "cat:license": "MIT",
+      "cat:dataSources": [
+        "MyGene.info",
+        "MyVariant.info",
+        "MyChem.info",
+        "BioThings taxonomy",
+        "NCBI Entrez"
+      ],
+      "cat:dataTerms": "BioThings APIs are free/open; underlying aggregated sources keep their own terms (e.g. some MyVariant sources are non-commercial).",
+      "cat:lastCommit": "2025-11-03T20:05:06Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "local stdio handshake + tools/list (19 tools)",
+      "cat:reviewNotes": "Works today (19 tools listed), MIT, 37 stars. But no commits for ~12 months, so treat as maintenance-mode. Fine-grained tools (19) cost more context than BioMCP, which already reaches MyGene/MyVariant/MyChem. Has local file-download tools that write to disk -- set an output dir. Part of the Holy Bio MCP bundle.",
+      "cat:foundVia": "user list"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:bioportal-mcp",
+      "displayName": "BioPortal MCP (NCBO)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://bioportal.fastmcp.app/mcp",
+      "description": "NCBO BioPortal ontology search: find ontology terms/classes and properties across BioPortal's ontologies, plus ontology usage analytics.",
+      "tags": [
+        "ontologies",
+        "semantics",
+        "terminology",
+        "annotation"
+      ],
+      "version": "0.1.1",
+      "updatedAt": "2025-12-01T21:49:57Z",
+      "representativeQueries": [
+        "find the NCIT term for lung adenocarcinoma",
+        "which ontologies define a property called part_of",
+        "search Cell Ontology for T helper 17 cell",
+        "how often was the MONDO ontology viewed in BioPortal last year"
+      ],
+      "capabilities": [
+        "search_ontology_terms",
+        "search_ontology_properties",
+        "get_ontology_analytics"
+      ],
+      "cat:profile": [
+        "general-bio",
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "mcp-endpoint",
+      "cat:homepage": "https://bioportal.bioontology.org/",
+      "cat:source": "https://github.com/ncbo/bioportal-mcp",
+      "cat:transport": [
+        "stdio",
+        "streamable-http (hosted on FastMCP Cloud)"
+      ],
+      "cat:auth": "BioPortal API key (BIOPORTAL_API_KEY) for local use; hosted endpoint answered initialize/tools/list without a key",
+      "cat:install": "pip install -e . (from repo); PyPI: bioportal-mcp 0.1.1",
+      "cat:license": "BSD-3-Clause (stated in README; GitHub shows no detected license file)",
+      "cat:dataSources": [
+        "NCBO BioPortal REST API"
+      ],
+      "cat:dataTerms": "BioPortal terms of use apply; individual ontologies carry their own licenses (some restrict redistribution, e.g. SNOMED CT, MedDRA).",
+      "cat:lastCommit": "2025-12-01T21:49:57Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "remote Streamable HTTP handshake + tools/list (server bioportal_mcp)",
+      "cat:reviewNotes": "Official NCBO repo (Stanford), small and focused (3 tools). Hosted on a fastmcp.app (FastMCP Cloud) URL rather than a bioontology.org domain, so availability depends on that deployment; no commits for ~11 months. Overlaps with EMBL-EBI OLS4 (default) -- keep this optional for NCIT/BioPortal-only ontologies.",
+      "cat:foundVia": "user list"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:gget-mcp",
+      "displayName": "gget MCP (longevity-genie)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/longevity-genie/gget-mcp",
+      "description": "MCP wrapper for the gget bioinformatics library (Pachter lab), which gives one-line access to Ensembl search/info/sequence, BLAST/BLAT, MUSCLE/DIAMOND alignment, ARCHS4 expression, Enrichr, Bgee, PDB, AlphaFold, ELM, COSMIC, Open Targets and CELLxGENE.",
+      "tags": [
+        "genomics",
+        "sequences",
+        "alignment",
+        "expression",
+        "enrichment",
+        "structure"
+      ],
+      "version": "0.3.1",
+      "updatedAt": "2025-10-27T14:48:14Z",
+      "representativeQueries": [
+        "BLAST this protein sequence and show the top hits",
+        "get the Ensembl IDs and canonical transcript for ACE2",
+        "run Enrichr on this list of differentially expressed genes",
+        "which tissues express IFITM3 most highly according to ARCHS4"
+      ],
+      "capabilities": [
+        "gget_search",
+        "gget_info",
+        "gget_seq",
+        "gget_ref",
+        "gget_blast",
+        "gget_blat",
+        "gget_muscle",
+        "gget_diamond",
+        "gget_archs4",
+        "gget_enrichr",
+        "gget_bgee",
+        "gget_pdb",
+        "gget_alphafold",
+        "gget_elm",
+        "gget_cosmic",
+        "gget_mutate",
+        "gget_opentargets",
+        "gget_cellxgene"
+      ],
+      "cat:profile": [
+        "general-bio"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "repository",
+      "cat:homepage": "https://github.com/pachterlab/gget",
+      "cat:source": "https://github.com/longevity-genie/gget-mcp",
+      "cat:transport": [
+        "stdio",
+        "streamable-http (self-hosted, default port 3002)",
+        "sse"
+      ],
+      "cat:auth": "none for most tools; COSMIC requires a COSMIC account",
+      "cat:install": "uvx gget-mcp stdio",
+      "cat:license": "MIT (wrapper); gget itself is BSD-2-Clause",
+      "cat:dataSources": [
+        "Ensembl",
+        "NCBI BLAST",
+        "UCSC BLAT",
+        "ARCHS4",
+        "Enrichr",
+        "Bgee",
+        "RCSB PDB",
+        "AlphaFold",
+        "ELM",
+        "COSMIC",
+        "Open Targets",
+        "CELLxGENE"
+      ],
+      "cat:dataTerms": "Per upstream; COSMIC is licensed (non-commercial academic free with registration); ELM is academic-use.",
+      "cat:lastCommit": "2025-10-27T14:48:14Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "local stdio handshake + tools/list (20 tools incl. gget_setup)",
+      "cat:reviewNotes": "About gget: a widely used Python/CLI toolkit (Luebbert & Pachter, Bioinformatics 2023) that wraps many genomic web services behind short commands -- this MCP exposes those commands as tools. Works today; MIT; 33 stars. Wrapper last released 2025-10 while gget itself is at 0.30.8 (2026-06), so the wrapper may lag gget. Some tools (BLAST, AlphaFold, gget_setup) are slow or install heavy dependencies; gget_cosmic needs credentials. Good optional sequence/alignment toolbox.",
+      "cat:foundVia": "user list"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:opengenes-mcp",
+      "displayName": "OpenGenes MCP (longevity-genie)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/longevity-genie/opengenes-mcp",
+      "description": "Read-only SQL access to the OpenGenes database of aging/longevity-associated genes (lifespan experiments, gene-hallmark links, longevity associations).",
+      "tags": [
+        "aging",
+        "longevity",
+        "genes",
+        "sql"
+      ],
+      "version": "0.2.0",
+      "updatedAt": "2025-10-14T21:36:07Z",
+      "representativeQueries": [
+        "which genes extend lifespan in mice when overexpressed",
+        "list longevity-associated variants reported for FOXO3",
+        "what aging hallmarks are linked to SIRT6"
+      ],
+      "capabilities": [
+        "opengenes_db_query",
+        "opengenes_get_schema_info",
+        "opengenes_example_queries"
+      ],
+      "cat:profile": [
+        "general-bio"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "repository",
+      "cat:homepage": "https://open-genes.com/",
+      "cat:source": "https://github.com/longevity-genie/opengenes-mcp",
+      "cat:transport": [
+        "stdio",
+        "streamable-http (self-hosted)",
+        "sse"
+      ],
+      "cat:auth": "none (downloads data snapshot from Hugging Face longevity-genie/bio-mcp-data)",
+      "cat:install": "uvx opengenes-mcp stdio",
+      "cat:license": "MIT",
+      "cat:dataSources": [
+        "OpenGenes (snapshot via Hugging Face)"
+      ],
+      "cat:dataTerms": "OpenGenes data terms apply; snapshot is redistributed by the wrapper authors -- check currency against open-genes.com.",
+      "cat:lastCommit": "2025-10-14T21:36:07Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "local stdio handshake + tools/list",
+      "cat:reviewNotes": "Niche (aging biology), not core NIH/NIAID. Works, MIT, 21 stars, but ~13 months without commits and serves a frozen SQLite snapshot rather than the live database. Text-to-SQL pattern is clean (schema + example-query tools). Optional.",
+      "cat:foundVia": "user list"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:synergy-age-mcp",
+      "displayName": "SynergyAge MCP (longevity-genie)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/longevity-genie/synergy-age-mcp",
+      "description": "Read-only SQL access to SynergyAge, a curated database of synergistic, antagonistic and additive genetic interventions affecting lifespan in model organisms.",
+      "tags": [
+        "aging",
+        "longevity",
+        "epistasis",
+        "model-organisms",
+        "sql"
+      ],
+      "version": "0.1.0",
+      "updatedAt": "2025-08-25T22:34:34Z",
+      "representativeQueries": [
+        "which double mutants in C. elegans show synergistic lifespan extension",
+        "list epistatic interactions involving daf-2"
+      ],
+      "capabilities": [
+        "synergyage_db_query",
+        "synergyage_get_schema_info",
+        "synergyage_example_queries"
+      ],
+      "cat:profile": [
+        "general-bio"
+      ],
+      "cat:role": "watch",
+      "cat:status": "stale",
+      "cat:urlKind": "repository",
+      "cat:homepage": "https://www.synergyage.info/",
+      "cat:source": "https://github.com/longevity-genie/synergy-age-mcp",
+      "cat:transport": [
+        "stdio",
+        "streamable-http (self-hosted)",
+        "sse"
+      ],
+      "cat:auth": "none (downloads data snapshot from Hugging Face)",
+      "cat:install": "uvx synergy-age-mcp",
+      "cat:license": "MIT",
+      "cat:dataSources": [
+        "SynergyAge (snapshot via Hugging Face)"
+      ],
+      "cat:dataTerms": "SynergyAge terms apply; frozen snapshot.",
+      "cat:lastCommit": "2025-08-25T22:34:34Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "local stdio handshake + tools/list (3 tools)",
+      "cat:reviewNotes": "Runs, but: only PyPI release is 0.1.0 (2025-06), last commit 2025-08, 10 stars, and the README is out of sync with the published package (`synergy-age-mcp stdio` exits with \"unrecognized arguments\"; plain `uvx synergy-age-mcp` works). README also has malformed `httpss://` links. Very narrow scope. Watch only.",
+      "cat:foundVia": "user list"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:biomni",
+      "displayName": "Biomni (Stanford SNAP) -- self-exported MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/snap-stanford/Biomni",
+      "description": "General-purpose biomedical AI agent (A1) with a large tool library, a data lake and a know-how library. It is an agent, not a hosted MCP server: it can import external MCP servers, and can export chosen Biomni tool modules as a local stdio MCP server via agent.create_mcp_server(tool_modules=[...]).",
+      "tags": [
+        "agent",
+        "genomics",
+        "gene-editing",
+        "single-cell",
+        "database-queries"
+      ],
+      "updatedAt": "2026-11-09T19:06:15Z",
+      "representativeQueries": [
+        "prioritize candidate genes for a CRISPR screen on T cell exhaustion",
+        "query biomedical databases for genes linked to a GWAS trait"
+      ],
+      "cat:profile": [
+        "general-bio"
+      ],
+      "cat:role": "watch",
+      "cat:status": "alive",
+      "cat:urlKind": "repository",
+      "cat:homepage": "https://biomni.stanford.edu",
+      "cat:source": "https://github.com/snap-stanford/Biomni",
+      "cat:transport": [
+        "stdio (only when you write a small Python launcher)"
+      ],
+      "cat:auth": "needs an LLM provider key for the agent itself; module export does not",
+      "cat:install": "conda env (biomni_e1) + pip install biomni; then a Python script calling A1().create_mcp_server(...).run(transport='stdio')",
+      "cat:license": "Apache-2.0 (code); README warns some integrated tools/databases carry more restrictive commercial licenses",
+      "cat:dataSources": [
+        "Biomni data lake (~11 GB",
+        "auto-downloaded on first run)",
+        "many public databases"
+      ],
+      "cat:dataTerms": "Mixed; README says review each component before commercial use. Know-How library tracks commercial-use flags.",
+      "cat:lastCommit": "2026-11-09T19:06:15Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "repo + docs/mcp_integration.md read; not run (heavy env)",
+      "cat:reviewNotes": "Impressive and very active (4,079 stars), but recorded accurately: biomni.stanford.edu is a web UI for the agent, and there is no published MCP endpoint, package entry point, or registry listing. To use it as an MCP server you build the environment (large), download an ~11 GB data lake, and export modules yourself. More useful as an MCP *consumer* that could load this catalog's servers. Watch.",
+      "cat:foundVia": "user list"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:brc-analytics",
+      "displayName": "BRC Analytics MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://brc-analytics.org/api/v1/mcp/",
+      "description": "Public read-only MCP for the NIAID-funded BRC Analytics platform: organisms, assemblies, Galaxy workflow catalog and compatibility, ENA and SRA search, and Logan k-mer search jobs.",
+      "tags": [
+        "pathogens",
+        "niaid",
+        "brc",
+        "genome-assemblies",
+        "workflows",
+        "ena",
+        "sra"
+      ],
+      "version": "3.4.10",
+      "updatedAt": "2026-11-13T19:44:24Z",
+      "representativeQueries": [
+        "which genome assemblies are available for Mycobacterium tuberculosis",
+        "what Galaxy workflows can run variant calling on this assembly",
+        "find SRA runs for dengue virus from Brazil",
+        "search ENA for sequencing studies on Candida auris"
+      ],
+      "capabilities": [
+        "search_organisms",
+        "get_organism",
+        "get_assemblies",
+        "get_assembly_details",
+        "list_workflow_categories",
+        "get_workflows_in_category",
+        "get_compatible_workflows",
+        "get_workflow_details",
+        "check_compatibility",
+        "resolve_workflow_inputs",
+        "search_ena",
+        "search_ena_keywords",
+        "search_sra",
+        "sra_data_summary",
+        "get_sra_study_runs",
+        "logan_submit",
+        "logan_job_status",
+        "logan_hits",
+        "logan_cohort",
+        "logan_list_indexes",
+        "logan_queue"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "default",
+      "cat:status": "alive",
+      "cat:urlKind": "mcp-endpoint",
+      "cat:homepage": "https://brc-analytics.org/learn/mcp",
+      "cat:source": "https://github.com/galaxyproject/brc-analytics",
+      "cat:transport": [
+        "streamable-http (hosted)"
+      ],
+      "cat:auth": "none",
+      "cat:install": "remote: add https://brc-analytics.org/api/v1/mcp/ as a Streamable HTTP server",
+      "cat:license": "MIT (platform code)",
+      "cat:dataSources": [
+        "BRC Analytics catalog",
+        "NCBI assemblies",
+        "ENA",
+        "SRA",
+        "Logan",
+        "Galaxy workflows (IWC)"
+      ],
+      "cat:dataTerms": "Public INSDC data (ENA/SRA) -- open; cite BRC Analytics and original submitters.",
+      "cat:lastCommit": "2026-11-13T19:44:24Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "remote handshake + tools/list (server BRC Analytics 3.4.10, 21 tools)",
+      "cat:reviewNotes": "The most NIAID-relevant server here: institutional, hosted, no auth, actively developed (Galaxy project). Read-only except logan_submit, which starts a remote search job. Does not launch Galaxy workflows itself -- pair with Galaxy MCP for that.",
+      "cat:foundVia": "prior report (mcp-collections-research, sec. 3.3)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:bv-brc-mcp",
+      "displayName": "BV-BRC MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://github.com/BV-BRC/BV-BRC-MCP",
+      "description": "MCP server for the NIAID Bacterial and Viral Bioinformatics Resource Center: Solr data queries, analysis job submission (assembly, annotation, BLAST, etc.) and workspace tools.",
+      "tags": [
+        "pathogens",
+        "niaid",
+        "bacteria",
+        "viruses",
+        "bv-brc",
+        "annotation"
+      ],
+      "updatedAt": "2026-02-25T15:52:03Z",
+      "representativeQueries": [
+        "find all Klebsiella pneumoniae genomes with carbapenem resistance genes in BV-BRC",
+        "submit a genome annotation job for this assembly",
+        "list the files in my BV-BRC workspace"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "watch",
+      "cat:status": "unverified",
+      "cat:urlKind": "repository",
+      "cat:homepage": "https://www.bv-brc.org/",
+      "cat:source": "https://github.com/BV-BRC/BV-BRC-MCP",
+      "cat:transport": [
+        "streamable-http (documented remote dev host, OAuth)",
+        "stdio/local via cucinellclark/bvbrc-mcp-server"
+      ],
+      "cat:auth": "OAuth / BV-BRC account",
+      "cat:install": "documented remote: https://dev-7.bv-brc.org/mcp (OAuth)",
+      "cat:license": "none declared on GitHub",
+      "cat:dataSources": [
+        "BV-BRC data API",
+        "BV-BRC workspace and app services"
+      ],
+      "cat:dataTerms": "BV-BRC terms of use; private workspace data requires your account.",
+      "cat:lastCommit": "2026-02-25T15:52:03Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "probe failed: dev-7 host returned Cloudflare 403 (python client) / 404 (curl) to unauthenticated initialize",
+      "cat:reviewNotes": "Highly relevant to NIAID but not ready: documented endpoint is a dev host, unauthenticated handshake did not succeed on 2026-11-13, repo has 0 stars, no license file, and no commits since 2026-02. Re-check; ask BV-BRC for a production URL.",
+      "cat:foundVia": "prior report (mcp-collections-research, sec. 3.3)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:togomcp",
+      "displayName": "TogoMCP (DBCLS RDF Portal)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://togomcp.rdfportal.org/mcp",
+      "description": "Life-science MCP over the RDF Portal: SPARQL across 50+ databases, entity search for UniProt, PubChem, PDB, MeSH, Reactome, Rhea, ChEMBL, TogoVar, NCBI E-utilities, and TogoID identifier conversion across 65+ ID systems.",
+      "tags": [
+        "rdf",
+        "sparql",
+        "identifiers",
+        "proteins",
+        "compounds",
+        "pathways",
+        "variants",
+        "fair"
+      ],
+      "version": "2.32.1",
+      "updatedAt": "2026-11-11T08:51:15Z",
+      "representativeQueries": [
+        "convert these UniProt accessions to NCBI Gene IDs",
+        "write and run a SPARQL query for human proteins annotated with a GO term",
+        "search PubChem and ChEMBL for compounds similar to oseltamivir",
+        "find NCBI records for SARS-CoV-2 spike protein structures"
+      ],
+      "capabilities": [
+        "run_sparql",
+        "get_sparql_endpoints",
+        "get_graph_list",
+        "get_MIE_file",
+        "get_workflow",
+        "search_uniprot_entity",
+        "search_pdb_entity",
+        "search_mesh_descriptor",
+        "search_reactome_entity",
+        "search_rhea_entity",
+        "search_chembl_molecule",
+        "search_chembl_target",
+        "get_pubchem_compound_id",
+        "togoid_convertId",
+        "togoid_identifyId",
+        "ncbi_esearch",
+        "ncbi_esummary",
+        "ncbi_efetch",
+        "togovar_search_variant",
+        "pubcasefinder_rank_by_phenotypes"
+      ],
+      "cat:profile": [
+        "general-bio",
+        "nih-niaid-research"
+      ],
+      "cat:role": "default",
+      "cat:status": "alive",
+      "cat:urlKind": "mcp-endpoint",
+      "cat:homepage": "https://togomcp.rdfportal.org/",
+      "cat:source": "https://github.com/dbcls/togomcp",
+      "cat:transport": [
+        "streamable-http (hosted)",
+        "stdio (local)"
+      ],
+      "cat:auth": "none",
+      "cat:install": "remote: https://togomcp.rdfportal.org/mcp",
+      "cat:license": "MIT (code only)",
+      "cat:dataSources": [
+        "RDF Portal (UniProt",
+        "PubChem",
+        "ChEMBL",
+        "PDB",
+        "Reactome",
+        "Rhea",
+        "MeSH",
+        "ClinVar",
+        "NCBI Taxonomy",
+        "TogoVar and others)",
+        "NCBI E-utilities",
+        "TogoID",
+        "PubCaseFinder"
+      ],
+      "cat:dataTerms": "Per database; KEGG tools are disabled on the hosted server (academic-only license, local stdio opt-in).",
+      "cat:lastCommit": "2026-11-11T08:51:15Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "remote handshake + tools/list (33 tools)",
+      "cat:reviewNotes": "Excellent FAIR fit: SPARQL + identifier mapping + a query-provenance workflow; published (Kinjo et al., Database 2026). All tools annotated read-only. 33 tools is on the heavy side; its usage-guide tool helps the agent choose.",
+      "cat:foundVia": "prior report (mcp-collections-research, sec. 3.1)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:ebi-ols4",
+      "displayName": "EMBL-EBI Ontology Lookup Service (OLS4) MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://www.ebi.ac.uk/ols4/api/mcp",
+      "description": "EMBL-EBI hosted MCP for OLS4: search the biomedical ontologies indexed by OLS, walk ancestors/descendants, and embedding-based similar-class search.",
+      "tags": [
+        "ontologies",
+        "terminology",
+        "embl-ebi",
+        "semantics"
+      ],
+      "version": "1.0.0",
+      "representativeQueries": [
+        "find the MONDO term for tuberculosis and its parent classes",
+        "list descendants of 'viral infectious disease' in the Disease Ontology",
+        "which ontology terms are semantically similar to 'cytokine storm'"
+      ],
+      "capabilities": [
+        "search",
+        "searchClasses",
+        "fetch",
+        "getAncestors",
+        "getDescendants",
+        "getChildren",
+        "getSimilarClasses",
+        "getClassSimilarity",
+        "listOntologies",
+        "listEmbeddingModels",
+        "searchWithEmbeddingModel",
+        "searchClassesWithEmbeddingModel"
+      ],
+      "cat:profile": [
+        "general-bio",
+        "nih-niaid-research"
+      ],
+      "cat:role": "default",
+      "cat:status": "alive",
+      "cat:urlKind": "mcp-endpoint",
+      "cat:homepage": "https://www.ebi.ac.uk/ols4/mcp",
+      "cat:transport": [
+        "streamable-http (hosted)"
+      ],
+      "cat:auth": "none",
+      "cat:install": "remote: https://www.ebi.ac.uk/ols4/api/mcp",
+      "cat:license": "OLS is Apache-2.0 open source; hosted service under EMBL-EBI terms of use",
+      "cat:dataSources": [
+        "OLS4 ontology index (OBO Foundry and others)"
+      ],
+      "cat:dataTerms": "EMBL-EBI terms of use; each ontology keeps its own license.",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "remote handshake + tools/list (12 tools)",
+      "cat:reviewNotes": "Institutional, hosted, no auth. Note the endpoint is /ols4/api/mcp; /ols4/mcp is the human docs page (POST returns 405). Ontology grounding is the cheapest way to reduce hallucinated terms, hence default. Also listed by Cracking Shells' interim list.",
+      "cat:foundVia": "prior report (sec. 3.3); confirmed by CrackingShells/mcp-servers list"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:ebi-interpro",
+      "displayName": "EMBL-EBI InterPro MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://www.ebi.ac.uk/interpro/mcp",
+      "description": "EMBL-EBI hosted MCP for InterPro: protein families, domains, domain architectures, GO-term search, taxonomic distribution and sequence analysis.",
+      "tags": [
+        "proteins",
+        "domains",
+        "families",
+        "embl-ebi"
+      ],
+      "version": "0.1.0",
+      "representativeQueries": [
+        "what domains does this protein sequence contain",
+        "which proteins share the domain architecture of human ACE2",
+        "show the taxonomic distribution of the Pfam family PF00069"
+      ],
+      "capabilities": [
+        "searchInterPro",
+        "getEntry",
+        "browseEntries",
+        "getEntryProteins",
+        "getEntryStructures",
+        "getProteinEntries",
+        "getDomainArchitectures",
+        "searchDomainArchitectures",
+        "searchByGoTerm",
+        "getTaxonomicDistribution",
+        "analyzeSequence",
+        "getSequenceAnalysis",
+        "matchSequences"
+      ],
+      "cat:profile": [
+        "general-bio"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "mcp-endpoint",
+      "cat:homepage": "https://www.ebi.ac.uk/interpro/",
+      "cat:transport": [
+        "streamable-http (hosted)"
+      ],
+      "cat:auth": "none",
+      "cat:install": "remote: https://www.ebi.ac.uk/interpro/mcp",
+      "cat:license": "hosted service under EMBL-EBI terms of use",
+      "cat:dataSources": [
+        "InterPro",
+        "Pfam",
+        "member databases"
+      ],
+      "cat:dataTerms": "InterPro data is CC0; member databases keep their own terms.",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "remote handshake + tools/list (13 tools)",
+      "cat:reviewNotes": "Institutional and hosted; version 0.1.0 suggests early. No public source repo identified.",
+      "cat:foundVia": "prior report (sec. 3.3)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:pdbe-mcp",
+      "displayName": "PDBe MCP Servers (EMBL-EBI)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://wwwdev.ebi.ac.uk/pdbe/mcp/all/",
+      "description": "Official Protein Data Bank in Europe MCP servers: PDBe API, search, apps and the PDBe graph database (Cypher) for structures, ligands, interactions and annotations.",
+      "tags": [
+        "structures",
+        "proteins",
+        "ligands",
+        "pdb",
+        "embl-ebi"
+      ],
+      "version": "1.30.0",
+      "updatedAt": "2026-11-13T09:45:48Z",
+      "representativeQueries": [
+        "find X-ray structures for UniProt P0DTC2 below 2.5 angstrom resolution",
+        "which ligands bind the SARS-CoV-2 main protease in PDB entries",
+        "write a graph query for structures sharing a binding site with this ligand"
+      ],
+      "cat:profile": [
+        "general-bio"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "mcp-endpoint",
+      "cat:homepage": "https://github.com/PDBeurope/PDBe-MCP-Servers",
+      "cat:source": "https://github.com/PDBeurope/PDBe-MCP-Servers",
+      "cat:transport": [
+        "streamable-http (hosted beta)",
+        "stdio"
+      ],
+      "cat:auth": "none",
+      "cat:install": "uvx pdbe-mcp-server --server-type pdbe_api_server   # or remote beta URL",
+      "cat:license": "Apache-2.0",
+      "cat:dataSources": [
+        "PDBe API",
+        "PDBe search",
+        "PDBe graph database"
+      ],
+      "cat:dataTerms": "PDB data are CC0.",
+      "cat:lastCommit": "2026-11-13T09:45:48Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "remote handshake + tools/list on beta host (60 tools for server-type all)",
+      "cat:reviewNotes": "Official, active (44 stars). The hosted URL is a *wwwdev* beta whose interface may change, and the `all` server exposes 60 auto-generated tools -- prefer a narrower --server-type locally to limit tool overload.",
+      "cat:foundVia": "X: https://x.com/PDBeurope/status/2059651796537069748"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:open-targets-platform",
+      "displayName": "Open Targets Platform MCP (official)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://mcp.platform.opentargets.org/mcp",
+      "description": "Official Open Targets MCP: entity search plus schema-guided GraphQL queries over target-disease associations, genetics, drugs and safety evidence.",
+      "tags": [
+        "drug-discovery",
+        "targets",
+        "diseases",
+        "genetics",
+        "graphql"
+      ],
+      "version": "2026.7.1",
+      "updatedAt": "2026-06-15T11:29:45Z",
+      "representativeQueries": [
+        "what are the top targets associated with systemic lupus erythematosus",
+        "what genetic evidence links IL23R to Crohn's disease",
+        "which approved drugs target JAK1 and for what indications"
+      ],
+      "capabilities": [
+        "search_entities",
+        "get_open_targets_graphql_schema",
+        "get_type_dependencies",
+        "query_open_targets_graphql",
+        "batch_query_open_targets_graphql"
+      ],
+      "cat:profile": [
+        "general-bio"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "mcp-endpoint",
+      "cat:homepage": "https://platform-docs.opentargets.org/data-access/model-context-protocol",
+      "cat:source": "https://github.com/opentargets/platform-mcp",
+      "cat:transport": [
+        "streamable-http (hosted)",
+        "stdio"
+      ],
+      "cat:auth": "none",
+      "cat:install": "remote, or: uvx --from git+https://github.com/opentargets/open-targets-platform-mcp otp-mcp --transport stdio",
+      "cat:license": "Apache-2.0",
+      "cat:dataSources": [
+        "Open Targets Platform GraphQL API"
+      ],
+      "cat:dataTerms": "Open Targets Platform data are CC0.",
+      "cat:lastCommit": "2026-06-15T11:29:45Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "remote handshake + tools/list (5 tools)",
+      "cat:reviewNotes": "Official (Open Targets with Anthropic, announced 2026-01-12); small tool surface; labelled experimental. Repo was renamed (open-targets-platform-mcp -> platform-mcp).",
+      "cat:foundVia": "X: https://x.com/OpenTargets/status/2010706757891358918"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:galaxy-mcp",
+      "displayName": "Galaxy MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.galaxyproject%2Fgalaxy-mcp/versions/latest",
+      "description": "Official Galaxy project MCP: connect to any Galaxy instance, manage histories and datasets, search and run Galaxy tools and workflows.",
+      "tags": [
+        "workflows",
+        "galaxy",
+        "analysis",
+        "execution"
+      ],
+      "version": "1.12.0",
+      "updatedAt": "2026-11-13T09:20:56Z",
+      "representativeQueries": [
+        "upload these FASTQ files to a new Galaxy history and run FastQC",
+        "find a Galaxy tool for viral genome assembly and show its inputs",
+        "check the status and logs of my last Galaxy job"
+      ],
+      "capabilities": [
+        "connect",
+        "get_histories",
+        "create_history",
+        "get_history_contents",
+        "upload_file",
+        "upload_file_from_url",
+        "search_tools_by_name",
+        "search_tools_by_keywords",
+        "get_tool_details",
+        "get_job_details",
+        "get_job_logs",
+        "list_jobs"
+      ],
+      "cat:profile": [
+        "nih-niaid-research",
+        "general-bio"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "registry-server-json",
+      "cat:homepage": "https://github.com/galaxyproject/galaxy-mcp",
+      "cat:source": "https://github.com/galaxyproject/galaxy-mcp",
+      "cat:transport": [
+        "stdio",
+        "streamable-http (self-hosted, OAuth)"
+      ],
+      "cat:auth": "Galaxy API key (GALAXY_URL + GALAXY_API_KEY) or OAuth in HTTP mode",
+      "cat:install": "uvx galaxy-mcp",
+      "cat:license": "MIT",
+      "cat:dataSources": [
+        "any Galaxy server",
+        "e.g. usegalaxy.org"
+      ],
+      "cat:dataTerms": "Galaxy server terms; your histories are your data.",
+      "cat:lastCommit": "2026-11-13T09:20:56Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "repo/PyPI/registry checked; not run (needs a Galaxy API key)",
+      "cat:reviewNotes": "The execution half that BRC Analytics lacks. Write-capable (creates histories, runs jobs) -- keep optional and scope the API key. Has an experimental 3-tool discovery mode. The official registry entry is stale (1.3.0 vs PyPI 1.12.0).",
+      "cat:foundVia": "MCP Registry (io.github.galaxyproject/galaxy-mcp)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:tooluniverse",
+      "displayName": "ToolUniverse (Harvard Zitnik lab)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.mims-harvard%2Ftooluniverse/versions/latest",
+      "description": "Mega-server of 2,700+ scientific tools (databases, ML models, literature search) for AI-scientist systems, with a compact mode that exposes only a few discovery tools.",
+      "tags": [
+        "mega-server",
+        "literature",
+        "databases",
+        "ml-models",
+        "drug-discovery"
+      ],
+      "version": "1.5.9",
+      "updatedAt": "2026-11-13T12:58:54Z",
+      "representativeQueries": [
+        "find a tool that predicts drug-target binding and run it on this compound",
+        "search Europe PMC and Semantic Scholar for recent papers on H5N1 transmission",
+        "what does FDA labeling say about drug interactions for nirmatrelvir"
+      ],
+      "cat:profile": [
+        "general-bio"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "registry-server-json",
+      "cat:homepage": "https://aiscientist.tools/",
+      "cat:source": "https://github.com/mims-harvard/ToolUniverse",
+      "cat:transport": [
+        "stdio",
+        "streamable-http (self-hosted)"
+      ],
+      "cat:auth": "none for most tools; some tools need provider keys",
+      "cat:install": "uvx tooluniverse",
+      "cat:license": "Apache-2.0",
+      "cat:dataSources": [
+        "hundreds of public APIs (ChEMBL",
+        "PubMed",
+        "UniProt",
+        "GTEx",
+        "openFDA",
+        "...)"
+      ],
+      "cat:dataTerms": "Per tool/upstream.",
+      "cat:lastCommit": "2026-11-13T12:58:54Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "repo/PyPI/registry checked; not run",
+      "cat:reviewNotes": "Very active (1,789 stars), paper on arXiv (2509.23426). Breadth is the risk: use compact mode or category filters or it floods context. Capabilities left blank on purpose (too many to list; depends on mode).",
+      "cat:foundVia": "prior report; X: https://x.com/ScientistTools/status/2015535013597450648"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:pubmed-cyanheads",
+      "displayName": "PubMed MCP Server (cyanheads)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://pubmed.caseyjhand.com/mcp",
+      "description": "Search PubMed and Europe PMC, fetch metadata and full text (PMC/EPMC/Unpaywall), citations and citation metrics, MeSH lookup and ID conversion.",
+      "tags": [
+        "literature",
+        "pubmed",
+        "europe-pmc",
+        "mesh",
+        "citations"
+      ],
+      "version": "2.12.2",
+      "updatedAt": "2026-11-13T14:58:31Z",
+      "representativeQueries": [
+        "find 2026 PubMed reviews on long COVID immunology",
+        "fetch the full text of PMC article PMC1234567 and summarize the methods",
+        "format these PMIDs as APA citations",
+        "what MeSH terms describe antimicrobial resistance"
+      ],
+      "capabilities": [
+        "pubmed_search_articles",
+        "pubmed_fetch_articles",
+        "pubmed_fetch_fulltext",
+        "pubmed_format_citations",
+        "pubmed_find_related",
+        "pubmed_spell_check",
+        "pubmed_lookup_mesh",
+        "pubmed_lookup_citation",
+        "pubmed_convert_ids",
+        "pubmed_fetch_citation_metrics",
+        "pubmed_europepmc_search",
+        "pubmed_europepmc_fetch"
+      ],
+      "cat:profile": [
+        "general-bio",
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "mcp-endpoint",
+      "cat:homepage": "https://github.com/cyanheads/pubmed-mcp-server",
+      "cat:source": "https://github.com/cyanheads/pubmed-mcp-server",
+      "cat:transport": [
+        "streamable-http (hosted by author)",
+        "stdio"
+      ],
+      "cat:auth": "none (optional NCBI API key when self-hosted)",
+      "cat:install": "npx -y @cyanheads/pubmed-mcp-server   # or remote URL",
+      "cat:license": "Apache-2.0",
+      "cat:dataSources": [
+        "NCBI E-utilities (PubMed",
+        "PMC)",
+        "Europe PMC",
+        "Unpaywall",
+        "iCite"
+      ],
+      "cat:dataTerms": "NCBI E-utilities usage policy (rate limits, tool/email); article text copyright per publisher.",
+      "cat:lastCommit": "2026-11-13T14:58:31Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "remote handshake + tools/list; also publishes /.well-known/mcp.json",
+      "cat:reviewNotes": "Well-engineered, very active (168 stars), listed in the official registry. Hosted endpoint is an individual developer's domain -- fine for exploration, self-host for anything you depend on. Overlaps BioMCP's literature leg.",
+      "cat:foundVia": "MCP Registry; X: https://x.com/AIDailyGems/status/2039189529941229834"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:clinicaltrialsgov-cyanheads",
+      "displayName": "ClinicalTrials.gov MCP Server (cyanheads)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://clinicaltrials.caseyjhand.com/mcp",
+      "description": "Search ClinicalTrials.gov (API v2), fetch study records and posted results, field definitions and counts, and match patient profiles to candidate trials.",
+      "tags": [
+        "clinical-trials",
+        "nih",
+        "nlm"
+      ],
+      "version": "2.11.3",
+      "updatedAt": "2026-11-13T15:05:54Z",
+      "representativeQueries": [
+        "how many NIAID-sponsored HIV vaccine trials are recruiting",
+        "get posted results for NCT04368728",
+        "find trials an adult with treatment-resistant tuberculosis might qualify for"
+      ],
+      "capabilities": [
+        "clinicaltrials_search_studies",
+        "clinicaltrials_get_study_record",
+        "clinicaltrials_get_study_count",
+        "clinicaltrials_get_field_values",
+        "clinicaltrials_get_field_definitions",
+        "clinicaltrials_get_study_results",
+        "clinicaltrials_find_eligible"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "mcp-endpoint",
+      "cat:homepage": "https://github.com/cyanheads/clinicaltrialsgov-mcp-server",
+      "cat:source": "https://github.com/cyanheads/clinicaltrialsgov-mcp-server",
+      "cat:transport": [
+        "streamable-http (hosted by author)",
+        "stdio"
+      ],
+      "cat:auth": "none",
+      "cat:install": "npx -y clinicaltrialsgov-mcp-server   # or remote URL",
+      "cat:license": "Apache-2.0",
+      "cat:dataSources": [
+        "ClinicalTrials.gov API v2"
+      ],
+      "cat:dataTerms": "ClinicalTrials.gov data are public (NLM terms and disclaimer apply).",
+      "cat:lastCommit": "2026-11-13T15:05:54Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "remote handshake + tools/list (7 tools)",
+      "cat:reviewNotes": "Deeper trials surface than BioMCP (results, eligibility matching). Same single-maintainer hosting caveat as the PubMed server.",
+      "cat:foundVia": "MCP Registry (io.github.cyanheads/clinicaltrialsgov-mcp-server)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:uniprot-cyanheads",
+      "displayName": "UniProt MCP Server (cyanheads)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://uniprot.caseyjhand.com/mcp",
+      "description": "Search UniProtKB, fetch entries and sequences, map IDs, and look up proteomes and taxonomy.",
+      "tags": [
+        "proteins",
+        "uniprot",
+        "sequences",
+        "id-mapping"
+      ],
+      "version": "0.4.0",
+      "updatedAt": "2026-11-13T11:13:47Z",
+      "representativeQueries": [
+        "get the reviewed UniProt entry for influenza A hemagglutinin H5",
+        "map these UniProt accessions to Ensembl gene IDs",
+        "fetch the reference proteome for Mycobacterium tuberculosis H37Rv"
+      ],
+      "capabilities": [
+        "uniprot_search_proteins",
+        "uniprot_get_entry",
+        "uniprot_map_ids",
+        "uniprot_get_proteome",
+        "uniprot_get_taxonomy",
+        "uniprot_get_sequence"
+      ],
+      "cat:profile": [
+        "general-bio"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "mcp-endpoint",
+      "cat:homepage": "https://github.com/cyanheads/uniprot-mcp-server",
+      "cat:source": "https://github.com/cyanheads/uniprot-mcp-server",
+      "cat:transport": [
+        "streamable-http (hosted by author)",
+        "stdio"
+      ],
+      "cat:auth": "none",
+      "cat:install": "npx -y @cyanheads/uniprot-mcp-server",
+      "cat:license": "Apache-2.0",
+      "cat:dataSources": [
+        "UniProt REST API"
+      ],
+      "cat:dataTerms": "UniProt data are CC BY 4.0.",
+      "cat:lastCommit": "2026-11-13T11:13:47Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "remote handshake + tools/list (6 tools)",
+      "cat:reviewNotes": "Young (0.4.0, 2 stars) but same well-tested framework as the PubMed server. TogoMCP also covers UniProt search; keep optional.",
+      "cat:foundVia": "MCP Registry (io.github.cyanheads/uniprot-mcp-server)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:ensembl-cyanheads",
+      "displayName": "Ensembl MCP Server (cyanheads)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://ensembl.caseyjhand.com/mcp",
+      "description": "Look up genes, fetch sequences, predict variant consequences (VEP), find orthologs and cross-references from Ensembl REST.",
+      "tags": [
+        "genomics",
+        "ensembl",
+        "variants",
+        "orthologs"
+      ],
+      "version": "0.7.1",
+      "updatedAt": "2026-11-13T11:11:51Z",
+      "representativeQueries": [
+        "predict the consequence of this variant with VEP",
+        "find mouse orthologs of human IFNAR1",
+        "get the genomic sequence of chr17:43044295-43125483 in GRCh38"
+      ],
+      "capabilities": [
+        "ensembl_list_species",
+        "ensembl_lookup_gene",
+        "ensembl_get_sequence",
+        "ensembl_query_region",
+        "ensembl_predict_variant",
+        "ensembl_get_homology",
+        "ensembl_get_xrefs"
+      ],
+      "cat:profile": [
+        "general-bio"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "mcp-endpoint",
+      "cat:homepage": "https://github.com/cyanheads/ensembl-mcp-server",
+      "cat:source": "https://github.com/cyanheads/ensembl-mcp-server",
+      "cat:transport": [
+        "streamable-http (hosted by author)",
+        "stdio"
+      ],
+      "cat:auth": "none",
+      "cat:install": "npx -y @cyanheads/ensembl-mcp-server",
+      "cat:license": "Apache-2.0",
+      "cat:dataSources": [
+        "Ensembl REST API"
+      ],
+      "cat:dataTerms": "Ensembl data are freely available without restriction.",
+      "cat:lastCommit": "2026-11-13T11:11:51Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "remote handshake + tools/list (7 tools)",
+      "cat:reviewNotes": "Young (3 stars). Overlaps gget-mcp's Ensembl tools but is more current and hosted.",
+      "cat:foundVia": "MCP Registry (io.github.cyanheads/ensembl-mcp-server)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:fils:bio-nih-mcp:nih-reporter-pipeworx",
+      "displayName": "NIH RePORTER (Pipeworx gateway pack)",
+      "type": "application/mcp-server-card+json",
+      "url": "https://gateway.pipeworx.io/nih-reporter/mcp",
+      "description": "Unofficial MCP pack for NIH RePORTER: search projects and publications, award histories, new awards, funding concentration and expirations, SBIR portfolios.",
+      "tags": [
+        "nih",
+        "grants",
+        "funding",
+        "reporter"
+      ],
+      "version": "0.1.0",
+      "updatedAt": "2026-11-09T14:23:54Z",
+      "representativeQueries": [
+        "which NIAID R01 grants on antimicrobial resistance started in 2026",
+        "list publications linked to this NIH project number",
+        "which NIH grants on tuberculosis expire next year"
+      ],
+      "capabilities": [
+        "search_grants",
+        "nih_reporter_get_project",
+        "nih_reporter_search_publications",
+        "nih_grant_award_history",
+        "nih_new_grant_awards",
+        "nih_funding_concentration",
+        "nih_sbir_company_portfolio",
+        "nih_funding_expirations",
+        "nih_grant_publication_summary"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "watch",
+      "cat:status": "alive",
+      "cat:urlKind": "mcp-endpoint",
+      "cat:homepage": "https://github.com/pipeworx-io/mcp-nih-reporter",
+      "cat:source": "https://github.com/pipeworx-io/mcp-nih-reporter",
+      "cat:transport": [
+        "streamable-http (hosted gateway)"
+      ],
+      "cat:auth": "none",
+      "cat:install": "remote: https://gateway.pipeworx.io/nih-reporter/mcp",
+      "cat:license": "see repo (not checked)",
+      "cat:dataSources": [
+        "NIH RePORTER API"
+      ],
+      "cat:dataTerms": "RePORTER data are public.",
+      "cat:lastCommit": "2026-11-09T14:23:54Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "remote handshake + tools/list (53 tools, only 9 NIH-specific)",
+      "cat:reviewNotes": "Only dedicated RePORTER MCP verified, but the endpoint also injects ~44 unrelated gateway tools (prediction-market analytics, memory remember/recall, web research) and the repo is maintained by an automated agent fleet. Not institutional. BioMCP already reaches NIH RePORTER for gene/disease pivots. Watch; prefer a cleaner RePORTER server if one appears.",
+      "cat:foundVia": "MCP Registry (io.github.pipeworx-io/nih-reporter)"
+    }
+  ]
+}

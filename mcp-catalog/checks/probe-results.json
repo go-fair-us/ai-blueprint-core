@@ -1,0 +1,410 @@
+{
+ "https://brc-analytics.org/api/v1/mcp/": {
+  "status": 200,
+  "serverInfo": {
+   "name": "BRC Analytics",
+   "version": "3.4.10"
+  },
+  "tools": [
+   "search_organisms",
+   "get_organism",
+   "get_assemblies",
+   "get_assembly_details",
+   "list_workflow_categories",
+   "get_workflows_in_category",
+   "get_compatible_workflows",
+   "get_workflow_details",
+   "check_compatibility",
+   "resolve_workflow_inputs",
+   "search_ena",
+   "search_ena_keywords",
+   "search_sra",
+   "sra_data_summary",
+   "get_sra_study_runs",
+   "logan_job_status",
+   "logan_cohort",
+   "logan_hits",
+   "logan_submit",
+   "logan_list_indexes",
+   "logan_queue"
+  ],
+  "err": null
+ },
+ "https://togomcp.rdfportal.org/mcp": {
+  "status": 200,
+  "serverInfo": {
+   "name": "TogoMCP: RDF Portal MCP Server",
+   "version": "2.32.1"
+  },
+  "tools": [
+   "TogoMCP_Usage_Guide",
+   "get_sparql_endpoints",
+   "run_sparql",
+   "get_graph_list",
+   "get_MIE_file",
+   "get_workflow",
+   "search_uniprot_entity",
+   "get_pubchem_compound_id",
+   "get_compound_attributes_from_pubchem",
+   "search_pdb_entity",
+   "search_mesh_descriptor",
+   "search_reactome_entity",
+   "search_rhea_entity",
+   "search_chembl_id_lookup",
+   "search_chembl_target",
+   "search_chembl_molecule",
+   "togoid_getAllRelation",
+   "togoid_getRelation",
+   "togoid_getAllDataset",
+   "togoid_getDataset",
+   "togoid_identifyId",
+   "togoid_getDescription",
+   "togoid_convertId",
+   "togoid_countId",
+   "ncbi_esearch",
+   "ncbi_list_databases",
+   "ncbi_esummary",
+   "ncbi_efetch",
+   "togovar_search_gene",
+   "togovar_search_disease",
+   "togovar_search_variant",
+   "pubcasefinder_rank_by_phenotypes",
+   "pubcasefinder_get_case_reports"
+  ],
+  "err": null
+ },
+ "https://www.ebi.ac.uk/interpro/mcp": {
+  "status": 200,
+  "serverInfo": {
+   "name": "interpro-mcp",
+   "version": "0.1.0"
+  },
+  "tools": [
+   "searchDomainArchitectures",
+   "getEntryStructures",
+   "getDomainArchitectures",
+   "browseEntries",
+   "getSequenceAnalysis",
+   "analyzeSequence",
+   "matchSequences",
+   "getEntryProteins",
+   "searchByGoTerm",
+   "getTaxonomicDistribution",
+   "getProteinEntries",
+   "getEntry",
+   "searchInterPro"
+  ],
+  "err": null
+ },
+ "https://www.ebi.ac.uk/ols4/mcp": {
+  "status": 405,
+  "serverInfo": null,
+  "tools": null,
+  "err": ""
+ },
+ "https://dev-7.bv-brc.org/mcp": {
+  "status": 403,
+  "serverInfo": null,
+  "tools": null,
+  "err": "{\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1010/\",\"title\":\"Error 1010: Access denied\",\"status\":403,\"detail\":\"The site owner has b"
+ },
+ "https://pubmed.caseyjhand.com/mcp": {
+  "status": 200,
+  "serverInfo": {
+   "name": "pubmed-mcp-server",
+   "version": "2.12.2",
+   "title": "pubmed-mcp-server",
+   "description": "Search PubMed/Europe PMC, fetch articles and full text (PMC/EPMC/Unpaywall), citations, MeSH terms via MCP. STDIO or Streamable HTTP."
+  },
+  "tools": [
+   "pubmed_search_articles",
+   "pubmed_fetch_articles",
+   "pubmed_fetch_fulltext",
+   "pubmed_format_citations",
+   "pubmed_find_related",
+   "pubmed_spell_check",
+   "pubmed_lookup_mesh",
+   "pubmed_lookup_citation",
+   "pubmed_convert_ids",
+   "pubmed_fetch_citation_metrics",
+   "pubmed_europepmc_search",
+   "pubmed_europepmc_fetch"
+  ],
+  "err": null
+ },
+ "https://clinicaltrials.caseyjhand.com/mcp": {
+  "status": 200,
+  "serverInfo": {
+   "name": "clinicaltrialsgov-mcp-server",
+   "version": "2.11.3",
+   "title": "clinicaltrialsgov-mcp-server",
+   "description": "Search ClinicalTrials.gov trials, retrieve study details and results, and match patients to candidate trials via MCP. STDIO or Streamable HTTP."
+  },
+  "tools": [
+   "clinicaltrials_search_studies",
+   "clinicaltrials_get_study_record",
+   "clinicaltrials_get_study_count",
+   "clinicaltrials_get_field_values",
+   "clinicaltrials_get_field_definitions",
+   "clinicaltrials_get_study_results",
+   "clinicaltrials_find_eligible"
+  ],
+  "err": null
+ },
+ "https://uniprot.caseyjhand.com/mcp": {
+  "status": 200,
+  "serverInfo": {
+   "name": "uniprot-mcp-server",
+   "version": "0.4.0",
+   "title": "uniprot-mcp-server"
+  },
+  "tools": [
+   "uniprot_search_proteins",
+   "uniprot_get_entry",
+   "uniprot_map_ids",
+   "uniprot_get_proteome",
+   "uniprot_get_taxonomy",
+   "uniprot_get_sequence"
+  ],
+  "err": null
+ },
+ "https://ensembl.caseyjhand.com/mcp": {
+  "status": 200,
+  "serverInfo": {
+   "name": "ensembl-mcp-server",
+   "version": "0.7.1",
+   "title": "ensembl-mcp-server"
+  },
+  "tools": [
+   "ensembl_list_species",
+   "ensembl_lookup_gene",
+   "ensembl_get_sequence",
+   "ensembl_query_region",
+   "ensembl_predict_variant",
+   "ensembl_get_homology",
+   "ensembl_get_xrefs"
+  ],
+  "err": null
+ },
+ "https://protein.caseyjhand.com/mcp": {
+  "status": 200,
+  "serverInfo": {
+   "name": "protein-mcp-server",
+   "version": "0.9.0",
+   "title": "protein-mcp-server"
+  },
+  "tools": [
+   "protein_search_structures",
+   "protein_get_structure",
+   "protein_find_similar",
+   "protein_track_ligands",
+   "protein_compare_structures",
+   "protein_analyze_collection",
+   "protein_get_annotations"
+  ],
+  "err": null
+ },
+ "https://chembl.caseyjhand.com/mcp": {
+  "status": 200,
+  "serverInfo": {
+   "name": "chembl-mcp-server",
+   "version": "0.6.0",
+   "title": "chembl-mcp-server",
+   "description": "Link compounds to protein targets, rank bioactivity (IC50/Ki/EC50), and look up drug mechanisms and indications over ChEMBL via MCP. STDIO or Streamable HTTP."
+  },
+  "tools": [
+   "chembl_search_molecules",
+   "chembl_get_bioactivities",
+   "chembl_search_targets",
+   "chembl_get_drug_info",
+   "chembl_get_assay",
+   "chembl_get_documents",
+   "chembl_dataframe_query",
+   "chembl_dataframe_describe"
+  ],
+  "err": null
+ },
+ "https://gateway.pipeworx.io/nih-reporter/mcp": {
+  "status": 200,
+  "serverInfo": {
+   "name": "pipeworx-gateway",
+   "version": "0.1.0"
+  },
+  "tools": [
+   "ask_pipeworx",
+   "ask_pipeworx_beta",
+   "ask_pipeworx_grounded",
+   "search_within",
+   "deep_research",
+   "discover_tools",
+   "resolve_entity",
+   "compare_entities",
+   "subscribe",
+   "unsubscribe",
+   "list_subscriptions",
+   "recent_alerts",
+   "entity_profile",
+   "recent_changes",
+   "validate_claim",
+   "company_facts",
+   "company_register_search",
+   "scan_dependency",
+   "bet_research",
+   "polymarket_arbitrage",
+   "polymarket_edges",
+   "polymarket_kalshi_spread",
+   "polymarket_fill_risk",
+   "polymarket_edge_tracker",
+   "kalshi_weather_edge",
+   "resolution_audit",
+   "resolution_diff",
+   "release_calendar_markets",
+   "prediction_calibration",
+   "updown_venue_compare",
+   "updown_divergence_rate",
+   "archive_evidence",
+   "archive_compare",
+   "research_row",
+   "classify_row",
+   "pipeworx_trending",
+   "suggest_questions",
+   "generate_llms_txt",
+   "ai_visibility_check",
+   "scan_competitor_ai_presence",
+   "pipeworx_feedback",
+   "remember",
+   "recall",
+   "forget",
+   "search_grants",
+   "nih_reporter_get_project",
+   "nih_reporter_search_publications",
+   "nih_grant_award_history",
+   "nih_new_grant_awards",
+   "nih_funding_concentration",
+   "nih_sbir_company_portfolio",
+   "nih_funding_expirations",
+   "nih_grant_publication_summary"
+  ],
+  "err": null
+ },
+ "https://www.ebi.ac.uk/ols4/api/mcp": {
+  "status": 200,
+  "serverInfo": {
+   "name": "mcp-server",
+   "version": "1.0.0"
+  },
+  "tools": [
+   "getSimilarClasses",
+   "getAncestors",
+   "getDescendants",
+   "getChildren",
+   "search",
+   "searchClassesWithEmbeddingModel",
+   "getClassSimilarity",
+   "fetch",
+   "searchClasses",
+   "listEmbeddingModels",
+   "listOntologies",
+   "searchWithEmbeddingModel"
+  ],
+  "err": null
+ },
+ "https://bioportal.fastmcp.app/mcp": {
+  "status": 200,
+  "serverInfo": {
+   "name": "bioportal_mcp",
+   "version": "1.22.0"
+  },
+  "tools": [
+   "search_ontology_terms",
+   "search_ontology_properties",
+   "get_ontology_analytics"
+  ],
+  "err": null
+ },
+ "https://mcp.platform.opentargets.org/mcp": {
+  "status": 200,
+  "serverInfo": {
+   "name": "Model Context Protocol server for Open Targets Platform version 2026.7.1",
+   "version": "2026.7.1"
+  },
+  "tools": [
+   "get_open_targets_graphql_schema",
+   "get_type_dependencies",
+   "search_entities",
+   "query_open_targets_graphql",
+   "batch_query_open_targets_graphql"
+  ],
+  "err": null
+ },
+ "https://wwwdev.ebi.ac.uk/pdbe/mcp/all/": {
+  "status": 200,
+  "serverInfo": {
+   "name": "pdbe-all-server",
+   "version": "1.30.0"
+  },
+  "tools": [
+   "ebi-pdbe-graph_nodes",
+   "ebi-pdbe-graph_edges",
+   "ebi-pdbe-graph_node_relationships",
+   "ebi-pdbe-graph_example_queries",
+   "ebi-pdbe-graph_indexes",
+   "ebi-pdbe-search_schema",
+   "ebi-pdbe-search",
+   "ebi-pdbe-similar_ligands_comp_similarity_hetcode_64e4dc75",
+   "ebi-pdbe-comp_intx_comp_intx_hetcode_8fee3085",
+   "ebi-pdbe-comp_intx_proteins_comp_unip_hetcode_b6c68ca3",
+   "ebi-pdbe-ent_chain_seq_seq_id_chain_id_89a4956c",
+   "ebi-pdbe-tunnels_tunnels_id_138286ff",
+   "ebi-pdbe-funpdbe_for_ent_funpdbe_id_b44be798",
+   "ebi-pdbe-specific_fafefar_id_4cd60ce4",
+   "ebi-pdbe-bound_molecules_bound_molecules_id_433acab7",
+   "ebi-pdbe-bound_mibmiib_id_9eb5b2d0",
+   "ebi-pdbe-mol_cbliicis_id_c117dabc",
+   "ebi-pdbe-seq_cescie_id_5a830e8e",
+   "ebi-pdbe-unip_map_ent_unip_map_id_entity_id_ce7aaa0c",
+   "ebi-pdbe-sec_struct_ent_sec_struct_id_entity_id_04ac5bc3",
+   "ebi-pdbe-bind_sites_ent_bind_sites_id_entity_id_efd81d99",
+   "ebi-pdbe-iface_res_ent_interfaces_id_entity_id_49a0e419",
+   "ebi-pdbe-annot_ent_annot_id_entity_id_e5718131",
+   "ebi-pdbe-doms_ent_doms_id_entity_id_17aad3ce",
+   "ebi-pdbe-chains_ent_chains_id_entity_id_200017f6",
+   "ebi-pdbe-var_ent_var_id_entity_id_777d29d4",
+   "ebi-pdbe-assembly_ent_assembly_id_f7cff679",
+   "ebi-pdbe-ligand_monomers_ent_ligand_monomers_id_6ad4dfe8",
+   "ebi-pdbe-molecules_ent_molecules_id_1cb4fd01",
+   "ebi-pdbe-ent_rlerl_id_2439bcf6",
+   "ebi-pdbe-ent_iface_res_ent_iface_res_id_e3f93cbf",
+   "ebi-pdbe-ligand_sum_comp_sum_hetcode_e2f08774",
+   "ebi-pdbe-comp_in_comp_in_hetcode_e47e47bd",
+   "ebi-pdbe-sum_qsvsqse_id_40d9190e",
+   "ebi-pdbe-key_val_stats_val_key_val_stats_ent_id_27bd5d60",
+   "ebi-pdbe-outliers_val_outliers_all_id_b2720a4a",
+   "ebi-pdbe-ligand_mvvlmeiccirnr_number_339fc3c2",
+   "ebi-pdbe-best_soubsu_acc_11b902cf",
+   "ebi-pdbe-best_nosoubnosu_acc_bf133eee",
+   "ebi-pdbe-unip_giruiru_acc_66c74d5c",
+   "ebi-pdbe-unip_ipuipu_acc_09a395ae",
+   "ebi-pdbe-unip_gen_unipdb_unip_unipdb_unip_acc_bf823946",
+   "ebi-pdbe-unip_gen_annot_unip_annot_unip_acc_16305178",
+   "ebi-pdbe-seq_cuuscu_acc_a66a4f59",
+   "ebi-pdbe-unip_var_unip_var_unip_acc_6a476541",
+   "ebi-pdbe-llm_unip_sum_unip_llm_annot_sum_unip_acc_72bf192a",
+   "ebi-pdbe-maps_maps_acc_cb64101d",
+   "ebi-pdbe-complex_complex_details_id_b0542507",
+   "ebi-pdbe-complex_bmscbmsc_id_02b199bd",
+   "ebi-pdbe-complex_icic_id_6bdd9e61",
+   "ebi-pdbe-complex_ppcpapc_id_72a20a8c",
+   "ebi-pdbe-rfam_nucleic_maps_acc_6e531e81",
+   "ebi-pdbe-get_ai_summary",
+   "ebi-pdbe-update_workspace",
+   "ebi-pdbe-build_mvs_story",
+   "ebi-pdbe-build_mvs",
+   "ebi-pdbe-compare_structures",
+   "ebi-pdbe-open_structure",
+   "ebi-pdbe-load_structure_annotations",
+   "ebi-pdbe-ligand-interactions"
+  ],
+  "err": null
+ }
+}

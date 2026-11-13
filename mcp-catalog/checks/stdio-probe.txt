@@ -1,0 +1,24 @@
+### biomcp-cli
+INIT {"name": "biomcp", "version": "0.9.3"}
+TOOLS ["biomcp", "search", "get", "variant_normalize_car", "variant_erepo", "gene_cspec", "variant_articles"]
+### biothings-mcp
+INIT {"name": "Biothings MCP Server", "version": "4.2.0"}
+TOOLS ["biothings_query_genes", "biothings_query_many_genes", "biothings_get_gene", "biothings_get_genes", "biothings_get_gene_metadata", "biothings_query_variants", "biothings_query_many_variants", "biothings_get_variant", "biothings_get_variants", "biothings_query_chems", "biothings_query_many_chems", "biothings_get_chem", "biothings_get_chems", "biothings_get_taxon", "biothings_get_taxons", "biothings_query_taxons", "biothings_query_many_taxons", "biothings_download_entrez_data", "biothings_download_entrez_data_local"]
+### gget-mcp
+INIT {"name": "gget MCP Server v0.3.1", "version": "4.2.0"}
+TOOLS ["gget_search", "gget_search_genes", "gget_info", "gget_seq", "gget_ref", "gget_blast", "gget_blat", "gget_muscle", "gget_diamond", "gget_archs4", "gget_enrichr", "gget_bgee", "gget_pdb", "gget_alphafold", "gget_elm", "gget_cosmic", "gget_mutate", "gget_opentargets", "gget_cellxgene", "gget_setup"]
+### opengenes-mcp
+INIT {"name": "OpenGenes MCP Server", "version": "4.2.0"}
+TOOLS ["opengenes_get_schema_info", "opengenes_example_queries", "opengenes_db_query"]
+### synergy-age-mcp
+INIT null
+Traceback (most recent call last):
+  File "/workspace/mcp-catalog/checks/probe_stdio.py", line 21, in <module>
+    send({"jsonrpc":"2.0","method":"notifications/initialized"})
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/mcp-catalog/checks/probe_stdio.py", line 6, in send
+    def send(o): p.stdin.write(json.dumps(o)+"\n"); p.stdin.flush()
+                 ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+Exception ignored in: <_io.TextIOWrapper name=4 encoding='UTF-8'>
+BrokenPipeError: [Errno 32] Broken pipe
