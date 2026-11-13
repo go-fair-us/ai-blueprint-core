@@ -32,6 +32,15 @@ catalog:
 #   cat:urlKind mcp-endpoint | registry-server-json | repository
 #               (what the ARD `url` points at; none of these publishers ship an
 #               MCP Server Card document yet)
+#               skills: skill-file | archive | repository; plugins: archive | marketplace | repository
+#
+# One list for every kind. MCP servers, Agent Skills and agent plugins all go under
+# `entries:`; yaml2ard.py tells them apart by the ARD `type` (spec §3.3), the same way
+# ARD itself does. Kind-specific curation terms:
+#   MCP servers (type application/mcp-server-card+json):  cat:transport, cat:auth
+#   skills (application/agent-skills+md|+json|+zip|+gzip): cat:agents, cat:skillFormat, cat:requires
+#   plugins (application/agent-plugins+zip|+gzip):        cat:agents, cat:contains, cat:requires
+# Filter with `--kind mcp|skill|plugin`; `--split` writes one file per kind plus an index.
 
 entries:
 
@@ -795,6 +804,40 @@ entries:
     already reaches NIH RePORTER for gene/disease pivots. Watch; prefer a cleaner
     RePORTER server if one appears.
   cat:foundVia: MCP Registry (io.github.pipeworx-io/nih-reporter)
+
+# ---------------------------------------------------------------- skills and plugins
+# No skill or plugin entries yet. To add one, copy this template, uncomment it, and fill
+# in only facts you have checked (repo exists, license, last commit, which agents it runs on).
+#
+# - identifier: urn:air:github.com:fils:bio-nih-mcp:<skill-slug>
+#   displayName: <Skill name>
+#   type: application/agent-skills+md        # SKILL.md in a repo; +zip/+gzip for a packaged
+#                                            # archive; application/agent-plugins+zip for a plugin
+#   url: https://github.com/<owner>/<repo>/tree/<ref>/<path-to-skill-dir>
+#   description: >-
+#     What the skill teaches the agent to do, in one or two sentences.
+#   tags: [<topic>, <topic>]
+#   updatedAt: "<YYYY-MM-DDTHH:MM:SSZ>"       # last commit touching the skill
+#   representativeQueries:                   # 2-5 things a user would ask that this skill handles
+#     - <query one>
+#     - <query two>
+#   cat:profile: [general-bio]
+#   cat:role: optional
+#   cat:status: alive
+#   cat:urlKind: skill-file                  # skill-file | archive | repository
+#   cat:source: https://github.com/<owner>/<repo>
+#   cat:agents: [Claude Code, Codex, Cursor] # agent runtimes it is known to work in
+#   cat:skillFormat: agent-skills SKILL.md   # e.g. agent-skills SKILL.md | Claude Code plugin
+#   cat:requires:                            # MCP servers or tools it needs (catalog identifiers
+#     - urn:air:github.com:fils:bio-nih-mcp:biomcp   # are checked against this file)
+#   cat:install: <how to install, e.g. copy the folder into ~/.claude/skills/>
+#   cat:license: <SPDX id>
+#   cat:lastCommit: "<YYYY-MM-DDTHH:MM:SSZ>"
+#   cat:lastChecked: "<YYYY-MM-DD>"
+#   cat:verifiedBy: <how you checked it>
+#   cat:reviewNotes: >-
+#     Strengths and concerns.
+#   cat:foundVia: <where it came from>
 
 # Reviewed but NOT converted to ARD entries (yaml2ard.py ignores this section).
 reviewedNotListed:

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""yaml2ard.py -- convert the curated MCP catalog (YAML) into an ARD v0.91 manifest.
+"""yaml2ard.py -- convert the curated catalog (YAML) into an ARD v0.91 manifest.
 
 ARD = Agentic Resource Discovery, https://agenticresourcediscovery.org/spec/ (v0.91).
 
@@ -7,6 +7,12 @@ The YAML file is the source of truth. Each item under `entries:` already uses AR
 term names (identifier, displayName, type, url|data, description, tags, version,
 updatedAt, representativeQueries, capabilities, metadata, trustManifest). Curation
 terms use a namespace prefix (default `cat:`) declared in `catalog["@context"]`.
+
+Entries of any ARD kind may share the one `entries:` list; the kind comes from the
+entry's `type` (spec §3.3): MCP server cards, Agent Skills (+md/+json/+zip/+gzip),
+packaged Agent Plugins (+zip/+gzip), agent cards, and nested catalogs
+(application/ai-catalog+json). Curation checks are kind-aware (e.g. cat:transport is
+expected on MCP servers, cat:agents on skills and plugins).
 
 Output is `{"entries": [...]}` -- the only top-level member ARD defines (§5.1,
 Appendix D ArdManifest). A `catalog` member with provenance is added unless
@@ -18,6 +24,9 @@ Usage:
   python3 yaml2ard.py --strip-curation        # pure ARD terms only
   python3 yaml2ard.py --curation-as-metadata  # also copy scalar cat: terms into metadata.*
   python3 yaml2ard.py --role default optional --profile nih-niaid-research
+  python3 yaml2ard.py --kind skill plugin -o ard.skills.json
+  python3 yaml2ard.py --split --base-url https://example.org/catalog/
+                      # ard.<kind>.json per kind + ard.json index of ai-catalog+json entries
   python3 yaml2ard.py --check                 # validate only, write nothing
 
 Exit status: 0 = ok (warnings allowed), 1 = validation errors, 2 = usage/IO error.
@@ -67,6 +76,58 @@ STANDARD_TYPES = {
     "application/agent-plugins+zip", "application/agent-plugins+gzip",
     "application/ai-registry", "application/ai-registry+json",
 }
+
+# Entry kinds, derived from the ARD `type` (spec §3.3). Media types are compared with
+# whitespace removed and the type/subtype lower-cased.
+KIND_TYPES = {
+    "mcp": {"application/mcp-server-card+json",
+            "application/mcp-server+json"},          # deprecated (ADR-0008), still an MCP server
+    "skill": {"application/agent-skills+json", "application/agent-skills+md",
+              "application/agent-skills+zip", "application/agent-skills+gzip",
+              'text/markdown;profile="urn:air:agent-skills"'},
+    "plugin": {"application/agent-plugins+zip", "application/agent-plugins+gzip"},
+    "agent": {"application/agent-card+json", "application/a2a-agent-card+json"},
+    "catalog": {"application/ai-catalog+json"},
+}
+KINDS = ("mcp", "skill", "plugin", "agent", "catalog", "other")
+KIND_LABEL = {"mcp": "MCP servers", "skill": "Agent Skills", "plugin": "agent plugins",
+              "agent": "agents", "catalog": "catalogs", "other": "other resources"}
+
+# Curation terms (local names under the curation prefix), by kind.
+CUR_COMMON = {"profile", "role", "status", "urlKind", "homepage", "source", "install",
+              "license", "dataSources", "dataTerms", "lastCommit", "lastChecked",
+              "verifiedBy", "reviewNotes", "foundVia"}
+CUR_KIND = {
+    "mcp": {"transport", "auth"},
+    "skill": {"agents", "skillFormat", "requires"},
+    "plugin": {"agents", "contains", "requires"},
+}
+CUR_ALL_KIND = set().union(*CUR_KIND.values())
+# Missing one of these is a warning, never an error.
+CUR_EXPECTED = {
+    "mcp": ("role", "status", "license", "lastChecked", "transport"),
+    "skill": ("role", "status", "license", "lastChecked", "agents", "skillFormat"),
+    "plugin": ("role", "status", "license", "lastChecked", "agents"),
+}
+CUR_LIST_TERMS = {"profile", "agents", "requires", "contains"}
+CUR_VOCAB = {"role": {"default", "optional", "watch"},
+             "status": {"alive", "stale", "unverified"}}
+URL_KINDS = {
+    "mcp": {"mcp-endpoint", "registry-server-json", "repository"},
+    "skill": {"skill-file", "archive", "repository"},
+    "plugin": {"archive", "marketplace", "repository"},
+}
+
+
+def kind_of(media_type) -> str:
+    if not isinstance(media_type, str) or "/" not in media_type:
+        return "other"
+    base, _, params = media_type.partition(";")
+    key = base.strip().lower() + (";" + re.sub(r"\s+", "", params) if params else "")
+    for kind, types in KIND_TYPES.items():
+        if key in types:
+            return kind
+    return "other"
 
 
 class Report:
@@ -199,7 +260,41 @@ def validate_entry(e: dict, where: str, prefixes: dict[str, str], rep: Report) -
             rep.warn(where, f"unprefixed term '{k}' is not an ARD core term; it will resolve to the ARD default namespace (@vocab)")
 
 
+def validate_curation(e: dict, where: str, pfx: str, kind: str, known_ids: set, rep: Report) -> None:
+    """Kind-aware checks on curation terms. Everything here is a warning."""
+    terms = {k.split(":", 1)[1]: v for k, v in e.items() if k.startswith(pfx + ":")}
+    allowed = CUR_COMMON | CUR_KIND.get(kind, set())
+    for name in sorted(terms):
+        if name in allowed:
+            continue
+        if name in CUR_ALL_KIND:
+            owners = "/".join(k for k, v in CUR_KIND.items() if name in v)
+            rep.warn(where, f"{pfx}:{name} belongs to {owners} entries; unexpected on a {kind} entry")
+        else:
+            rep.warn(where, f"{pfx}:{name} is not a documented curation term (typo?)")
+    for name in CUR_EXPECTED.get(kind, ()):
+        if terms.get(name) in (None, "", []):
+            rep.warn(where, f"{kind} entry has no {pfx}:{name}")
+    for name, vocab in CUR_VOCAB.items():
+        v = terms.get(name)
+        if v is not None and v not in vocab:
+            rep.warn(where, f"{pfx}:{name} {v!r} is not one of {sorted(vocab)}")
+    uk = terms.get("urlKind")
+    if uk is not None and kind in URL_KINDS and uk not in URL_KINDS[kind]:
+        rep.warn(where, f"{pfx}:urlKind {uk!r} is not one of {sorted(URL_KINDS[kind])} for a {kind} entry")
+    for name in CUR_LIST_TERMS & set(terms):
+        v = terms[name]
+        if not (isinstance(v, list) and all(isinstance(x, str) and x.strip() for x in v)):
+            rep.warn(where, f"{pfx}:{name} should be a list of non-empty strings")
+    for name in ("requires", "contains"):
+        for ref in terms.get(name) or []:
+            if isinstance(ref, str) and ref.startswith("urn:air:") and ref not in known_ids:
+                rep.warn(where, f"{pfx}:{name} references {ref}, which is not an identifier in this catalog")
+
+
 def build(doc: dict, args, rep: Report) -> dict:
+    """Validate and convert. Returns the manifest for the selected entries; with
+    --split, also fills args._parts = {kind: [entries...]} (in YAML order)."""
     catalog = doc.get("catalog") or {}
     ctx = catalog.get("@context") or [ARD_BASE_CONTEXT]
     if not isinstance(ctx, list):
@@ -218,14 +313,17 @@ def build(doc: dict, args, rep: Report) -> dict:
     if not isinstance(raw_entries, list):
         rep.error("catalog", "YAML must contain an 'entries' list")
         return {"entries": []}
+    known_ids = {r.get("identifier") for r in raw_entries if isinstance(r, dict)}
 
     out_entries, seen = [], set()
+    parts: dict[str, list] = {}
     for i, raw in enumerate(raw_entries):
         if not isinstance(raw, dict):
             rep.error(f"entry #{i}", "entry is not a mapping")
             continue
         e = normalise(raw)
         where = e.get("displayName") or e.get("identifier") or f"entry #{i}"
+        kind = kind_of(e.get("type"))
         role = e.get(f"{cur_pfx}:role")
         profiles = e.get(f"{cur_pfx}:profile") or []
         profiles = profiles if isinstance(profiles, list) else [profiles]
@@ -233,8 +331,11 @@ def build(doc: dict, args, rep: Report) -> dict:
             continue
         if args.profile and not set(args.profile) & set(profiles):
             continue
+        if args.kind and kind not in args.kind:
+            continue
 
         validate_entry(e, where, prefixes, rep)
+        validate_curation(e, where, cur_pfx, kind, known_ids, rep)
         ident = e.get("identifier")
         if ident in seen:
             rep.error(where, f"duplicate identifier {ident}")
@@ -264,23 +365,68 @@ def build(doc: dict, args, rep: Report) -> dict:
         if not args.no_context:
             entry = {"@context": entry_ctx, **entry}
         out_entries.append(entry)
+        parts.setdefault(kind, []).append(entry)
 
-    manifest: dict = {"entries": out_entries}
+    if getattr(args, "split", False):
+        args._parts = {k: wrap(catalog, v, args, {"kind": k, "partOf": catalog.get("id")})
+                       for k, v in parts.items()}
+        out_entries = index_entries(catalog, args._parts, args, prefixes, rep)
+    return wrap(catalog, out_entries, args)
+
+
+def wrap(catalog: dict, entries: list, args, extra: dict | None = None) -> dict:
+    manifest: dict = {"entries": entries}
     if not args.entries_only:
         manifest = {
             "catalog": {  # transport-defined; ignored by ARD consumers (§5.1)
                 k: catalog[k] for k in ("id", "name", "description", "version", "license",
                                         "created", "modified", "maintainer", "ardSpec")
                 if k in catalog
-            } | {
+            } | (extra or {}) | {
                 "generatedBy": "yaml2ard.py",
                 "generatedAt": dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
-                "entryCount": len(out_entries),
+                "entryCount": len(entries),
                 "curationStripped": bool(args.strip_curation),
             },
             **manifest,
         }
     return normalise(manifest)
+
+
+def sub_catalog_file(kind: str) -> str:
+    return f"ard.{kind}.json"
+
+
+def index_entries(catalog: dict, parts: dict, args, prefixes: dict, rep: Report) -> list:
+    """One application/ai-catalog+json entry per kind, pointing at ard.<kind>.json (§3.3)."""
+    cid, name = catalog.get("id"), catalog.get("name") or "this catalog"
+    overrides = catalog.get("subCatalogs") or {}
+    base = args.base_url.rstrip("/") + "/"
+    out = []
+    for kind in KINDS:
+        if kind not in parts:
+            continue
+        ov = normalise(overrides.get(kind) or {})
+        label = KIND_LABEL[kind]
+        n = len(parts[kind]["entries"])
+        entry = {
+            "identifier": ov.get("identifier") or (f"{cid}-{kind}" if cid else None),
+            "displayName": ov.get("displayName") or f"{name}: {label}",
+            "type": "application/ai-catalog+json",
+            "url": base + sub_catalog_file(kind),
+            "description": ov.get("description") or f"{n} {label} from {name}.",
+        }
+        entry["representativeQueries"] = ov.get("representativeQueries") or [
+            f"find {label} in the {name}", f"list the {label} catalogued by {name}"]
+        for k in ("tags", "updatedAt"):
+            if k in ov:
+                entry[k] = ov[k]
+        entry = {k: v for k, v in entry.items() if v is not None}
+        validate_entry(entry, f"index:{kind}", prefixes, rep)
+        if not args.no_context:
+            entry = {"@context": ARD_BASE_CONTEXT, **entry}
+        out.append(entry)
+    return out
 
 
 def schema_validate(manifest: dict, schema_path: str, rep: Report) -> str:
@@ -318,6 +464,13 @@ def main(argv=None) -> int:
     ap.add_argument("--prefix", default="cat", help="curation namespace prefix (default: cat)")
     ap.add_argument("--role", nargs="+", help="only include entries whose <prefix>:role is one of these")
     ap.add_argument("--profile", nargs="+", help="only include entries tagged with one of these profiles")
+    ap.add_argument("--kind", nargs="+", choices=KINDS, metavar="KIND",
+                    help="only include entries of these kinds (derived from 'type'): " + ", ".join(KINDS))
+    ap.add_argument("--split", action="store_true",
+                    help="write ard.<kind>.json per kind next to the output, and make the output an "
+                         "index of application/ai-catalog+json entries pointing at them")
+    ap.add_argument("--base-url", help="public URL of the directory the split files are served from "
+                                       "(required with --split unless catalog.publishBaseUrl is set)")
     ap.add_argument("--entries-only", action="store_true", help="omit the transport-defined 'catalog' member")
     ap.add_argument("--no-context", action="store_true", help="omit per-entry @context (not recommended)")
     ap.add_argument("--schema", default=os.path.join(here, "vendor/ard-spec/spec/schemas/ard-entry.schema.json"),
@@ -333,17 +486,34 @@ def main(argv=None) -> int:
         print(f"error: cannot read {args.input}: {exc}", file=sys.stderr)
         return 2
 
+    if not isinstance(doc, dict):
+        print(f"error: {args.input} is not a YAML mapping", file=sys.stderr)
+        return 2
+    if args.split:
+        args.base_url = args.base_url or (doc.get("catalog") or {}).get("publishBaseUrl")
+        if not args.base_url or not re.match(r"^https?://\S+$", args.base_url):
+            print("error: --split needs --base-url https://... (or catalog.publishBaseUrl)", file=sys.stderr)
+            return 2
+        if args.output == "-":
+            print("error: --split writes files; give -o PATH, not '-'", file=sys.stderr)
+            return 2
+
     rep = Report()
     manifest = build(doc, args, rep)
-    schema_result = schema_validate(manifest, args.schema, rep)
+    outputs = [(args.output, manifest)]
+    if args.split:
+        outdir = os.path.dirname(os.path.abspath(args.output))
+        outputs += [(os.path.join(outdir, sub_catalog_file(k)), m) for k, m in args._parts.items()]
+    results = [(path, m, schema_validate(m, args.schema, rep)) for path, m in outputs]
 
     if not args.check:
-        text = json.dumps(manifest, indent=2, ensure_ascii=False, default=json_default) + "\n"
-        if args.output == "-":
-            sys.stdout.write(text)
-        else:
-            with open(args.output, "w", encoding="utf-8") as f:
-                f.write(text)
+        for path, m, _ in results:
+            text = json.dumps(m, indent=2, ensure_ascii=False, default=json_default) + "\n"
+            if path == "-":
+                sys.stdout.write(text)
+            else:
+                with open(path, "w", encoding="utf-8") as f:
+                    f.write(text)
 
     out = sys.stderr if args.output == "-" else sys.stdout
     if not args.quiet:
@@ -351,9 +521,11 @@ def main(argv=None) -> int:
             print(f"WARN  {w}", file=out)
     for e in rep.errors:
         print(f"ERROR {e}", file=out)
-    print(f"{len(manifest['entries'])} entries | JSON Schema: {schema_result} | "
-          f"{len(rep.errors)} errors, {len(rep.warnings)} warnings"
-          + ("" if args.check or args.output == "-" else f" | wrote {args.output}"), file=out)
+    for n, (path, m, schema_result) in enumerate(results):
+        last = n == len(results) - 1
+        print(f"{len(m['entries'])} entries | JSON Schema: {schema_result}"
+              + (f" | {len(rep.errors)} errors, {len(rep.warnings)} warnings" if last else "")
+              + ("" if args.check or path == "-" else f" | wrote {path}"), file=out)
     return 1 if rep.errors else 0
 
 

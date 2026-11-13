@@ -1,7 +1,8 @@
 # Bio / NIH MCP server catalog
 
 A curated, reviewed list of MCP servers for the biomedical and NIH/NIAID research
-community. The YAML file is the source of truth, and `yaml2ard.py` turns it into an
+community, with room for Agent Skills and agent plugins (see
+[Skills, plugins and bundles](#skills-plugins-and-bundles)). The YAML file is the source of truth, and `yaml2ard.py` turns it into an
 [Agentic Resource Discovery (ARD) v0.91](https://agenticresourcediscovery.org/spec/)
 manifest (`ard.json`).
 
@@ -11,10 +12,11 @@ Status: draft 0.1.0, checked 2026-11-13. Nothing here is published.
 
 | Path | What it is |
 | --- | --- |
-| `bio-nih-mcp.yaml` | Source of truth: catalog header, 21 entries, and a `reviewedNotListed` section |
+| `bio-nih-mcp.yaml` | Source of truth: catalog header, 21 MCP server entries, a commented-out skill template, and a `reviewedNotListed` section |
 | `yaml2ard.py` | YAML to ARD converter and validator |
 | `ard.json` | Generated manifest with the curation terms kept |
 | `ard.pure.json` | Generated manifest with only ARD core terms (`--strip-curation`) |
+| `tests/` | Unit tests for `yaml2ard.py`, with a synthetic mixed-kind fixture (`tests/fixtures/mixed-kinds.example.yaml`, made-up example.org entries) |
 | `checks/` | Probe scripts (`probe.py` for remote Streamable HTTP, `probe_stdio.py` for local stdio) and raw results |
 | `vendor/ard-spec/` | Copies of the ARD JSON Schema, base context, CDDL, and the official `conformance-test` CLI from [ards-project/ard-spec](https://github.com/ards-project/ard-spec) (Apache-2.0) |
 
@@ -55,18 +57,23 @@ Every entry has two kinds of terms.
    `capabilities`. `capabilities` holds the real tool names returned by `tools/list`.
 2. **Curation terms** under the `cat:` prefix:
 
-| Term | Meaning |
-| --- | --- |
-| `cat:profile` | `general-bio` and/or `nih-niaid-research` |
-| `cat:role` | `default` (load always), `optional` (load on demand), or `watch` (not ready or not a fit yet) |
-| `cat:status` | `alive`, `stale`, or `unverified` |
-| `cat:urlKind` | What `url` points at: `mcp-endpoint`, `registry-server-json`, or `repository` |
-| `cat:homepage`, `cat:source` | Human-facing page and source repository |
-| `cat:transport`, `cat:auth`, `cat:install` | How to connect or run it |
-| `cat:license`, `cat:dataSources`, `cat:dataTerms` | The code license, and the upstream data and its terms |
-| `cat:lastCommit`, `cat:lastChecked`, `cat:verifiedBy` | Freshness, and how the entry was verified |
-| `cat:reviewNotes` | Honest strengths and concerns |
-| `cat:foundVia` | Where the entry came from (your list, the prior report, the MCP Registry, or an X post URL) |
+| Term | Applies to | Meaning |
+| --- | --- | --- |
+| `cat:profile` | all | `general-bio` and/or `nih-niaid-research` |
+| `cat:role` | all | `default` (load always), `optional` (load on demand), or `watch` (not ready or not a fit yet) |
+| `cat:status` | all | `alive`, `stale`, or `unverified` |
+| `cat:urlKind` | all | What `url` points at. MCP: `mcp-endpoint`, `registry-server-json`, `repository`. Skills: `skill-file`, `archive`, `repository`. Plugins: `archive`, `marketplace`, `repository` |
+| `cat:homepage`, `cat:source` | all | Human-facing page and source repository |
+| `cat:install` | all | How to install or run it |
+| `cat:transport`, `cat:auth` | MCP servers | How to connect |
+| `cat:agents` | skills, plugins | Agent runtimes it is known to work in, e.g. `[Claude Code, Codex, Cursor]` |
+| `cat:skillFormat` | skills | Packaging, e.g. `agent-skills SKILL.md` or `Claude Code plugin` |
+| `cat:requires` | skills, plugins | MCP servers or tools it needs; catalog identifiers are checked against the file |
+| `cat:contains` | plugins | What a bundle ships (identifiers of the skills and servers inside it) |
+| `cat:license`, `cat:dataSources`, `cat:dataTerms` | all | The code license, and the upstream data and its terms |
+| `cat:lastCommit`, `cat:lastChecked`, `cat:verifiedBy` | all | Freshness, and how the entry was verified |
+| `cat:reviewNotes` | all | Honest strengths and concerns |
+| `cat:foundVia` | all | Where the entry came from (your list, the prior report, the MCP Registry, or an X post URL) |
 
 The default set is kept small to avoid tool overload: **BioMCP, BRC Analytics, TogoMCP,
 and EMBL-EBI OLS4**.
@@ -104,6 +111,66 @@ publishers currently publish a server card, so `url` points at one of these, rec
   local-only servers listed there
 - the source repository, otherwise
 
+## Skills, plugins and bundles
+
+ARD treats MCP servers, agents and skills as the same kind of thing, an "agentic
+resource", and tells them apart only by the entry's `type` (spec §3.3). The catalog
+follows that: every kind goes in the one `entries:` list, and `yaml2ard.py` works out the
+kind from `type`. We chose one list over a separate `skills:` section because ARD itself
+has one `entries` array, filters by `type`, and a single list keeps identifiers unique
+across kinds without extra bookkeeping.
+
+| Kind | ARD `type` | Use for |
+| --- | --- | --- |
+| `mcp` | `application/mcp-server-card+json` | An MCP server (`application/mcp-server+json` is deprecated) |
+| `skill` | `application/agent-skills+md` (or `text/markdown; profile="urn:air:agent-skills"`) | A skill written in Markdown, e.g. a `SKILL.md` in a repo |
+| `skill` | `application/agent-skills+json` | A skill metadata descriptor in JSON |
+| `skill` | `application/agent-skills+zip`, `application/agent-skills+gzip` | A packaged skill archive |
+| `plugin` | `application/agent-plugins+zip`, `application/agent-plugins+gzip` | A packaged plugin bundle (skills, MCP config and so on shipped together) |
+| `catalog` | `application/ai-catalog+json` | A nested catalog: another ARD manifest |
+| `agent` | `application/agent-card+json`, `application/a2a-agent-card+json` | An A2A agent |
+
+A skill entry uses the same ARD terms as an MCP entry. The spec's own example is a
+`pptx-creator` skill with `identifier`, `displayName`, `type`, `url` pointing at its
+GitHub repo, `description`, and `representativeQueries`. What changes is the curation:
+
+- `cat:transport` and `cat:auth` are MCP-server terms. They're expected on MCP entries and
+  flagged if they appear on a skill.
+- Skills are expected to carry `cat:agents` and `cat:skillFormat`, and may list
+  `cat:requires`, such as an MCP server from this catalog that the skill drives.
+- Plugins are expected to carry `cat:agents`, and may list `cat:contains` and
+  `cat:requires`.
+- `cat:role`, `cat:status`, `cat:license` and `cat:lastChecked` are expected on every kind.
+
+These curation checks only produce warnings. They never change the exit code.
+
+There are no skill entries yet. `bio-nih-mcp.yaml` has a commented-out template under
+"skills and plugins". Fill it in only with facts you have checked.
+
+**Bundles and collections.** A bundle you ship as one archive is a single
+`agent-plugins+zip` (or `agent-skills+zip`) entry, with `cat:contains` naming what's
+inside. A curated grouping is its own ARD manifest, listed from a parent manifest as an
+`application/ai-catalog+json` entry. `--split` builds that layout for you:
+
+```bash
+.venv/bin/python yaml2ard.py --split --base-url https://<where-it-will-be-served>/
+# writes ard.mcp.json, ard.skill.json, ard.plugin.json (only the kinds present), and
+# ard.json as an index whose entries are application/ai-catalog+json, one per kind
+```
+
+Index entries get the identifier `<catalog.id>-<kind>` (for example
+`urn:air:github.com:fils:bio-nih-mcp:catalog-skill`), a generated name, description and
+two generic `representativeQueries`. You can override these per kind with an optional
+`catalog.subCatalogs` map, for example `subCatalogs: {skill: {displayName: ...,
+description: ..., representativeQueries: [...], tags: [...]}}`. ARD wants an absolute
+`url`, so `--split` needs `--base-url`, or `catalog.publishBaseUrl` in the YAML. Without
+`--split`, output is a single flat manifest, exactly as before.
+
+**Caveat:** the spec says the `agent-skills` and `agent-plugins` media types (like the MCP
+and A2A ones) are de facto community types still on their way to IANA registration, and
+"the format may change". The script and the vendored conformance CLI both accept them as
+standard types today.
+
 ## Regenerate and validate
 
 ```bash
@@ -112,8 +179,10 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python yaml2ard.py --strip-curation -o ard.pure.json # ARD core terms only
 .venv/bin/python yaml2ard.py --role default -o ard.default.json
 .venv/bin/python yaml2ard.py --profile nih-niaid-research -o ard.niaid.json
+.venv/bin/python yaml2ard.py --kind skill plugin -o ard.skills.json  # kinds: mcp skill plugin agent catalog other
 .venv/bin/python yaml2ard.py --curation-as-metadata            # copy scalar cat: terms into metadata.*
 .venv/bin/python vendor/ard-spec/conformance/bin/conformance-test manifest ard.json
+.venv/bin/python -m unittest discover tests                    # unit tests
 ```
 
 `yaml2ard.py` checks:
@@ -127,6 +196,9 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 - that `metadata` values are scalars
 - prefixes that are used but not declared
 - duplicate identifiers
+- kind-aware curation terms (warnings only): terms that belong to another kind, expected
+  terms that are missing, values outside the controlled lists, misspelled `cat:` terms,
+  and `cat:requires`/`cat:contains` identifiers that aren't in the file
 - a warning when `representativeQueries` falls outside 2–5 items
 - the vendored JSON Schema (`ArdManifest`), when `jsonschema` is installed
 
@@ -157,8 +229,9 @@ python3 checks/probe_stdio.py -- uvx biothings-mcp                  # local stdi
   (our `cat:`) are the intended extension point. `--curation-as-metadata` exists for
   registries that only index `metadata.*`.
 - **Media types:** `application/mcp-server-card+json` is the standard type for an MCP
-  server, and `application/mcp-server+json` is deprecated (ADR-0008). Types are not yet
-  registered with IANA.
+  server, and `application/mcp-server+json` is deprecated (ADR-0008). Skills and plugins
+  have their own types (see [Skills, plugins and bundles](#skills-plugins-and-bundles)).
+  None of these types is registered with IANA yet.
 - **Trust (§4.5, D.2):** `trustManifest.identity` must align with the URN domain. This is
   the anti-squatting rule, and it's why a curator's catalog can't claim to be the publisher.
 - **Spec quirk:** in the published JSON Schema, the property is spelled `TrustManifest`
