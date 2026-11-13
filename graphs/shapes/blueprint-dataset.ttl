@@ -10,7 +10,7 @@
 # NIAID Blueprint — simple Dataset SHACL shape graph
 #
 # Target data: schema.org Dataset JSON-LD as illustrated in:
-#   - docs/example.json  (Supplemental Table 7 small example)
+#   - graphs/example.json  (Supplemental Table 7 small example)
 #   - docs/BluePrint/... Supplemental Table 7 expanded example
 #   - docs/GEPA_comparisons/*.md citation JSON-LD blocks
 #
@@ -23,7 +23,7 @@
 #   * schema.org IRIs use https://schema.org/ so they match
 #     JSON-LD with "@context": "https://schema.org/".
 #   * identifier may be a PropertyValue node (preferred in
-#     docs/example.json) or a literal/IRI (also accepted).
+#     graphs/example.json) or a literal/IRI (also accepted).
 #
 # Related (do not confuse):
 #   - niaid-blueprint/skills/niaid-bp-validation/assets/
@@ -35,13 +35,13 @@
 #   Prefer the skill runner (rewrites http→https on the data graph):
 #     uv run --extra validation python \
 #       niaid-blueprint/skills/niaid-bp-validation/scripts/validate.py \
-#       docs/example.json --shape shapes/blueprint-dataset.ttl
+#       graphs/example.json --shape shapes/blueprint-dataset.ttl
 #################################################################
 
 <https://niaid.nih.gov/blueprint/shapes/dataset>
     a owl:Ontology ;
     rdfs:label "NIAID Blueprint Dataset shapes (key elements)"@en ;
-    rdfs:comment "Simple SHACL for schema:Dataset keyed to Blueprint Table 1 and docs/example.json."@en ;
+    rdfs:comment "Simple SHACL for schema:Dataset keyed to Blueprint Table 1 and graphs/example.json."@en ;
 .
 
 #################################################################
@@ -67,7 +67,7 @@ bp:DatasetCoreShape
     ] ;
 
     # --- description (Table 1: free text) ---
-    # docs/example.json uses a short truncated string; real records
+    # graphs/example.json uses a short truncated string; real records
     # should be longer. Enforce non-empty only at this severity.
     sh:property [
         sh:path schema:description ;
@@ -94,7 +94,7 @@ bp:DatasetCoreShape
 
     # --- identifier (Table 1: resolvable DOI preferred) ---
     # Accepts PropertyValue node(s), literal, or IRI — as seen across
-    # docs/example.json and GEPA comparison citation blocks.
+    # graphs/example.json and GEPA comparison citation blocks.
     sh:property [
         sh:path schema:identifier ;
         sh:name "identifier" ;
@@ -152,7 +152,7 @@ bp:DatasetCoreShape
 .
 
 #################################################################
-# Supporting node shapes (structure from docs/example.json)
+# Supporting node shapes (structure from graphs/example.json)
 #################################################################
 
 # identifier as schema:PropertyValue:

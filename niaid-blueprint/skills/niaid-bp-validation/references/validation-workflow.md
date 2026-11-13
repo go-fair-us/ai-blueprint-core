@@ -45,7 +45,7 @@ Examples:
 
 ```bash
 # Bundled shape, timestamped output dir in cwd
-python skills/niaid-bp-validation/scripts/validate.py docs/example.json --out-dir /tmp/bp-val
+python skills/niaid-bp-validation/scripts/validate.py graphs/example.json --out-dir /tmp/bp-val
 
 # Explicit shape
 python skills/niaid-bp-validation/scripts/validate.py record.jsonld \

@@ -104,7 +104,7 @@ coverage until additional shapes are added to `assets/`.
 ### Starting the skill
 
 ```
-User: /niaid-bp-validation docs/example.json
+User: /niaid-bp-validation graphs/example.json
 
 Assistant: I'll validate that Dataset graph against the bundled Blueprint
 required SHACL shape with pySHACL.

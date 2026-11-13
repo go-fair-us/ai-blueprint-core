@@ -15,7 +15,7 @@ Use it as a **checklist** for a single extraction. Do **not** treat skill start-
 Also fetch when useful:
 
 - Blueprint: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
-- Example: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/example.json
+- Example: https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/graphs/example.json
 
 If the page is thin or JS-heavy, retry via `https://r.jina.ai/<RESOURCE_URL>`.
 

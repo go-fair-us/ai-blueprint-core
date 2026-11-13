@@ -99,7 +99,7 @@ Before running, substitute `{{RESOURCE_URL}}` with the target URL. Fetch these a
    https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
 
 2. **Example metadata record**  
-   https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/example.json
+   https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/graphs/example.json
 
 **Minimal user message:**
 
@@ -131,9 +131,67 @@ Three sections (defined in the extraction workflow):
 ## Related artifacts
 
 - Blueprint spec (raw): https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/BluePrint/NIAID_Blueprint_v2_26Sep2025_forExternal.md
-- Example record (local): `docs/example.json`  
-  (raw): https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/refs/heads/master/docs/example.json
 - Interview-based alternative: `skills/niaid-bp-dataset-intake/` (user provides values, no web fetch)
 - Validate extracted JSON-LD: `skills/niaid-bp-validation/` (`uv sync --extra validation`)
 - Automated extract → SHACL → repair loop: `src/genMeta/` (Herdr + Pi; see `src/genMeta/README.md`)
 - Skill index: `skills/README.md`
+
+
+Example record 
+```json
+{
+  "@id": "https://example.org/id/1234",
+  "@type": "Dataset",
+  "@context": "https://schema.org/",
+  "name": "AMP Rheumatoid Arthritis Phase 1",
+  "description": "The primary goal for RA arthroplasty P1 studies are …",
+  "url": "https://immport.org/shared/study/SDY998",
+  "identifier": {
+    "@id": "https://doi.org/10.21430/M3KXJHSP4T",
+    "@type": "PropertyValue",
+    "propertyID": "https://registry.identifiers.org/registry/doi",
+    "value": "doi:10.21430/M3KXJHSP4T",
+    "url": "https://doi.org/10.21430/M3KXJHSP4T"
+  },
+  "citation": [
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Methods for high-dimensional analysis of …",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29996944",
+      "identifier": [
+        {
+          "@id": "https://doi.org/10.1186/s13075-018-1631-y",
+          "@type": "PropertyValue",
+          "propertyID": "https://registry.identifiers.org/registry/doi",
+          "value": "doi:10.1186/s13075-018-1631-y",
+          "url": "https://doi.org/10.1186/s13075-018-1631-y"
+        },
+        "pmid:29996944"
+      ]
+    }
+  ],
+  "keywords": [
+    {
+      "@type": "DefinedTerm",
+      "name": "Rheumatoid Arthritis",
+      "inDefinedTermSet": "http://ncicb.nci.nih.gov",
+      "url": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C2884"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "osteoarthritis",
+      "inDefinedTermSet": "http://ncicb.nci.nih.gov",
+      "url": "osteoarthritis"
+    }
+  ],
+  "distribution": [
+    {
+      "contentUrl": "https://browser.immport.org/browser?path=SDY998",
+      "@type": "DataDownload",
+      "encodingFormat": "URL"
+    }
+  ],
+  "license": "https://www.immport.org/agreement"
+}
+
+```

@@ -29,7 +29,7 @@ BLUEPRINT_RAW_URL = (
 )
 EXAMPLE_JSON_RAW_URL = (
     "https://raw.githubusercontent.com/go-fair-us/ai-blueprint-core/"
-    "refs/heads/master/docs/example.json"
+    "refs/heads/master/graphs/example.json"
 )
 
 # Prefixed aliases so we do not collide with coffeenotes lead/researcher/reviewer.
