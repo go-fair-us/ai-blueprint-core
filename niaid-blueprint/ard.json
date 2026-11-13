@@ -1,0 +1,638 @@
+{
+  "catalog": {
+    "id": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint-catalog",
+    "name": "NIAID Blueprint agent plugin catalog",
+    "description": "ARD entries for the niaid-blueprint agent plugin and its 12 Agent Skills. Listed from the bio/NIH catalog (../mcp-catalog) as a nested application/ai-catalog+json entry.",
+    "version": "0.1.0",
+    "created": "2026-11-13",
+    "modified": "2026-11-13",
+    "maintainer": {
+      "name": "Douglas Fils",
+      "github": "fils"
+    },
+    "ardSpec": "https://agenticresourcediscovery.org/spec/",
+    "generatedBy": "yaml2ard.py",
+    "generatedAt": "2026-11-13T22:20:31Z",
+    "entryCount": 13,
+    "curationStripped": false
+  },
+  "entries": [
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint",
+      "displayName": "NIAID Blueprint agent plugin",
+      "type": "application/agent-plugins+zip",
+      "url": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint",
+      "description": "Agent skills and MCP access for implementing the NIAID Blueprint for Digital Objects: FAIR assessment, dataset metadata intake and extraction, citation, validation, teaching, and model-influence disclosure.",
+      "tags": [
+        "niaid",
+        "blueprint",
+        "fair",
+        "metadata",
+        "schema.org",
+        "json-ld",
+        "dataset",
+        "citation",
+        "shacl",
+        "pid"
+      ],
+      "version": "0.1.0",
+      "updatedAt": "2026-11-13T20:14:43Z",
+      "representativeQueries": [
+        "install the NIAID Blueprint skills",
+        "assess my repository against the NIAID Blueprint",
+        "help my repository implement the NIAID Blueprint for Digital Objects"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "default",
+      "cat:status": "alive",
+      "cat:urlKind": "repository",
+      "cat:homepage": "https://github.com/go-fair-us/ai-blueprint-core/blob/master/niaid-blueprint/skills/README.md",
+      "cat:source": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint",
+      "cat:agents": [
+        "Pi"
+      ],
+      "cat:contains": [
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-api-assess",
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-citation",
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-dataset-intake",
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-fair-assess",
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-llms",
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-metadata-extract",
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-model-influence",
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-robots",
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-shaclrules",
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-sitemap",
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-teach",
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-validation"
+      ],
+      "cat:install": "./bin/pi from a clone of the repo (loads niaid-blueprint/skills/; see HARNESS_QUICKSTART.md), or point any skill loader at niaid-blueprint/skills/",
+      "cat:license": "NOASSERTION",
+      "cat:lastCommit": "2026-11-13T20:14:43Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "plugin.json and mcp.json read; all 12 SKILL.md frontmatters parsed; bundled Python skill tests run (73 passed)",
+      "cat:reviewNotes": "Agent Plugins layout (plugin.json and mcp.json use the agent-plugins.org 1.0.0 schemas). mcp.json points at the Blueprint knowledge server at http://localhost:8000/mcp (mcp_bp/, started with ./bin/run_mcp.sh). That server is local only, so it is not listed as a remote MCP entry; the skills work without it. Pi is the only harness the repo wires to the plugin (./bin/pi and .pi/plugins/niaid-blueprint); repo docs also describe three of the skills as Claude Code skills. No release archive yet, so url points at the source folder even though type is the +zip plugin type; switch url to the release asset and cat:urlKind to archive after the first niaid-blueprint-v* release. No LICENSE file yet.",
+      "cat:foundVia": "go-fair-us/ai-blueprint-core (maintainer's own plugin)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-api-assess",
+      "displayName": "niaid-bp-api-assess",
+      "type": "application/agent-skills+md",
+      "url": "https://github.com/go-fair-us/ai-blueprint-core/blob/master/niaid-blueprint/skills/niaid-bp-api-assess/SKILL.md",
+      "description": "Assess an OpenAPI/Swagger document or an API documentation page against NIAID Blueprint Section 3 (JSON-LD metadata, resource IRIs, HTTP GET, OpenAPI) and a short REST lint. Writes findings JSON and a gap report. Use when the user supplies a swagger file, an OpenAPI URL, or API docs and wants to know how well the API is expressed, or says \"assess this API\", \"review our OpenAPI\", \"Blueprint API alignment\", or /niaid-bp-api-assess.",
+      "tags": [
+        "api",
+        "openapi",
+        "assessment"
+      ],
+      "version": "0.1",
+      "updatedAt": "2026-10-01T19:39:36Z",
+      "representativeQueries": [
+        "assess this API",
+        "review our OpenAPI",
+        "Blueprint API alignment"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "skill-file",
+      "cat:source": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint/skills/niaid-bp-api-assess",
+      "cat:agents": [
+        "Pi"
+      ],
+      "cat:skillFormat": "agent-skills SKILL.md",
+      "cat:requires": [
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint"
+      ],
+      "cat:install": "part of the niaid-blueprint plugin; or copy/symlink the skill folder into a harness skills directory",
+      "cat:license": "Apache-2.0",
+      "cat:lastCommit": "2026-10-01T19:39:36Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "SKILL.md frontmatter parsed; bundled tests passed (17)",
+      "cat:foundVia": "go-fair-us/ai-blueprint-core (maintainer's own plugin)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-citation",
+      "displayName": "niaid-bp-citation",
+      "type": "application/agent-skills+md",
+      "url": "https://github.com/go-fair-us/ai-blueprint-core/blob/master/niaid-blueprint/skills/niaid-bp-citation/SKILL.md",
+      "description": "Guide users through generating citation text and BibTeX entries aligned with the NIAID Blueprint for Digital Objects (Section 4). Supports original-data deposits, reused-data attribution, and repository-level citations with PID integration (DOI, RRID, ORCID). Use when the user wants citation examples, BibTeX for a dataset or software object, a \"How to Cite\" page draft, or runs /niaid-bp-citation.",
+      "tags": [
+        "citation",
+        "bibtex",
+        "pid"
+      ],
+      "version": "1.0",
+      "updatedAt": "2026-10-01T19:39:36Z",
+      "representativeQueries": [
+        "generate BibTeX for my dataset",
+        "draft a How to Cite page for our repository",
+        "give me citation examples aligned with the NIAID Blueprint"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "skill-file",
+      "cat:source": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint/skills/niaid-bp-citation",
+      "cat:agents": [
+        "Pi"
+      ],
+      "cat:skillFormat": "agent-skills SKILL.md",
+      "cat:requires": [
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint"
+      ],
+      "cat:install": "part of the niaid-blueprint plugin; or copy/symlink the skill folder into a harness skills directory",
+      "cat:license": "Apache-2.0",
+      "cat:lastCommit": "2026-10-01T19:39:36Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "SKILL.md frontmatter parsed; no bundled Python tests",
+      "cat:foundVia": "go-fair-us/ai-blueprint-core (maintainer's own plugin)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-dataset-intake",
+      "displayName": "niaid-bp-dataset-intake",
+      "type": "application/agent-skills+md",
+      "url": "https://github.com/go-fair-us/ai-blueprint-core/blob/master/niaid-blueprint/skills/niaid-bp-dataset-intake/SKILL.md",
+      "description": "Conducts a conversational interview to collect metadata for a schema.org Dataset and produces a valid JSON-LD document aligned with the NIAID Blueprint for Digital Objects. Covers all 16 Blueprint metadata elements across five natural groups: identity, provenance, content, access, and context. Use when a researcher or repository manager needs structured dataset metadata, or says \"create metadata for my dataset\", \"generate JSON-LD\", \"describe my dataset\", or \"Blueprint metadata\".",
+      "tags": [
+        "metadata",
+        "schema.org",
+        "json-ld",
+        "dataset",
+        "interview"
+      ],
+      "updatedAt": "2026-08-11T21:58:53Z",
+      "representativeQueries": [
+        "create metadata for my dataset",
+        "generate JSON-LD",
+        "describe my dataset",
+        "Blueprint metadata"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "skill-file",
+      "cat:source": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint/skills/niaid-bp-dataset-intake",
+      "cat:agents": [
+        "Pi"
+      ],
+      "cat:skillFormat": "agent-skills SKILL.md",
+      "cat:requires": [
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint"
+      ],
+      "cat:install": "part of the niaid-blueprint plugin; or copy/symlink the skill folder into a harness skills directory",
+      "cat:license": "NOASSERTION",
+      "cat:lastCommit": "2026-08-11T21:58:53Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "SKILL.md frontmatter parsed; no bundled Python tests",
+      "cat:reviewNotes": "SKILL.md declares no license.",
+      "cat:foundVia": "go-fair-us/ai-blueprint-core (maintainer's own plugin)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-fair-assess",
+      "displayName": "niaid-bp-fair-assess",
+      "type": "application/agent-skills+md",
+      "url": "https://github.com/go-fair-us/ai-blueprint-core/blob/master/niaid-blueprint/skills/niaid-bp-fair-assess/SKILL.md",
+      "description": "Conducts a structured NIAID Blueprint FAIR assessment interview across six phases (resource overview, metadata schema, persistent identifiers, APIs, citation, and outreach/training) and produces a prioritized gap report with actionable next steps. Use when a repository owner, data steward, or PI wants to evaluate Blueprint or FAIR alignment, prepare for NIAID Data Ecosystem Discovery Portal integration, or says \"assess my repository\", \"Blueprint assessment\", \"FAIR gap analysis\", or \"how do we integrate with the NIAID Portal\".",
+      "tags": [
+        "fair",
+        "assessment",
+        "interview"
+      ],
+      "updatedAt": "2026-08-11T21:58:53Z",
+      "representativeQueries": [
+        "assess my repository",
+        "Blueprint assessment",
+        "FAIR gap analysis",
+        "how do we integrate with the NIAID Portal"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "skill-file",
+      "cat:source": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint/skills/niaid-bp-fair-assess",
+      "cat:agents": [
+        "Pi",
+        "Claude Code"
+      ],
+      "cat:skillFormat": "agent-skills SKILL.md",
+      "cat:requires": [
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint"
+      ],
+      "cat:install": "part of the niaid-blueprint plugin; or copy/symlink the skill folder into a harness skills directory",
+      "cat:license": "NOASSERTION",
+      "cat:lastCommit": "2026-08-11T21:58:53Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "SKILL.md frontmatter parsed; no bundled Python tests",
+      "cat:reviewNotes": "Claude Code use is documented in docs/assessments/README.md. SKILL.md declares no license.",
+      "cat:foundVia": "go-fair-us/ai-blueprint-core (maintainer's own plugin)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-llms",
+      "displayName": "niaid-bp-llms",
+      "type": "application/agent-skills+md",
+      "url": "https://github.com/go-fair-us/ai-blueprint-core/blob/master/niaid-blueprint/skills/niaid-bp-llms/SKILL.md",
+      "description": "Check that a site publishes an llms.txt file, that the Markdown follows the llms.txt v2 spec (H1, optional blockquote, H2 file lists), and that a sample of its same-host links answer. Use when the user gives a repository or site URL and asks about llms.txt, or runs /niaid-bp-llms.",
+      "tags": [
+        "llms.txt",
+        "web",
+        "machine-access"
+      ],
+      "version": "0.1",
+      "updatedAt": "2026-10-31T18:20:04Z",
+      "representativeQueries": [
+        "does this site publish an llms.txt file",
+        "check the llms.txt for this repository"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "skill-file",
+      "cat:source": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint/skills/niaid-bp-llms",
+      "cat:agents": [
+        "Pi"
+      ],
+      "cat:skillFormat": "agent-skills SKILL.md",
+      "cat:requires": [
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint"
+      ],
+      "cat:install": "part of the niaid-blueprint plugin; or copy/symlink the skill folder into a harness skills directory",
+      "cat:license": "Apache-2.0",
+      "cat:lastCommit": "2026-10-31T18:20:04Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "SKILL.md frontmatter parsed; bundled tests passed (7)",
+      "cat:reviewNotes": "Its check script runs with `uv run` (PEP 723 inline deps: httpx).",
+      "cat:foundVia": "go-fair-us/ai-blueprint-core (maintainer's own plugin)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-metadata-extract",
+      "displayName": "niaid-bp-metadata-extract",
+      "type": "application/agent-skills+md",
+      "url": "https://github.com/go-fair-us/ai-blueprint-core/blob/master/niaid-blueprint/skills/niaid-bp-metadata-extract/SKILL.md",
+      "description": "Fetches a web resource URL and extracts Blueprint-aligned schema.org JSON-LD metadata (Table 1 elements) by retrieving and analyzing the target page. Produces a JSON-LD record plus metadata notes — no user interview required. Use when the user provides a dataset or resource URL for automatic extraction, or says \"/niaid-bp-metadata-extract\", \"extract metadata from URL\", \"generate JSON-LD from this page\", \"Blueprint metadata from URL\", or \"scrape metadata for this resource\".",
+      "tags": [
+        "metadata",
+        "schema.org",
+        "json-ld",
+        "extraction"
+      ],
+      "updatedAt": "2026-11-13T20:14:43Z",
+      "representativeQueries": [
+        "extract metadata from URL",
+        "generate JSON-LD from this page",
+        "Blueprint metadata from URL",
+        "scrape metadata for this resource"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "skill-file",
+      "cat:source": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint/skills/niaid-bp-metadata-extract",
+      "cat:agents": [
+        "Pi",
+        "Claude Code"
+      ],
+      "cat:skillFormat": "agent-skills SKILL.md",
+      "cat:requires": [
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint"
+      ],
+      "cat:install": "part of the niaid-blueprint plugin; or copy/symlink the skill folder into a harness skills directory",
+      "cat:license": "NOASSERTION",
+      "cat:lastCommit": "2026-11-13T20:14:43Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "SKILL.md frontmatter parsed; no bundled Python tests",
+      "cat:reviewNotes": "Claude Code use is documented in docs/metadataGeneration.md. SKILL.md declares no license.",
+      "cat:foundVia": "go-fair-us/ai-blueprint-core (maintainer's own plugin)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-model-influence",
+      "displayName": "niaid-bp-model-influence",
+      "type": "application/agent-skills+md",
+      "url": "https://github.com/go-fair-us/ai-blueprint-core/blob/master/niaid-blueprint/skills/niaid-bp-model-influence/SKILL.md",
+      "description": "Guide authors through developing a complete Model Influence Statement using the exact questions, fields, branching, and output structures from the Model Influence Statement Generator (https://model-influence-statement-generator.netlify.app/). Use when the user wants to create, fill out, or export a model influence statement, disclose ML model use in research, acknowledge AI assistance, or runs /niaid-bp-model-influence.",
+      "tags": [
+        "disclosure",
+        "ai-use",
+        "model-influence"
+      ],
+      "version": "1.0",
+      "updatedAt": "2026-08-11T21:58:53Z",
+      "representativeQueries": [
+        "create a model influence statement",
+        "disclose ML model use in my research",
+        "acknowledge AI assistance in my work"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "skill-file",
+      "cat:source": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint/skills/niaid-bp-model-influence",
+      "cat:agents": [
+        "Pi",
+        "Claude Code"
+      ],
+      "cat:skillFormat": "agent-skills SKILL.md",
+      "cat:requires": [
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint"
+      ],
+      "cat:install": "part of the niaid-blueprint plugin; or copy/symlink the skill folder into a harness skills directory",
+      "cat:license": "Apache-2.0",
+      "cat:lastCommit": "2026-08-11T21:58:53Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "SKILL.md frontmatter parsed; bundled tests passed (11)",
+      "cat:reviewNotes": "Claude Code use is documented in skills/niaid-bp-model-influence/README.md.",
+      "cat:foundVia": "go-fair-us/ai-blueprint-core (maintainer's own plugin)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-robots",
+      "displayName": "niaid-bp-robots",
+      "type": "application/agent-skills+md",
+      "url": "https://github.com/go-fair-us/ai-blueprint-core/blob/master/niaid-blueprint/skills/niaid-bp-robots/SKILL.md",
+      "description": "Check a site's robots.txt for AI crawler groups, IETF Content-Usage (train-ai), Cloudflare Content-Signal, and Crawl-delay. One homepage request records HTTP 429, Retry-After, and a Content-Usage header. Use when the user gives a repository or site URL and asks about robots.txt, or runs /niaid-bp-robots.",
+      "tags": [
+        "robots.txt",
+        "web",
+        "ai-crawlers"
+      ],
+      "version": "0.1",
+      "updatedAt": "2026-10-31T18:20:04Z",
+      "representativeQueries": [
+        "check this site's robots.txt",
+        "does this repository's robots.txt address AI crawlers"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "skill-file",
+      "cat:source": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint/skills/niaid-bp-robots",
+      "cat:agents": [
+        "Pi"
+      ],
+      "cat:skillFormat": "agent-skills SKILL.md",
+      "cat:requires": [
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint"
+      ],
+      "cat:install": "part of the niaid-blueprint plugin; or copy/symlink the skill folder into a harness skills directory",
+      "cat:license": "Apache-2.0",
+      "cat:lastCommit": "2026-10-31T18:20:04Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "SKILL.md frontmatter parsed; bundled tests passed (13)",
+      "cat:reviewNotes": "Its check script runs with `uv run` (PEP 723 inline deps: httpx).",
+      "cat:foundVia": "go-fair-us/ai-blueprint-core (maintainer's own plugin)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-shaclrules",
+      "displayName": "niaid-bp-shaclrules",
+      "type": "application/agent-skills+md",
+      "url": "https://github.com/go-fair-us/ai-blueprint-core/blob/master/niaid-blueprint/skills/niaid-bp-shaclrules/SKILL.md",
+      "description": "Run SHACL 1.2 Rules (SRL) with eyeleng via Deno: materialize inferred triples from DATA + RULE programs. Use when the user has an .srl file, wants SHACL Rules reasoning, says \"run this SRL\", \"materialize rules\", \"eyeleng\", or /niaid-bp-shaclrules. Not for Dataset pySHACL shape validation (use niaid-bp-validation).",
+      "tags": [
+        "shacl",
+        "rules",
+        "rdf",
+        "reasoning"
+      ],
+      "version": "0.1",
+      "updatedAt": "2026-08-12T15:40:27Z",
+      "representativeQueries": [
+        "run this SRL",
+        "materialize rules",
+        "run SHACL Rules reasoning on my data"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "skill-file",
+      "cat:source": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint/skills/niaid-bp-shaclrules",
+      "cat:agents": [
+        "Pi"
+      ],
+      "cat:skillFormat": "agent-skills SKILL.md",
+      "cat:requires": [
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint"
+      ],
+      "cat:install": "part of the niaid-blueprint plugin; or copy/symlink the skill folder into a harness skills directory",
+      "cat:license": "Apache-2.0",
+      "cat:lastCommit": "2026-08-12T15:40:27Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "SKILL.md frontmatter parsed; no bundled Python tests",
+      "cat:reviewNotes": "Frontmatter compatibility: Requires Deno 2+ (uses npm:eyeleng). Its shell smoke test was not run (Deno not installed on the checking machine).",
+      "cat:foundVia": "go-fair-us/ai-blueprint-core (maintainer's own plugin)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-sitemap",
+      "displayName": "niaid-bp-sitemap",
+      "type": "application/agent-skills+md",
+      "url": "https://github.com/go-fair-us/ai-blueprint-core/blob/master/niaid-blueprint/skills/niaid-bp-sitemap/SKILL.md",
+      "description": "Check that a public site publishes a sitemap, that the XML is well formed, and that a sample of its URLs answer. Looks in robots.txt, then /sitemap.xml and /sitemap_index.xml. Use when the user gives a repository or site URL and asks about sitemap.xml, or runs /niaid-bp-sitemap.",
+      "tags": [
+        "sitemap",
+        "web",
+        "machine-access"
+      ],
+      "version": "0.1",
+      "updatedAt": "2026-10-31T18:20:04Z",
+      "representativeQueries": [
+        "check this site's sitemap.xml",
+        "does this repository publish a sitemap"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "skill-file",
+      "cat:source": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint/skills/niaid-bp-sitemap",
+      "cat:agents": [
+        "Pi"
+      ],
+      "cat:skillFormat": "agent-skills SKILL.md",
+      "cat:requires": [
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint"
+      ],
+      "cat:install": "part of the niaid-blueprint plugin; or copy/symlink the skill folder into a harness skills directory",
+      "cat:license": "Apache-2.0",
+      "cat:lastCommit": "2026-10-31T18:20:04Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "SKILL.md frontmatter parsed; bundled tests passed (10)",
+      "cat:reviewNotes": "Its check script runs with `uv run` (PEP 723 inline deps: httpx).",
+      "cat:foundVia": "go-fair-us/ai-blueprint-core (maintainer's own plugin)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-teach",
+      "displayName": "niaid-bp-teach",
+      "type": "application/agent-skills+md",
+      "url": "https://github.com/go-fair-us/ai-blueprint-core/blob/master/niaid-blueprint/skills/niaid-bp-teach/SKILL.md",
+      "description": "Teach the NIAID Blueprint for Digital Objects through stateful, multi-session lessons. Creates a persistent teaching workspace with MISSION.md, HTML lessons, learning records, glossary, and reference sheets. Grounds all claims in RESOURCES.md. Use when the user wants to learn or teach the Blueprint, says \"teach me the Blueprint\", \"Blueprint course\", or \"FAIR digital objects training\", or wants progressive lessons across sessions toward a concrete repository goal.",
+      "tags": [
+        "training",
+        "teaching",
+        "fair"
+      ],
+      "updatedAt": "2026-10-01T19:39:36Z",
+      "representativeQueries": [
+        "teach me the Blueprint",
+        "Blueprint course",
+        "FAIR digital objects training"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "skill-file",
+      "cat:source": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint/skills/niaid-bp-teach",
+      "cat:agents": [
+        "Pi"
+      ],
+      "cat:skillFormat": "agent-skills SKILL.md",
+      "cat:requires": [
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint"
+      ],
+      "cat:install": "part of the niaid-blueprint plugin; or copy/symlink the skill folder into a harness skills directory",
+      "cat:license": "NOASSERTION",
+      "cat:lastCommit": "2026-10-01T19:39:36Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "SKILL.md frontmatter parsed; no bundled Python tests",
+      "cat:reviewNotes": "SKILL.md declares no license.",
+      "cat:foundVia": "go-fair-us/ai-blueprint-core (maintainer's own plugin)"
+    },
+    {
+      "@context": [
+        "https://agenticresourcediscovery.org/context/v1",
+        {
+          "cat": "https://example.org/mcp-catalog/ns#"
+        }
+      ],
+      "identifier": "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-bp-validation",
+      "displayName": "niaid-bp-validation",
+      "type": "application/agent-skills+md",
+      "url": "https://github.com/go-fair-us/ai-blueprint-core/blob/master/niaid-blueprint/skills/niaid-bp-validation/SKILL.md",
+      "description": "Validate a schema.org Dataset graph (JSON-LD or Turtle) against NIAID Blueprint SHACL shapes using pySHACL. Emits a severity-aware conformance verdict plus structured violation results. Use when the user provides Dataset JSON-LD or Turtle for SHACL checks, wants Blueprint required-field validation, or says \"validate this metadata\", \"check my JSON-LD against SHACL\", \"run pyshacl\", or /niaid-bp-validation.",
+      "tags": [
+        "shacl",
+        "validation",
+        "json-ld",
+        "schema.org"
+      ],
+      "version": "1.0",
+      "updatedAt": "2026-11-13T20:14:43Z",
+      "representativeQueries": [
+        "validate this metadata",
+        "check my JSON-LD against SHACL",
+        "run pyshacl"
+      ],
+      "cat:profile": [
+        "nih-niaid-research"
+      ],
+      "cat:role": "optional",
+      "cat:status": "alive",
+      "cat:urlKind": "skill-file",
+      "cat:source": "https://github.com/go-fair-us/ai-blueprint-core/tree/master/niaid-blueprint/skills/niaid-bp-validation",
+      "cat:agents": [
+        "Pi"
+      ],
+      "cat:skillFormat": "agent-skills SKILL.md",
+      "cat:requires": [
+        "urn:air:github.com:go-fair-us:ai-blueprint-core:niaid-blueprint"
+      ],
+      "cat:install": "part of the niaid-blueprint plugin; or copy/symlink the skill folder into a harness skills directory",
+      "cat:license": "Apache-2.0",
+      "cat:lastCommit": "2026-11-13T20:14:43Z",
+      "cat:lastChecked": "2026-11-13",
+      "cat:verifiedBy": "SKILL.md frontmatter parsed; bundled tests passed (15)",
+      "cat:foundVia": "go-fair-us/ai-blueprint-core (maintainer's own plugin)"
+    }
+  ]
+}
