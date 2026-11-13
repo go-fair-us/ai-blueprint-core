@@ -102,6 +102,15 @@ class Yaml2Ard(unittest.TestCase):
                                    capture_output=True, text=True)
                 self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
 
+    def test_niaid_blueprint_catalog(self):
+        """The plugin catalog validates and, with no -o, writes ard.json next to its YAML."""
+        nb = os.path.join(os.path.dirname(ROOT), "niaid-blueprint", "catalog.yaml")
+        if not os.path.exists(nb):
+            self.skipTest("niaid-blueprint/catalog.yaml not present")
+        code, log = run(nb, "--check")
+        self.assertEqual(code, 0, log)
+        self.assertIn("13 entries | JSON Schema: passed | 0 errors, 1 warnings", log)
+
     def test_split_needs_base_url(self):
         code, log = run(FIXTURE, "-o", self.out("ard.json"), "--split")
         self.assertEqual(code, 2, log)

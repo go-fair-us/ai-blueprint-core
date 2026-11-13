@@ -1,0 +1,3 @@
+# Python bytecode (keep it out of the plugin bundle and release zip)
+__pycache__/
+*.py[cod]

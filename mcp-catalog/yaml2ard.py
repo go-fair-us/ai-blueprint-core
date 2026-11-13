@@ -21,6 +21,7 @@ Appendix D ArdManifest). A `catalog` member with provenance is added unless
 Usage:
   python3 yaml2ard.py                         # bio-nih-mcp.yaml -> ard.json
   python3 yaml2ard.py in.yaml -o out.json
+  python3 yaml2ard.py ../niaid-blueprint/catalog.yaml   # -> ../niaid-blueprint/ard.json
   python3 yaml2ard.py --strip-curation        # pure ARD terms only
   python3 yaml2ard.py --curation-as-metadata  # also copy scalar cat: terms into metadata.*
   python3 yaml2ard.py --role default optional --profile nih-niaid-research
@@ -455,8 +456,8 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0],
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("input", nargs="?", default=os.path.join(here, "bio-nih-mcp.yaml"))
-    ap.add_argument("-o", "--output", default=os.path.join(here, "ard.json"),
-                    help="output path ('-' for stdout)")
+    ap.add_argument("-o", "--output", default=None,
+                    help="output path ('-' for stdout); default: ard.json next to the input YAML")
     ap.add_argument("--strip-curation", action="store_true",
                     help="emit only ARD core terms (drop cat: terms and their @context prefix)")
     ap.add_argument("--curation-as-metadata", action="store_true",
@@ -478,6 +479,8 @@ def main(argv=None) -> int:
     ap.add_argument("--check", action="store_true", help="validate only; do not write output")
     ap.add_argument("-q", "--quiet", action="store_true", help="print errors only")
     args = ap.parse_args(argv)
+    if args.output is None:
+        args.output = os.path.join(os.path.dirname(os.path.abspath(args.input)), "ard.json")
 
     try:
         with open(args.input, encoding="utf-8") as f:

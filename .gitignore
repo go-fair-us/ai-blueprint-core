@@ -12,3 +12,6 @@ src/libraryOptimizer/artifacts/*
 *~
 *.log
 !.env.example
+
+# Local build output (bin/build_plugin_zip.sh)
+/dist/

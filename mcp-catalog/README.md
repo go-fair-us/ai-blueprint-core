@@ -12,7 +12,7 @@ Status: draft 0.1.0, checked 2026-11-13. Nothing here is published.
 
 | Path | What it is |
 | --- | --- |
-| `bio-nih-mcp.yaml` | Source of truth: catalog header, 21 MCP server entries, a commented-out skill template, and a `reviewedNotListed` section |
+| `bio-nih-mcp.yaml` | Source of truth: catalog header, 21 MCP server entries, 1 nested catalog (the niaid-blueprint plugin), a commented-out skill template, and a `reviewedNotListed` section |
 | `yaml2ard.py` | YAML to ARD converter and validator |
 | `ard.json` | Generated manifest with the curation terms kept |
 | `ard.pure.json` | Generated manifest with only ARD core terms (`--strip-curation`) |
@@ -45,6 +45,10 @@ Status: draft 0.1.0, checked 2026-11-13. Nothing here is published.
 | [Biomni (Stanford SNAP) -- self-exported MCP](https://biomni.stanford.edu) | watch | alive | general-bio | stdio (only when you write a small Python launcher) |
 | [NIH RePORTER (Pipeworx gateway pack)](https://github.com/pipeworx-io/mcp-nih-reporter) | watch | alive | nih-niaid-research | streamable-http (hosted gateway) |
 | [SynergyAge MCP (longevity-genie)](https://www.synergyage.info/) | watch | stale | general-bio | stdio, streamable-http (self-hosted), sse |
+
+Nested catalog: [NIAID Blueprint agent plugin catalog](../niaid-blueprint/catalog.yaml)
+(`application/ai-catalog+json`, role default), the plugin and its 12 skills, built from
+`niaid-blueprint/catalog.yaml` into `niaid-blueprint/ard.json`.
 
 Reviewed but not listed: Cracking Shells. See `reviewedNotListed` in the YAML.
 

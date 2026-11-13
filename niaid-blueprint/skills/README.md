@@ -465,3 +465,47 @@ When you add or edit a skill in this bundle:
    skill’s interview or output contract changes.
 5. Optional scripts should stay **stdlib-friendly** where possible, or document
    extra install steps clearly (as validation does).
+6. Update the skill's entry in [`../catalog.yaml`](../catalog.yaml) when its
+   `description` changes, then regenerate `../ard.json` (see below).
+
+## Catalog entry and releases
+
+The plugin is described for discovery in
+[Agentic Resource Discovery (ARD) v0.91](https://agenticresourcediscovery.org/spec/)
+form, using the same tooling as [`mcp-catalog/`](../../mcp-catalog/):
+
+- [`../catalog.yaml`](../catalog.yaml) is the source of truth. It has one
+  `application/agent-plugins+zip` entry for the plugin, whose `cat:contains` lists
+  the skills, and one `application/agent-skills+md` entry per skill, pointing at its
+  `SKILL.md`. Each skill's `description` is copied verbatim from its frontmatter.
+- `../ard.json` is generated from it:
+
+  ```bash
+  python3 mcp-catalog/yaml2ard.py niaid-blueprint/catalog.yaml   # from the repo root
+  ```
+
+- `mcp-catalog/bio-nih-mcp.yaml` lists this manifest as one nested
+  `application/ai-catalog+json` entry, so the bio/NIH catalog points at it rather
+  than copying the skills.
+
+The plugin entry's `url` points at this folder until a release exists. To cut a
+release:
+
+1. Set `version` in [`../plugin.json`](../plugin.json), and the plugin entry's
+   `version` in `catalog.yaml`, then merge to `master`.
+2. Tag the commit `niaid-blueprint-v<version>` (for example `niaid-blueprint-v0.1.0`)
+   and push the tag. The **niaid-blueprint release** workflow
+   (`.github/workflows/niaid-blueprint-release.yml`) checks that the tag matches
+   `plugin.json`, builds `niaid-blueprint.zip`, and attaches it to the GitHub release.
+   You can also run it by hand from the Actions tab for an existing tag.
+3. Point the plugin entry's `url` at
+   `https://github.com/go-fair-us/ai-blueprint-core/releases/download/niaid-blueprint-v<version>/niaid-blueprint.zip`,
+   change `cat:urlKind` to `archive`, and regenerate `ard.json`.
+
+To build the same archive locally, run `./bin/build_plugin_zip.sh` (it writes
+`dist/niaid-blueprint.zip`). The archive holds the committed files under a
+top-level `niaid-blueprint/` folder, without `__pycache__`, `catalog.yaml` or
+`ard.json`.
+
+The repository has no license file yet. Eight of the twelve `SKILL.md` files
+declare Apache-2.0, and the catalog records `NOASSERTION` for the rest.
