@@ -93,11 +93,11 @@ Evaluation prompts take a repository origin, and some take a second URL:
 
 ## 7. Optional: Blueprint knowledge server
 
-Start this in a second terminal when you want Pi to search Blueprint docs, OKF concepts, and the skill catalog. The first `uv sync` downloads a large environment.
+Start this in a second terminal when you want Pi to search Blueprint docs, OKF concepts, and the skill catalog. `./bin/run_mcp.sh` changes to the repository root, then starts the server. The first `uv sync` downloads a large environment.
 
 ```bash
 uv sync --extra mcp
-uv run --extra mcp python -m mcp_bp.server
+./bin/run_mcp.sh
 ```
 
 The server listens at `http://127.0.0.1:8000/mcp`. Pi connects to it in the background. A connection refused message on an earlier start clears once the server is up and Pi retries.

@@ -62,7 +62,7 @@ Catalog and cross-skill map: `niaid-blueprint/skills/README.md`.
 
 ## Pi harness (`bin/pi`, `extensions/`)
 
-Optional [Pi](https://pi.dev) launcher. It does not copy skills and it does not install into `~/.pi` or a project `.pi/` config. `./bin/pi` cds to the repo root and runs `pi --no-skills -e extensions/load-skills.ts`. The extension contributes `niaid-blueprint/skills/` and registers the MCP servers in `niaid-blueprint/mcp.json` (the local knowledge server at `http://localhost:8000/mcp`). Start that server separately when you want its tools. Extra Pi args pass through.
+Optional [Pi](https://pi.dev) launcher. It does not copy skills and it does not install into `~/.pi` or a project `.pi/` config. `./bin/pi` cds to the repo root and runs `pi --no-skills -e extensions/load-skills.ts`. The extension contributes `niaid-blueprint/skills/` and registers the MCP servers in `niaid-blueprint/mcp.json` (the local knowledge server at `http://localhost:8000/mcp`). Start that server separately with `./bin/run_mcp.sh` when you want its tools. Extra Pi args pass through.
 
 ```bash
 ./bin/pi
@@ -82,7 +82,7 @@ Read-only **Model Context Protocol** server over HTTP. Bridges files in this rep
 
 ```bash
 uv sync --extra mcp
-uv run --extra mcp python -m mcp_bp.server   # http://127.0.0.1:8000/mcp
+./bin/run_mcp.sh   # http://127.0.0.1:8000/mcp
 uv run --extra mcp --with pytest pytest mcp_bp/tests
 ```
 
@@ -221,7 +221,7 @@ uv sync --extra genmeta         # + Herdr client + SHACL
 uv add <package>
 
 # MCP knowledge server
-uv run --extra mcp python -m mcp_bp.server
+./bin/run_mcp.sh
 
 # Tests
 uv run --extra mcp --with pytest pytest mcp_bp/tests
