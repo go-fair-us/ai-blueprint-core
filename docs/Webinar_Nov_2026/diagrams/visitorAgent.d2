@@ -1,0 +1,126 @@
+grid-columns: 2
+grid-gap: 40
+
+case1: {
+  label: "Case 1: Agent using\nCommercial Model"
+  style: {
+    fill: white
+    stroke: "#1E40AF"
+    stroke-width: 3
+    border-radius: 12
+    font-size: 18
+    font-color: "#1E3A8A"
+    bold: true
+  }
+
+  agent: {
+    shape: rectangle
+    label: "User-Directed AI Agent\nPowered by Commercial /\nClosed LLM"
+    style: {
+      fill: "#EFF6FF"
+      stroke: "#2563EB"
+      stroke-width: 2
+      border-radius: 8
+      font-size: 13
+    }
+    width: 180
+    height: 90
+  }
+
+  site: {
+    shape: rectangle
+    label: "Website hosting\nresources"
+    style: {
+      fill: "#EFF6FF"
+      stroke: "#2563EB"
+      stroke-width: 2
+      border-radius: 8
+      font-size: 13
+    }
+    width: 140
+    height: 90
+  }
+
+  denied: {
+    shape: text
+    label: "Access Denied"
+    style.font-size: 18
+    style.font-color: "#DC2626"
+    style.bold: true
+  }
+
+  bullets: |md
+    - Bot / agent detection
+    - ToS enforcement
+  | {
+    shape: text
+    style.font-size: 14
+    style.font-color: "#1F2937"
+  }
+
+  agent -> site: ❌ {
+    style.stroke: "#DC2626"
+    style.stroke-width: 3
+  }
+}
+
+case2: {
+  label: "Case 2: Agent using\nSelf-Hosted Open Source Model"
+  style: {
+    fill: white
+    stroke: "#1E40AF"
+    stroke-width: 3
+    border-radius: 12
+    font-size: 18
+    font-color: "#1E3A8A"
+    bold: true
+  }
+
+  agent: {
+    shape: rectangle
+    label: "User-Directed AI Agent\nPowered by Self-Hosted\nOpen-Source Model"
+    style: {
+      fill: "#EFF6FF"
+      stroke: "#2563EB"
+      stroke-width: 2
+      border-radius: 8
+      font-size: 13
+    }
+    width: 180
+    height: 90
+  }
+
+  site: {
+    shape: rectangle
+    label: "Website hosting\nresources"
+    style: {
+      fill: "#EFF6FF"
+      stroke: "#2563EB"
+      stroke-width: 2
+      border-radius: 8
+      font-size: 13
+    }
+    width: 140
+    height: 90
+  }
+
+  conundrum: {
+    shape: text
+    label: "⚖️  Conundrum: Allow this agent?"
+    style.font-size: 16
+    style.font-color: "#1E3A8A"
+    style.bold: true
+  }
+
+  bullets: |md
+    - Agent uses open-source model
+    - Is this OK?
+    - How do we know this case?
+  | {
+    shape: text
+    style.font-size: 14
+    style.font-color: "#1F2937"
+  }
+
+  agent -> site
+}

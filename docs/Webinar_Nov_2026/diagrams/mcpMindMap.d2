@@ -1,0 +1,123 @@
+direction: down
+
+# Left side
+tools: Tools\n (code or APIs \n you already have) {
+  style: {
+    fill: "#DBEAFE"
+    stroke: "#2563EB"
+    stroke-width: 2
+    border-radius: 12
+    font-size: 16
+  }
+  width: 150
+  height: 100
+}
+prompts: Prompts\n (example prompts) {
+  style: {
+    fill: "#DBEAFE"
+    stroke: "#2563EB"
+    stroke-width: 2
+    border-radius: 12
+    font-size: 16
+  }
+  width: 150
+  height: 100
+}
+resources: Resources\n (static resources) {
+  style: {
+    fill: "#DBEAFE"
+    stroke: "#2563EB"
+    stroke-width: 2
+    border-radius: 12
+    font-size: 16
+  }
+  width: 150
+  height: 100
+}
+
+# Center
+mcp: MCP {
+  style: {
+    fill: "#F5F3FF"
+    stroke: "#7C3AED"
+    stroke-width: 4
+    border-radius: 16
+    font-size: 22
+    font-color: "#5B21B6"
+    bold: true
+  }
+  width: 140
+  height: 100
+}
+
+# Above MCP
+elicitations: Elicitations {
+  style: {
+    fill: "#FEF3C7"
+    stroke: "#D97706"
+    stroke-width: 2
+    border-radius: 12
+    font-size: 16
+  }
+  width: 150
+  height: 100
+}
+
+# Right side
+logging: Logging {
+  style: {
+    fill: "#D1FAE5"
+    stroke: "#059669"
+    stroke-width: 2
+    border-radius: 12
+    font-size: 16
+  }
+  width: 150
+  height: 100
+}
+skills: Skills {
+  style: {
+    fill: "#D1FAE5"
+    stroke: "#059669"
+    stroke-width: 2
+    border-radius: 12
+    font-size: 16
+  }
+  width: 150
+  height: 100
+}
+jobs: Jobs {
+  style: {
+    fill: "#D1FAE5"
+    stroke: "#059669"
+    stroke-width: 2
+    border-radius: 12
+    font-size: 16
+  }
+  width: 150
+  height: 100
+}
+
+otc: OpenTelemetry Clients\n Grafana, Prometheus, etc... {
+  style: {
+    fill: "#D1FAE5"
+    stroke: "#059669"
+    stroke-width: 2
+    border-radius: 12
+    font-size: 16
+  }
+  width: 250
+  height: 100
+}
+
+# Connections
+tools -> mcp
+prompts -> mcp
+resources -> mcp
+
+mcp -> elicitations
+mcp -> logging
+mcp <-> skills
+mcp <-> jobs
+
+logging -> otc

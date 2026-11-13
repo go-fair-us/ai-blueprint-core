@@ -1,0 +1,146 @@
+direction: down
+
+title: {
+  shape: text
+  label: "The Anatomy of an Agent Harness"
+  style.font-size: 32
+  style.bold: true
+  style.font-color: "#1F2937"
+}
+
+subtitle: {
+  shape: text
+  label: "the harness gives the mind a body"
+  style.font-size: 18
+  style.italic: true
+  style.font-color: "#7C3AED"
+}
+
+harness: {
+  label: "THE HARNESS\nthe body — everything around the weights"
+  style: {
+    fill: "#F5F3FF"
+    stroke: "#7C3AED"
+    stroke-width: 4
+    border-radius: 16
+    font-color: "#5B21B6"
+    font-size: 16
+  }
+  grid-rows: 3
+  grid-columns: 3
+  grid-gap: 30
+  width: 900
+  height: 500
+
+  # Top row
+  pad_tl: { style.opacity: 0 }
+  perceive: {
+    label: "👁  PERCEIVE\ncontext assembly — the eyes"
+    style: {
+      fill: white
+      stroke: "#111827"
+      stroke-width: 2
+      border-radius: 8
+      font-size: 13
+    }
+    width: 260
+    height: 85
+  }
+  pad_tr: { style.opacity: 0 }
+
+  # Middle row
+  enforce: {
+    label: "🛡  ENFORCE\npermissions + guardrails\n— the immune system"
+    style: {
+      fill: white
+      stroke: "#111827"
+      stroke-width: 2
+      border-radius: 8
+      font-size: 13
+    }
+    width: 220
+    height: 110
+  }
+  model: {
+    shape: oval
+    label: "☁️  THE MODEL\npure mind — a brain in a vat\nit only ever decides"
+    style: {
+      fill: "#FFF7ED"
+      stroke: "#EA580C"
+      stroke-width: 3
+      font-color: "#C2410C"
+      font-size: 13
+    }
+    width: 240
+    height: 150
+  }
+  act: {
+    label: "✋  ACT\ntools + execution\n— the hands"
+    style: {
+      fill: white
+      stroke: "#111827"
+      stroke-width: 2
+      border-radius: 8
+      font-size: 13
+    }
+    width: 200
+    height: 110
+  }
+
+  # Bottom row
+  pad_bl: { style.opacity: 0 }
+  persist: {
+    label: "📋  PERSIST\nmemory + compaction — what survives"
+    style: {
+      fill: white
+      stroke: "#111827"
+      stroke-width: 2
+      border-radius: 8
+      font-size: 13
+    }
+    width: 280
+    height: 90
+  }
+  pad_br: { style.opacity: 0 }
+}
+
+# Internal connections
+harness.perceive -> harness.model
+harness.enforce <-> harness.model
+harness.model -> harness.act
+harness.model <-> harness.persist
+
+# External "THE WORLD" (dashed arrow from ACT)
+world: THE WORLD {
+  style.opacity: 1
+}
+harness.act -> world: {
+  style.stroke-dash: 5
+  style.stroke: "#7C3AED"
+  style.stroke-width: 2
+}
+
+cycle: {
+  shape: text
+  label: "perceive → decide → act → observe → repeat"
+  style.font-size: 20
+  style.font-color: "#7C3AED"
+  style.bold: true
+}
+
+quote: {
+  shape: rectangle
+  label: "The model only ever decides. Everything else is harness."
+  style: {
+    fill: "#1E1B4B"
+    stroke: "#1E1B4B"
+    font-color: white
+    font-size: 15
+    border-radius: 6
+    bold: true
+  }
+  width: 650
+  height: 45
+}
+
+title -> subtitle -> harness -> cycle -> quote

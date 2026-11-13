@@ -1,0 +1,53 @@
+direction: down
+
+publishers: "Publishers\n(any domain)" {
+  style: {
+    fill: "#DBEAFE"
+    stroke: "#2563EB"
+    stroke-width: 2
+    border-radius: 12
+    font-size: 16
+  }
+  width: 280
+  height: 80
+}
+
+registries: "Registries\n(many, federated)" {
+  style: {
+    fill: "#FEF3C7"
+    stroke: "#D97706"
+    stroke-width: 2
+    border-radius: 12
+    font-size: 16
+  }
+  width: 280
+  height: 80
+}
+
+client: "AI Client / Orchestrator" {
+  style: {
+    fill: "#F5F3FF"
+    stroke: "#7C3AED"
+    stroke-width: 2
+    border-radius: 12
+    font-size: 16
+  }
+  width: 280
+  height: 80
+}
+
+invoke: "Invoke via native protocol\n(MCP / A2A / API / etc.)" {
+  style: {
+    fill: "#D1FAE5"
+    stroke: "#059669"
+    stroke-width: 2
+    border-radius: 12
+    font-size: 16
+  }
+  width: 280
+  height: 80
+}
+
+publishers -> registries: "host /.well-known/ard.json\n(entries with URNs +\nrepresentativeQueries)"
+registries -> client: "crawl + index + rank\nexpose POST /search"
+client -> invoke: "\"find me a weather tool\"\nor \"book a flight\"\ngets top matching entries"

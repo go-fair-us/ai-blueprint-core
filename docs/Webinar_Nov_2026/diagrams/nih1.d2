@@ -1,0 +1,179 @@
+grid-rows: 4
+grid-gap: 50
+vertical-gap: 60
+
+# ---- Equation 1 ----
+eq1: "Data repository with web site for users" {
+  grid-columns: 3
+  grid-gap: 40
+
+  repo: repository {
+    width: 180
+    style.fill: "#DBEAFE"
+    style.stroke: "#2563EB"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 25
+  }
+  web: website {
+    width: 180
+    style.fill: "#DBEAFE"
+    style.stroke: "#2563EB"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 25
+  }
+  result: "User\nexperience" {
+    width: 180
+    style.fill: "#D1FAE5"
+    style.stroke: "#059669"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 25
+    style.bold: true
+  }
+
+  repo -> web: +
+  web -> result: =
+}
+
+# ---- Equation 2 ----
+eq2: "WebAPIs for programmers" {
+  grid-columns: 3
+  grid-gap: 40
+
+  repo: repository {
+    width: 180
+    style.fill: "#DBEAFE"
+    style.stroke: "#2563EB"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 25
+  }
+  apis: APIs {
+    width: 180
+    style.fill: "#DBEAFE"
+    style.stroke: "#2563EB"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 25
+  }
+  result: "Programmer\nexperience" {
+    width: 180
+    style.fill: "#D1FAE5"
+    style.stroke: "#059669"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 25
+    style.bold: true
+  }
+
+  repo -> apis: +
+  apis -> result: =
+}
+
+# ---- Equation 3 ----
+eq3: "WebAPIs with Descriptions a 'Agent aware' resources" {
+  grid-columns: 3
+  grid-gap: 40
+
+  repo: repository {
+    width: 180
+    style.fill: "#DBEAFE"
+    style.stroke: "#2563EB"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 25
+  }
+  apis: APIs {
+    width: 180
+    style.fill: "#DBEAFE"
+    style.stroke: "#2563EB"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 25
+  }
+  result: "Agent aware" {
+    width: 180
+    style.fill: "#D1FAE5"
+    style.stroke: "#059669"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 25
+    style.bold: true
+  }
+
+  repo -> apis: +
+  apis -> result: =
+}
+
+# ---- Equation 4 ----
+eq4: "APIs with context, MCP, Skills and Semantic Layer for Agent Ready" {
+  grid-columns: 7
+  grid-gap: 30
+
+  repo: repository {
+    width: 140
+    style.fill: "#DBEAFE"
+    style.stroke: "#2563EB"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 20
+  }
+  config: "AI aligned\nconfiguration" {
+    width: 140
+    style.fill: "#DBEAFE"
+    style.stroke: "#2563EB"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 20
+  }
+  apis: APIs {
+    width: 140
+    style.fill: "#FEF3C7"
+    style.stroke: "#D97706"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 20
+  }
+  mcp: MCP {
+    width: 140
+    style.fill: "#FEF3C7"
+    style.stroke: "#D97706"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 20
+  }
+  context: Context {
+    width: 140
+    style.fill: "#FEF3C7"
+    style.stroke: "#D97706"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 20
+  }
+  skills: Skills {
+    width: 140
+    style.fill: "#FEF3C7"
+    style.stroke: "#D97706"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 20
+  }
+  result: "Agent Ready" {
+    width: 140
+    style.fill: "#D1FAE5"
+    style.stroke: "#059669"
+    style.stroke-width: 2
+    style.border-radius: 8
+    style.font-size: 20
+    style.bold: true
+  }
+
+  repo -> config: +
+  config -> apis: +
+  apis -> mcp: +
+  mcp -> context: +
+  context -> skills: +
+  skills -> result: =
+}

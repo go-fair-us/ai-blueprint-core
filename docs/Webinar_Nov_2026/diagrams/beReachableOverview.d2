@@ -1,0 +1,57 @@
+direction: right
+
+signal: |md
+  ## Signal
+  - robots.txt
+
+  Tell the consumer
+  <br/> what you epect
+
+| {
+  shape: rectangle
+  style: {
+    fill: "#DBEAFE"
+    stroke: "#2563EB"
+    stroke-width: 2
+    border-radius: 12
+    font-color: "#1E3A8A"
+  }
+  width: 200
+  height: 160
+}
+
+enforcement: |md
+  ## Enforcement
+  - firewall rules (IP range)
+  - Provider policy
+| {
+  shape: rectangle
+  style: {
+    fill: "#FEF3C7"
+    stroke: "#D97706"
+    stroke-width: 2
+    border-radius: 12
+    font-color: "#92400E"
+  }
+  width: 200
+  height: 160
+}
+
+audit: |md
+  ## Audit
+  - log and review
+| {
+  shape: rectangle
+  style: {
+    fill: "#D1FAE5"
+    stroke: "#059669"
+    stroke-width: 2
+    border-radius: 12
+    font-color: "#065F46"
+  }
+  width: 200
+  height: 160
+}
+
+signal -> enforcement
+enforcement -> audit

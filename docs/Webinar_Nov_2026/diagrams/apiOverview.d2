@@ -1,0 +1,112 @@
+direction: right
+
+# Left
+config: |md
+  ## Configuration approaches
+
+  * Cool URIs
+  * Caching aware approaches
+  * Stable URLs (potential PIDs)
+  * HTTP status codes:
+    * 2xx for success
+    * 3xx for redirects (e.g., 303 See Other)
+    * 4xx for client errors
+    * 5xx for server issues
+  * Cache control headers
+    * ETags / LastModified
+| {
+  shape: rectangle
+  style: {
+    fill: "#DBEAFE"
+    stroke: "#2563EB"
+    stroke-width: 2
+    border-radius: 12
+    font-color: "#1E3A8A"
+  }
+  width: 400
+  height: 400
+}
+
+# Center
+api: "Application\n Programming Interface\n (API or WebAPI)" {
+  style: {
+    fill: "#F5F3FF"
+    stroke: "#7C3AED"
+    stroke-width: 4
+    border-radius: 16
+    font-size: 16
+    font-color: "#5B21B6"
+    bold: true
+  }
+  width: 220
+  height: 120
+}
+
+# Right
+jsonld: JSON-LD {
+  style: {
+    fill: "#D1FAE5"
+    stroke: "#059669"
+    stroke-width: 2
+    border-radius: 10
+    font-size: 14
+  }
+  width: 180
+  height: 60
+}
+
+pid: "PID based References" {
+  style: {
+    fill: "#D1FAE5"
+    stroke: "#059669"
+    stroke-width: 2
+    border-radius: 10
+    font-size: 14
+  }
+  width: 180
+  height: 60
+}
+
+preferget: "Prefer GET" {
+  style: {
+    fill: "#D1FAE5"
+    stroke: "#059669"
+    stroke-width: 2
+    border-radius: 10
+    font-size: 14
+  }
+  width: 180
+  height: 60
+}
+
+openapi: "OpenAPI and Swagger" {
+  style: {
+    fill: "#D1FAE5"
+    stroke: "#059669"
+    stroke-width: 2
+    border-radius: 10
+    font-size: 14
+  }
+  width: 180
+  height: 60
+}
+
+contentneg: "Content Negotiation" {
+  style: {
+    fill: "#D1FAE5"
+    stroke: "#059669"
+    stroke-width: 2
+    border-radius: 10
+    font-size: 14
+  }
+  width: 180
+  height: 60
+}
+
+# Connections
+config -> api
+api -> jsonld
+api -> pid
+api -> preferget
+api -> openapi
+api -> contentneg

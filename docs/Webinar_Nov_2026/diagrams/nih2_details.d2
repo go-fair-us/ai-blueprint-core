@@ -1,0 +1,128 @@
+grid-rows: 3
+grid-columns: 3
+grid-gap: 40
+
+# Top
+pad_tl: { style.opacity: 0 }
+
+reachable: |md
+  ## BE REACHABLE
+  - configuration
+  - robots.txt
+
+  Leverage rate limits, retry after
+  <br/>and caching approaches to
+  <br/>address scale.
+| {
+  shape: rectangle
+  style: {
+    #fill: "#E0F2FE"
+    #stroke: "#7C3AED"
+    stroke-width: 0
+    border-radius: 16
+    font-color: "#1E3A8A"
+  }
+  width: 250
+  height: 250
+}
+
+pad_tr: { style.opacity: 0 }
+
+# Middle
+meaningful: |md
+  ## BE MEANINGFUL
+  - PIDs
+  - Vocabularies
+  - Leverage profiles
+    - Croissant
+    - Domain
+    - others...
+  - Validation 🩸
+  - Rules 🩸
+  - Mappings 🩸
+| {
+  shape: rectangle
+  style: {
+    #fill: "#E0F2FE"
+    #stroke: "#7C3AED"
+    stroke-width: 0
+    border-radius: 16
+    font-color: "#1E3A8A"
+  }
+  width: 250
+  height: 250
+}
+
+agent: {
+  shape: rectangle
+  label: "SI enhanced\n workflow"
+  style: {
+    fill: "#F5F3FF"
+    stroke: "#7C3AED"
+    stroke-width: 4
+    border-radius: 20
+    font-size: 22
+    font-color: "#5B21B6"
+    bold: true
+  }
+  width: 250
+  height: 250
+}
+
+readable: |md
+  ## BE READABLE
+  - sitemap.xml
+  - llms.txt
+  - signposting
+  - SKILL.md 💥
+  - ard.json 🩸
+  - agent-plugin 🩸
+
+  Implement Structured <br/> data & metadata
+  <br/> and content negotiaion.
+| {
+  shape: rectangle
+  style: {
+    #fill: "#E0F2FE"
+    #stroke: "#7C3AED"
+    stroke-width: 0
+    border-radius: 16
+    font-color: "#1E3A8A"
+  }
+  width: 250
+  height: 250
+}
+
+# Bottom
+pad_bl: { style.opacity: 0 }
+
+callable: |md
+  ## BE CALLABLE
+  - OpenAPI
+    - Documented in OpenAPI patterns
+  - MCP 💥
+    - Resources
+    - Prompts
+    - Tools
+    - Skills
+    - more...
+| {
+  shape: rectangle
+  style: {
+    #fill: "#E0F2FE"
+    #stroke: "#7C3AED"
+    stroke-width: 0
+    border-radius: 16
+    font-color: "#1E3A8A"
+  }
+  width: 250
+  height: 290
+}
+
+pad_br: { style.opacity: 0 }
+
+# Arrows between the concept boxes and the center
+reachable -> agent
+meaningful -> agent
+readable -> agent
+callable -> agent

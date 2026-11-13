@@ -1,0 +1,95 @@
+direction: down
+
+harness: {
+  label: "Harness"
+  style: {
+    fill: "#F5F3FF"
+    stroke: "#7C3AED"
+    stroke-width: 4
+    border-radius: 16
+    font-color: "#5B21B6"
+    font-size: 26
+  }
+  grid-rows: 3
+  grid-columns: 3
+  grid-gap: 30
+  width: 900
+  height: 500
+
+  # Top row
+  pad_tl: { style.opacity: 0 }
+  perceive: {
+    label: "Context"
+    style: {
+      fill: white
+      stroke: "#111827"
+      stroke-width: 2
+      border-radius: 8
+      font-size: 22
+    }
+    width: 260
+    height: 85
+  }
+  pad_tr: { style.opacity: 0 }
+
+  # Middle row
+  enforce: {
+    label: "permissions + guardrails"
+    style: {
+      fill: white
+      stroke: "#111827"
+      stroke-width: 2
+      border-radius: 8
+      font-size: 18
+    }
+    width: 220
+    height: 110
+  }
+  model: {
+    shape: oval
+    label: "MODEL"
+    style: {
+      fill: "#FFF7ED"
+      stroke: "#EA580C"
+      stroke-width: 3
+      font-color: "#C2410C"
+      font-size: 24
+    }
+    width: 240
+    height: 150
+  }
+  act: {
+    label: "tools + execution"
+    style: {
+      fill: white
+      stroke: "#111827"
+      stroke-width: 2
+      border-radius: 8
+      font-size: 18
+    }
+    width: 200
+    height: 110
+  }
+
+  # Bottom row
+  pad_bl: { style.opacity: 0 }
+  persist: {
+    label: "memory + compaction"
+    style: {
+      fill: white
+      stroke: "#111827"
+      stroke-width: 2
+      border-radius: 8
+      font-size: 18
+    }
+    width: 280
+    height: 90
+  }
+  pad_br: { style.opacity: 0 }
+}
+
+# Internal connections
+harness.perceive -> harness.model
+harness.enforce <-> harness.model
+harness.model -> harness.act
+harness.model <-> harness.persist

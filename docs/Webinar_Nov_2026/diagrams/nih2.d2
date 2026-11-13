@@ -1,0 +1,94 @@
+grid-rows: 3
+grid-columns: 3
+grid-gap: 40
+
+# Top
+pad_tl: { style.opacity: 0 }
+reachable: {
+  shape: rectangle
+  label: "BE REACHABLE\nEasy access\nwithout barriers"
+  style: {
+    fill: "#E0F2FE"
+    stroke: "#7C3AED"
+    stroke-width: 3
+    border-radius: 16
+    font-size: 16
+    font-color: "#1E3A8A"
+    bold: true
+  }
+  width: 200
+  height: 160
+}
+pad_tr: { style.opacity: 0 }
+
+# Middle
+meaningful: {
+  shape: rectangle
+  label: "BE MEANINGFUL\nRich context &\nrelevance"
+  style: {
+    fill: "#E0F2FE"
+    stroke: "#7C3AED"
+    stroke-width: 3
+    border-radius: 16
+    font-size: 16
+    font-color: "#1E3A8A"
+    bold: true
+  }
+  width: 200
+  height: 160
+}
+agent: {
+  shape: rectangle
+  label: "SI enhanced\n workflow"
+  style: {
+    fill: "#F5F3FF"
+    stroke: "#7C3AED"
+    stroke-width: 4
+    border-radius: 20
+    font-size: 22
+    font-color: "#5B21B6"
+    bold: true
+  }
+  width: 200
+  height: 160
+}
+readable: {
+  shape: rectangle
+  label: "BE READABLE\nStructured data\n& metadata"
+  style: {
+    fill: "#E0F2FE"
+    stroke: "#7C3AED"
+    stroke-width: 3
+    border-radius: 16
+    font-size: 16
+    font-color: "#1E3A8A"
+    bold: true
+  }
+  width: 200
+  height: 160
+}
+
+# Bottom
+pad_bl: { style.opacity: 0 }
+callable: {
+  shape: rectangle
+  label: "BE CALLABLE\nClear APIs &\nMCP servers"
+  style: {
+    fill: "#E0F2FE"
+    stroke: "#7C3AED"
+    stroke-width: 3
+    border-radius: 16
+    font-size: 16
+    font-color: "#1E3A8A"
+    bold: true
+  }
+  width: 200
+  height: 160
+}
+pad_br: { style.opacity: 0 }
+
+# Arrows between the concept boxes and the center
+reachable -> agent
+meaningful -> agent
+readable -> agent
+callable -> agent

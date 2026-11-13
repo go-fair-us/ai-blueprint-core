@@ -1,0 +1,29 @@
+direction: right
+
+root: "my-plugin/" {
+  style.font-size: 18
+  style.bold: true
+}
+
+pluginjson: "plugin.json\n  (required manifest)"
+skills: "skills/\n (optional Agent Skills)"
+mcp: "mcp.json\n (optional MCP server config)"
+client: "com.example.client/\n (optional client-specific extensions)"
+
+root -> pluginjson
+root -> skills
+root -> mcp
+root -> client
+
+summarize: summarize/
+skills -> summarize
+
+skillmd: SKILL.md
+scripts: scripts/
+references: references/
+summarize -> skillmd
+summarize -> scripts
+summarize -> references
+
+hooks: hooks/
+client -> hooks

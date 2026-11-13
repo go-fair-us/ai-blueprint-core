@@ -1,0 +1,87 @@
+direction: right
+
+title: SI System {
+  shape: text
+  near: top-center
+  style.font-size: 32
+  style.bold: true
+  style.font-color: "#1F2937"
+  style.underline: true
+}
+
+task: Compute {
+  shape: rectangle
+  style: {
+    fill: "#DBEAFE"
+    stroke: "#2563EB"
+    stroke-width: 3
+    border-radius: 12
+    font-size: 22
+    font-color: "#1E3A8A"
+    bold: true
+  }
+  width: 220
+  height: 90
+}
+
+harness: Application {
+  shape: rectangle
+  style: {
+    fill: "#FEF3C7"
+    stroke: "#D97706"
+    stroke-width: 3
+    border-radius: 12
+    font-size: 22
+    font-color: "#92400E"
+    bold: true
+  }
+  width: 220
+  height: 90
+}
+
+model: Model {
+  shape: rectangle
+  style: {
+    fill: "#EDE9FE"
+    stroke: "#7C3AED"
+    stroke-width: 3
+    border-radius: 12
+    font-size: 22
+    font-color: "#5B21B6"
+    bold: true
+  }
+  width: 220
+  height: 90
+}
+
+details: {
+  shape: text
+  near: bottom-center
+  label: |-
+    - Data
+    - Services
+    - Context
+    - Skills \& Tools
+    - etc
+  -|
+  style.font-size: 26
+  style.font-color: "#1F2937"
+}
+#
+# - Skills \& Tools
+# - Context
+# - Data
+# - Memory
+# - Loops
+# - Evaluation
+# - State management
+
+
+task <-> harness
+harness <-> model
+
+# Optional light connection to the list (or omit for a pure brace-like look)
+harness -> details: {
+  style.stroke: "#1F2937"
+  style.stroke-width: 2
+}

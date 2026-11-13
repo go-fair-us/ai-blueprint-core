@@ -1,0 +1,109 @@
+grid-rows: 3
+grid-columns: 3
+grid-gap: 40
+
+# Top
+pad_tl: { style.opacity: 0 }
+vocabulary: {
+  shape: rectangle
+  label: "Vocabulary"
+  style: {
+    fill: "#E0F2FE"
+    stroke: "#7C3AED"
+    stroke-width: 3
+    border-radius: 16
+    font-size: 16
+    font-color: "#1E3A8A"
+    bold: true
+  }
+  width: 180
+  height: 90
+}
+pad_tr: { style.opacity: 0 }
+
+# Middle
+pids: {
+  shape: rectangle
+  label: "PIDs"
+  style: {
+    fill: "#E0F2FE"
+    stroke: "#7C3AED"
+    stroke-width: 3
+    border-radius: 16
+    font-size: 16
+    font-color: "#1E3A8A"
+    bold: true
+  }
+  width: 180
+  height: 90
+}
+meaningful: {
+  shape: rectangle
+  label: "Be Meaningful"
+  style: {
+    fill: "#F5F3FF"
+    stroke: "#7C3AED"
+    stroke-width: 4
+    border-radius: 20
+    font-size: 20
+    font-color: "#5B21B6"
+    bold: true
+  }
+  width: 200
+  height: 110
+}
+validation: {
+  shape: rectangle
+  label: "Validation"
+  style: {
+    fill: "#E0F2FE"
+    stroke: "#7C3AED"
+    stroke-width: 3
+    border-radius: 16
+    font-size: 16
+    font-color: "#1E3A8A"
+    bold: true
+  }
+  width: 180
+  height: 90
+}
+
+# Bottom
+rules: {
+  shape: rectangle
+  label: "Rules"
+  style: {
+    fill: "#E0F2FE"
+    stroke: "#7C3AED"
+    stroke-width: 3
+    border-radius: 16
+    font-size: 16
+    font-color: "#1E3A8A"
+    bold: true
+  }
+  width: 180
+  height: 90
+}
+pad_bc: { style.opacity: 0 }
+mappings: {
+  shape: rectangle
+  label: "Mappings"
+  style: {
+    fill: "#E0F2FE"
+    stroke: "#7C3AED"
+    stroke-width: 3
+    border-radius: 16
+    font-size: 16
+    font-color: "#1E3A8A"
+    bold: true
+  }
+  width: 180
+  height: 90
+}
+
+# Arrows from the five elements to the center
+vocabulary -> meaningful
+pids -> meaningful
+validation -> meaningful
+rules -> meaningful
+mappings -> meaningful
