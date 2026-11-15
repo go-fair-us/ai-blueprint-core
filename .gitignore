@@ -15,3 +15,15 @@ src/libraryOptimizer/artifacts/*
 
 # Local build output (bin/build_plugin_zip.sh)
 /dist/
+
+# Python bytecode and local tool caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.coverage
+.coverage.*
+htmlcov/

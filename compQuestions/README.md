@@ -20,6 +20,8 @@ Grüninger, M., and Fox, M. S. (1995). The role of competency questions in enter
 
 Six repositories, 25 questions. Each question has one checkable answer (a count, a name, an identifier, or yes or no).
 
+A further external set, for Metabolomics Workbench, lives in [`metabolomics/`](metabolomics/). A shell script there runs its four answerability blocks through `./bin/pi`. That driver is described in [Metabolomics Workbench batch run](#metabolomics-workbench-batch-run).
+
 The procedure lives in the eval prompts:
 
 - [`competency-questions.md`](../prompts/evals/competency-questions.md) checks that a site publishes its own question list. It quotes questions the site wrote.
@@ -48,6 +50,8 @@ Every question is tagged `competency-answerability`. Later tags name the readine
 The prompt stays on the repository host and an obvious API or docs subdomain. It allows at most 5 requests per question and 15 in total. Send no credentials.
 
 In Pi, `/competency-answerability` takes the origin as the first argument and the questions as the second. When the questions span more than one line, paste the YAML block.
+
+The six repositories in the table below are run this way, one YAML block per fresh chat. The Metabolomics Workbench set has a script that repeats these steps for runs A–D.
 
 ## Example run
 
@@ -84,3 +88,84 @@ Re-check these before you grade. The recorded values are from 2026-10-30 and wil
 - VEU-2, PlasmoDB build number and release date
 
 [Endpoints that failed or required auth](competency_questions.md#endpoints-that-failed-or-required-auth) records paths that returned an application shell, HTTP 401, or HTTP 404 on that day.
+
+## Metabolomics Workbench batch run
+
+[`metabolomics/metabolomics-workbench-competency-questions-final.md`](metabolomics/metabolomics-workbench-competency-questions-final.md) is an external test set for https://www.metabolomicsworkbench.org/. Answers were checked with public HTTP GET calls on 9 November 2026. Metabolomics Workbench has not published these questions, and they have not been vetted by a repository operator or a domain expert. The agent sees one fenced YAML block. The answer-key tables stay with the grader.
+
+The driver is [`metabolomics/run-metabolomics-answerability.sh`](metabolomics/run-metabolomics-answerability.sh). It is the batch path for this set. [`metabolomics/mw_answerability.py`](metabolomics/mw_answerability.py) extracts each run's YAML, builds the slash-command message, and scores saved reports. The shell script is what starts Pi.
+
+### What one run does
+
+Runs A–D each get their own Pi process and a fresh 15-request budget. For each run the script:
+
+1. Reads the fenced YAML under that run heading in the source markdown. The answer-key table under the fence stays out of the prompt.
+2. Builds one message: `/competency-answerability https://www.metabolomicsworkbench.org/ '<yaml>'`. The YAML is a single quoted argument, so the origin is `$1` and the questions are `$2` in the Pi template.
+3. Starts `./bin/pi` in print mode. `./bin/pi` loads `extensions/load-skills.ts`, which registers `/competency-answerability`. The process is started with `--print`, `--no-session`, `--no-mcp`, `--no-approve`, `--no-context-files`, and `--tools bash,codemode`. An added system prompt tells the agent to fetch with `curl` (status line, response headers, and unmodified body), to use `codemode` for those requests, to stay on the host named in the prompt, and to skip workspace files and answer keys.
+4. When `bwrap` is available, mounts a tmpfs over `compQuestions/` so the agent's shell cannot read the question file, the key, or earlier reports.
+
+Exit code 0 means Pi finished and wrote `report.md`. Whether each answer matches the key is in `score.md`.
+
+The same YAML blocks can be pasted into a fresh `./bin/pi` chat, one run at a time, using the steps in [How to run one test](#how-to-run-one-test).
+
+### Commands
+
+From the repo root:
+
+```bash
+compQuestions/metabolomics/run-metabolomics-answerability.sh
+compQuestions/metabolomics/run-metabolomics-answerability.sh --dry-run
+compQuestions/metabolomics/run-metabolomics-answerability.sh --runs A,B -- --model sonnet
+compQuestions/metabolomics/run-metabolomics-answerability.sh --grade-only compQuestions/runs/metabolomics-workbench/<stamp>
+```
+
+Pi options (`--model`, `--thinking`, `--provider`) go after `--`.
+
+Before a live run:
+
+- `pi` is on `PATH`. Provider auth is Pi's own: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `OPENROUTER_API_KEY`, or `XAI_API_KEY`, or an existing Pi login.
+- `bwrap` is installed. `--no-sandbox` leaves the answer key readable by the agent's bash.
+- The default timeout is 1200 seconds per run. `--timeout` changes it.
+
+`--dry-run` writes the prompts and stops before Pi. `--grade-only` rescores reports already on disk. `--out` sets the output directory. The default is `compQuestions/runs/metabolomics-workbench/<UTC stamp>/`.
+
+These processes use `--no-mcp`. Start them with the Blueprint knowledge server left off.
+
+### Runs
+
+| Run | Questions | What the block covers |
+|---|---|---|
+| A | MW-1, MW-3, MW-4 | Study title and species, Cholesterol identifiers, the RefMet name for citrate |
+| B | MW-2, MW-5, MW-6 | License for ST000001, exact mass of PC(34:1), named-metabolite count |
+| C | MW-7, MW-8, MW-9 | Three precursor-ion searches; grade by the smallest mass delta |
+| D | MW-10, MW-11 | Diet-factor counts for AN000113, and the name for regno 11 |
+
+Keep the four runs in separate processes. One prompt that holds every run exceeds the three-question and 15-request cap in [`competency-answerability.md`](../prompts/evals/competency-answerability.md).
+
+### Output
+
+Each `run-a` through `run-d` directory holds:
+
+| File | What it is |
+|---|---|
+| `input.yaml` | The fenced YAML for that run. |
+| `prompt.txt` | The `/competency-answerability` message passed to Pi. |
+| `command.txt` | The Pi flags for that process. |
+| `report.md` | Pi's final text, including the YAML report. |
+| `stderr.txt` | Pi's log. |
+| `meta.txt` | Exit code, elapsed seconds, and the timeout. |
+
+After the runs, the script writes three files in the stamp directory:
+
+| File | What it is |
+|---|---|
+| `score.md` and `score.json` | Deterministic match of each `checks[].answer` against the key in `mw_answerability.py`. |
+| `llm-grade.md` | A prompt to paste into a fresh model for a second reading of the same reports. |
+
+`compQuestions/runs/` is gitignored.
+
+### Grading notes
+
+Grade the response body. A GET of some `/rest/` URLs can return HTTP 200 and a usable JSON body with `Accept: application/json`. HEAD on the same URLs returned HTTP 406 on 9 November 2026, and a GET without that Accept header can also return 406 while the body still holds the fields. `moverz` and `exactmass` URLs may return HTTP 302 and then 200, with `Content-Type: text/html` for a text body. Encode `+` in ion types as `%2B`. For precursor-ion tables, grade by the smallest mass delta.
+
+MW-6 through MW-9 are marked semi-stable in the source file. Re-check those values before you treat a mismatch as an agent failure. The HTTP notes and the per-question check rules are in the source markdown.
