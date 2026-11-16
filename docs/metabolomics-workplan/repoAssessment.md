@@ -18,7 +18,7 @@ Verdict markers: 🟢 present, 🟡 partial, 🔴 absent, ⚪ not-observable.
 
 ### Table 1.  Pi Harness + MCP + Prompt templates + Skills
 
-Run using Pi harness at bin/pi in this repo and leveraging the MCP server from bp_mcp.  It also has a 
+Run using Pi harness at bin/pi in this repo and leveraging the MCP server from bp_mcp. Start that server before the Pi session. The commands are in [Start the knowledge server](#start-the-knowledge-server). It also has a 
 set of prompt templates.  However, these are also exposed by the MCP server, so this should not be a 
 major difference to the following Librechat run.  
 
@@ -53,7 +53,7 @@ A test of Librechat, once configured to access the skills, would be an interesti
 
 ### Table 2.  LibreChat UI plus MCP
 
-Run using a LibreChat UI also connected to the MCP server from bp_mcp.  In contrast to the Pi harness above, this 
+Run using a LibreChat UI also connected to the MCP server from bp_mcp. Start that server first, as in [Start the knowledge server](#start-the-knowledge-server).  In contrast to the Pi harness above, this 
 LibreChat UI did not have access to the various skills from the repository.  It should be noted that it can use skills, 
 but they were not configured for this run.   
 
@@ -93,6 +93,21 @@ That comes from `librechat.yaml` `modelSpecs`. `Blueprint (NRP)` is marked `soft
 Paste-ready prompt for a chat UI that has the Blueprint MCP server from `mcp_bp` connected. It scores `https://www.metabolomicsworkbench.org/` on the November 2026 webinar properties: Be reachable, Be readable, Be callable, and Be meaningful.
 
 The connected Blueprint MCP server is the rubric library for this check. It is not the site under test, and it does not crawl Metabolomics Workbench.
+
+### Start the knowledge server
+
+Start the server before you paste the prompt. The steps below call `kb_stats`, `read_doc`, and `read_prompt_file` on it, and those calls fail when nothing is listening.
+
+`./bin/pi` registers `http://localhost:8000/mcp` and does not start the process. Run the server in a second terminal, then start Pi. The commands and the first-time `uv sync` are in [HARNESS_QUICKSTART.md](../../HARNESS_QUICKSTART.md#7-optional-blueprint-knowledge-server), section 7:
+
+```bash
+uv sync --extra mcp
+./bin/run_mcp.sh
+```
+
+`./bin/run_mcp.sh` changes to the repository root and serves `http://127.0.0.1:8000/mcp`.
+
+The LibreChat run in Table 2 uses the same server. Its compose layout is in [deployment/README-librechat.md](../../deployment/README-librechat.md). That file also shows how to point LibreChat at a server you already started with `./bin/run_mcp.sh`.
 
 ## What to ask it to do
 

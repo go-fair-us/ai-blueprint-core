@@ -32,6 +32,10 @@ Agent Plugins packaging for the NIAID Blueprint:
 | `plugin.json` | Plugin metadata (`name`: `niaid-blueprint`) |
 | `mcp.json` | Points clients at the local Blueprint MCP server (`http://localhost:8000/mcp`) |
 | `skills/` | The skill bundle (see below) |
+| `catalog.yaml` | ARD v0.91 catalog source for the plugin and its 12 skills. Skill descriptions are copied verbatim from each `SKILL.md`; when frontmatter changes, update the entry here too |
+| `ard.json` | Generated from `catalog.yaml` by `../mcp-catalog/yaml2ard.py`. Do not edit by hand |
+
+`./bin/build_plugin_zip.sh [REF] [OUT]` builds the release archive (default `dist/niaid-blueprint.zip`) from the committed contents of `niaid-blueprint/`, excluding `catalog.yaml` and `ard.json`. The release steps are in `niaid-blueprint/skills/README.md` ("Catalog entry and releases").
 
 ### Skills (`niaid-blueprint/skills/`)
 
@@ -67,6 +71,8 @@ Optional [Pi](https://pi.dev) launcher. It does not copy skills and it does not 
 ```bash
 ./bin/pi
 ```
+
+User-facing install steps (Pi, uv, model credentials, Windows notes) are in `HARNESS_QUICKSTART.md`.
 
 `extensions/prompts/` holds one Pi prompt template per file in `prompts/evals/`. The filename is the command: `./bin/pi`, then `/robots-policy https://example.org/` and an optional second argument. The procedure text stays in `prompts/evals/` and can still be pasted into another model. When an evaluation changes, update the matching template in the same change. `python extensions/eval_prompt_templates.py` checks that the two copies still match; `--write` refreshes the templates.
 
@@ -114,6 +120,11 @@ Details: `webmcp/README.md` and `okf/webmcp/README.md`.
 | `contextPrompt.md` / `contextPromptShort.md` | Blueprint context primers for grounding a model |
 | `workPlanInterview.md` / `workPlanSpec.md` | Interview + spec for repository work plans |
 | `fairAssessorAgentOpenCode.md` | Pointer/config for the OpenCode agent variant |
+| `evals/` | 23 single-question website evaluation procedures (sitemap, robots policy, `llms.txt`, Dataset JSON-LD, OpenAPI discovery, …). Mirrored as Pi templates in `extensions/prompts/`; keep the two in sync |
+| `api_examples/` | Worked Section 3 API compatibility report (Metabolomics Workbench REST API) |
+| `ror_experiment/` | ROR ID resolver prompt plus a sample model output |
+
+The top-level `README.md` lists these prompts for end users. Update it when you add, rename, or remove a prompt.
 
 ## OKF knowledge layer (`okf/`)
 
@@ -231,6 +242,14 @@ uv run --no-project --with pytest --with httpx python -m pytest niaid-blueprint/
 uv run --no-project --with pytest --with httpx python -m pytest niaid-blueprint/skills/niaid-bp-robots/tests
 uv run --no-project --with pytest --with httpx python -m pytest niaid-blueprint/skills/niaid-bp-llms/tests
 uv run --with pytest pytest src/cedar/tests
+uv run --no-project --with pytest python -m pytest extensions/test_eval_prompts.py
+
+# Eval prompt ↔ Pi template sync
+python extensions/eval_prompt_templates.py           # check
+python extensions/eval_prompt_templates.py --write   # refresh templates
+
+# Plugin release archive
+./bin/build_plugin_zip.sh                 # -> dist/niaid-blueprint.zip
 
 # DSPy RLM document analyzer (needs NRP_API_KEY or OPENROUTER_API_KEY)
 uv run secret/rv2.py --prompt-file prompts/contextPrompt.md
