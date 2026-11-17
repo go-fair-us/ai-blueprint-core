@@ -1,0 +1,140 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>{{ title }}</title>
+<link rel="stylesheet" href="impact.css"></head>
+<body data-footer="{{ footer }}">
+{% macro banner() %}{% if placeholder %}<div class="banner"><b>PLACEHOLDER placements.</b> {% if stub %}Positions on these charts come from <code>--backend stub</code> (fixed per-check defaults in stub_defaults.yaml), not from a model. Every repository gets the same spot for the same check.{% else %}Positions on these charts come from {{ backend }}, not from a model.{% endif %} Re-run <code>impact.py assess</code> with a model backend before using them.</div>{% endif %}{% endmacro %}
+{% macro repo_notes(rp) %}<div class="rnotes" style="width:{{ 372 }}pt">
+    {% if rp.non_text %}<div><b style="color:#1F2429">Not gaps:</b> {{ rp.non_text }}. Only absent checks are placed.</div>{% endif %}
+    {% for n in rp.notes %}<div>{{ n }}</div>{% endfor %}
+  </div>{% endmacro %}
+{% macro banner_small() %}{% if placeholder %}<div class="banner small"><b>PLACEHOLDER placements</b> from {{ "the stub backend" if stub else backend }}, not model output. See page 1 and the method page.</div>{% endif %}{% endmacro %}
+
+{# ---------------------------------------------------------------- page 1 #}
+<section class="sheet overview">
+  <h1>{{ title }}</h1>
+  <div class="subtitle">{{ subtitle }}</div>
+  <div class="cards">
+  {% for c in cards %}<div class="card"><div class="value">{{ c.value }}</div><div class="label">{{ c.label }}</div></div>{% endfor %}
+  </div>
+  {{ banner() }}
+  <div class="two">
+    <div class="chart">
+      {% if combined_svg %}{{ combined_svg | safe }}
+      <div class="cap">One dot per check, at the median effort and impact over the repositories where it is absent. Dot size is the number of those repositories.</div>
+      {% else %}<div class="empty">No check came back absent in any repository, so there is nothing to place.</div>{% endif %}
+    </div>
+    <div class="side">
+      <h3>Most common gaps</h3>
+      <table class="ranked" style="margin-top:6pt">
+        <tr>{% if comb_numbered %}<th class="num">#</th>{% endif %}<th>Check</th><th class="num">Repos</th><th class="num">Effort</th><th class="num">Impact</th><th>Quadrant</th></tr>
+        {% for r in ranked_pages[0] %}
+        <tr class="{{ 'shade' if loop.index0 % 2 == 0 }}">{% if comb_numbered %}<td class="num"><b>{{ r.num }}</b></td>{% endif %}<td><span class="dot" style="background:{{ r.color }}"></span>{{ r.label }}</td>
+          <td class="num">{{ r.count }}/{{ n_repos }}</td><td class="num">{{ r.fx }}</td><td class="num">{{ r.fy }}</td><td>{{ r.quadrant }}</td></tr>
+        {% endfor %}
+      </table>
+      <div class="note">Effort and impact are medians on a −1 to 1 scale; repos counts the repositories where the check is absent.{% if ranked_pages|length > 1 %} Continued on the next page.{% endif %}</div>
+      {% if n_checks %}
+      <h3 style="margin-top:14pt">By quadrant</h3>
+      <div class="quads">
+      {% for q in by_quadrant %}<div class="quad"><div class="qv">{{ q.checks }}</div><div class="ql">{{ q.name }}</div><div class="qs">{{ q.gaps }} {{ "gap" if q.gaps == 1 else "gaps" }}</div></div>{% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% for part in ranked_pages[1:] %}
+<section class="sheet">
+  <h2 class="page">Most common gaps (continued)</h2>
+  <table class="ranked" style="margin-top:12pt">
+    <tr>{% if comb_numbered %}<th class="num">#</th>{% endif %}<th>Check</th><th>Category</th><th class="num">Repos</th><th class="num">Effort</th><th class="num">Impact</th><th>Quadrant</th></tr>
+    {% for r in part %}<tr class="{{ 'shade' if loop.index0 % 2 == 0 }}">{% if comb_numbered %}<td class="num"><b>{{ r.num }}</b></td>{% endif %}<td><span class="dot" style="background:{{ r.color }}"></span>{{ r.label }}</td><td>{{ r.category }}</td>
+      <td class="num">{{ r.count }}/{{ n_repos }}</td><td class="num">{{ r.fx }}</td><td class="num">{{ r.fy }}</td><td>{{ r.quadrant }}</td></tr>{% endfor %}
+  </table>
+</section>
+{% endfor %}
+
+{# ------------------------------------------------------- one page per repository #}
+{% for rp in repo_pages %}
+<section class="sheet repo">
+  <h2 class="page">{{ rp.name }}{% if rp.url %}<span class="url">{{ rp.url }}</span>{% endif %}</h2>
+  <div class="caption">{{ rp.caption }}</div>
+  {{ banner_small() }}
+  {% if rp.svg %}
+  <div class="two">
+    <div class="chart">{{ rp.svg | safe }}{{ repo_notes(rp) }}</div>
+    <div class="side">
+      <table class="gaps">
+        <tr>{% if rp.numbered %}<th class="num">#</th>{% endif %}<th>Fix (check) and rationale</th><th>Category</th><th class="num">Effort</th><th class="num">Impact</th><th>Quadrant</th></tr>
+        {% for g in rp.parts[0] %}
+        <tr>{% if rp.numbered %}<td class="num"><b>{{ g.num }}</b></td>{% endif %}<td><div class="fix">{{ g.label }} <span class="check">({{ g.check }})</span>{% if g.flag %}<span class="flag">{{ g.flag }}</span>{% endif %}</div><div class="why">{{ g.rationale }}</div></td>
+          <td class="cat"><span class="dot" style="background:{{ g.color }}"></span>{{ g.category }}</td><td class="num">{{ g.fx }}</td><td class="num">{{ g.fy }}</td><td class="q">{{ g.quadrant }}</td></tr>
+        {% endfor %}
+      </table>
+      {% if rp.parts|length > 1 %}<div class="note">Continued on the next page.</div>{% endif %}
+    </div>
+  </div>
+  {% else %}
+  <div class="empty">{{ rp.caption }}{% if rp.k and rp.hidden %} All {{ rp.k }} points are hidden by overrides.yaml.{% endif %}</div>
+  {% endif %}
+  {% if not rp.svg %}{{ repo_notes(rp) }}{% endif %}
+</section>
+{% for part in rp.parts[1:] %}
+<section class="sheet repo">
+  <h2 class="page">{{ rp.name }} (continued)</h2>
+  {{ banner_small() }}
+  <table class="gaps" style="margin-top:12pt">
+    <tr>{% if rp.numbered %}<th class="num">#</th>{% endif %}<th>Fix (check) and rationale</th><th>Category</th><th class="num">Effort</th><th class="num">Impact</th><th>Quadrant</th></tr>
+    {% for g in part %}
+    <tr>{% if rp.numbered %}<td class="num"><b>{{ g.num }}</b></td>{% endif %}<td><div class="fix">{{ g.label }} <span class="check">({{ g.check }})</span>{% if g.flag %}<span class="flag">{{ g.flag }}</span>{% endif %}</div><div class="why">{{ g.rationale }}</div></td>
+      <td class="cat"><span class="dot" style="background:{{ g.color }}"></span>{{ g.category }}</td><td class="num">{{ g.fx }}</td><td class="num">{{ g.fy }}</td><td class="q">{{ g.quadrant }}</td></tr>
+    {% endfor %}
+  </table>
+</section>
+{% endfor %}
+{% endfor %}
+
+{# ------------------------------------------------------------------- appendix #}
+<section class="flow appendix">
+  <h2 class="page">Method</h2>
+  <div class="caption">How the gaps were found and placed. Run {{ stamp }} ({{ stamp_text }}).</div>
+  {{ banner() }}
+  <div class="cols">
+    <div>
+      <div class="block"><h4>Gaps</h4>
+        <p>A gap is a check whose facet-review verdict is <b>{{ gap_verdicts }}</b>. Present, partial, blocked, not-observable and unparsed verdicts are not gaps: they are counted at the foot of each repository page and in the table at the end, but not plotted.</p>
+        <p>Gap sources: {{ method.sources }}. Evidence for each gap is the check's YAML block in <code>facet/report.md</code> (the sub-checks that did not pass, the summary and the listed gaps) plus the report's operator notes for that property. Competency-question results are not included yet.</p>
+      </div>
+      <div class="block"><h4>Placement</h4>
+        <p>Backend: <b>{{ backend }}</b>. One call per repository with its gap list, its other verdicts for context, and rubric v{{ rubric.version }} (<code>{{ rubric.path }}</code>, sha {{ rubric.sha }}). Answers must be JSON with one placement per gap id; invalid answers are rejected and retried.</p>
+        <p>Samples per repository: {{ method.samples }}{% if method.samples > 1 %}, median placement used; {{ method.high_variance }} {{ "point" if method.high_variance == 1 else "points" }} flagged where the spread on either axis is over {{ method.threshold }}{% endif %}. Model calls this build: {{ method.calls }}; cached answers reused: {{ method.hits }}.</p>
+        <p>Hand corrections in <code>overrides.yaml</code>: {{ method.overrides }}.</p>
+        {% if placeholder %}<p><b style="color:#C44545">These placements are placeholders.</b> The stub backend does not read the evidence. It puts every gap at a fixed position per check, read off the rubric anchors by hand, so the report layout can be checked without a model.</p>{% endif %}
+      </div>
+      <div class="block"><h4>Combined chart</h4>
+        <p>One dot per check across all repositories. Its position is the median effort and median impact over the repositories where the check is absent, its size is how many repositories that is, and its colour is the check's property. The label shows that count out of the {{ n_repos }} repositories with facet results.</p>
+        <p>Facet review model for this run: {{ method.run_model }}. Run folder: <code>{{ method.run_dir }}</code>.</p>
+      </div>
+    </div>
+    <div>
+      <div class="block"><h4>Rubric: effort (x)</h4>
+        <table class="rub">{% for r in rubric.x[1:] %}<tr><td style="white-space:nowrap"><b>{{ r[0] }}</b></td><td>{{ r[1] }}</td><td class="muted">{{ r[2] }}</td></tr>{% endfor %}</table>
+      </div>
+      <div class="block"><h4>Rubric: impact (y)</h4>
+        <table class="rub">{% for r in rubric.y[1:] %}<tr><td style="white-space:nowrap"><b>{{ r[0] }}</b></td><td>{{ r[1] }}</td><td class="muted">{{ r[2] }}</td></tr>{% endfor %}</table>
+      </div>
+      <div class="block"><h4>Quadrants</h4>
+        <p>Quick wins: x &lt; 0, y ≥ 0. Big bets: x ≥ 0, y ≥ 0. Easy follow-ons: x &lt; 0, y &lt; 0. Plan for later: x ≥ 0, y &lt; 0.</p>
+      </div>
+    </div>
+  </div>
+  <div style="break-before: page"></div>
+  <h2 class="page">Verdicts by check</h2>
+  <div class="caption">Counts over the {{ n_repos }} repositories with facet results. Only the absent column is plotted.</div>
+  <div class="block">
+    <table class="vt" style="width:auto">
+      <tr><th style="width:150pt">Check</th><th style="width:70pt">Category</th>{% for v in verdict_cols %}<th class="num" style="width:{{ 88 if v.id == 'not-observable' else 66 }}pt"><span class="vchip" style="background:{{ v.fill }};color:{{ v.text }}">{{ v.sym }}</span> {{ v.id }}</th>{% endfor %}</tr>
+      {% for r in vtable %}<tr class="{{ 'shade' if loop.index0 % 2 == 0 }}"><td>{{ r.label }}</td><td>{{ r.category }}</td>{% for c in r.cells %}<td class="num {{ 'zero' if not c }}">{{ c }}</td>{% endfor %}</tr>{% endfor %}
+    </table>
+  </div>
+</section>
+</body></html>

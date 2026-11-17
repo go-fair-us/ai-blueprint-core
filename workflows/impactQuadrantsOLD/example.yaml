@@ -1,0 +1,28 @@
+# Chart settings (all optional; see DEFAULTS in quadrant_plot.py)
+title: "Metabolomics Workbench: where to start"
+x_label: "Effort to implement  →"
+y_label: "Impact on agent access  →"
+quadrants:
+  top_left: Quick wins
+  top_right: Big bets
+  bottom_left: Easy follow-ons
+  bottom_right: Plan for later
+categories:            # legend order and colors
+  Reachable: "#1f77b4"
+  Readable: "#2ca02c"
+  Callable: "#ff7f0e"
+  Meaningful: "#9467bd"
+
+# Points: x and y run from -1 to 1 (0 is the center line).
+# label_pos: right | left | above | below (default: right, or left near the right edge)
+# dx / dy: optional extra nudge for the label, in the same -1..1 units
+points:
+  - {label: "Robots.txt by visitor class", x: -0.64, y: 0.72, category: Reachable, label_pos: below}
+  - {label: "Sitemap with lastmod", x: -0.34, y: 0.30, category: Reachable}
+  - {label: "License + Signposting\nin first HTML", x: -0.56, y: 0.52, category: Readable, label_pos: below}
+  - {label: "Dataset JSON-LD\n+ conformsTo", x: -0.20, y: 0.62, category: Readable}
+  - {label: "OpenAPI for\nexisting API", x: 0.36, y: 0.80, category: Callable, label_pos: below}
+  - {label: "REST reads return\nHTTP 200 + types", x: -0.32, y: 0.78, category: Callable}
+  - {label: "ORCID + ROR\non named people/orgs", x: 0.52, y: 0.00, category: Meaningful, label_pos: left}
+  - {label: "Example questions\non a stable URL", x: -0.64, y: -0.24, category: Meaningful}
+  - {label: "RefMet ids\nas PubChem/ChEBI URLs", x: -0.24, y: -0.12, category: Meaningful}

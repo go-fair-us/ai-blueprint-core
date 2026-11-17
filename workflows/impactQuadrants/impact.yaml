@@ -1,0 +1,44 @@
+# impactQuadrants report settings. Every key is optional; impact.py has the same defaults.
+
+# Gap sources (extractor registry names) and the verdicts that count as a gap.
+sources: [facet-check]
+gap_verdicts:
+  facet-check: [absent]        # Doug, 2026-11-17: absent only (not partial, not blocked)
+
+# Category colours, in legend order. Categories not listed get palette colours.
+categories:
+  Reachable: "#3E6FA8"
+  Readable: "#2E8A78"
+  Callable: "#D9822B"
+  Meaningful: "#8A5FB0"
+
+quadrants:
+  top_left: Quick wins
+  top_right: Big bets
+  bottom_left: Easy follow-ons
+  bottom_right: Plan for later
+
+# Model backends. Pick one with --backend (pi | openai | stub).
+backend: pi
+pi:
+  bin: pi                      # e.g. /path/to/ai-blueprint-core/bin/pi
+  provider: nrp
+  model: deepseek-v4-flash
+  args: [--print, --no-session, --no-approve, --no-context-files, --no-mcp]
+  timeout: 900
+openai:                        # any OpenAI-compatible /chat/completions endpoint
+  base_url_env: IMPACT_OPENAI_BASE_URL   # falls back to OPENAI_BASE_URL
+  api_key_env: IMPACT_OPENAI_API_KEY     # falls back to OPENAI_API_KEY
+  model_env: IMPACT_MODEL
+  temperature: 0.2
+  timeout: 300
+
+assess:
+  samples: 1                   # --samples N: N calls per repo, median placement
+  max_attempts: 3              # invalid answers are rejected and retried
+  variance_threshold: 0.35     # max-min spread on either axis above this is flagged
+
+report:
+  title: "Where to start: agent-access gaps"
+  org: "NIAID Blueprint repository herd"
+  rename: {VeuPathDB: VEuPathDB}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "impact-placements/1",
+  "title": "What the model must answer in `impact.py assess` (checked in impactlib/assess.py validate())",
+  "type": "object",
+  "required": ["placements"],
+  "additionalProperties": false,
+  "properties": {
+    "placements": {
+      "type": "array",
+      "description": "exactly one item per gap id in the prompt; no other ids",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gap_id", "fix_label", "x", "y", "rationale", "confidence"],
+        "properties": {
+          "gap_id": {"type": "string"},
+          "fix_label": {"type": "string", "minLength": 1, "maxLength": 40},
+          "x": {"type": "number", "minimum": -1, "maximum": 1, "description": "effort to implement"},
+          "y": {"type": "number", "minimum": -1, "maximum": 1, "description": "impact on agent access"},
+          "rationale": {"type": "string", "minLength": 1, "maxLength": 200},
+          "confidence": {"enum": ["low", "medium", "high"]}
+        }
+      }
+    }
+  }
+}

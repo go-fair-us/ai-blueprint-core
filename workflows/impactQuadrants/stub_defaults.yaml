@@ -1,0 +1,32 @@
+# PLACEHOLDER placements for `impact.py assess --backend stub`.
+# These are NOT model output. They are one fixed position per check, read off the
+# anchors in rubric.md v1.0 by hand, so the pipeline and report can be exercised
+# without a model. Every repository gets the same position for the same check.
+rubric_version: "1.0"
+checks:
+  reachable-fetch:        {x: -0.20, y:  0.90, fix_label: "Answer plain GETs for records"}
+  robots-policy:          {x: -0.85, y:  0.45, fix_label: "robots.txt by visitor class"}
+  llms-txt:               {x: -0.75, y:  0.35, fix_label: "Publish llms.txt"}
+  sitemap:                {x: -0.50, y:  0.55, fix_label: "Sitemap with record URLs"}
+  server-rendered-content: {x: 0.20, y:  0.80, fix_label: "Server-render record fields"}
+  markdown-negotiation:   {x:  0.00, y:  0.10, fix_label: "Markdown alternates"}
+  bulk-export:            {x:  0.10, y:  0.45, fix_label: "Bulk metadata export"}
+  agent-documentation:    {x: -0.60, y:  0.25, fix_label: "Agent-facing docs page"}
+  openapi-discovery:      {x:  0.35, y:  0.60, fix_label: "Publish an OpenAPI document"}
+  metadata-api:           {x:  0.55, y:  0.65, fix_label: "Open metadata API"}
+  api-http-behavior:      {x: -0.20, y:  0.35, fix_label: "Fix API status codes/types"}
+  mcp-exposure:           {x:  0.80, y:  0.30, fix_label: "Stand up an MCP server"}
+  dataset-jsonld:         {x: -0.30, y:  0.55, fix_label: "Dataset JSON-LD on records"}
+  persistent-identifiers: {x:  0.45, y:  0.20, fix_label: "Mint persistent identifiers"}
+  vocabulary:             {x:  0.35, y: -0.15, fix_label: "Ontology term IRIs"}
+  metadata-profile:       {x:  0.10, y: -0.25, fix_label: "Declare a conformsTo profile"}
+  shacl-shapes:           {x:  0.60, y: -0.40, fix_label: "Publish SHACL shapes"}
+  sssom-mappings:         {x:  0.70, y: -0.55, fix_label: "Publish SSSOM mappings"}
+  competency-questions:   {x: -0.55, y: -0.30, fix_label: "Example questions page"}
+# Used for a check id that is not listed above (keyed by category, then "default").
+categories:
+  Reachable:  {x: -0.40, y:  0.70}
+  Readable:   {x: -0.30, y:  0.40}
+  Callable:   {x:  0.40, y:  0.40}
+  Meaningful: {x:  0.40, y: -0.30}
+  default:    {x:  0.00, y:  0.00}

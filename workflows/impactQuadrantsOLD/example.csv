@@ -1,0 +1,10 @@
+label,x,y,category,label_pos,dx,dy
+Robots.txt by visitor class,-0.64,0.72,Reachable,below,,
+Sitemap with lastmod,-0.34,0.30,Reachable,,,
+License + Signposting\nin first HTML,-0.56,0.52,Readable,below,,
+Dataset JSON-LD\n+ conformsTo,0.24,0.62,Readable,below,,
+OpenAPI for\nexisting API,0.36,0.80,Callable,right,-0,0,"",,,
+ORCID + ROR\non named people/orgs,0.52,0.00,Meaningful,left,,
+Example questions\non a stable URL,-0.64,-0.24,Meaningful,,,
+RefMet ids\nas PubChem/ChEBI URLs,-0.24,-0.12,Meaningful,,,
+Rest calls return \n context and type,0.02,0.2,Readable,right,,,

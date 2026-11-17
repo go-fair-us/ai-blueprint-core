@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "impact-gaps/1",
+  "title": "gaps/<slug>.json written by `impact.py extract`",
+  "type": "object",
+  "required": ["schema", "run", "repo", "gaps", "non_gaps", "sources"],
+  "properties": {
+    "schema": {"const": "impact-gaps/1"},
+    "run": {"type": "string", "description": "run stamp, e.g. 20261117T020206Z"},
+    "repo": {
+      "type": "object",
+      "required": ["slug", "name", "display"],
+      "properties": {
+        "slug": {"type": "string"}, "name": {"type": "string"}, "display": {"type": "string"},
+        "url": {"type": ["string", "null"]}, "facet_exit": {"type": ["string", "null"]}
+      }
+    },
+    "gaps": {"type": "array", "items": {"$ref": "#/$defs/gap"}},
+    "non_gaps": {"type": "object", "additionalProperties": {"type": "integer"},
+                 "description": "verdict -> count of items that are not gaps (not plotted)"},
+    "sources": {
+      "type": "object",
+      "description": "per gap source: available, gaps, non_gaps, notes, context",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["available", "gaps", "non_gaps", "notes"],
+        "properties": {
+          "available": {"type": "boolean"}, "gaps": {"type": "integer"},
+          "non_gaps": {"type": "object"}, "notes": {"type": "array", "items": {"type": "string"}},
+          "context": {"type": "object"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "gap": {
+      "type": "object",
+      "required": ["id", "source", "key", "label", "category", "verdict"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9-]+:.+$", "description": "<source>:<key>"},
+        "source": {"type": "string", "description": "extractor name: facet-check (later competency-question, ...)"},
+        "key": {"type": "string", "description": "stable across repositories; the combined chart groups on source + key"},
+        "label": {"type": "string"},
+        "category": {"type": "string", "description": "free text; not limited to four categories"},
+        "verdict": {"type": "string"},
+        "evidence_url": {"type": "string"},
+        "evidence": {"type": "array", "items": {"type": "string"}},
+        "summary": {"type": "string"},
+        "report_gaps": {"type": "array", "items": {"type": "string"}},
+        "operator_fix": {"type": "string"},
+        "context": {"type": "object"}
+      }
+    }
+  }
+}

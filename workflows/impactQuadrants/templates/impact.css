@@ -1,0 +1,96 @@
+/* impactQuadrants report. Page, type and colour tokens follow the agent-access review
+   report (report-template/STYLE.md): US Letter landscape, #F7F7F5 page, Helvetica /
+   Nimbus Sans, ink #1F2429, muted #616B75, hairlines #D1D6DB. */
+
+@page {
+  size: 792pt 612pt;
+  margin: 32pt 32pt 36pt 32pt;
+  background: #F7F7F5;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='792pt' height='612pt' viewBox='0 0 792 612'><line x1='0' y1='548' x2='728' y2='548' stroke='%23D1D6DB' stroke-width='0.4'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 792pt 612pt;
+  @bottom-left {
+    content: string(footer);
+    font: 8pt/8pt "Helvetica", "Nimbus Sans", "Arial", sans-serif;
+    color: #616B75; vertical-align: top; padding-top: 10pt; white-space: pre;
+  }
+  @bottom-right {
+    content: counter(page) " / " counter(pages);
+    font: 8pt/8pt "Helvetica", "Nimbus Sans", "Arial", sans-serif;
+    color: #616B75; vertical-align: top; padding-top: 10pt; text-align: right;
+  }
+}
+
+* { box-sizing: border-box; }
+html { font-family: "Helvetica", "Nimbus Sans", "Arial", "Liberation Sans", sans-serif; color: #1F2429; }
+body { margin: 0; font-size: 8pt; line-height: 1; string-set: footer attr(data-footer); }
+.muted { color: #616B75; }
+.sheet { height: 543.5pt; break-after: page; position: relative; overflow: hidden; }
+.flow { break-before: page; }
+
+h1 { font-size: 20pt; line-height: 20pt; margin: 4pt 0 0 0; font-weight: bold; }
+.subtitle { font-size: 10pt; line-height: 10pt; margin-top: 6pt; color: #616B75; }
+h2.page { font-size: 16pt; line-height: 16pt; margin: 0; font-weight: bold; }
+h2.page .url { font-size: 8pt; font-weight: normal; color: #616B75; margin-left: 10pt; }
+.caption { font-size: 9pt; line-height: 11pt; margin-top: 4pt; color: #616B75; }
+h3 { font-size: 12pt; line-height: 12pt; margin: 0; font-weight: bold; }
+h3 .cap { font-size: 8.5pt; font-weight: normal; color: #616B75; margin-left: 8pt; }
+
+.cards { display: flex; gap: 8pt 14pt; margin-top: 13pt; }
+.card { width: 230pt; height: 52pt; background: #FFFFFF; border: 0.4pt solid #D1D6DB;
+        border-radius: 6pt; padding: 12pt 14pt 0 14pt; overflow: hidden; }
+.card .value { font-size: 16pt; line-height: 16pt; font-weight: bold; white-space: nowrap; }
+.card .label { font-size: 9pt; line-height: 9pt; margin-top: 3.5pt; white-space: nowrap; }
+
+.banner { margin-top: 8pt; border: 0.8pt solid #C44545; background: #FBEDED; color: #7A2424;
+          border-radius: 3pt; padding: 4pt 8pt; font-size: 8pt; line-height: 10pt; }
+.banner b { color: #C44545; }
+.banner.small { padding: 3pt 8pt; margin-top: 6pt; }
+
+.two { display: flex; gap: 14pt; margin-top: 10pt; align-items: flex-start; }
+.chart svg { display: block; }
+.chart .cap { font-size: 7.5pt; line-height: 9.5pt; color: #616B75; margin-top: 2pt; }
+.side { flex: 1 1 auto; min-width: 0; }
+
+table { border-collapse: collapse; width: 100%; }
+th { font-size: 7pt; line-height: 9pt; font-weight: normal; color: #616B75; text-align: left;
+     border-bottom: 0.4pt solid #D1D6DB; padding: 0 4pt 3pt 0; white-space: nowrap; }
+td { font-size: 7.5pt; line-height: 9pt; padding: 2pt 4pt 2pt 0; vertical-align: top; }
+td.num, th.num { text-align: right; white-space: nowrap; }
+tr.shade td { background: #F0F2F2; }
+.ranked td { height: 13pt; padding-top: 2pt; padding-bottom: 2pt; white-space: nowrap; }
+.dot { display: inline-block; width: 6pt; height: 6pt; border-radius: 3pt; margin-right: 4pt;
+       position: relative; top: 0.2pt; }
+.gaps td { padding-top: 3pt; padding-bottom: 4pt; border-bottom: 0.3pt solid #E3E6E9; }
+.gaps .fix { font-weight: bold; }
+.gaps .why { font-size: 7pt; line-height: 8.6pt; color: #616B75; margin-top: 2pt; }
+.gaps td.cat, .gaps td.q { white-space: nowrap; }
+.gaps .check { font-weight: normal; color: #616B75; }
+.flag { font-size: 6.5pt; color: #C44545; margin-left: 4pt; font-weight: normal; }
+
+.note { font-size: 8pt; line-height: 11pt; color: #616B75; margin-top: 6pt; }
+.note b { color: #1F2429; }
+.empty { margin-top: 30pt; padding: 24pt; background: #FFFFFF; border: 0.4pt solid #D1D6DB;
+         border-radius: 6pt; font-size: 10pt; line-height: 14pt; width: 420pt; }
+.foot { position: absolute; left: 0; right: 0; bottom: 0; font-size: 7.5pt; line-height: 10pt; color: #616B75; }
+
+.appendix h2.page { margin-bottom: 4pt; }
+.cols { display: flex; gap: 22pt; margin-top: 10pt; }
+.cols > div { flex: 1 1 0; min-width: 0; }
+.block { break-inside: avoid; margin-top: 12pt; }
+.block h4 { font-size: 10pt; line-height: 10pt; margin: 0 0 6pt 0; border-top: 0.4pt solid #D1D6DB; padding-top: 7pt; }
+.block p, .block li { font-size: 8pt; line-height: 11pt; margin: 0 0 4pt 0; }
+.block ul, .block ol { margin: 0; padding-left: 12pt; }
+.rub td { font-size: 7.2pt; line-height: 8.8pt; padding: 2pt 6pt 3pt 0; border-bottom: 0.3pt solid #E3E6E9; }
+.vchip { display: inline-block; width: 14pt; height: 12pt; border-radius: 2pt; text-align: center;
+         font-size: 7pt; line-height: 12pt; font-weight: bold; }
+.vt td { padding-top: 1.5pt; padding-bottom: 1.5pt; }
+.vt td.zero { color: #C5CAD0; }
+code { font-family: "Nimbus Mono PS", "DejaVu Sans Mono", monospace; font-size: 7.5pt; }
+.quads { display: flex; gap: 6pt; margin-top: 6pt; }
+.quad { flex: 1 1 0; background: #FFFFFF; border: 0.4pt solid #D1D6DB; border-radius: 4pt; padding: 6pt 6pt 5pt 7pt; }
+.quad .qv { font-size: 14pt; line-height: 14pt; font-weight: bold; }
+.quad .ql { font-size: 7.5pt; line-height: 9pt; margin-top: 2pt; white-space: nowrap; }
+.quad .qs { font-size: 6.8pt; line-height: 8.5pt; color: #616B75; }
+.rnotes { font-size: 7.5pt; line-height: 10pt; color: #616B75; margin-top: 8pt; }
+.empty + .rnotes, .rnotes { }
