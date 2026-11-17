@@ -1,0 +1,108 @@
+# SYNTHETIC TEST DATA: made-up repositories and values, used only to prove the
+# template adapts to different counts. Compared with the example: 5 repos instead of 12,
+# 3 categories instead of 4, 12 checks, a different subset of checks per repository,
+# and 0 to 9 questions per repository with a fourth grade.
+
+report:
+  title: Repository agent-access review
+  subtitle: "{{ n_repos|words|capitalize }} test repositories · {{ checks_min }} to {{ checks_max }} checks each · TEST DATA"
+  footer: "Template test · synthetic data · not a real review"
+  pdf_title: "Template test (variable counts)"
+  author: report-template test
+
+summary_cards:
+  - {value: "{{ n_repos }}", label: repositories reviewed}
+  - {value: "{{ checks_total }}", label: checks run in total}
+  - {value: "{{ totals.present }}", label: checks scored present}
+  - {value: "{{ n_questions }}", label: competency questions graded}
+
+verdicts:
+  - {id: present,        symbol: P,   label: present,        color: "#217A4A", text: "#FFFFFF"}
+  - {id: partial,        symbol: "~", label: partial,        color: "#E3A108", text: "#261F0D"}
+  - {id: absent,         symbol: A,   label: absent,         color: "#C44545", text: "#FFFFFF"}
+  - {id: blocked,        symbol: B,   label: blocked,        color: "#6B4C99", text: "#FFFFFF"}
+  - {id: not-observable, symbol: o,   label: not-observable, color: "#D6DBE3", text: "#404752"}
+  - {id: unparsed,       symbol: "?", label: unparsed,       color: "#F5EDD6", text: "#59471F"}
+
+categories:
+  - {id: access,    label: access}
+  - {id: api,       label: api}
+  - {id: semantics, label: semantics}
+
+checks:
+  - {id: home,     label: homepage,  category: access}
+  - {id: robots,   label: robots,    category: access}
+  - {id: sitemap,  label: sitemap,   category: access}
+  - {id: llms,     label: llms.txt,  category: access}
+  - {id: openapi,  label: OpenAPI,   category: api}
+  - {id: graphql,  label: GraphQL,   category: api}
+  - {id: mcp,      label: MCP,       category: api}
+  - {id: jsonld,   label: JSON-LD,   category: semantics}
+  - {id: ids,      label: identifiers, category: semantics}
+  - {id: vocab,    label: vocabulary, category: semantics}
+  - {id: shacl,    label: SHACL,     category: semantics}
+  - {id: croissant, label: Croissant, category: semantics}
+
+question_grades:
+  - {id: match,     label: match,     color: "#217A4A", text: "#FFFFFF"}
+  - {id: partial,   label: partial,   color: "#6B4C99", text: "#FFFFFF"}
+  - {id: ungraded,  label: ungraded,  color: "#E3A108", text: "#261F0D"}
+  - {id: no-answer, label: no-answer, color: "#D6DBE3", text: "#404752"}
+
+sections:
+  verdict_mix:
+    heading: Verdict mix
+    caption: "{% if uniform_checks %}Each bar is the {{ n_checks }} checks for that repository.{% else %}Bar length is the number of checks run for that repository ({{ checks_min }} to {{ checks_max }}).{% endif %}"
+    footnote: "P present, ~ partial, A absent, B blocked, o not-observable, ? unparsed. Synthetic data."
+  check_grid:
+    heading: Check by repository
+    caption: "{{ n_checks }} checks in {{ n_categories|words }} categories, left to right. Color is the summary verdict."
+    footnote: "Test footnote. Category counts per repository: {% for r in repositories %}{{ r.name }} {{ r.category_counts.values()|join('/') }}{% if not loop.last %}; {% endif %}{% endfor %}."
+  competency:
+    heading: Competency questions
+    caption: "{{ n_questions|words|capitalize }} questions: {{ q.match }} match, {{ q.partial }} partial, {{ q.ungraded }} ungraded, {{ q['no-answer'] }} no answer."
+    notes_heading: How to read the grades
+    notes:
+      - "Questions per repository: {% for r in repositories %}{{ r.name }} {{ r.questions|length }}{% if not loop.last %}, {% endif %}{% endfor %}."
+      - "{% if no_question_repos %}{{ no_question_repos|join_and }} had no competency questions.{% endif %}"
+
+repositories:
+  - name: Alpha Archive
+    url: https://alpha.example.org/
+    minutes: 10
+    verdicts: {home: P, robots: P, sitemap: "~", llms: A, openapi: P, graphql: o, mcp: B,
+               jsonld: P, ids: "~", vocab: A, shacl: "?", croissant: o}
+    questions:
+      - {id: ALPHA-1, grade: match}
+      - {id: ALPHA-2, grade: match}
+      - {id: ALPHA-3, grade: partial}
+      - {id: ALPHA-4, grade: no-answer}
+      - {id: ALPHA-5, grade: ungraded}
+      - {id: ALPHA-6, grade: match}
+      - {id: ALPHA-7, grade: match}
+      - {id: ALPHA-8, grade: no-answer}
+      - {id: ALPHA-9, grade: partial}
+  - name: Beta Data Commons Portal
+    url: https://beta.example.org/
+    minutes: 7
+    verdicts: {home: present, robots: absent, sitemap: absent, openapi: partial, mcp: absent,
+               jsonld: absent, ids: present, vocab: not-observable, shacl: absent}
+    questions:
+      - {id: BETA-1, grade: no-answer}
+  - name: Gamma
+    minutes: 4
+    verdicts: {home: "~", robots: o, llms: "?", jsonld: A, ids: A, vocab: A, croissant: A}
+  - name: Delta Hub
+    url: https://delta.example.org/
+    minutes: 15
+    verdicts: {home: P, robots: P, sitemap: P, llms: P, openapi: P, graphql: P, mcp: P,
+               jsonld: P, ids: P, vocab: "~", shacl: "~", croissant: A}
+    questions:
+      - {id: DELTA-1, grade: match}
+      - {id: DELTA-2, grade: match}
+      - {id: DELTA-3, grade: match}
+      - {id: DELTA-4, grade: match}
+      - {id: DELTA-5, grade: ungraded}
+  - name: Epsilon
+    minutes: 3
+    verdicts: {home: B, robots: B, sitemap: B, openapi: o, mcp: o}

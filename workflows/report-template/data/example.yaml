@@ -1,0 +1,178 @@
+# Example data reproducing the attached report
+# ("Repository agent-access review, 20261117T020206Z").
+# Every value below was read from that PDF. Anything the PDF does not show is
+# marked PLACEHOLDER.
+#
+# Text fields are Jinja templates, rendered against the computed context
+# (see README "Template variables"). Use {{ n_repos }}, {{ totals.present }},
+# {{ q.match|words|capitalize }}, and so on, so counts stay correct when the data changes.
+
+report:
+  title: Repository agent-access review
+  # Subtitle under the title. The separator " · " matches the original.
+  subtitle: "{{ n_repos|words|capitalize }} NIAID repository sites · {{ n_checks }} webinar checks · 17 November 2026, 02:02 UTC"
+  footer: "NIAID Blueprint repository herd · stamp 20261117T020206Z · nrp / deepseek-v4-flash"
+  pdf_title: "Repository agent-access review, 20261117T020206Z"
+  author: NIAID Blueprint repository herd
+
+# Big-number cards on page 1. Any number of cards (3 fit per row).
+summary_cards:
+  - {value: "{{ n_repos }}", label: repositories reviewed}
+  - {value: "22 of 23", label: Pi jobs exited 0}          # not derivable from the grid, so it's typed in
+  - {value: "{{ totals.present }}", label: checks scored present}
+
+# Verdict vocabulary, in stacking order (left to right in the bars).
+verdicts:
+  - {id: present,        symbol: P,   label: present,        color: "#217A4A", text: "#FFFFFF"}
+  - {id: partial,        symbol: "~", label: partial,        color: "#E3A108", text: "#261F0D"}
+  - {id: absent,         symbol: A,   label: absent,         color: "#C44545", text: "#FFFFFF"}
+  - {id: blocked,        symbol: B,   label: blocked,        color: "#6B4C99", text: "#FFFFFF"}
+  - {id: not-observable, symbol: o,   label: not-observable, color: "#D6DBE3", text: "#404752"}
+  - {id: unparsed,       symbol: "?", label: unparsed,       color: "#F5EDD6", text: "#59471F"}
+
+# Check categories, in column order. "tint" is optional (a default palette is cycled).
+categories:
+  - {id: reachable,  label: reachable,  tint: "#DBE8E0"}
+  - {id: readable,   label: readable,   tint: "#DBE6F2"}
+  - {id: callable,   label: callable,   tint: "#EDE3D6"}
+  - {id: meaningful, label: meaningful, tint: "#E8E0F0"}
+
+# Every check that appears in any repository. Columns are grouped by category
+# in the order above, and keep this order within each category.
+checks:
+  - {id: reachable,    label: reachable,    category: reachable}
+  - {id: robots,       label: robots,       category: reachable}
+  - {id: llms_txt,     label: llms.txt,     category: readable}
+  - {id: sitemap,      label: sitemap,      category: readable}
+  - {id: server_html,  label: server HTML,  category: readable}
+  - {id: markdown,     label: markdown,     category: readable}
+  - {id: bulk_export,  label: bulk export,  category: readable}
+  - {id: agent_docs,   label: agent docs,   category: readable}
+  - {id: openapi,      label: OpenAPI,      category: callable}
+  - {id: metadata_api, label: metadata API, category: callable}
+  - {id: http_api,     label: HTTP API,     category: callable}
+  - {id: mcp,          label: MCP,          category: callable}
+  - {id: json_ld,      label: JSON-LD,      category: meaningful}
+  - {id: identifiers,  label: identifiers,  category: meaningful}
+  - {id: vocabulary,   label: vocabulary,   category: meaningful}
+  - {id: profile,      label: profile,      category: meaningful}
+  - {id: shacl,        label: SHACL,        category: meaningful}
+  - {id: sssom,        label: SSSOM,        category: meaningful}
+  - {id: questions,    label: questions,    category: meaningful}
+
+# Grades for competency questions, in legend order.
+question_grades:
+  - {id: match,     label: match,     color: "#217A4A", text: "#FFFFFF"}
+  - {id: ungraded,  label: ungraded,  color: "#E3A108", text: "#261F0D"}
+  - {id: no-answer, label: no-answer, color: "#D6DBE3", text: "#404752"}
+
+sections:
+  verdict_mix:
+    heading: Verdict mix
+    caption: "Each bar is the {{ n_checks }} checks for that repository. Minutes are the facet Pi run."
+    footnote: >-
+      P present, ~ partial, A absent, B blocked, o not-observable, ? the report had no parseable
+      YAML block for that check. A ? is a summarizer gap, not an agent verdict. TB Portals facet is
+      the one Pi exit 1: the model hit its output token limit, and the closing table stops on the
+      vocabulary row.
+  check_grid:
+    heading: Check by repository
+    caption: "Same {{ n_checks }} checks, left to right. Color is the summary verdict. The letter repeats the color for a black-and-white copy."
+    footnote:
+      - Reachable and readable are the public-page checks. Callable is the API. Meaningful is identifiers, vocabulary, and machine-readable metadata.
+      - BV-BRC's first four checks are blocked on the homepage. ImmPort is the only site scored present for an MCP description.
+  competency:
+    heading: Competency questions
+    caption: >-
+      The grader scores checks[].answer only. {{ q.match|words|capitalize }} rows matched,
+      {{ q.ungraded|words }} are ungraded because the check text is outside the three rules,
+      and {{ q['no-answer']|words }} have no answer field.
+    notes_heading: How to read the grades
+    notes:
+      - TB Portals shows no answer on every row because its YAML fence did not parse. The report text still answers the country question with Belarus and quotes homepage counts.
+      - ACD-1 is ungraded even though the answer is the expected NCT05559099. The check cell is only the word exact, which is not one of the three rules.
+      - "Empty answer fields, scored no-answer: ACD-5, IEDB-4, IMMPORT-3, IMMPORT-4, VEU-1, and VEU-2. IEDB-1 through IEDB-3 matched."
+      - "{{ no_question_repos|join_and }} have a facet review only. This herd does not invent competency questions for them."
+
+# One entry per repository, in display order.
+#   verdicts: either a string of symbols in the order of `checks` above (all checks run),
+#             or a mapping {check_id: verdict id or symbol} with only the checks that ran.
+#   questions: optional list of {id, grade}. Leave it out for a facet-only repository.
+repositories:
+  - name: ACDN
+    url: https://accessclinicaldata.niaid.nih.gov/
+    minutes: 23
+    verdicts: "P o A A A ? A ~ A o ~ A A ~ ~ o A ~ A"
+    questions:
+      - {id: ACD-1, grade: ungraded}
+      - {id: ACD-2, grade: match}
+      - {id: ACD-3, grade: match}
+      - {id: ACD-5, grade: no-answer}
+  - name: TB Portals
+    url: https://tbportals.niaid.nih.gov/
+    minutes: 17
+    verdicts: "? ~ A A o ? ~ P o ? B A o o ? o A A A"
+    questions:
+      - {id: TB-1, grade: no-answer}
+      - {id: TB-2, grade: no-answer}
+      - {id: TB-3, grade: no-answer}
+  - name: IEDB
+    url: https://www.iedb.org/
+    minutes: 22
+    verdicts: "~ ~ o A o o o P P A ~ A o o A o A A A"
+    questions:
+      - {id: IEDB-1, grade: match}
+      - {id: IEDB-2, grade: match}
+      - {id: IEDB-3, grade: match}
+      - {id: IEDB-4, grade: no-answer}
+  - name: ImmPort
+    url: https://www.immport.org/
+    minutes: 21
+    verdicts: "P A A ~ A ? ~ ~ P ? B P A o P o A A A"
+    questions:
+      - {id: IMMPORT-1, grade: ungraded}
+      - {id: IMMPORT-2, grade: match}
+      - {id: IMMPORT-3, grade: no-answer}
+      - {id: IMMPORT-4, grade: no-answer}
+  - name: BV-BRC
+    url: https://www.bv-brc.org/
+    minutes: 16
+    verdicts: "B B B B o o o o A ~ ~ o o o ~ o o o o"
+    questions:
+      - {id: BVBRC-1, grade: ungraded}
+      - {id: BVBRC-2, grade: ungraded}
+      - {id: BVBRC-4, grade: match}
+      - {id: BVBRC-3, grade: ungraded}
+  - name: VEuPathDB
+    url: https://veupathdb.org/
+    minutes: 22
+    verdicts: "P P A B A ? A P A ~ ~ A A A A o A A A"
+    questions:
+      - {id: VEU-1, grade: no-answer}
+      - {id: VEU-3, grade: match}
+      - {id: VEU-4, grade: match}
+      - {id: VEU-2, grade: no-answer}
+  - name: MWCCS
+    url: null  # PLACEHOLDER: URL not shown in the source PDF
+    minutes: 9
+    verdicts: "~ A A A o ? o A A A A A o o A o A A A"
+  - name: ACTG
+    url: null  # PLACEHOLDER: URL not shown in the source PDF
+    minutes: 11
+    verdicts: "P P ? P ~ ? A P A ~ ~ A ? ~ A ? A A A"
+  - name: ITN Trialshare
+    url: null  # PLACEHOLDER: URL not shown in the source PDF
+    minutes: 14
+    verdicts: "~ ~ A P ~ ? A P A A A A A ~ A o A A A"
+  - name: immunspace
+    url: null  # PLACEHOLDER: URL not shown in the source PDF
+    minutes: 14
+    verdicts: "P ? A ~ ~ ? A P A A A A A A ~ A A A A"
+  - name: CEIRR
+    url: null  # PLACEHOLDER: URL not shown in the source PDF
+    minutes: 13
+    verdicts: "? P A ? ~ ? A P A A ? A A ? ~ o A A A"
+  - name: ClinEpiDB
+    url: null  # PLACEHOLDER: URL not shown in the source PDF
+    minutes: 12
+    verdicts: "P P A P A A o A A ~ ~ A A o o o o o o"

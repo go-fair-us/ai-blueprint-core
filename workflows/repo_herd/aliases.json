@@ -1,0 +1,6 @@
+{
+  "veupathdb.org": {
+    "question_origin": "https://plasmodb.org/",
+    "note": "The CSV URL is the VEuPathDB portal. The competency questions address PlasmoDB, a component site on its own host. The facet review uses the CSV origin."
+  }
+}

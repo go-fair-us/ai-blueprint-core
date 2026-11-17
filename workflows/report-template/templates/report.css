@@ -1,0 +1,109 @@
+/* Agent-access review report: page layout and components.
+   Units are points so numbers line up with the ReportLab original (letter landscape). */
+
+@page {
+  size: 792pt 612pt;
+  margin: 32pt 32pt 36pt 32pt;
+  background: #F7F7F5;
+  /* footer hairline at y = 32 pt from the bottom, x 32 to 760. WeasyPrint places the page
+     background image from the top-left corner of the margins (32, 32), so these coordinates
+     are relative to that point. */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='792pt' height='612pt' viewBox='0 0 792 612'><line x1='0' y1='548' x2='728' y2='548' stroke='%23D1D6DB' stroke-width='0.4'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 792pt 612pt;
+  @bottom-left {
+    content: string(footer);
+    font: 8pt/8pt "Helvetica", "Nimbus Sans", "Arial", sans-serif;
+    color: #616B75;
+    vertical-align: top;
+    padding-top: 10pt;
+    white-space: pre;
+  }
+  @bottom-right {
+    content: counter(page) " / " counter(pages);
+    font: 8pt/8pt "Helvetica", "Nimbus Sans", "Arial", sans-serif;
+    color: #616B75;
+    vertical-align: top;
+    padding-top: 10pt;
+    text-align: right;
+  }
+}
+
+* { box-sizing: border-box; }
+html { font-family: "Helvetica", "Nimbus Sans", "Arial", "Liberation Sans", sans-serif; color: #1F2429; }
+body { margin: 0; font-size: 8pt; line-height: 1; }
+body { string-set: footer attr(data-footer); }
+
+.muted { color: #616B75; }
+.sheet { height: 543.5pt; break-after: page; position: relative; }
+.sheet:last-child { break-after: auto; }
+.spacer { flex: 1 1 auto; }
+
+/* ---- headings -------------------------------------------------------- */
+h1 { font-size: 20pt; line-height: 20pt; margin: 4pt 0 0 0; font-weight: bold; }
+.subtitle { font-size: 10pt; line-height: 10pt; margin-top: 6pt; color: #616B75; white-space: pre-wrap; }
+h2.page { font-size: 16pt; line-height: 16pt; margin: 0; font-weight: bold; }
+.caption { font-size: 9pt; line-height: 9pt; margin-top: 4pt; color: #616B75; }
+
+/* ---- summary cards --------------------------------------------------- */
+.cards { display: flex; flex-wrap: wrap; gap: 8pt 14pt; margin-top: 13pt; }
+.card { width: 230pt; height: 52pt; background: #FFFFFF; border: 0.4pt solid #D1D6DB;
+        border-radius: 6pt; padding: 12pt 14pt 0 14pt; }
+.card .value { font-size: 16pt; line-height: 16pt; font-weight: bold; }
+.card .label { font-size: 9pt; line-height: 9pt; margin-top: 3.5pt; color: #1F2429; }
+
+/* ---- verdict mix ----------------------------------------------------- */
+.mix-head { display: flex; align-items: baseline; margin-top: 9.5pt; }
+.mix-head h3 { flex: 0 0 auto; font-size: 12pt; line-height: 12pt; margin: 0; min-width: 86pt; padding-right: 10pt; white-space: nowrap; font-weight: bold; }
+.mix-head .cap { font-size: 8.5pt; color: #616B75; }
+.legend { display: flex; flex-wrap: wrap; margin-top: 9pt; gap: 4pt 0; }
+.legend .item { display: flex; align-items: center; margin-right: 14pt; font-size: 8pt; line-height: 12pt; }
+.chip { display: inline-block; width: 14pt; height: 12pt; border-radius: 2pt; text-align: center;
+        font-size: 7pt; line-height: 12pt; font-weight: bold; margin-right: 4pt; }
+.chart { margin-top: 0; }
+.chart svg { display: block; }
+.footnote { position: absolute; left: 0; right: 0; font-size: 8pt; line-height: 11pt; color: #616B75; }
+.overview .footnote { bottom: 31.3pt; }
+.gridpage .footnote { line-height: 12pt; bottom: -1pt; }
+.footnote p { margin: 0; }
+
+/* ---- check grid ------------------------------------------------------ */
+.grid { margin-top: 30pt; }
+.bands { display: flex; margin-left: var(--x0); height: 14pt; }
+.band { flex: 0 0 auto; height: 14pt; border-radius: 2pt; margin-right: 2pt; font-size: 7pt; line-height: 14pt;
+        text-align: center; color: #1F2429; white-space: nowrap; overflow: hidden; }
+.colheads { display: flex; margin-left: var(--x0); height: 74pt; position: relative; }
+.colhead { flex: 0 0 auto; position: relative; height: 74pt; }
+.colhead span { position: absolute; left: 50%; bottom: 1pt; transform-origin: 0 100%;
+                transform: translate(2.6pt, 0) rotate(-90deg); white-space: nowrap;
+                font-size: 7pt; line-height: 7pt; }
+.grow { display: flex; height: 26pt; margin-top: 0; }
+.grow.first { margin-top: 14pt; }
+.grow .name { flex: 0 0 var(--namew); width: var(--namew); height: 26pt; font-size: 8pt; line-height: 26pt; text-align: right;
+              padding: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+              border-radius: 0; }
+.grow.shade .name { background: #F0F2F2; }
+.grow .name span { padding-right: 4pt; }
+.grow .cells { flex: 0 0 auto; display: flex; margin-left: calc(var(--x0) - var(--namew)); padding-top: 1.0pt; }
+.cell { flex: 0 0 auto; height: 20pt; border-radius: 2pt; text-align: center; font-size: 8pt; line-height: 21.6pt; font-weight: bold; }
+.cell.none { background: transparent; border: 0.4pt dashed #D1D6DB; color: #A0A7AE; font-weight: normal; }
+
+/* ---- competency questions ------------------------------------------- */
+.comp h2.page { margin-top: 7.3pt; }
+.comp .caption { margin-top: 7.6pt; }
+.comp .gradelegend { display: flex; margin-top: 5.4pt; }
+.gchip { width: 46pt; height: 14pt; border-radius: 2pt; margin-right: 8pt; text-align: center;
+         font-size: 7.5pt; line-height: 14pt; }
+.repo { break-inside: avoid; margin-top: 6.4pt; }
+.repo.first { margin-top: 16.8pt; }
+.repo-head { display: flex; align-items: baseline; height: 12pt; white-space: nowrap; }
+.repo-head .rname { flex: 0 0 auto; min-width: 86pt; padding-right: 10pt; font-size: 10pt; font-weight: bold; }
+.repo-head .url { font-size: 8pt; color: #616B75; }
+.tiles { display: flex; flex-wrap: wrap; gap: 6pt; margin-top: 13.6pt; }
+.tile { width: 92pt; height: 26pt; border-radius: 3pt; padding: 3pt 6pt 0 6pt; overflow: hidden; }
+.tile .qid { font-size: 8pt; line-height: 10pt; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tile .grade { font-size: 7pt; line-height: 7pt; margin-top: 2pt; }
+.notes { break-inside: auto; border-top: 0.4pt solid #D1D6DB; margin-top: 10pt; padding-top: 8pt; }
+.notes h4 { break-after: avoid; font-size: 10pt; line-height: 10pt; margin: 0 0 14pt 0; font-weight: bold; }
+.notes p { font-size: 8pt; line-height: 14pt; margin: 0; break-inside: avoid; }
+.empty { font-size: 9pt; color: #616B75; margin-top: 16pt; }

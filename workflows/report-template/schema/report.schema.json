@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent-access review report data",
+  "description": "Input for build.py. Text fields may contain Jinja expressions rendered against the computed context (see README).",
+  "type": "object",
+  "required": ["report", "verdicts", "categories", "checks", "repositories"],
+  "$defs": {
+    "color": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"},
+    "text": {"oneOf": [{"type": "string"}, {"type": "array", "items": {"type": "string"}}]}
+  },
+  "properties": {
+    "report": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": {"type": "string"},
+        "subtitle": {"type": "string"},
+        "footer": {"type": "string"},
+        "pdf_title": {"type": "string"},
+        "author": {"type": "string"}
+      }
+    },
+    "summary_cards": {
+      "type": "array",
+      "items": {"type": "object", "required": ["value", "label"],
+                "properties": {"value": {"type": ["string", "number"]}, "label": {"type": "string"}}}
+    },
+    "verdicts": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "required": ["id", "symbol", "label", "color", "text"],
+                "properties": {"id": {"type": "string"}, "symbol": {"type": "string"},
+                               "label": {"type": "string"},
+                               "color": {"$ref": "#/$defs/color"}, "text": {"$ref": "#/$defs/color"}}}
+    },
+    "categories": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "required": ["id"],
+                "properties": {"id": {"type": "string"}, "label": {"type": "string"},
+                               "tint": {"$ref": "#/$defs/color"}}}
+    },
+    "checks": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "required": ["id", "category"],
+                "properties": {"id": {"type": "string"}, "label": {"type": "string"},
+                               "category": {"type": "string"}}}
+    },
+    "question_grades": {
+      "type": "array",
+      "items": {"type": "object", "required": ["id", "label", "color", "text"],
+                "properties": {"id": {"type": "string"}, "label": {"type": "string"},
+                               "color": {"$ref": "#/$defs/color"}, "text": {"$ref": "#/$defs/color"}}}
+    },
+    "sections": {
+      "type": "object",
+      "properties": {
+        "verdict_mix": {"type": "object", "properties": {
+          "heading": {"type": "string"}, "caption": {"type": "string"}, "footnote": {"$ref": "#/$defs/text"}}},
+        "check_grid": {"type": "object", "properties": {
+          "heading": {"type": "string"}, "caption": {"type": "string"}, "footnote": {"$ref": "#/$defs/text"}}},
+        "competency": {"type": "object", "properties": {
+          "enabled": {"type": "boolean"}, "heading": {"type": "string"}, "caption": {"type": "string"},
+          "notes_heading": {"type": "string"}, "notes": {"type": "array", "items": {"type": "string"}}}}
+      }
+    },
+    "repositories": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "required": ["name", "verdicts"],
+        "properties": {
+          "name": {"type": "string"},
+          "url": {"type": ["string", "null"]},
+          "minutes": {"type": ["number", "null"]},
+          "verdicts": {
+            "description": "Either symbols in `checks` order separated by spaces (every check ran), or a mapping check id -> verdict id or symbol (only the checks that ran).",
+            "oneOf": [{"type": "string"},
+                      {"type": "object", "additionalProperties": {"type": "string"}}]
+          },
+          "questions": {
+            "type": ["array", "null"],
+            "items": {"type": "object", "required": ["id", "grade"],
+                      "properties": {"id": {"type": "string"}, "grade": {"type": "string"}}}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ report.get('pdf_title') or report.title }}</title>
+<meta name="author" content="{{ report.get('author', '') }}">
+<style>{{ css|safe }}</style>
+</head>
+<body data-footer="{{ report.get('footer', '')|sep }}">
+
+{# ================= Page 1 (+ continuations): summary and verdict mix ================= #}
+{% set mix = sections.get('verdict_mix', {}) %}
+{% for page in mix_pages %}
+<section class="sheet overview">
+  {% if loop.first %}
+  <h1>{{ report.title }}</h1>
+  {% if report.get('subtitle') %}<div class="subtitle">{{ report.subtitle|sep }}</div>{% endif %}
+  {% if summary_cards %}
+  <div class="cards">
+    {% for c in summary_cards %}
+    <div class="card" style="width:{{ card_w }}pt"><div class="value">{{ c.value }}</div><div class="label">{{ c.label }}</div></div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+  <div class="mix-head" {% if not loop.first %}style="margin-top:0"{% endif %}>
+    <h3>{{ mix.get('heading', 'Verdict mix') }}{% if not loop.first %} (continued){% endif %}</h3>
+    <span class="cap">{{ mix.get('caption', '') }}</span>
+  </div>
+  <div class="legend">
+    {% for v in verdicts %}
+    <span class="item"><span class="chip" style="background:{{ v.color }};color:{{ v.text }}">{{ v.symbol }}</span>{{ v.label }} {{ totals[v.id] }}</span>
+    {% endfor %}
+  </div>
+  <div class="chart">{{ page.svg|safe }}</div>
+  {% if loop.last and mix.get('footnote') %}
+  <div class="footnote">
+    {% for p in ([mix.footnote] if mix.footnote is string else mix.footnote) %}<p>{{ p }}</p>{% endfor %}
+  </div>
+  {% endif %}
+</section>
+{% endfor %}
+
+{# ================= Check grid: column blocks x row chunks ================= #}
+{% set g = sections.get('check_grid', {}) %}
+{% for gp in grid_pages %}
+<section class="sheet gridpage" style="--x0:{{ gp.x0 }}pt;--namew:{{ gp.name_w }}pt">
+  <h2 class="page">{{ g.get('heading', 'Check by repository') }}{% if not gp.first %} (continued){% endif %}{% if gp.n_blocks > 1 %} · part {{ gp.block }} of {{ gp.n_blocks }}{% endif %}</h2>
+  <div class="caption">{{ g.get('caption', '') }}{% if not uniform_checks and gp.first %} A dashed empty cell means that check was not run for that repository.{% endif %}</div>
+  <div class="grid">
+    <div class="bands" style="margin-left:{{ gp.x0 - 0.5 }}pt">
+      {% for b in gp.bands %}
+      <div class="band" style="width:{{ b.width }}pt;background:{{ b.tint }}">{{ b.label }}</div>
+      {% endfor %}
+    </div>
+    <div class="colheads">
+      {% for c in gp.cols %}<div class="colhead" style="width:{{ gp.pitch }}pt"><span>{{ c.label }}</span></div>{% endfor %}
+    </div>
+    {% for r in gp.rows %}
+    <div class="grow{% if loop.first %} first{% endif %}{% if loop.index0 is even %} shade{% endif %}">
+      <div class="name"><span>{{ r.name }}</span></div>
+      <div class="cells">
+        {% for c in gp.cols %}
+        {% set vid = r.results.get(c.id) %}
+        {% if vid %}{% set v = by_verdict[vid] %}
+        <div class="cell" style="width:{{ gp.cell_w }}pt;margin-right:{{ gp.pitch - gp.cell_w }}pt;background:{{ v.color }};color:{{ v.text }}">{{ v.symbol }}</div>
+        {% else %}
+        <div class="cell none" style="width:{{ gp.cell_w }}pt;margin-right:{{ gp.pitch - gp.cell_w }}pt"></div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% if gp.last and g.get('footnote') %}
+  <div class="footnote">
+    {% for p in ([g.footnote] if g.footnote is string else g.footnote) %}<p>{{ p }}</p>{% endfor %}
+  </div>
+  {% endif %}
+</section>
+{% endfor %}
+
+{# ================= Competency questions (flows over as many pages as needed) ================= #}
+{% set c = sections.get('competency', {}) %}
+{% if c.get('enabled', true) and (c or question_repos) %}
+<section class="comp">
+  <h2 class="page">{{ c.get('heading', 'Competency questions') }}</h2>
+  <div class="caption">{{ c.get('caption', '') }}</div>
+  <div class="gradelegend">
+    {% for gr in question_grades %}<div class="gchip" style="background:{{ gr.color }};color:{{ gr.text }}">{{ gr.label }}</div>{% endfor %}
+  </div>
+  {% for r in repositories if r.questions %}
+  <div class="repo{% if loop.first %} first{% endif %}">
+    <div class="repo-head"><span class="rname">{{ r.name }}</span>{% if r.url %}<span class="url">{{ r.url }}</span>{% endif %}</div>
+    <div class="tiles">
+      {% for qq in r.questions %}{% set gr = by_grade.get(qq.grade, {'color':'#D6DBE3','text':'#404752','label':qq.grade}) %}
+      <div class="tile" style="background:{{ gr.color }};color:{{ gr.text }}"><div class="qid">{{ qq.id }}</div><div class="grade">{{ gr.label }}</div></div>
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  <div class="empty">No competency questions were asked in this run.</div>
+  {% endfor %}
+  {% set notes = (c.get('notes') or [])|select|list %}
+  {% if notes %}
+  <div class="notes">
+    <h4>{{ c.get('notes_heading') or 'Notes' }}</h4>
+    {% for n in notes %}{% if n.strip() %}<p>- {{ n }}</p>{% endif %}{% endfor %}
+  </div>
+  {% endif %}
+</section>
+{% endif %}
+</body>
+</html>

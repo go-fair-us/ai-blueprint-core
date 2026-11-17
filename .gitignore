@@ -3,6 +3,7 @@ secret/
 src/genMeta/runs/*
 !src/genMeta/runs/.gitkeep
 compQuestions/runs/
+workflows/repo_herd/runs/
 src/libraryOptimizer/artifacts/*
 !src/libraryOptimizer/artifacts/.gitkeep
 !src/libraryOptimizer/runs/.gitkeep

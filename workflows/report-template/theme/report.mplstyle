@@ -1,0 +1,34 @@
+# Matplotlib theme matching "Repository agent-access review" (ReportLab original).
+# Load with: plt.style.use("theme/report.mplstyle")  (theme.py does this for you)
+
+font.family        : sans-serif
+font.sans-serif    : Helvetica, Nimbus Sans, Arial, Liberation Sans, DejaVu Sans
+font.size          : 8
+text.color         : 1F2429
+axes.labelcolor    : 1F2429
+axes.titlesize     : 12
+axes.titleweight   : bold
+axes.titlelocation : left
+axes.labelsize     : 8
+axes.facecolor     : F7F7F5
+figure.facecolor   : F7F7F5
+savefig.facecolor  : F7F7F5
+axes.edgecolor     : D1D6DB
+axes.linewidth     : 0.4
+axes.spines.top    : False
+axes.spines.right  : False
+axes.grid          : False
+grid.color         : D1D6DB
+grid.linewidth     : 0.4
+xtick.color        : 616B75
+ytick.color        : 616B75
+xtick.labelsize    : 8
+ytick.labelsize    : 8.5
+xtick.major.size   : 0
+ytick.major.size   : 0
+legend.frameon     : False
+legend.fontsize    : 8
+# verdict order: present, partial, absent, blocked, not-observable, unparsed
+axes.prop_cycle    : cycler('color', ['217A4A', 'E3A108', 'C44545', '6B4C99', 'D6DBE3', 'F5EDD6'])
+svg.fonttype       : none
+pdf.fonttype       : 42

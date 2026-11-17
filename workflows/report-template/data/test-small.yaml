@@ -1,0 +1,49 @@
+# SYNTHETIC TEST DATA: 2 repositories, 2 categories, 5 checks, 1 question.
+report:
+  title: Repository agent-access review
+  subtitle: "{{ n_repos|words|capitalize }} test repositories · {{ n_checks }} checks · TEST DATA"
+  footer: "Template test · synthetic data · not a real review"
+summary_cards:
+  - {value: "{{ n_repos }}", label: repositories reviewed}
+  - {value: "{{ totals.present }}", label: checks scored present}
+verdicts:
+  - {id: present, symbol: P, label: present, color: "#217A4A", text: "#FFFFFF"}
+  - {id: partial, symbol: "~", label: partial, color: "#E3A108", text: "#261F0D"}
+  - {id: absent,  symbol: A, label: absent,  color: "#C44545", text: "#FFFFFF"}
+categories:
+  - {id: web, label: web}
+  - {id: api, label: api}
+checks:
+  - {id: home,    label: homepage, category: web}
+  - {id: robots,  label: robots,   category: web}
+  - {id: sitemap, label: sitemap,  category: web}
+  - {id: openapi, label: OpenAPI,  category: api}
+  - {id: mcp,     label: MCP,      category: api}
+question_grades:
+  - {id: match,     label: match,     color: "#217A4A", text: "#FFFFFF"}
+  - {id: no-answer, label: no-answer, color: "#D6DBE3", text: "#404752"}
+sections:
+  verdict_mix:
+    heading: Verdict mix
+    caption: "Each bar is the {{ n_checks }} checks for that repository."
+    footnote: "Synthetic data."
+  check_grid:
+    heading: Check by repository
+    caption: "Same {{ n_checks }} checks, left to right."
+    footnote: "Synthetic data."
+  competency:
+    heading: Competency questions
+    caption: "{{ q.match|words|capitalize }} matched, {{ q['no-answer']|words }} without an answer."
+    notes_heading: How to read the grades
+    notes:
+      - "{{ no_question_repos|join_and }} had no competency questions."
+repositories:
+  - name: Small One
+    url: https://one.example.org/
+    minutes: 5
+    verdicts: "P ~ A P A"
+    questions:
+      - {id: ONE-1, grade: match}
+  - name: Small Two
+    minutes: 6
+    verdicts: "A A ~ P P"

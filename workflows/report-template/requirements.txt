@@ -1,0 +1,7 @@
+# Python 3.10+
+weasyprint>=60      # HTML/CSS -> PDF (needs Pango; see README)
+matplotlib>=3.7     # verdict-mix chart
+jinja2>=3.1
+pyyaml>=6
+pillow>=9           # text measurement + tools/side_by_side.py
+# optional: jsonschema>=4  (build.py validates against schema/ when present)
